@@ -1,0 +1,210 @@
+generated: '2026-08-01'
+method: derived
+source: openapi/*.yml — component schemas, $ref graph, `*_id` reference fields and
+  path parameters across 17 specs / 180 operations
+docs: https://docs.constructor.com/docs/make-us-prove-it-product-catalog-catalog-data-concepts
+summary: >-
+  Constructor's model has three layers. The CATALOG layer is the customer's product
+  data (items, variations, item groups) scoped to an index. The CONFIGURATION layer
+  shapes how that catalog is queried and rendered (facets, facet options,
+  searchabilities, synonyms, sort options, redirect rules, collections, quizzes,
+  metadata overrides). The MERCHANDISING layer (searchandising) layers rules and
+  campaigns on top of both. Everything is addressed inside an index selected by the
+  `key` query parameter, so `index` is the implicit root of every relationship below.
+
+root:
+  entity: Index
+  addressed_by: '`key` query parameter (the public API key)'
+  note: >-
+    An index is not a REST resource — it has no CRUD endpoints in the public contract.
+    It is selected on every request and every other entity below belongs to exactly
+    one index. An account may hold many indexes (dev / staging / prod, or one per site).
+
+entities:
+- name: Item
+  domain: catalog
+  id: id
+  fields: [id, name, suggested_score, data]
+  schema: openapi/constructorio-catalog-management-openapi.yml#/components/schemas/Item
+  operations: [v2-items-retrieve-items, v2-items-retrieve-item, v2-items-create-or-replace-items,
+    v2-items-update-items, v2-items-delete-items, v2-batching-items-update-items, v2-batching-items-delete-items]
+- name: Variation
+  domain: catalog
+  id: id
+  fields: [id, item_id, name, suggested_score, data]
+  schema: openapi/constructorio-catalog-management-openapi.yml#/components/schemas/Variation
+  operations: [v2-variations-retrieve-variations, v2-variations-retrieve-variation,
+    v2-variations-create-or-replace-variations, v2-variations-update-variations, v2-variations-delete-variations,
+    v2-batching-variations-update-variations, v2-batching-variations-delete-variations]
+- name: ItemGroup
+  domain: catalog
+  id: id
+  fields: [id, name, parent_ids, data]
+  schema: openapi/constructorio-catalog-management-openapi.yml#/components/schemas/ItemGroup
+  note: self-referential — `parent_ids` builds the category hierarchy
+  operations: [v2-item-groups-retrieve-item-group, v2-item-groups-retrieve-item-groups,
+    v2-item-groups-create-or-replace-item-groups, v2-item-groups-update-item-groups,
+    v2-item-groups-delete-item-groups]
+- name: Task
+  domain: catalog
+  id: task_id
+  note: every catalog write returns 202 Accepted with a task handle rather than applying
+    synchronously
+  operations: [v1-tasks-retrieve-task, v1-tasks-retrieve-tasks, v1-tasks-create-task,
+    v1-tasks-update-task, v1-tasks-update-tasks]
+- name: Facet
+  domain: configuration
+  id: name
+  operations: [v2-facets-retrieve-facet, v2-facets-retrieve-facets, v2-facets-create-facet,
+    v2-facets-create-or-replace-facets, v2-facets-update-facet, v2-facets-update-facets,
+    v2-facets-replace-facet, v2-facets-delete-facet]
+- name: FacetOption
+  domain: configuration
+  id: value
+  parent: Facet
+  operations: [v1-facet-options-retrieve-facet-option, v1-facet-options-retrieve-facet-options,
+    v1-facet-options-create-facet-option, v1-facet-options-create-or-update-facet-options,
+    v1-facet-options-update-facet-option, v1-facet-options-replace-facet-option, v1-facet-options-delete-facet-option]
+- name: Searchability
+  domain: configuration
+  id: name
+  note: declares whether a catalog field is searchable, displayable and/or fuzzy-matched
+  operations: [v2-searchabilities-retrieve-searchability, v2-searchabilities-retrieve-searchabilities,
+    v2-searchabilities-create-or-update-searchability, v2-searchabilities-create-or-update-searchabilities,
+    v2-searchabilities-delete-searchability, v2-searchabilities-delete-searchabilities]
+- name: OneWaySynonym
+  domain: configuration
+  id: parent_phrase
+  operations: [v2-one-way-synonyms-retrieve-one-way-synonym, v2-one-way-synonyms-retrieve-one-way-synonyms,
+    v2-one-way-synonyms-create-one-way-synonym, v2-one-way-synonyms-replace-one-way-synonym,
+    v2-one-way-synonyms-delete-one-way-synonym, v2-one-way-synonyms-delete-one-way-synonyms]
+- name: SynonymGroup
+  domain: configuration
+  id: synonym_group_id
+  operations: [v1-synonyms-retrieve-synonym, v1-synonyms-list-synonyms, v1-synonyms-create-synonym,
+    v1-synonyms-update-synonym, v1-synonyms-delete-synonym, v1-synonyms-delete-synonyms]
+- name: SortOption
+  domain: configuration
+  id: sort_by + sort_order (composite)
+  operations: [v1-sort-options-retrieve-sort-options, v1-sort-options-create-sort-option,
+    v1-sort-options-create-or-replace-sort-option, v1-sort-options-create-or-replace-sort-options,
+    v1-sort-options-update-sort-option, v1-sort-options-delete-sort-options]
+- name: RedirectRule
+  domain: configuration
+  id: redirect_rule_id
+  operations: [v1-redirects-retrieve-redirect-rule, v1-redirects-retrieve-redirect-rules,
+    v1-redirects-create-redirect-rule, v1-redirects-replace-redirect-rule, v1-redirects-update-redirect-rule,
+    v1-redirects-delete-redirect-rule]
+- name: Collection
+  domain: configuration
+  id: collection_id
+  operations: [v1-collections-retrieve-collection, v1-collections-retrieve-collections,
+    v1-collections-create-collection, v1-collections-replace-collection, v1-collections-update-collection,
+    v1-collections-delete-collection]
+- name: CollectionItem
+  domain: configuration
+  parent: Collection
+  id: item id within a collection
+  operations: [v1-collections-retrieve-collection-items, v1-collections-create-or-ignore-collection-items,
+    v1-collections-delete-collection-item, v1-collections-delete-collection-items]
+- name: Quiz
+  domain: configuration
+  id: quiz_id
+  versioned_by: quiz_version_id
+  operations: [v1-quizzes-retrieve-quiz, v1-quizzes-create-or-replace-quiz, v1-quizzes-update-quiz,
+    v1-quizzes-delete-quiz, v1-quizzes-get-next-question, v1-quizzes-get-quiz-results,
+    v1-quizzes-get-quiz-results-config]
+- name: MetadataOverride
+  domain: configuration
+  operations: [metadata-overrides-get-metadata-overrides, metadata-overrides-post-metadata-override,
+    metadata-overrides-patch-metadata-override, metadata-overrides-delete-metadata-override]
+- name: RefinedQuery
+  domain: searchandising
+  id: refined_query_id
+  operations: [v1-searchandising-retrieve-refined-queries, v1-searchandising-retrieve-refined-query,
+    v1-searchandising-create-refined-query, v1-searchandising-replace-refined-query,
+    v1-searchandising-update-refined-query, v1-searchandising-delete-refined-query]
+- name: RefinedFilter
+  domain: searchandising
+  id: facet name + value
+  operations: [v1-searchandising-retrieve-refined-filters, v1-searchandising-retrieve-refined-filter,
+    v1-searchandising-create-or-replace-refined-filter, v1-searchandising-update-refined-filter,
+    v1-searchandising-delete-refined-filter, v1-searchandising-retrieve-refined-filter-rules,
+    v1-searchandising-delete-refined-filter-rules]
+- name: RefinedCollection
+  domain: searchandising
+  id: overridden_collection_id
+  operations: [v1-searchandising-retrieve-refined-collections, v1-searchandising-retrieve-refined-collection,
+    v1-searchandising-create-or-replace-refined-collection, v1-searchandising-update-refined-collection,
+    v1-searchandising-delete-refined-collection]
+- name: RefinedTag
+  domain: searchandising
+  id: tag_name + tag_value
+  operations: [v1-searchandising-retrieve-refined-tag, v1-searchandising-retreive-refined-tags,
+    v1-searchandising-create-or-replace-refined-tag, v1-searchandising-update-refined-tag,
+    v1-searchandising-delete-refined-tag]
+- name: Campaign
+  domain: searchandising
+  id: campaign_id
+  operations: [v1-searchandising-retrieve-campaigns, v1-searchandising-retrieve-campaign,
+    v1-searchandising-create-campaign, v1-searchandising-update-campaign, v1-searchandising-delete-campaign]
+- name: FacetRuleCampaign
+  domain: searchandising
+  id: facet_rule_campaign_id
+  operations: [v1-searchandising-retrieve-facet-rule-campaigns, v1-searchandising-get-facet-rule-campaign,
+    v1-searchandising-create-facet-rule-campaign, v1-searchandising-update-facet-rule-campaign,
+    v1-searchandising-delete-facet-rule-campaign]
+- name: Pod
+  domain: recommendations
+  id: pod_id
+  note: configured in the dashboard; addressable read-only through the API
+  operations: [v1-recommendations-get-pod-results, v1-offsite-discovery-recommendations-by-pod-get]
+- name: Engagement
+  domain: retail-media
+  id: engagement_id
+  note: an advertiser relationship in the retail-media surface
+  operations: [v1-engagements-update, v1-advertiser-spend-retrieve-advertiser-spend]
+- name: BehavioralAction
+  domain: analytics
+  note: offline user events (purchase, conversion) fed back into ranking
+  operations: [v1-offline-behavioral-actions-create-actions]
+- name: UserPreference
+  domain: personalization
+  id: user identifier
+  operations: [v1-user-profile-create-preferences]
+- name: ResultSet
+  domain: query
+  id: result_id
+  note: >-
+    Not a stored resource. Every discovery response carries a `result_id` identifying
+    that result set; the beacon/behavioral layer uses it to attribute clicks,
+    add-to-carts and purchases back to the query that produced them. Offsite Discovery
+    additionally addresses a result by (pod_id | collection_id, position).
+
+relationships:
+- {from: Item, to: Variation, kind: has_many, via: variation.item_id}
+- {from: Variation, to: Item, kind: belongs_to, via: item_id}
+- {from: ItemGroup, to: ItemGroup, kind: belongs_to, via: parent_ids, note: self-referential
+    category hierarchy}
+- {from: Item, to: ItemGroup, kind: belongs_to, via: group_ids}
+- {from: Facet, to: FacetOption, kind: has_many, via: facet name path parameter}
+- {from: Collection, to: CollectionItem, kind: has_many, via: collection_id}
+- {from: RefinedCollection, to: Collection, kind: belongs_to, via: overridden_collection_id}
+- {from: RefinedFilter, to: Facet, kind: belongs_to, via: facet name + value}
+- {from: Campaign, to: RefinedQuery, kind: has_many, via: campaign_id}
+- {from: FacetRuleCampaign, to: Facet, kind: has_many, via: facet_rule_campaign_id}
+- {from: Quiz, to: Quiz, kind: versioned_by, via: quiz_version_id}
+- {from: Task, to: Item, kind: tracks, via: task_id, note: async catalog writes return
+    a task handle}
+- {from: ResultSet, to: Item, kind: has_many, via: response.results}
+- {from: ResultSet, to: BehavioralAction, kind: attributed_by, via: result_id}
+- {from: Engagement, to: Campaign, kind: funds, via: retail-media sponsored-listings
+    surface}
+
+id_conventions:
+  prefixes: none — Constructor uses caller-supplied natural identifiers (the retailer's
+    own SKU / product ID) for items, variations and item groups rather than issuing
+    prefixed opaque IDs
+  server_issued: result_id, task_id, thread_id, intent_result_id, qna_result_id, trace_id,
+    campaign_id, engagement_id
+render: null

@@ -1,0 +1,1719 @@
+openapi: 3.1.0
+info:
+  title: AI Shopping Agent
+  summary: AI Shopping Agent
+  description: API documentation for the AI shopping and product insights agent.
+  version: v1
+servers:
+- url: https://agent.cnstrc.com
+paths:
+  /v1/intent/{query}:
+    get:
+      tags:
+      - Results
+      summary: Retrieve by intent
+      description: Retrieves AI powered product discovery suggestions based on conversational free-form text. Returns results in small batches using a real time [Server-sent Events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) stream for a dynamic user experience.
+      operationId: v1-asa-retrieve-intent
+      parameters:
+      - description: The query provided by the user as free-form text.
+        required: true
+        schema:
+          type: string
+          title: Intent
+          description: The query provided by the user as free-form text.
+        name: query
+        in: path
+      - description: The key of the index to use.
+        required: true
+        schema:
+          type: string
+          title: Key
+          description: The key of the index to use.
+        name: key
+        in: query
+      - description: A unique identifier for the conversation thread. This ID links multiple requests to the same conversation.
+        required: false
+        schema:
+          type: string
+          format: uuid
+          title: Thread ID
+          description: A unique identifier for the conversation thread. This ID links multiple requests to the same conversation.
+        name: thread_id
+        in: query
+      - description: A URL-encoded JSON string containing filters (inaccessible to end users) used to narrow the result set. Applied before filters accessible to end users. Does not affect facet counts. Only results that match the filters are returned. More details on https://docs.constructor.com/reference/shared-pre-filter-expressions
+        required: false
+        schema:
+          type: string
+          title: Pre Filter Expression
+          description: A URL-encoded JSON string containing filters (inaccessible to end users) used to narrow the result set. Applied before filters accessible to end users. Does not affect facet counts. Only results that match the filters are returned. More details on https://docs.constructor.com/reference/shared-pre-filter-expressions
+        name: pre_filter_expression
+        in: query
+      - description: The domain specifying a set of specific instructions for processing the intent, e.g., 'recipes', 'sportsgear'.
+        required: true
+        schema:
+          type: string
+          title: Domain
+          description: The domain specifying a set of specific instructions for processing the intent, e.g., 'recipes', 'sportsgear'.
+        name: domain
+        in: query
+      - description: Enable or disable the moderation check.
+        required: false
+        schema:
+          type: boolean
+          title: Guard
+          description: Enable or disable the moderation check.
+          default: false
+        name: guard
+        in: query
+      - description: The maximum number of result events to return.
+        required: false
+        schema:
+          type: integer
+          title: Num Result Events
+          description: The maximum number of result events to return.
+        name: num_result_events
+        in: query
+      - description: '**Deprecated. Please, use ``num_results_per_event`` instead.**'
+        required: false
+        schema:
+          type: integer
+          title: Num Results Per Page
+          description: '**Deprecated. Please, use ``num_results_per_event`` instead.**'
+        name: num_results_per_page
+        in: query
+        deprecated: true
+      - description: The maximum number of results to return per ``search_result`` event.
+        required: false
+        schema:
+          type: integer
+          title: Num Results Per Event
+          description: The maximum number of results to return per ``search_result`` event.
+        name: num_results_per_event
+        in: query
+      - description: An object containing options to format different aspects of the response.
+        required: false
+        schema:
+          title: Fmt Options
+          description: An object containing options to format different aspects of the response.
+          allOf:
+          - $ref: '#/components/schemas/FmtOptions'
+        style: deepObject
+        explode: true
+        name: fmt_options
+        in: query
+      - description: A URL-encoded JSON string. More details on https://docs.constructor.com/reference/search-search-results#using-the-qs-parameter
+        required: false
+        schema:
+          type: string
+          title: Qs
+          description: A URL-encoded JSON string. More details on https://docs.constructor.com/reference/search-search-results#using-the-qs-parameter
+        name: qs
+        in: query
+      - description: The id of the client and version that the request is coming from, such as `cio-js-2.90`.
+        required: false
+        schema:
+          type: string
+          title: C
+          description: The id of the client and version that the request is coming from, such as `cio-js-2.90`.
+        name: c
+        in: query
+      - description: A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments.
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+          title: us
+          description: A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments.
+        name: us
+        in: query
+      - description: A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps constructor to tie multiple client and session ID's together to form a behavioral data profile across devices.
+        required: false
+        schema:
+          type: string
+          title: Ui
+          description: A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps constructor to tie multiple client and session ID's together to form a behavioral data profile across devices.
+        name: ui
+        in: query
+      - description: An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity.
+        required: false
+        schema:
+          type: integer
+          title: S
+          description: An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity.
+        name: s
+        in: query
+      - description: A globally unique identifier for the user browser (or mobile application instance) making the request.
+        required: false
+        schema:
+          type: string
+          title: I
+          description: A globally unique identifier for the user browser (or mobile application instance) making the request.
+        name: i
+        in: query
+      responses:
+        '200':
+          description: SSE stream containing a series of events with discovered items or AI generated textual messages.
+          content:
+            text/event-stream:
+              schema:
+                anyOf:
+                - properties:
+                    event:
+                      type: string
+                      default: start
+                    data:
+                      $ref: '#/components/schemas/Start'
+                  type: object
+                  required:
+                  - event
+                  - data
+                - properties:
+                    event:
+                      type: string
+                      default: end
+                    data:
+                      $ref: '#/components/schemas/End'
+                  type: object
+                  required:
+                  - event
+                  - data
+                - properties:
+                    event:
+                      type: string
+                      default: server_error
+                    data:
+                      $ref: '#/components/schemas/ServerError'
+                  type: object
+                  required:
+                  - event
+                  - data
+                - properties:
+                    event:
+                      type: string
+                      default: message
+                    data:
+                      $ref: '#/components/schemas/Message'
+                  type: object
+                  required:
+                  - event
+                  - data
+                - properties:
+                    event:
+                      type: string
+                      default: image_meta
+                    data:
+                      $ref: '#/components/schemas/ImageMeta'
+                  type: object
+                  required:
+                  - event
+                  - data
+                - properties:
+                    event:
+                      type: string
+                      default: article_reference
+                    data:
+                      $ref: '#/components/schemas/ArticleReference'
+                  type: object
+                  required:
+                  - event
+                  - data
+                - properties:
+                    event:
+                      type: string
+                      default: search_result
+                    data:
+                      $ref: '#/components/schemas/SSESearchResponse'
+                  type: object
+                  required:
+                  - event
+                  - data
+                - properties:
+                    event:
+                      type: string
+                      default: follow_up_refinement
+                    data:
+                      $ref: '#/components/schemas/SSEFollowUpRefinement'
+                  type: object
+                  required:
+                  - event
+                  - data
+                - properties:
+                    event:
+                      type: string
+                      default: recipe_info
+                    data:
+                      $ref: '#/components/schemas/RecipeInfo'
+                  type: object
+                  required:
+                  - event
+                  - data
+                - properties:
+                    event:
+                      type: string
+                      default: recipe_instructions
+                    data:
+                      $ref: '#/components/schemas/RecipeInstructions'
+                  type: object
+                  required:
+                  - event
+                  - data
+              examples:
+                Message:
+                  summary: Message
+                  description: Represents a simple text message. Usually emitted prior to the one or multiple search_result events, giving textual explanation why are those results relevant to the shopper. Can contain a question for the shopper, asking for clarification or suggesting follow-up queries to further refine result set.
+                  value: 'event: message
+
+                    data: {''event'': ''message'', ''intent_result_id'': ''abcd1234-56ef-7890-ab12-1234567890ab'', ''text'': ''A collection of refreshing summer recipes.''}'
+                ImageMeta:
+                  summary: ImageMeta
+                  description: ''
+                  value: 'event: image_meta
+
+                    data: {''event'': ''image_meta'', ''intent_result_id'': ''def01234-56ab-7890-cd12-1234567890ef'', ''item_id'': ''item12345'', ''image_url'': ''https://example.com/images/item12345.jpg'', ''image_url_small'': ''https://example.com/images/item12345-small.jpg''}'
+                ArticleReference:
+                  summary: ArticleReference
+                  description: ''
+                  value: 'event: article_reference
+
+                    data: {''event'': ''article_reference'', ''intent_result_id'': ''987fbc77-34ae-11d1-a456-426655440000'', ''source'': ''https://example.com/article/how-to-cook-rice'', ''title'': ''How to Cook Rice Perfectly Every Time'', ''image_url'': ''https://example.com/images/cooked-rice.jpg'', ''abstract'': ''Discover the secrets to cooking fluffy, perfect rice every time with our simple guide.''}'
+                SSESearchResponse:
+                  summary: SSESearchResponse
+                  description: An Event to encapsulate a SABR result.
+                  value: 'event: search_result
+
+                    data: {''event'': ''search_result'', ''intent_result_id'': ''abc12345-6789-de01-2345-6789abcdef01'', ''result_id'': ''res12345-6789-de01-2345-6789abcdef01'', ''response'': {''search_request'': {''display_name'': ''Italian'', ''search_term'': ''best Italian recipes'', ''params'': {''cuisine'': ''Italian'', ''difficulty'': ''easy''}}, ''alternative_search_requests'': [{''display_name'': ''Vegetarian Italian'', ''search_term'': ''vegetarian Italian recipes'', ''params'': {''cuisine'': ''Italian'', ''difficulty'': ''easy'', ''diet'': ''vegetarian''}}, {''display_name'': ''Quick Italian'', ''search_term'': ''quick Italian recipes'', ''params'': {''cuisine'': ''Italian'', ''difficulty'': ''easy'', ''time'': ''<30min''}}], ''results'': [''...'']}}'
+                SSEFollowUpRefinement:
+                  summary: SSEFollowUpRefinement
+                  description: Suggested refinement options for the follow-up question asked by the agent. Each option is a short label the shopper can select to narrow their intent.
+                  value: 'event: follow_up_refinement
+
+                    data: {''event'': ''follow_up_refinement'', ''intent_result_id'': ''abcd1234-56ef-7890-ab12-1234567890ab'', ''question'': ''Do you have any color preference?'', ''options'': [''Blue'', ''Red'', ''Green'']}'
+                RecipeInfo:
+                  summary: RecipeInfo
+                  description: An event that represents recipes' auxiliary information like cooking times & serving sizes.
+                  value: 'event: recipe_info
+
+                    data: {''event'': ''recipe_info'', ''intent_result_id'': ''123e4567-e89b-12d3-a456-426614174000'', ''recipe_title'': ''Classic Tomato Spaghetti'', ''prep_time_minutes'': 10, ''cook_time_minutes'': 20, ''number_of_servings'': 4, ''ingredients'': [''400g spaghetti'', ''1 garlic clove'', ''400g tin of tomatoes'', ''Handful of basil leaves'']}'
+                RecipeInstructions:
+                  summary: RecipeInstructions
+                  description: Step-by-step preparation instructions.
+                  value: 'event: recipe_instructions
+
+                    data: {''event'': ''recipe_instructions'', ''intent_result_id'': ''123e4567-e89b-12d3-a456-426614174000'', ''steps'': [''Boil water in a large pot.'', ''Add spaghetti and cook for 8-10 minutes or until al dente; drain.'', ''In a large skillet, cook garlic in olive oil over medium heat until lightly golden.'', ''Stir in tomatoes, and cook until heated through.'', ''Mix spaghetti with the sauce, and serve with basil leaves on top.''], ''text'': ''Serve with grated Parmesan cheese if desired.''}'
+        '400':
+          description: Invalid request parameters.
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '500':
+          description: Internal server error.
+      security: []
+  /v1/item_questions:
+    get:
+      tags:
+      - Results
+      summary: Retrieve questions
+      description: Retrieves AI powered list of frequently asked questions for the given item.
+      operationId: v1-asa-retrieve-item-questions
+      parameters:
+      - name: key
+        in: query
+        required: true
+        schema:
+          type: string
+          title: key
+          description: The key of the index to use.
+        description: The key of the index to use.
+      - name: item_id
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Item ID
+          description: The id of the item to return questions for.
+        description: The id of the item to return questions for.
+      - name: variation_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Item variation ID
+          description: The id of the variation of the item to return questions for.
+        description: The id of the variation of the item to return questions for.
+      - name: num_results
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Number of results
+          description: The number of questions to return.
+        description: The number of questions to return.
+      - description: The id of the client and version that the request is coming from, such as `cio-js-2.90`.
+        required: false
+        schema:
+          type: string
+          title: C
+          description: The id of the client and version that the request is coming from, such as `cio-js-2.90`.
+        name: c
+        in: query
+      - description: A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments.
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+          title: us
+          description: A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments.
+        name: us
+        in: query
+      - description: A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps constructor to tie multiple client and session ID's together to form a behavioral data profile across devices.
+        required: false
+        schema:
+          type: string
+          title: Ui
+          description: A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps constructor to tie multiple client and session ID's together to form a behavioral data profile across devices.
+        name: ui
+        in: query
+      - description: An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity.
+        required: false
+        schema:
+          type: integer
+          title: S
+          description: An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity.
+        name: s
+        in: query
+      - description: A globally unique identifier for the user browser (or mobile application instance) making the request.
+        required: false
+        schema:
+          type: string
+          title: I
+          description: A globally unique identifier for the user browser (or mobile application instance) making the request.
+        name: i
+        in: query
+      responses:
+        '200':
+          description: AI powered list of frequently asked questions for the given item.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pdp__schema__item_questions_api_model__AsaItemQuestionsResponse'
+        '400':
+          description: Invalid request parameters.
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '500':
+          description: Internal server error.
+      security: []
+  /v1/item_questions/{question}/answer:
+    get:
+      tags:
+      - Results
+      summary: Retrieves answers
+      description: Retrieves AI powered answers to questions for a given item. If the client accepts [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) (text/event-stream content) response will be streamed back, otherwise complete response JSON is returned.
+      operationId: v1-asa-retrieve-item-questions-answer
+      parameters:
+      - name: question
+        in: path
+        required: true
+        schema:
+          type: string
+          title: question
+          description: The question provided by the user as free-form text.
+        description: The question provided by the user as free-form text.
+      - name: key
+        in: query
+        required: true
+        schema:
+          type: string
+          title: key
+          description: The key of the index to use.
+        description: The key of the index to use.
+      - name: item_id
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Item ID
+          description: The id of the item to return answer(s) for.
+        description: The id of the item to return answer(s) for.
+      - description: A unique identifier for the conversation thread. This ID links multiple requests to the same conversation.
+        required: false
+        schema:
+          type: string
+          format: uuid
+          title: Thread ID
+          description: A unique identifier for the conversation thread. This ID links multiple requests to the same conversation.
+        name: thread_id
+        in: query
+      - name: variation_id
+        in: query
+        required: false
+        schema:
+          type: string
+          title: Item variation ID
+          description: The id of the variation of the item to return answer(s) for.
+        description: The id of the variation of the item to return answer(s) for.
+      - name: guard
+        in: query
+        required: false
+        schema:
+          type: boolean
+          title: Guard
+          description: Enable or disable the moderation check.
+          default: false
+        description: Enable or disable the moderation check.
+      - name: num_results
+        in: query
+        required: false
+        schema:
+          type: integer
+          title: Number of results
+          description: The number of answers to return.
+        description: The number of answers to return.
+      - description: The id of the client and version that the request is coming from, such as `cio-js-2.90`.
+        required: false
+        schema:
+          type: string
+          title: C
+          description: The id of the client and version that the request is coming from, such as `cio-js-2.90`.
+        name: c
+        in: query
+      - description: A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments.
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+          title: us
+          description: A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments.
+        name: us
+        in: query
+      - description: A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps constructor to tie multiple client and session ID's together to form a behavioral data profile across devices.
+        required: false
+        schema:
+          type: string
+          title: Ui
+          description: A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps constructor to tie multiple client and session ID's together to form a behavioral data profile across devices.
+        name: ui
+        in: query
+      - description: An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity.
+        required: false
+        schema:
+          type: integer
+          title: S
+          description: An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity.
+        name: s
+        in: query
+      - description: A globally unique identifier for the user browser (or mobile application instance) making the request.
+        required: false
+        schema:
+          type: string
+          title: I
+          description: A globally unique identifier for the user browser (or mobile application instance) making the request.
+        name: i
+        in: query
+      responses:
+        '200':
+          description: AI powered answer to question for a given item.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pdp__schema__item_questions_api_model__AsaItemQuestionsAnswerResponse'
+            text/event-stream:
+              schema:
+                anyOf:
+                - type: object
+                  properties:
+                    event:
+                      type: string
+                      default: start
+                    data:
+                      $ref: '#/components/schemas/pdp__schema__item_questions_api_model__Start'
+                  required:
+                  - event
+                  - data
+                - type: object
+                  properties:
+                    event:
+                      type: string
+                      default: end
+                    data:
+                      $ref: '#/components/schemas/pdp__schema__item_questions_api_model__End'
+                  required:
+                  - event
+                  - data
+                - type: object
+                  properties:
+                    event:
+                      type: string
+                      default: server_error
+                    data:
+                      $ref: '#/components/schemas/pdp__schema__item_questions_api_model__ServerError'
+                  required:
+                  - event
+                  - data
+                - type: object
+                  properties:
+                    event:
+                      type: string
+                      default: message
+                    data:
+                      $ref: '#/components/schemas/pdp__schema__item_questions_api_model__Message'
+                  required:
+                  - event
+                  - data
+                - type: object
+                  properties:
+                    event:
+                      type: string
+                      default: follow_up_questions
+                    data:
+                      $ref: '#/components/schemas/pdp__schema__item_questions_api_model__SSEFollowUpQuestions'
+                  required:
+                  - event
+                  - data
+                - type: object
+                  properties:
+                    event:
+                      type: string
+                      default: item_results
+                    data:
+                      $ref: '#/components/schemas/pdp__schema__item_questions_api_model__SSEItemResults'
+                  required:
+                  - event
+                  - data
+              examples:
+                Start:
+                  summary: Start
+                  description: Event always emitted on the beginning of the server-sent event stream.
+                  value: 'event: start
+
+                    data: {''event'': ''start'', ''qna_result_id'': ''string'', ''thread_id'': ''string''}'
+                Message:
+                  summary: Message
+                  description: Event containing textual answer to the shopper's question.
+                  value: 'event: message
+
+                    data: {''event'': ''message'', ''qna_result_id'': ''string'', ''thread_id'': ''string'', ''text'': ''string''}'
+                FollowUpQuestions:
+                  summary: Follow-up questions
+                  description: Event containing sequence of follow-up questions shopper might ask.
+                  value: 'event: follow_up_questions
+
+                    data: {''event'': ''follow_up_questions'', ''qna_result_id'': ''string'', ''thread_id'': ''string'', ''questions'': [{''value'': ''string''}]'
+                ItemResults:
+                  summary: Alternatives or complementary items
+                  description: Event containing sequence of alternative/complementary items.
+                  value: 'event: item_results
+
+                    data: {''event'': ''item_results'', ''qna_result_id'': ''string'', ''thread_id'': ''string'', ''request'': {}, ''response'': {''results'': [{''value'': ''string'', ''matched_terms'': [''string''], ''data'': {''id'': ''string'', ''url'': ''string'', ''image_url'': ''string'', ''variation_id'': ''string'', ''facets'': [{''name'': ''string'', ''values'': [0, ''string'']}], ''groups'': [{''group_id'': ''string'', ''display_name'': ''string'', ''path'': ''/great-grandparent/grandparent/parent/'', ''path_list'': [{''id'': ''string'', ''display_name'': ''string''}]}]}, ''variations'': [{''data'': {''id'': ''string'', ''url'': ''string'', ''image_url'': ''string'', ''variation_id'': ''string'', ''facets'': [{''name'': ''string'', ''values'': [0, ''string'']}], ''groups'': [{''group_id'': ''string'', ''display_name'': ''string'', ''path'': ''/great-grandparent/grandparent/parent/'', ''path_list'': [{''id'': ''string'', ''display_name'': ''string''}]}]}, ''value'': ''string''}], ''variations_map'': {}, ''additionalProp'': {}}]}}'
+                ServerError:
+                  summary: Server error
+                  description: Event indicating that the internal server error occurred while processing request.
+                  value: 'event: server_error
+
+                    data: {''status_code'': 500, ''message'': ''Internal Server Error''}'
+                Ping:
+                  summary: Ping
+                  description: Event sent periodically to the caller to keep connection alive and prevent timeouts.
+                  value: 'event: ping
+
+                    data: {''time'': ''2025-06-02T00:00:00+01:00''}'
+                End:
+                  summary: End
+                  description: Event always closing the stream of server-sent events.
+                  value: 'event: end
+
+                    data: {''event'': ''end'', ''qna_result_id'': ''string'', ''thread_id'': ''string''}'
+        '400':
+          description: Invalid request parameters.
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '500':
+          description: Internal server error.
+      security: []
+components:
+  schemas:
+    ArticleReference:
+      properties:
+        event:
+          type: string
+          enum:
+          - article_reference
+          title: event type
+          default: article_reference
+        intent_result_id:
+          type: string
+          title: Intent Result ID
+        thread_id:
+          type: string
+          format: uuid
+          title: Thread ID
+        source:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: article_url
+        title:
+          type: string
+          title: title
+        image_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: image_url
+        abstract:
+          type: string
+          title: abstract
+      type: object
+      required:
+      - intent_result_id
+      - source
+      - title
+      title: ArticleReference
+      example:
+        event: article_reference
+        intent_result_id: 987fbc77-34ae-11d1-a456-426655440000
+        source: https://example.com/article/how-to-cook-rice
+        title: How to Cook Rice Perfectly Every Time
+        image_url: https://example.com/images/cooked-rice.jpg
+        abstract: Discover the secrets to cooking fluffy, perfect rice every time with our simple guide.
+    AsaRequest:
+      properties:
+        intent:
+          type: string
+          title: Intent
+          description: The query provided by the user as free-form text.
+        key:
+          type: string
+          title: Key
+          description: The key of the index to use.
+        domain:
+          type: string
+          title: Domain
+          description: The domain specifying a set of specific instructions for processing the intent, e.g., 'recipes', 'sportsgear'.
+        thread_id:
+          type: string
+          format: uuid
+          title: Thread ID
+          description: A unique identifier for the conversation thread. This ID links multiple requests to the same conversation.
+        num_results_per_page:
+          type: integer
+          title: Num Results Per Page
+          description: The maximum number of results to return per ``search_result`` event.
+          default: 20
+        num_result_events:
+          type: integer
+          title: Num Result Events
+          description: The maximum number of result events to return.
+        c:
+          type: string
+          title: C
+          description: The id of the client and version that the request is coming from, such as `cio-js-2.90`.
+        ui:
+          type: string
+          title: Ui
+          description: A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps constructor to tie multiple client and session ID's together to form a behavioral data profile across devices.
+        us:
+          items:
+            type: string
+          type: array
+          title: Us
+          description: A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments.
+        s:
+          type: integer
+          title: S
+          description: An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity.
+        i:
+          type: string
+          title: I
+          description: A globally unique identifier for the user browser (or mobile application instance) making the request.
+        qs:
+          type: object
+          title: Qs
+          description: A dictionary of additional query parameters to pass to the search and browse client.
+        pre_filter_expression:
+          $ref: '#/components/schemas/DictOrJsonStringWithDict'
+          title: Pre Filter Expression
+          description: An object containing any number of filters (inaccessible to end users) used to narrow the result set. Applied before filters accessible to end users. Does not affect facet counts. Only results that match the filters are returned.
+      type: object
+      required:
+      - intent
+      - key
+      - domain
+      title: AsaRequest
+    DictOrJsonStringWithDict:
+      anyOf:
+      - type: object
+      - type: string
+        format: json
+        title: Encoded JSON String
+      title: DictOrJsonStringWithDict
+      description: Model that accepts either a dictionary or a JSON string that contains a dictionary.
+    End:
+      properties:
+        event:
+          type: string
+          enum:
+          - end
+          title: event type
+          default: end
+        intent_result_id:
+          type: string
+          title: Intent Result ID
+        thread_id:
+          type: string
+          format: uuid
+          title: Thread ID
+        search_result_count:
+          type: integer
+          title: Search Result Count
+          description: The number of search result events returned.
+      type: object
+      required:
+      - intent_result_id
+      title: End
+    Message:
+      properties:
+        event:
+          type: string
+          enum:
+          - message
+          title: event type
+          default: message
+        intent_result_id:
+          type: string
+          title: Intent Result ID
+        thread_id:
+          type: string
+          format: uuid
+          title: Thread ID
+        text:
+          type: string
+          title: Arbitrary text
+      type: object
+      required:
+      - intent_result_id
+      title: Message
+      description: Represents a simple text message.
+      example:
+        event: message
+        intent_result_id: abcd1234-56ef-7890-ab12-1234567890ab
+        text: Arbitrary text.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ImageMeta:
+      properties:
+        event:
+          type: string
+          enum:
+          - image_meta
+          title: event type
+          default: image_meta
+        intent_result_id:
+          type: string
+          title: Intent Result ID
+        thread_id:
+          type: string
+          format: uuid
+          title: Thread ID
+        item_id:
+          type: string
+          title: item_id
+        image_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: image_url
+        image_url_small:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: image_url_small
+      type: object
+      required:
+      - intent_result_id
+      - item_id
+      title: ImageMeta
+      example:
+        event: image_meta
+        intent_result_id: def01234-56ab-7890-cd12-1234567890ef
+        item_id: item12345
+        image_url: https://example.com/images/item12345.jpg
+        image_url_small: https://example.com/images/item12345-small.jpg
+    Path:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: The ID of the group.
+        display_name:
+          type: string
+          title: Display Name
+          description: The name of the group as it is displayed to end users.
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      title: Path
+    RecipeInfo:
+      properties:
+        event:
+          type: string
+          enum:
+          - recipe_info
+          title: event type
+          default: recipe_info
+        intent_result_id:
+          type: string
+          title: Intent Result ID
+        thread_id:
+          type: string
+          format: uuid
+          title: Thread ID
+        recipe_title:
+          type: string
+          title: Recipe Title
+        prep_time_minutes:
+          type: integer
+          title: Preparation time in minutes
+        cook_time_minutes:
+          type: integer
+          title: Cooking time in minutes
+        number_of_servings:
+          type: integer
+          title: Number of servings
+        ingredients:
+          items:
+            type: string
+          type: array
+          title: Ingredients
+      type: object
+      required:
+      - intent_result_id
+      - recipe_title
+      - prep_time_minutes
+      - cook_time_minutes
+      - ingredients
+      title: RecipeInfo
+      description: An event that represents recipes' auxiliary information like cooking times & serving sizes.
+      example:
+        event: recipe_info
+        intent_result_id: 123e4567-e89b-12d3-a456-426614174000
+        recipe_title: Classic Tomato Spaghetti
+        prep_time_minutes: 10
+        cook_time_minutes: 20
+        number_of_servings: 4
+        ingredients:
+        - 400g spaghetti
+        - 1 garlic clove
+        - 400g tin of tomatoes
+        - Handful of basil leaves
+    RecipeInstructions:
+      properties:
+        event:
+          type: string
+          enum:
+          - recipe_instructions
+          title: event type
+          default: recipe_instructions
+        intent_result_id:
+          type: string
+          title: Intent Result ID
+        thread_id:
+          type: string
+          format: uuid
+          title: Thread ID
+        steps:
+          items:
+            type: string
+          type: array
+          title: Recipe Directions
+        text:
+          type: string
+          title: Text
+          description: Arbitrary optional text
+      type: object
+      required:
+      - intent_result_id
+      - steps
+      title: RecipeInstructions
+      description: Step-by-step preparation instructions.
+      example:
+        event: recipe_instructions
+        intent_result_id: 123e4567-e89b-12d3-a456-426614174000
+        steps:
+        - Boil water in a large pot.
+        - Add spaghetti and cook for 8-10 minutes or until al dente; drain.
+        - In a large skillet, cook garlic in olive oil over medium heat until lightly golden.
+        - Stir in tomatoes, and cook until heated through.
+        - Mix spaghetti with the sauce, and serve with basil leaves on top.
+        text: Serve with grated Parmesan cheese if desired.
+    Response:
+      properties:
+        search_request:
+          $ref: '#/components/schemas/SearchRequest'
+        alternative_search_requests:
+          items:
+            $ref: '#/components/schemas/SearchRequest'
+          type: array
+          title: Alternative Search Requests
+        results:
+          items:
+            $ref: '#/components/schemas/SearchandizedResult'
+          type: array
+          title: Results
+      type: object
+      required:
+      - search_request
+      - alternative_search_requests
+      - results
+      title: Response
+    FmtOptions:
+      properties:
+        fields:
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 300
+          maxItems: 20
+          title: Fields
+          description: A list of specific item fields to return in the response. Allows the request to control which fields are returned.
+        show_hidden_fields:
+          type: boolean
+          title: Show Hidden Fields
+          description: A flag to return all `hidden` fields in the response.
+          default: false
+        hidden_fields:
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 300
+          maxItems: 30
+          title: Hidden Fields
+          description: A list of specific hidden fields to return in the response. Unlike `show_hidden_fields` this parameter allows the request to control which `hidden` fields are returned. Used to return item fields for a particular store or user segment.
+        variations_return_type:
+          allOf:
+          - $ref: '#/components/schemas/VariationsReturnType'
+          title: Variations Return Type
+          description: A flag to return `default`, `all`, or `matched` variations.
+        groups_max_depth:
+          type: integer
+          title: Groups Max Depth
+          description: The maximum depth of the group hierarchy in the response.
+          default: 1
+        groups_start:
+          type: string
+          title: Groups Start
+          description: A flag to specify the start of the group hierarchy returned in the response. `current` returns groups starting from the currently selected one. `top` returns groups starting from the root category in the hierarchy. `group_id:{id}`, returns the whole tree starting from group with the provided id.
+          default: current
+        groups_path:
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 100
+          maxItems: 10
+          title: Groups Path
+          description: Specifies the path from the root group to the current group you are browsing. It is used to construct the parents path in the `response.groups` for the current browsed group. Max depth allowed for the path is 10. This option is only accepted when `groups_start` is 'current'.
+        groups_sort_by:
+          allOf:
+          - $ref: '#/components/schemas/GroupsSortOrder'
+          title: Groups Sort By
+          description: A string indicating the option to sort results by. Sorting options are created from item fields and facets in the product catalog.
+        groups_sort_order:
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+          description: A flag to sort either `ascending` or `descending`.
+        show_hidden_facets:
+          type: boolean
+          title: Show Hidden Facets
+          description: A flag to return all facets configured as `hidden` in `response.facets`.
+          default: false
+        hidden_facets:
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 100
+          maxItems: 50
+          title: Hidden Facets
+          description: A list of specific hidden facets to return in the response. Unlike `show_hidden_facets` this parameter allows the request to control which hidden facets are returned. Used to return facets for a particular store or user segment.
+        show_hidden_facet_options:
+          type: boolean
+          title: Show Hidden Facet Options
+          description: A flag to return all `hidden` facets options in the response.
+        show_protected_facets:
+          type: boolean
+          title: Show Protected Facets
+          description: A flag to return all `protected` facets in the response. Requires authentication.
+          default: false
+        facet_options:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+              minLength: 1
+              maxLength: 100
+            maxItems: 15
+          title: Facet Options
+          description: A list of specific facet options per facet to return in the response. This parameter accepts up to 5 facets and works only with facets of type `multiple`. Invalid facet options will be ignored. Used to return facet options for a particular facet like store or user segment.
+        facet_groups_limit:
+          type: integer
+          title: Facet Groups Limit
+          description: The maximum limit of the facet groups returned in the response.
+          minimum: 0
+        show_hidden_sort_options:
+          type: boolean
+          title: Show Hidden Sort Options
+          description: A flag to return all sort options configured as `hidden` in `response.sort_options`.
+        hidden_sort_options:
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 100
+          maxItems: 25
+          title: Hidden Sort Options
+          description: A list of `sort_by` fields whose hidden sort options should be included in the response. Unlike `show_hidden_sort_options` this parameter allows you to specify exactly which hidden sort options are returned.
+      additionalProperties: true
+      type: object
+      title: FmtOptions
+      description: Options to format different aspects of the response.
+    VariationsReturnType:
+      type: string
+      enum:
+      - default
+      - all
+      - matched
+      title: VariationsReturnType
+    GroupsSortOrder:
+      type: string
+      enum:
+      - relevance
+      - value
+      - num_matches
+      title: GroupsSortOrder
+    SortOrderType:
+      type: string
+      enum:
+      - ascending
+      - descending
+      title: SortOrderType
+    Result:
+      properties:
+        value:
+          type: string
+          title: Value
+          description: Name of the matched item or variation (if variations are defined).
+        matched_terms:
+          items:
+            type: string
+          type: array
+          title: Matched Terms
+          description: All terms within the item matching the user's query (regardless of whether misspelled).
+        data:
+          $ref: '#/components/schemas/ResultData'
+        variations:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResultVariation'
+            type: array
+          - type: 'null'
+          title: Variations
+          description: An array of this item's variations matching user's query.
+        variations_map:
+          anyOf:
+          - items: {}
+            type: array
+          - type: object
+          - type: 'null'
+          title: Variations Map
+          description: Variations data in the format requested by `variations_map` query parameter.
+      additionalProperties: true
+      type: object
+      required:
+      - value
+      - matched_terms
+      - data
+      title: Result
+    ResultData:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: The ID of this item as specified in the catalog.
+        url:
+          type: string
+          title: URL
+          description: The URL where the item can be viewed or purchased.
+        image_url:
+          type: string
+          title: Image URL
+          description: The item's image URL for display in results.
+        variation_id:
+          type: string
+          title: Variation Id
+          description: ID of the selected (best matching) variation. All metadata of the best matching variation will also be merged into the item's `data` object.Returned when [item variation](#) data is defined.
+        facets:
+          items:
+            $ref: '#/components/schemas/ResultFacet'
+          type: array
+          title: Facets
+          description: The item's associated facets.
+        groups:
+          items:
+            $ref: '#/components/schemas/ResultGroup'
+          type: array
+          title: Groups
+          description: The item's associated categories.
+      type: object
+      title: Result data
+    ResultFacet:
+      properties:
+        name:
+          type: string
+          title: Name
+        values:
+          items:
+            anyOf:
+            - type: number
+            - type: integer
+            - type: string
+          type: array
+          title: Values
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - values
+      title: ResultFacet
+    ResultGroup:
+      properties:
+        group_id:
+          type: string
+          title: Group Id
+          description: The ID of the group.
+        display_name:
+          type: string
+          title: Display Name
+          description: The name of the group as it is displayed to end users.
+        path:
+          type: string
+          title: Path
+          description: The path of `group_id`s above this group. `/great-grandparent/grandparent/parent/`
+          example: example='/great-grandparent/grandparent/parent/',
+        path_list:
+          items:
+            $ref: '#/components/schemas/Path'
+          type: array
+          title: Path List
+          description: An array of groups constituting the path.
+      additionalProperties: false
+      type: object
+      required:
+      - group_id
+      - path
+      - path_list
+      title: ResultGroup
+    ResultVariation:
+      properties:
+        data:
+          $ref: '#/components/schemas/ResultData'
+        value:
+          type: string
+          title: Value
+      additionalProperties: false
+      type: object
+      required:
+      - data
+      - value
+      title: ResultVariation
+    SSESearchResponse:
+      properties:
+        event:
+          type: string
+          enum:
+          - search_result
+          title: event type
+          default: search_result
+        intent_result_id:
+          type: string
+          title: Intent Result ID
+        thread_id:
+          type: string
+          format: uuid
+          title: Thread ID
+        result_id:
+          type: string
+          title: Result ID
+        response:
+          $ref: '#/components/schemas/Response'
+      type: object
+      required:
+      - intent_result_id
+      - result_id
+      - response
+      title: Base Result Event
+      description: An Event to encapsulate a SABR result.
+      example:
+        event: search_result
+        intent_result_id: abc12345-6789-de01-2345-6789abcdef01
+        result_id: res12345-6789-de01-2345-6789abcdef01
+        response:
+          search_request:
+            display_name: Italian
+            search_term: best Italian recipes
+            params:
+              cuisine: Italian
+              difficulty: easy
+          alternative_search_requests:
+          - display_name: Vegetarian Italian
+            search_term: vegetarian Italian recipes
+            params:
+              cuisine: Italian
+              difficulty: easy
+              diet: vegetarian
+          - display_name: Quick Italian
+            search_term: quick Italian recipes
+            params:
+              cuisine: Italian
+              difficulty: easy
+              time: <30min
+          results:
+          - '...'
+    SSEFollowUpRefinement:
+      properties:
+        event:
+          type: string
+          enum:
+          - follow_up_refinement
+          title: event type
+          default: follow_up_refinement
+        intent_result_id:
+          type: string
+          title: Intent Result ID
+        thread_id:
+          type: string
+          format: uuid
+          title: Thread ID
+        question:
+          type: string
+          title: Follow-Up Question
+          description: The follow-up question these options answer.
+        options:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Suggested answers to the follow-up question
+          description: Suggested answer options for the follow-up question. May be null if no predefined options are available.
+      type: object
+      required:
+      - intent_result_id
+      - question
+      title: Follow-Up Refinement Event
+      description: Suggested refinement options for the follow-up question asked by the agent. Each option is a short label the shopper can select to narrow their intent.
+      example:
+        event: follow_up_refinement
+        intent_result_id: abcd1234-56ef-7890-ab12-1234567890ab
+        question: Do you have any color preference?
+        options:
+        - Blue
+        - Red
+        - Green
+    SearchRequest:
+      properties:
+        display_name:
+          type: string
+          title: Display Name
+        search_term:
+          type: string
+          title: Search Term
+        params:
+          type: object
+          title: Params
+      type: object
+      required:
+      - display_name
+      - search_term
+      - params
+      title: SearchRequest
+    SearchandizedResult:
+      properties:
+        value:
+          type: string
+          title: Value
+          description: Name of the matched item or variation (if variations are defined).
+        matched_terms:
+          items:
+            type: string
+          type: array
+          title: Matched Terms
+          description: All terms within the item matching the user's query (regardless of whether misspelled).
+        data:
+          $ref: '#/components/schemas/ResultData'
+        variations:
+          items:
+            $ref: '#/components/schemas/ResultVariation'
+          type: array
+          title: Variations
+          description: An array of this item's variations matching user's query.
+        variations_map:
+          anyOf:
+          - items: {}
+            type: array
+          - type: object
+          title: Variations Map
+          description: Variations data in the format requested by `variations_map` query parameter.
+        is_slotted:
+          type: boolean
+          title: Is Slotted
+          description: '`true` if the current product is slotted as a result of searchandizing.'
+        labels:
+          type: object
+          title: Labels
+          description: A set of miscellaneous properties of this result. For example, it can indicate whether a slotted result is advertised or promoted.
+      type: object
+      required:
+      - value
+      - matched_terms
+      - data
+      - is_slotted
+      - labels
+      title: SearchandizedResult
+    ServerError:
+      properties:
+        event:
+          type: string
+          enum:
+          - server_error
+          title: event type
+          default: server_error
+        intent_result_id:
+          type: string
+          title: Intent Result ID
+        thread_id:
+          type: string
+          format: uuid
+          title: Thread ID
+        status_code:
+          type: integer
+          title: Status Code
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - intent_result_id
+      - status_code
+      - message
+      title: ServerError
+    Start:
+      properties:
+        event:
+          type: string
+          enum:
+          - start
+          title: event type
+          default: start
+        intent_result_id:
+          type: string
+          title: Intent Result ID
+        thread_id:
+          type: string
+          format: uuid
+          title: Thread ID
+        request:
+          $ref: '#/components/schemas/AsaRequest'
+      type: object
+      required:
+      - intent_result_id
+      - request
+      title: Start
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    pdp__schema__item_questions_api_model__AsaItemQuestionsAnswerResponse:
+      properties:
+        qna_result_id:
+          type: string
+          title: QnA Result Id
+          description: Questions and answers result ID.
+        value:
+          type: string
+          title: Value
+          description: AI powered answer to question for a given item.
+        item_results:
+          $ref: '#/components/schemas/pdp__schema__item_questions_api_model__ItemResults'
+          title: Item results
+          description: Contains list of suggested items (alternatives, complimentary items etc.).
+        follow_up_questions:
+          items:
+            $ref: '#/components/schemas/pdp__schema__item_questions_api_model__Question'
+          type: array
+          title: Follow Up Questions
+          description: AI powered list of follow-up questions for the given item.
+        thread_id:
+          type: string
+          format: uuid
+          title: Thread ID
+          description: A unique identifier for the conversation thread. This ID links multiple requests to the same conversation.
+      type: object
+      required:
+      - qna_result_id
+      - value
+      title: AsaItemQuestionsAnswerResponse
+    pdp__schema__item_questions_api_model__AsaItemQuestionsResponse:
+      properties:
+        questions:
+          items:
+            $ref: '#/components/schemas/pdp__schema__item_questions_api_model__Question'
+          type: array
+          title: Questions
+          description: AI powered list of frequently asked questions for the given item.
+      type: object
+      required:
+      - questions
+      title: AsaItemQuestionsResponse
+    pdp__schema__item_questions_api_model__Start:
+      properties:
+        event:
+          type: string
+          enum:
+          - start
+          title: event type
+          default: start
+        qna_result_id:
+          type: string
+          title: QnA Result Id
+          description: Questions and answers result ID.
+        thread_id:
+          type: string
+          format: uuid
+          title: Thread Id
+          description: A unique identifier for the conversation thread. This ID links multiple requests to the same conversation.
+      type: object
+      required:
+      - event
+      - qna_result_id
+      title: Start
+    pdp__schema__item_questions_api_model__End:
+      properties:
+        event:
+          type: string
+          enum:
+          - end
+          title: event type
+          default: end
+        qna_result_id:
+          type: string
+          title: QnA Result Id
+          description: Questions and answers result ID.
+        thread_id:
+          type: string
+          format: uuid
+          title: Thread Id
+          description: A unique identifier for the conversation thread. This ID links multiple requests to the same conversation.
+      type: object
+      required:
+      - event
+      - qna_result_id
+      title: End
+    pdp__schema__item_questions_api_model__ServerError:
+      properties:
+        event:
+          type: string
+          enum:
+          - server_error
+          title: event type
+          default: server_error
+        qna_result_id:
+          type: string
+          title: QnA Result Id
+          description: Questions and answers result ID.
+        thread_id:
+          type: string
+          format: uuid
+          title: Thread Id
+          description: A unique identifier for the conversation thread. This ID links multiple requests to the same conversation.
+        status_code:
+          type: integer
+          title: Status Code
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - event
+      - qna_result_id
+      - status_code
+      - message
+      title: ServerError
+    pdp__schema__item_questions_api_model__Message:
+      properties:
+        event:
+          type: string
+          enum:
+          - message
+          title: event type
+          default: message
+        qna_result_id:
+          type: string
+          title: QnA Result Id
+          description: Questions and answers result ID.
+        thread_id:
+          type: string
+          format: uuid
+          title: Thread Id
+          description: A unique identifier for the conversation thread. This ID links multiple requests to the same conversation.
+        text:
+          type: string
+          title: Text
+          description: Arbitrary text.
+      type: object
+      required:
+      - event
+      - qna_result_id
+      title: Message
+    pdp__schema__item_questions_api_model__SSEFollowUpQuestions:
+      properties:
+        event:
+          type: string
+          enum:
+          - follow_up_questions
+          title: event type
+          default: follow_up_questions
+        qna_result_id:
+          type: string
+          title: QnA Result Id
+          description: Questions and answers result ID.
+        thread_id:
+          type: string
+          format: uuid
+          title: Thread Id
+          description: A unique identifier for the conversation thread. This ID links multiple requests to the same conversation.
+        questions:
+          items:
+            $ref: '#/components/schemas/pdp__schema__item_questions_api_model__Question'
+          type: array
+          title: Questions
+          description: AI powered list of follow-up questions that user might ask.
+      type: object
+      required:
+      - event
+      - qna_result_id
+      - questions
+      title: SSEFollowUpQuestions
+    pdp__schema__item_questions_api_model__SSEItemResults:
+      properties:
+        event:
+          type: string
+          enum:
+          - item_results
+          title: event type
+          default: item_results
+        qna_result_id:
+          type: string
+          title: QnA Result Id
+          description: Questions and answers result ID.
+        thread_id:
+          type: string
+          format: uuid
+          title: Thread Id
+          description: A unique identifier for the conversation thread. This ID links multiple requests to the same conversation.
+        request:
+          type: object
+          title: Request
+        response:
+          $ref: '#/components/schemas/pdp__schema__item_questions_api_model__Response'
+      type: object
+      required:
+      - event
+      - qna_result_id
+      - response
+      title: SSEItemResults
+    pdp__schema__item_questions_api_model__Question:
+      properties:
+        value:
+          type: string
+          title: Value
+          description: Human-readable question text.
+      type: object
+      required:
+      - value
+      title: Question
+    pdp__schema__item_questions_api_model__Response:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/Result'
+          type: array
+          title: Results
+          description: List of results in format defined by Constructor product discovery API.
+      type: object
+      required:
+      - results
+      title: Response
+    pdp__schema__item_questions_api_model__ItemResults:
+      properties:
+        request:
+          type: object
+          title: Request
+        response:
+          $ref: '#/components/schemas/pdp__schema__item_questions_api_model__Response'
+      type: object
+      required:
+      - response
+      title: ItemResults
+x-readme:
+  explorer-enabled: false

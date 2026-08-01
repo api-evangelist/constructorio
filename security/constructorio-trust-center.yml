@@ -1,0 +1,41 @@
+generated: '2026-08-01'
+method: searched
+probe: true
+url: https://constructor.com/security-and-compliance
+kind: published security & compliance page (not a gated trust-center portal — there
+  is no trust.constructor.com or security.constructor.com; both fail to resolve)
+certifications:
+- SOC 2 Type 2
+- ISO 27001
+- CCPA
+- MACH Certified
+frameworks_referenced:
+- OWASP Top 10
+- NIST-compliant coding practices
+- GDPR
+report_access: Reports are released on request through an account executive or customer
+  success manager, under a signed non-disclosure agreement. No self-serve document
+  portal is published.
+practices_published:
+- Multi-factor authentication, device trust and strict role-based access management
+  for user accounts
+- Static application security testing (SAST) and dynamic application security testing
+  (DAST) in the SDLC
+- Continuous vulnerability scanning of environments and products
+- External penetration tests at least once per year
+- Routine chaos testing
+- DDoS protection
+- Data minimization by design — anonymous IDs, last-octet IP truncation, hashed identifiers
+evidence:
+- source: https://constructor.com/security-and-compliance
+  keywords: [soc 2 type 2, iso 27001, ccpa, owasp top 10, penetration test, sast, dast,
+    mach certified]
+  fetched: '2026-08-01'
+gaps_observed:
+- No published vulnerability disclosure or responsible-disclosure policy — /security,
+  /responsible-disclosure, /vulnerability-disclosure and /security/responsible-disclosure
+  all return 404, and no bug-bounty program (HackerOne / Bugcrowd / Intigriti) was found
+- No /.well-known/security.txt (RFC 9116) on any Constructor host
+- No published security contact address; the only published addresses are support@constructor.io,
+  emergency-response@constructor.io and privacy@constructor.io
+- No published SLA/uptime figure (SLA terms are contractual only)

@@ -1,0 +1,26 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Constructor Browse
+  version: 1.0.0
+extends: openapi/constructorio-browse-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: constructorio
+    x-apievangelist-harvested: '2026-08-01'
+    x-apievangelist-source: https://docs.constructor.com/ (ReadMe-hosted OpenAPI, /branches/1/apis/browse.json)
+    x-apievangelist-artifacts:
+      authentication: authentication/constructorio-authentication.yml
+      scopes: scopes/constructorio-scopes.yml
+      errors: errors/constructorio-problem-types.yml
+      conventions: conventions/constructorio-conventions.yml
+      lifecycle: lifecycle/constructorio-lifecycle.yml
+      data_model: data-model/constructorio-data-model.yml
+- target: $
+  update:
+    x-apievangelist-notes:
+      error_format: vendor JSON, not RFC 9457 application/problem+json
+      idempotency: no Idempotency-Key header is defined anywhere in the Constructor contract; write safety relies on create-or-replace
+        / PATCH-merge semantics
+      rate_limit_headers: 429 is declared on most operations but no RateLimit-* or Retry-After response headers are declared
+        in the spec

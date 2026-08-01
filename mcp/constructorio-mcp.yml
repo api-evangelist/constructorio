@@ -1,0 +1,71 @@
+generated: '2026-08-01'
+method: searched
+status: published
+source: https://docs.constructor.com/docs/ai-tooling-mcp-server
+server:
+  name: constructor-docs
+  title: Constructor Documentation
+  version: '1'
+  transport: http
+  url: https://docs.constructor.com/mcp
+  authentication: none observed — anonymous `initialize` and `tools/list` both returned
+    200 with no OAuth challenge. Constructor notes that headers may be passed via
+    the MCP client where an API requires authentication.
+  protocol_version: '2025-06-18'
+  capabilities:
+    tools:
+      listChanged: true
+scope: |
+  This is a DOCUMENTATION MCP server, not a product/runtime MCP server. It lets an
+  agent enumerate and read Constructor's OpenAPI specs and documentation pages; it
+  does not execute search, browse, catalog or configuration calls against a customer
+  index. Constructor's runtime product surface remains the REST APIs in openapi/.
+clients_documented:
+- Cursor (~/.cursor/mcp.json)
+- Windsurf (~/.codeium/windsurf/mcp_config.json)
+- Claude Desktop (claude_desktop_config.json)
+- Claude Code (mcp.json, type http)
+tools:
+- name: list-endpoints
+  description: Lists all API paths and their HTTP methods with summaries, organized
+    by path. Results can be passed directly into 'get-endpoint'.
+  input: [title]
+  read_only: true
+- name: get-endpoint
+  description: Gets detailed information about a specific API endpoint, including security
+    schemes and servers.
+  input: [path, method, title]
+  read_only: true
+- name: search-endpoints
+  description: Performs a deep search through paths, operations, and parameters to
+    discover relevant API endpoints.
+  input: [pattern]
+  read_only: true
+- name: list-specs
+  description: Lists all available OpenAPI specs. Use the title to select a spec.
+  input: []
+  read_only: true
+- name: search
+  description: Searches through documentation with the given search query, returning
+    a list of results with ID, title, and URL.
+  input: [query]
+  read_only: true
+- name: fetch
+  description: Gets detailed content for documentation by ID returned from the `search`
+    tool.
+  input: [id]
+  read_only: true
+tools_manifest: mcp/constructorio-mcp-tools.json
+x-evidence:
+  fetched: '2026-08-01'
+  initialize:
+    url: https://docs.constructor.com/mcp
+    http_status: 200
+    content_type: text/event-stream
+    server_info: {name: Constructor Documentation, version: '1'}
+  tools_list:
+    url: https://docs.constructor.com/mcp
+    http_status: 200
+    content_type: text/event-stream
+    tool_count: 6
+    schemas_included: true

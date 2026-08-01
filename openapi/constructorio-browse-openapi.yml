@@ -1,0 +1,3695 @@
+openapi: 3.1.0
+info:
+  contact:
+    email: support@constructor.io
+  title: Browse
+  version: '0.1'
+servers:
+- url: https://ac.cnstrc.com
+security: []
+tags:
+- name: Search results
+- name: Natural language search results
+- name: Autocomplete results
+- name: Browse results
+- name: Browse groups
+- name: Browse facets
+- name: Browse collections
+paths:
+  /browse/{filter_name}/{filter_value}:
+    get:
+      tags:
+      - Browse results
+      operationId: v1-browse-get-browse-results
+      summary: Retrieve by filter name/value
+      description: Retrieve AI optimized browse results for products (or optionally other sections) by facet name and value.
+      parameters:
+      - name: filter_name
+        in: path
+        required: true
+        schema:
+          type: string
+          examples:
+          - Brand
+          - Color
+          - Price
+      - name: filter_value
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+          examples:
+          - Nike
+          - Red
+          - 10-20
+      - name: key
+        in: query
+        schema:
+          description: The key of the index to use.
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          maxLength: 100
+          minLength: 1
+          title: Key
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          description: The section of the index to use. Defaults to `Products`.
+          examples:
+          - Products
+          - Search Suggestions
+          title: Section
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: filters
+        in: query
+        schema:
+          description: Any number of filtering criteria (accessible to end users) used to narrow the result set, such as `color=blue` or `group_id=sandals` or `price=100-200`. Facets and Item Groups and Collections can be used as filters. If `filter_value` has the form `<min>-<max>`, it is interpreted as a range. Filters with the same key are ORed together and filters with different keys are ANDed together by default. Only results that match the filters are returned. Boolean values are serialized with the first letter capitalized (e.g., `True` / `False`) as a convention.
+          examples:
+          - color:
+            - red
+            - blue
+            price:
+            - 100-200
+          allOf:
+          - $ref: '#/components/schemas/Filters'
+          title: Filters
+        required: false
+        style: deepObject
+        explode: true
+      - name: filter_match_types
+        in: query
+        schema:
+          description: 'An object specifying whether results must match `all`, `any` or `none` of a given filter when multiple options of the same facet (e.g: color: yellow & blue) are selected.'
+          examples:
+          - color: any
+            size: all
+          title: Filter Match Types
+          additionalProperties:
+            $ref: '#/components/schemas/FilterMatchType'
+          type: object
+        required: false
+        style: deepObject
+        explode: true
+      - name: pre_filter_expression
+        in: query
+        schema:
+          description: A JSON-encoded [filter expression](/reference/shared-filter-expressions) containing any number of filters (inaccessible to end users) used to narrow the result set. Applied before user-selected `filters`. Only items that match this expression are  considered in facet counts. Only results that match the filters are returned. [Read more](/reference/shared-pre-filter-expressions).
+          examples:
+          - '{"and":[{"name":"brand","value":"Nike"}]}'
+          allOf:
+          - $ref: '#/components/schemas/DictOrJsonStringWithDict'
+          title: Pre Filter Expression
+        required: false
+      - name: num_results_per_page
+        in: query
+        schema:
+          default: 20
+          description: The number of results per page to return.
+          examples:
+          - 20
+          - 24
+          title: Num Results Per Page
+          maximum: 200
+          minimum: 1
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          description: The page of results to return.
+          examples:
+          - 1
+          title: Page
+          minimum: 1
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          examples:
+          - 0
+          title: Offset
+          minimum: 0
+          type: integer
+        required: false
+      - name: sort_by
+        in: query
+        schema:
+          default: relevance
+          description: The method to sort results by. The default value `relevance` sorts by Constructor's attractiveness & personalization algorithms and is reserved. Alternative sort criteria can be configured using the [Sort options API](/reference/v1-sort-options-create-or-replace-sort-options).
+          examples:
+          - relevance
+          title: Sort By
+          type: string
+        required: false
+      - name: sort_order
+        in: query
+        schema:
+          default: descending
+          description: The order by which results should be sorted. Only valid in conjunction with `sort_by`.
+          examples:
+          - descending
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+        required: false
+      - name: now
+        in: query
+        schema:
+          description: A date time representing the current moment in time when applying filtering by product age. Used to emulate "past/future" requests. Requires authentication.
+          examples:
+          - '2024-01-15T10:30:00Z'
+          title: Now
+          format: date-time
+          type: string
+        required: false
+      - name: variations_map
+        in: query
+        schema:
+          description: A JSON string containing a instructions on how to map item variation data in the response (typically used for swatches). More details, including the exact schema for this value can be found [here](/reference/shared-variations-mapping)
+          examples:
+          - '{"group_by":[{"name":"color","field":"data.color"}],"values":{"price":{"aggregation":"min","field":"data.price"}},"dtype":"array"}'
+          format: json
+          title: Variations Map
+          type: string
+          allOf:
+          - $ref: '#/components/schemas/VariationsMap'
+        required: false
+      - name: fmt_options
+        in: query
+        schema:
+          description: An object containing options to format different aspect of the response.
+          allOf:
+          - $ref: '#/components/schemas/FmtOptions'
+          title: Fmt Options
+        required: false
+        style: deepObject
+        explode: true
+      - name: qs
+        in: query
+        schema:
+          description: A JSON-encoded query string. Any query parameters listed for this endpoint can be serialized into a JSON string and parsed thru the `qs` param.
+          format: json
+          title: Qs
+          type: string
+        required: false
+      - name: origin_referrer
+        in: query
+        schema:
+          description: The url or app location where the request originated.
+          examples:
+          - https://example.com/search
+          title: Origin Referrer
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          examples:
+          - cio-js-client-2.35.2
+          title: C
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: us
+        in: query
+        schema:
+          description: A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments.
+          title: us
+          items:
+            minLength: 1
+            type: string
+            examples:
+            - vip-member
+            - us-east-region
+          type: array
+        required: false
+      - name: ui
+        in: query
+        schema:
+          description: A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps Constructor to tie multiple client and session IDs together to form a behavioral data profile across devices.
+          examples:
+          - customer-user-id-456
+          title: Ui
+          type: string
+        required: false
+      - name: s
+        in: query
+        schema:
+          description: An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity.
+          examples:
+          - 1
+          title: S
+          type: integer
+        required: false
+      - name: i
+        in: query
+        schema:
+          description: A globally unique identifier for the user browser (or mobile application instance) making the request.
+          examples:
+          - user-device-id-123
+          title: I
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrowseGetResponse'
+        '400':
+          description: Validation Error
+      security: []
+  /browse/collection_id/{collection_id_value}:
+    get:
+      tags:
+      - Browse results
+      operationId: v1-browse-get-browse-results-by-collection-id
+      summary: Retrieve by collection ID
+      description: Retrieve AI optimized browse results for products (or optionally other sections) by collection ID.
+      parameters:
+      - name: collection_id_value
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+          examples:
+          - summer-sale
+          - gifts
+      - name: key
+        in: query
+        schema:
+          description: The key of the index to use.
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          maxLength: 100
+          minLength: 1
+          title: Key
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          description: The section of the index to use. Defaults to `Products`.
+          examples:
+          - Products
+          - Search Suggestions
+          title: Section
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: filters
+        in: query
+        schema:
+          description: Any number of filtering criteria (accessible to end users) used to narrow the result set, such as `color=blue` or `group_id=sandals` or `price=100-200`. Facets and Item Groups and Collections can be used as filters. If `filter_value` has the form `<min>-<max>`, it is interpreted as a range. Filters with the same key are ORed together and filters with different keys are ANDed together by default. Only results that match the filters are returned. Boolean values are serialized with the first letter capitalized (e.g., `True` / `False`) as a convention.
+          examples:
+          - color:
+            - red
+            - blue
+            price:
+            - 100-200
+          allOf:
+          - $ref: '#/components/schemas/Filters'
+          title: Filters
+        required: false
+        style: deepObject
+        explode: true
+      - name: filter_match_types
+        in: query
+        schema:
+          description: 'An object specifying whether results must match `all`, `any` or `none` of a given filter when multiple options of the same facet (e.g: color: yellow & blue) are selected.'
+          examples:
+          - color: any
+            size: all
+          title: Filter Match Types
+          additionalProperties:
+            $ref: '#/components/schemas/FilterMatchType'
+          type: object
+        required: false
+        style: deepObject
+        explode: true
+      - name: pre_filter_expression
+        in: query
+        schema:
+          description: A JSON-encoded [filter expression](/reference/shared-filter-expressions) containing any number of filters (inaccessible to end users) used to narrow the result set. Applied before user-selected `filters`. Only items that match this expression are  considered in facet counts. Only results that match the filters are returned. [Read more](/reference/shared-pre-filter-expressions).
+          examples:
+          - '{"and":[{"name":"brand","value":"Nike"}]}'
+          allOf:
+          - $ref: '#/components/schemas/DictOrJsonStringWithDict'
+          title: Pre Filter Expression
+        required: false
+      - name: num_results_per_page
+        in: query
+        schema:
+          default: 20
+          description: The number of results per page to return.
+          examples:
+          - 20
+          - 24
+          title: Num Results Per Page
+          maximum: 200
+          minimum: 1
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          description: The page of results to return.
+          examples:
+          - 1
+          title: Page
+          minimum: 1
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          examples:
+          - 0
+          title: Offset
+          minimum: 0
+          type: integer
+        required: false
+      - name: sort_by
+        in: query
+        schema:
+          default: relevance
+          description: The method to sort results by. The default value `relevance` sorts by Constructor's attractiveness & personalization algorithms and is reserved. Alternative sort criteria can be configured using the [Sort options API](/reference/v1-sort-options-create-or-replace-sort-options).
+          examples:
+          - relevance
+          title: Sort By
+          type: string
+        required: false
+      - name: sort_order
+        in: query
+        schema:
+          default: descending
+          description: The order by which results should be sorted. Only valid in conjunction with `sort_by`.
+          examples:
+          - descending
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+        required: false
+      - name: now
+        in: query
+        schema:
+          description: A date time representing the current moment in time when applying filtering by product age. Used to emulate "past/future" requests. Requires authentication.
+          examples:
+          - '2024-01-15T10:30:00Z'
+          title: Now
+          format: date-time
+          type: string
+        required: false
+      - name: variations_map
+        in: query
+        schema:
+          description: A JSON string containing a instructions on how to map item variation data in the response (typically used for swatches). More details, including the exact schema for this value can be found [here](/reference/shared-variations-mapping)
+          examples:
+          - '{"group_by":[{"name":"color","field":"data.color"}],"values":{"price":{"aggregation":"min","field":"data.price"}},"dtype":"array"}'
+          format: json
+          title: Variations Map
+          type: string
+          allOf:
+          - $ref: '#/components/schemas/VariationsMap'
+        required: false
+      - name: fmt_options
+        in: query
+        schema:
+          description: An object containing options to format different aspect of the response.
+          allOf:
+          - $ref: '#/components/schemas/FmtOptions'
+          title: Fmt Options
+        required: false
+        style: deepObject
+        explode: true
+      - name: qs
+        in: query
+        schema:
+          description: A JSON-encoded query string. Any query parameters listed for this endpoint can be serialized into a JSON string and parsed thru the `qs` param.
+          format: json
+          title: Qs
+          type: string
+        required: false
+      - name: origin_referrer
+        in: query
+        schema:
+          description: The url or app location where the request originated.
+          examples:
+          - https://example.com/search
+          title: Origin Referrer
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          examples:
+          - cio-js-client-2.35.2
+          title: C
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: us
+        in: query
+        schema:
+          description: A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments.
+          title: us
+          items:
+            minLength: 1
+            type: string
+            examples:
+            - vip-member
+            - us-east-region
+          type: array
+        required: false
+      - name: ui
+        in: query
+        schema:
+          description: A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps Constructor to tie multiple client and session IDs together to form a behavioral data profile across devices.
+          examples:
+          - customer-user-id-456
+          title: Ui
+          type: string
+        required: false
+      - name: s
+        in: query
+        schema:
+          description: An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity.
+          examples:
+          - 1
+          title: S
+          type: integer
+        required: false
+      - name: i
+        in: query
+        schema:
+          description: A globally unique identifier for the user browser (or mobile application instance) making the request.
+          examples:
+          - user-device-id-123
+          title: I
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrowseGetResponse'
+        '400':
+          description: Validation Error
+        '404':
+          description: Not Found
+      security: []
+  /browse/group_id/{group_id_value}:
+    get:
+      tags:
+      - Browse results
+      operationId: v1-browse-get-browse-results-by-group-id
+      summary: Retrieve by group ID
+      description: Retrieve AI optimized browse results for products (or optionally other sections) by item group ID.
+      parameters:
+      - name: group_id_value
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+          examples:
+          - jeans
+          - snowboards
+      - name: key
+        in: query
+        schema:
+          description: The key of the index to use.
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          maxLength: 100
+          minLength: 1
+          title: Key
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          description: The section of the index to use. Defaults to `Products`.
+          examples:
+          - Products
+          - Search Suggestions
+          title: Section
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: filters
+        in: query
+        schema:
+          description: Any number of filtering criteria (accessible to end users) used to narrow the result set, such as `color=blue` or `group_id=sandals` or `price=100-200`. Facets and Item Groups and Collections can be used as filters. If `filter_value` has the form `<min>-<max>`, it is interpreted as a range. Filters with the same key are ORed together and filters with different keys are ANDed together by default. Only results that match the filters are returned. Boolean values are serialized with the first letter capitalized (e.g., `True` / `False`) as a convention.
+          examples:
+          - color:
+            - red
+            - blue
+            price:
+            - 100-200
+          allOf:
+          - $ref: '#/components/schemas/Filters'
+          title: Filters
+        required: false
+        style: deepObject
+        explode: true
+      - name: filter_match_types
+        in: query
+        schema:
+          description: 'An object specifying whether results must match `all`, `any` or `none` of a given filter when multiple options of the same facet (e.g: color: yellow & blue) are selected.'
+          examples:
+          - color: any
+            size: all
+          title: Filter Match Types
+          additionalProperties:
+            $ref: '#/components/schemas/FilterMatchType'
+          type: object
+        required: false
+        style: deepObject
+        explode: true
+      - name: pre_filter_expression
+        in: query
+        schema:
+          description: A JSON-encoded [filter expression](/reference/shared-filter-expressions) containing any number of filters (inaccessible to end users) used to narrow the result set. Applied before user-selected `filters`. Only items that match this expression are  considered in facet counts. Only results that match the filters are returned. [Read more](/reference/shared-pre-filter-expressions).
+          examples:
+          - '{"and":[{"name":"brand","value":"Nike"}]}'
+          allOf:
+          - $ref: '#/components/schemas/DictOrJsonStringWithDict'
+          title: Pre Filter Expression
+        required: false
+      - name: num_results_per_page
+        in: query
+        schema:
+          default: 20
+          description: The number of results per page to return.
+          examples:
+          - 20
+          - 24
+          title: Num Results Per Page
+          maximum: 200
+          minimum: 1
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          description: The page of results to return.
+          examples:
+          - 1
+          title: Page
+          minimum: 1
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          examples:
+          - 0
+          title: Offset
+          minimum: 0
+          type: integer
+        required: false
+      - name: sort_by
+        in: query
+        schema:
+          default: relevance
+          description: The method to sort results by. The default value `relevance` sorts by Constructor's attractiveness & personalization algorithms and is reserved. Alternative sort criteria can be configured using the [Sort options API](/reference/v1-sort-options-create-or-replace-sort-options).
+          examples:
+          - relevance
+          title: Sort By
+          type: string
+        required: false
+      - name: sort_order
+        in: query
+        schema:
+          default: descending
+          description: The order by which results should be sorted. Only valid in conjunction with `sort_by`.
+          examples:
+          - descending
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+        required: false
+      - name: now
+        in: query
+        schema:
+          description: A date time representing the current moment in time when applying filtering by product age. Used to emulate "past/future" requests. Requires authentication.
+          examples:
+          - '2024-01-15T10:30:00Z'
+          title: Now
+          format: date-time
+          type: string
+        required: false
+      - name: variations_map
+        in: query
+        schema:
+          description: A JSON string containing a instructions on how to map item variation data in the response (typically used for swatches). More details, including the exact schema for this value can be found [here](/reference/shared-variations-mapping)
+          examples:
+          - '{"group_by":[{"name":"color","field":"data.color"}],"values":{"price":{"aggregation":"min","field":"data.price"}},"dtype":"array"}'
+          format: json
+          title: Variations Map
+          type: string
+          allOf:
+          - $ref: '#/components/schemas/VariationsMap'
+        required: false
+      - name: fmt_options
+        in: query
+        schema:
+          description: An object containing options to format different aspect of the response.
+          allOf:
+          - $ref: '#/components/schemas/BrowseFmtOptions'
+          title: Fmt Options
+        required: false
+        style: deepObject
+        explode: true
+      - name: qs
+        in: query
+        schema:
+          description: A JSON-encoded query string. Any query parameters listed for this endpoint can be serialized into a JSON string and parsed thru the `qs` param.
+          format: json
+          title: Qs
+          type: string
+        required: false
+      - name: origin_referrer
+        in: query
+        schema:
+          description: The url or app location where the request originated.
+          examples:
+          - https://example.com/search
+          title: Origin Referrer
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          examples:
+          - cio-js-client-2.35.2
+          title: C
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: us
+        in: query
+        schema:
+          description: A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments.
+          title: us
+          items:
+            minLength: 1
+            type: string
+            examples:
+            - vip-member
+            - us-east-region
+          type: array
+        required: false
+      - name: ui
+        in: query
+        schema:
+          description: A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps Constructor to tie multiple client and session IDs together to form a behavioral data profile across devices.
+          examples:
+          - customer-user-id-456
+          title: Ui
+          type: string
+        required: false
+      - name: s
+        in: query
+        schema:
+          description: An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity.
+          examples:
+          - 1
+          title: S
+          type: integer
+        required: false
+      - name: i
+        in: query
+        schema:
+          description: A globally unique identifier for the user browser (or mobile application instance) making the request.
+          examples:
+          - user-device-id-123
+          title: I
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrowseGetResponse'
+        '400':
+          description: Validation Error
+      security: []
+  /browse/items:
+    get:
+      tags:
+      - Browse results
+      operationId: v1-browse-get-browse-items-results
+      summary: Retrieve by item ID
+      description: Retrieve browse results for products (or optionally other sections) by item ID(s).
+      parameters:
+      - name: key
+        in: query
+        schema:
+          description: The key of the index to use.
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          maxLength: 100
+          minLength: 1
+          title: Key
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          description: The section of the index to use. Defaults to `Products`.
+          examples:
+          - Products
+          - Search Suggestions
+          title: Section
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: ids
+        in: query
+        schema:
+          description: The ID(s) of the items to return.
+          title: Ids
+          items:
+            minLength: 1
+            type: string
+            examples:
+            - nike-shoes
+            - product-123
+          maxItems: 100
+          type: array
+        required: false
+      - name: filters
+        in: query
+        schema:
+          description: Any number of filtering criteria (accessible to end users) used to narrow the result set, such as `color=blue` or `group_id=sandals` or `price=100-200`. Facets and Item Groups and Collections can be used as filters. If `filter_value` has the form `<min>-<max>`, it is interpreted as a range. Filters with the same key are ORed together and filters with different keys are ANDed together by default. Only results that match the filters are returned. Boolean values are serialized with the first letter capitalized (e.g., `True` / `False`) as a convention.
+          examples:
+          - color:
+            - red
+            - blue
+            price:
+            - 100-200
+          allOf:
+          - $ref: '#/components/schemas/Filters'
+          title: Filters
+        required: false
+        style: deepObject
+        explode: true
+      - name: filter_match_types
+        in: query
+        schema:
+          description: 'An object specifying whether results must match `all`, `any` or `none` of a given filter when multiple options of the same facet (e.g: color: yellow & blue) are selected.'
+          examples:
+          - color: any
+            size: all
+          title: Filter Match Types
+          additionalProperties:
+            $ref: '#/components/schemas/FilterMatchType'
+          type: object
+        required: false
+        style: deepObject
+        explode: true
+      - name: pre_filter_expression
+        in: query
+        schema:
+          description: A JSON-encoded [filter expression](/reference/shared-filter-expressions) containing any number of filters (inaccessible to end users) used to narrow the result set. Applied before user-selected `filters`. Only items that match this expression are  considered in facet counts. Only results that match the filters are returned. [Read more](/reference/shared-pre-filter-expressions).
+          examples:
+          - '{"and":[{"name":"brand","value":"Nike"}]}'
+          allOf:
+          - $ref: '#/components/schemas/DictOrJsonStringWithDict'
+          title: Pre Filter Expression
+        required: false
+      - name: num_results_per_page
+        in: query
+        schema:
+          default: 20
+          description: The number of results per page to return.
+          examples:
+          - 20
+          - 24
+          title: Num Results Per Page
+          maximum: 200
+          minimum: 1
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          description: The page of results to return.
+          examples:
+          - 1
+          title: Page
+          minimum: 1
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          examples:
+          - 0
+          title: Offset
+          minimum: 0
+          type: integer
+        required: false
+      - name: now
+        in: query
+        schema:
+          description: A date time representing the current moment in time when applying filtering by product age. Used to emulate "past/future" requests. Requires authentication.
+          examples:
+          - '2024-01-15T10:30:00Z'
+          title: Now
+          format: date-time
+          type: string
+        required: false
+      - name: variations_map
+        in: query
+        schema:
+          description: A JSON string containing a instructions on how to map item variation data in the response (typically used for swatches). More details, including the exact schema for this value can be found [here](/reference/shared-variations-mapping)
+          examples:
+          - '{"group_by":[{"name":"color","field":"data.color"}],"values":{"price":{"aggregation":"min","field":"data.price"}},"dtype":"array"}'
+          format: json
+          title: Variations Map
+          type: string
+          allOf:
+          - $ref: '#/components/schemas/VariationsMap'
+        required: false
+      - name: fmt_options
+        in: query
+        schema:
+          description: An object containing options to format different aspect of the response.
+          allOf:
+          - $ref: '#/components/schemas/BrowseItemsFmtOptions'
+          title: Fmt Options
+        required: false
+        style: deepObject
+        explode: true
+      - name: qs
+        in: query
+        schema:
+          description: A JSON-encoded query string. Any query parameters listed for this endpoint can be serialized into a JSON string and parsed thru the `qs` param.
+          format: json
+          title: Qs
+          type: string
+        required: false
+      - name: origin_referrer
+        in: query
+        schema:
+          description: The url or app location where the request originated.
+          examples:
+          - https://example.com/search
+          title: Origin Referrer
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          examples:
+          - cio-js-client-2.35.2
+          title: C
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: us
+        in: query
+        schema:
+          description: A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments.
+          title: us
+          items:
+            minLength: 1
+            type: string
+            examples:
+            - vip-member
+            - us-east-region
+          type: array
+        required: false
+      - name: ui
+        in: query
+        schema:
+          description: A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps Constructor to tie multiple client and session IDs together to form a behavioral data profile across devices.
+          examples:
+          - customer-user-id-456
+          title: Ui
+          type: string
+        required: false
+      - name: s
+        in: query
+        schema:
+          description: An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity.
+          examples:
+          - 1
+          title: S
+          type: integer
+        required: false
+      - name: i
+        in: query
+        schema:
+          description: A globally unique identifier for the user browser (or mobile application instance) making the request.
+          examples:
+          - user-device-id-123
+          title: I
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrowseItemsGetResponse'
+        '400':
+          description: Validation Error
+      security: []
+  /browse/groups:
+    get:
+      tags:
+      - Browse groups
+      operationId: v1-browse-get-browse-groups
+      summary: Retrieve groups
+      description: Retrieve groups for end users.
+      parameters:
+      - name: key
+        in: query
+        schema:
+          description: The key of the index to use.
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          title: Key
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          description: The section of the index to use. Defaults to `Products`.
+          examples:
+          - Products
+          - Search Suggestions
+          title: Section
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: filters
+        in: query
+        schema:
+          description: A filter to apply to browse groups requests, so that only results that have that filter are returned.
+          examples:
+          - group_id:
+            - category-1
+            - category-2
+          allOf:
+          - $ref: '#/components/schemas/GroupFilters'
+          title: Filters
+        required: false
+        style: deepObject
+        explode: true
+      - name: now
+        in: query
+        schema:
+          description: A date time representing the current moment in time when applying filtering by product age. Used to emulate "past/future" requests. Requires authentication.
+          examples:
+          - '2024-01-15T10:30:00Z'
+          title: Now
+          format: date-time
+          type: string
+        required: false
+      - name: fmt_options
+        in: query
+        schema:
+          description: An object containing options to format different aspect of the response.
+          allOf:
+          - $ref: '#/components/schemas/GroupFmtOptions'
+          title: Fmt Options
+        required: false
+        style: deepObject
+        explode: true
+      - name: origin_referrer
+        in: query
+        schema:
+          description: The url or app location where the request originated.
+          examples:
+          - https://example.com/search
+          title: Origin Referrer
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          examples:
+          - cio-js-client-2.35.2
+          title: C
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: us
+        in: query
+        schema:
+          description: A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments.
+          title: us
+          items:
+            minLength: 1
+            type: string
+            examples:
+            - vip-member
+            - us-east-region
+          type: array
+        required: false
+      - name: ui
+        in: query
+        schema:
+          description: A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps Constructor to tie multiple client and session IDs together to form a behavioral data profile across devices.
+          examples:
+          - customer-user-id-456
+          title: Ui
+          type: string
+        required: false
+      - name: s
+        in: query
+        schema:
+          description: An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity.
+          examples:
+          - 1
+          title: S
+          type: integer
+        required: false
+      - name: i
+        in: query
+        schema:
+          description: A globally unique identifier for the user browser (or mobile application instance) making the request.
+          examples:
+          - user-device-id-123
+          title: I
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrowseGroupsGetResponse'
+        '400':
+          description: Validation Error
+      security: []
+  /browse/facets:
+    get:
+      tags:
+      - Browse facets
+      operationId: v1-browse-get-browse-facets
+      summary: Retrieve countable facets
+      description: Retrieve countable facets for end users.
+      parameters:
+      - name: key
+        in: query
+        schema:
+          description: The key of the index to use.
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          title: Key
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          description: The section of the index to use. Defaults to `Products`.
+          examples:
+          - Products
+          - Search Suggestions
+          title: Section
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: num_results_per_page
+        in: query
+        schema:
+          default: 20
+          description: The number of results per page to return.
+          examples:
+          - 20
+          - 24
+          title: Num Results Per Page
+          maximum: 1000
+          minimum: 1
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          description: The page of results to return.
+          examples:
+          - 1
+          title: Page
+          minimum: 1
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          examples:
+          - 0
+          title: Offset
+          minimum: 0
+          type: integer
+        required: false
+      - name: now
+        in: query
+        schema:
+          description: A date time representing the current moment in time when applying filtering by product age. Used to emulate "past/future" requests. Requires authentication.
+          examples:
+          - '2024-01-15T10:30:00Z'
+          title: Now
+          format: date-time
+          type: string
+        required: false
+      - name: fmt_options
+        in: query
+        schema:
+          description: An object containing options to format different aspect of the response.
+          allOf:
+          - $ref: '#/components/schemas/FacetFmtOptions'
+          title: Fmt Options
+        required: false
+        style: deepObject
+        explode: true
+      - name: origin_referrer
+        in: query
+        schema:
+          description: The url or app location where the request originated.
+          examples:
+          - https://example.com/search
+          title: Origin Referrer
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          examples:
+          - cio-js-client-2.35.2
+          title: C
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: us
+        in: query
+        schema:
+          description: A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments.
+          title: us
+          items:
+            minLength: 1
+            type: string
+            examples:
+            - vip-member
+            - us-east-region
+          type: array
+        required: false
+      - name: ui
+        in: query
+        schema:
+          description: A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps Constructor to tie multiple client and session IDs together to form a behavioral data profile across devices.
+          examples:
+          - customer-user-id-456
+          title: Ui
+          type: string
+        required: false
+      - name: s
+        in: query
+        schema:
+          description: An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity.
+          examples:
+          - 1
+          title: S
+          type: integer
+        required: false
+      - name: i
+        in: query
+        schema:
+          description: A globally unique identifier for the user browser (or mobile application instance) making the request.
+          examples:
+          - user-device-id-123
+          title: I
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrowseFacetsGetResponse'
+        '400':
+          description: Validation Error
+      security: []
+  /browse/facet_options:
+    get:
+      tags:
+      - Browse facets
+      operationId: v1-browse-get-browse-facet-options
+      summary: Retrieve facet options (values) by facet name
+      description: Retrieve facet options for end users.
+      parameters:
+      - name: key
+        in: query
+        schema:
+          description: The key of the index to use.
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          title: Key
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          description: The section of the index to use. Defaults to `Products`.
+          examples:
+          - Products
+          - Search Suggestions
+          title: Section
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: num_results_per_page
+        in: query
+        schema:
+          default: 100000
+          description: The number of results per page to return.
+          examples:
+          - 100000
+          - 100
+          title: Num Results Per Page
+          maximum: 250000
+          minimum: 1
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          description: The page of results to return.
+          examples:
+          - 1
+          title: Page
+          minimum: 1
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          examples:
+          - 0
+          title: Offset
+          minimum: 0
+          type: integer
+        required: false
+      - name: now
+        in: query
+        schema:
+          description: A date time representing the current moment in time when applying filtering by product age. Used to emulate "past/future" requests. Requires authentication.
+          examples:
+          - '2024-01-15T10:30:00Z'
+          title: Now
+          format: date-time
+          type: string
+        required: false
+      - name: fmt_options
+        in: query
+        schema:
+          description: An object containing options to format different aspect of the response.
+          allOf:
+          - $ref: '#/components/schemas/FacetFmtOptions'
+          title: Fmt Options
+        required: false
+        style: deepObject
+        explode: true
+      - name: origin_referrer
+        in: query
+        schema:
+          description: The url or app location where the request originated.
+          examples:
+          - https://example.com/search
+          title: Origin Referrer
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          examples:
+          - cio-js-client-2.35.2
+          title: C
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: facet_name
+        in: query
+        schema:
+          description: The name of the facet.
+          examples:
+          - color
+          title: Facet Name
+          type: string
+        required: true
+      - name: us
+        in: query
+        schema:
+          description: A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments.
+          title: us
+          items:
+            minLength: 1
+            type: string
+            examples:
+            - vip-member
+            - us-east-region
+          type: array
+        required: false
+      - name: ui
+        in: query
+        schema:
+          description: A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps Constructor to tie multiple client and session IDs together to form a behavioral data profile across devices.
+          examples:
+          - customer-user-id-456
+          title: Ui
+          type: string
+        required: false
+      - name: s
+        in: query
+        schema:
+          description: An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity.
+          examples:
+          - 1
+          title: S
+          type: integer
+        required: false
+      - name: i
+        in: query
+        schema:
+          description: A globally unique identifier for the user browser (or mobile application instance) making the request.
+          examples:
+          - user-device-id-123
+          title: I
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrowseFacetOptionsGetResponse'
+        '400':
+          description: Validation Error
+      security: []
+  /browse/facets_with_options:
+    get:
+      tags:
+      - Browse facets
+      operationId: v1-browse-get-browse-facets-with-options
+      summary: Retrieve facets with their options (values)
+      description: Retrieve facets with options for end users.
+      parameters:
+      - name: key
+        in: query
+        schema:
+          description: The key of the index to use.
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          title: Key
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          description: The section of the index to use. Defaults to `Products`.
+          examples:
+          - Products
+          - Search Suggestions
+          title: Section
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: num_results_per_page
+        in: query
+        schema:
+          default: 10
+          description: The number of results per page to return.
+          examples:
+          - 10
+          - 5
+          title: Num Results Per Page
+          maximum: 10
+          minimum: 1
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          description: The page of results to return.
+          examples:
+          - 1
+          title: Page
+          minimum: 1
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          examples:
+          - 0
+          title: Offset
+          minimum: 0
+          type: integer
+        required: false
+      - name: now
+        in: query
+        schema:
+          description: A date time representing the current moment in time when applying filtering by product age. Used to emulate "past/future" requests. Requires authentication.
+          examples:
+          - '2024-01-15T10:30:00Z'
+          title: Now
+          format: date-time
+          type: string
+        required: false
+      - name: fmt_options
+        in: query
+        schema:
+          description: An object containing options to format different aspect of the response.
+          allOf:
+          - $ref: '#/components/schemas/FacetFmtOptions'
+          title: Fmt Options
+        required: false
+        style: deepObject
+        explode: true
+      - name: origin_referrer
+        in: query
+        schema:
+          description: The url or app location where the request originated.
+          examples:
+          - https://example.com/search
+          title: Origin Referrer
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          examples:
+          - cio-js-client-2.35.2
+          title: C
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: us
+        in: query
+        schema:
+          description: A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments.
+          title: us
+          items:
+            minLength: 1
+            type: string
+            examples:
+            - vip-member
+            - us-east-region
+          type: array
+        required: false
+      - name: ui
+        in: query
+        schema:
+          description: A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps Constructor to tie multiple client and session IDs together to form a behavioral data profile across devices.
+          examples:
+          - customer-user-id-456
+          title: Ui
+          type: string
+        required: false
+      - name: s
+        in: query
+        schema:
+          description: An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity.
+          examples:
+          - 1
+          title: S
+          type: integer
+        required: false
+      - name: i
+        in: query
+        schema:
+          description: A globally unique identifier for the user browser (or mobile application instance) making the request.
+          examples:
+          - user-device-id-123
+          title: I
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrowseFacetsWithOptionsGetResponse'
+        '400':
+          description: Validation Error
+      security: []
+  /browse/collections:
+    get:
+      tags:
+      - Browse collections
+      operationId: v1-browse-get-browse-collections
+      summary: Retrieve collections
+      description: Retrieve collections for end users. To get specific collection items use the `/browse/collection_id/<collection_id>` endpoint.
+      parameters:
+      - name: key
+        in: query
+        schema:
+          description: The key of the index to use.
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          title: Key
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          description: The section of the index to use. Defaults to `Products`.
+          examples:
+          - Products
+          - Search Suggestions
+          title: Section
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: num_results_per_page
+        in: query
+        schema:
+          default: 20
+          description: The number of results per page to return.
+          examples:
+          - 20
+          - 24
+          title: Num Results Per Page
+          maximum: 200
+          minimum: 1
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          description: The page of results to return.
+          examples:
+          - 1
+          title: Page
+          minimum: 1
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          examples:
+          - 0
+          title: Offset
+          minimum: 0
+          type: integer
+        required: false
+      - name: sort_by
+        in: query
+        schema:
+          default: id
+          description: The method to sort collections by.
+          examples:
+          - id
+          - display_name
+          title: Sort By
+          enum:
+          - id
+          - display_name
+          type: string
+        required: false
+      - name: sort_order
+        in: query
+        schema:
+          default: descending
+          description: The order by which results should be sorted. Only valid in conjunction with `sort_by`.
+          examples:
+          - descending
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+        required: false
+      - name: now
+        in: query
+        schema:
+          description: A date time representing the current moment in time when applying filtering by product age. Used to emulate "past/future" requests. Requires authentication.
+          examples:
+          - '2024-01-15T10:30:00Z'
+          title: Now
+          format: date-time
+          type: string
+        required: false
+      - name: origin_referrer
+        in: query
+        schema:
+          description: The url or app location where the request originated.
+          examples:
+          - https://example.com/search
+          title: Origin Referrer
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          examples:
+          - cio-js-client-2.35.2
+          title: C
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: us
+        in: query
+        schema:
+          description: A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments.
+          title: us
+          items:
+            minLength: 1
+            type: string
+            examples:
+            - vip-member
+            - us-east-region
+          type: array
+        required: false
+      - name: ui
+        in: query
+        schema:
+          description: A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps Constructor to tie multiple client and session IDs together to form a behavioral data profile across devices.
+          examples:
+          - customer-user-id-456
+          title: Ui
+          type: string
+        required: false
+      - name: display_name
+        in: query
+        schema:
+          anyOf:
+          - type: string
+          - items:
+              type: string
+            type: array
+          description: Filter collections by display name.
+          examples:
+          - Summer Sale
+          title: Display Name
+        required: false
+      - name: s
+        in: query
+        schema:
+          description: An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity.
+          examples:
+          - 1
+          title: S
+          type: integer
+        required: false
+      - name: i
+        in: query
+        schema:
+          description: A globally unique identifier for the user browser (or mobile application instance) making the request.
+          examples:
+          - user-device-id-123
+          title: I
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrowseCollectionsGetResponse'
+        '400':
+          description: Validation Error
+      security: []
+components:
+  schemas:
+    DictOrJsonStringWithDict:
+      anyOf:
+      - title: object
+        type: object
+      - format: json
+        title: Encoded JSON string
+        type: string
+      title: DictOrJsonStringWithDict
+    FacetOptionSortOrder:
+      enum:
+      - relevance
+      - value
+      - num_matches
+      title: FacetOptionSortOrder
+      type: string
+    FilterMatchType:
+      enum:
+      - any
+      - all
+      - none
+      title: FilterMatchType
+      type: string
+    Filters:
+      propertyNames:
+        minLength: 1
+      title: Filters
+      type: object
+    FmtOptions:
+      additionalProperties: false
+      properties:
+        fields:
+          description: A list of specific item fields to return in the response. Allows the request to control which fields are returned.
+          title: Fields
+          items:
+            maxLength: 300
+            minLength: 1
+            type: string
+            examples:
+            - image_url
+            - price
+            - brand
+          maxItems: 20
+          type: array
+        show_hidden_fields:
+          default: false
+          description: A flag to return all `hidden` fields in the response.
+          examples:
+          - false
+          - true
+          title: Show Hidden Fields
+          type: boolean
+        hidden_fields:
+          description: A list of specific hidden fields to return in the response. Unlike `show_hidden_fields` this parameter allows the request to control which `hidden` fields are returned.  Used to return item fields for a particular store or user segment.
+          title: Hidden Fields
+          items:
+            maxLength: 300
+            minLength: 1
+            type: string
+            examples:
+            - inventory_count
+            - store_availability
+          maxItems: 30
+          type: array
+        variations_return_type:
+          description: A flag to return `default`, `all`, or `matched` variations.
+          examples:
+          - default
+          allOf:
+          - $ref: '#/components/schemas/VariationsReturnType'
+        groups_max_depth:
+          default: 1
+          description: The maximum depth of the group hierarchy in the response.
+          examples:
+          - 1
+          - 3
+          title: Groups Max Depth
+          type: integer
+        groups_start:
+          default: current
+          description: A flag to specify the start of the group hierarchy returned in the response. `current` returns groups starting from the currently selected one. `top` returns groups starting from the root category in the hierarchy. `group_id:{id}`, returns the whole tree starting from group with the provided ID.
+          examples:
+          - current
+          - top
+          - group_id:jeans
+          title: Groups Start
+          type: string
+        groups_sort_by:
+          description: A string indicating the option to sort results by. Sorting options are created from item fields and facets in the product catalog.
+          examples:
+          - relevance
+          allOf:
+          - $ref: '#/components/schemas/FacetOptionSortOrder'
+        groups_sort_order:
+          description: A flag to sort either `ascending` or `descending`.
+          examples:
+          - descending
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+        show_hidden_facets:
+          default: false
+          description: A flag to return all facets configured as `hidden` in `response.facets`.
+          examples:
+          - false
+          - true
+          title: Show Hidden Facets
+          type: boolean
+        hidden_facets:
+          description: A list of specific hidden facets to return in the response. Unlike `show_hidden_facets` this parameter allows the request to control which hidden facets are returned.  Used to return facets for a particular store or user segment.
+          title: Hidden Facets
+          items:
+            maxLength: 100
+            minLength: 1
+            type: string
+            examples:
+            - store_id
+            - region
+          maxItems: 50
+          type: array
+        show_hidden_facet_options:
+          description: A flag to return all `hidden` facets options in the response.
+          examples:
+          - true
+          - false
+          title: Show Hidden Facet Options
+          type: boolean
+        show_protected_facets:
+          default: false
+          description: A flag to return all `protected` facets in the response. Requires authentication.
+          examples:
+          - false
+          - true
+          title: Show Protected Facets
+          type: boolean
+        facet_options:
+          description: A list of specific facet options per facet to return in the response. This parameter accepts up to 5 facets and works only with facets of type `multiple`. Invalid facet options will be ignored. Used to return facet options for a particular facet like store or user segment.
+          examples:
+          - brand:
+            - nike
+            - adidas
+            color:
+            - red
+            - blue
+          title: Facet Options
+          additionalProperties:
+            items:
+              maxLength: 100
+              minLength: 1
+              type: string
+            maxItems: 15
+            type: array
+          type: object
+        facet_groups_limit:
+          description: The maximum limit of the facet groups returned in the response.
+          examples:
+          - 10
+          title: Facet Groups Limit
+          minimum: 0
+          type: integer
+        show_hidden_sort_options:
+          description: A flag to return all sort options configured as `hidden` in `response.sort_options`.
+          examples:
+          - true
+          - false
+          title: Show Hidden Sort Options
+          type: boolean
+        hidden_sort_options:
+          description: A list of `sort_by` fields whose hidden sort options should be included in the response. Unlike `show_hidden_sort_options` this parameter allows you to specify exactly which hidden sort options are returned.
+          title: Hidden Sort Options
+          items:
+            maxLength: 100
+            minLength: 1
+            type: string
+            examples:
+            - price
+            - rating
+          maxItems: 25
+          type: array
+      title: FmtOptions
+      type: object
+    SearchandizedItem:
+      anyOf:
+      - type: integer
+      - maxItems: 2
+        minItems: 2
+        type: array
+      - maxItems: 7
+        minItems: 7
+        type: array
+      title: SearchandizedItem
+    SearchandizedItems:
+      additionalProperties:
+        additionalProperties:
+          $ref: '#/components/schemas/SearchandizedItem'
+        type: object
+      title: SearchandizedItems
+      type: object
+    SortOrderType:
+      enum:
+      - ascending
+      - descending
+      title: SortOrderType
+      type: string
+    VariationsMap:
+      properties:
+        filter_by:
+          description: A filtering expression that should be used to filter variations before doing any aggregations
+          allOf:
+          - $ref: '#/components/schemas/VariationsMapFilterBy'
+          title: Filter By
+        group_by:
+          description: An array of fields that should be used to group variations. Variations which share the value of all fields specified here will all fall under one group
+          title: Group By
+          items:
+            $ref: '#/components/schemas/VariationsMapGrouping'
+          maxItems: 5
+          type: array
+        values:
+          description: A set of aggregations that should be applied to each variation group. The object keys specify the name of the field under which each aggregated value will be returned in the response
+          title: Values
+          type: object
+          additionalProperties:
+            discriminator:
+              mapping:
+                all: '#/components/schemas/VariationsMapSimpleAggregation'
+                count: '#/components/schemas/VariationsMapCountAggregation'
+                distinct: '#/components/schemas/VariationsMapSimpleAggregation'
+                field_count: '#/components/schemas/VariationsMapSimpleAggregation'
+                first: '#/components/schemas/VariationsMapSimpleAggregation'
+                max: '#/components/schemas/VariationsMapSimpleAggregation'
+                min: '#/components/schemas/VariationsMapSimpleAggregation'
+                value_count: '#/components/schemas/VariationsMapValueCountAggregation'
+              propertyName: aggregation
+            oneOf:
+            - $ref: '#/components/schemas/VariationsMapSimpleAggregation'
+            - $ref: '#/components/schemas/VariationsMapCountAggregation'
+            - $ref: '#/components/schemas/VariationsMapValueCountAggregation'
+        dtype:
+          description: The expected data type of the variations_map objects in the response
+          enum:
+          - array
+          - object
+          title: Dtype
+          type: string
+      required:
+      - values
+      - dtype
+      title: VariationsMap
+      type: object
+    VariationsMapAnd:
+      additionalProperties: false
+      properties:
+        and_:
+          items:
+            type: array
+          title: And
+          type: array
+      required:
+      - and_
+      title: VariationsMapAnd
+      type: object
+    VariationsMapCountAggregation:
+      properties:
+        aggregation:
+          title: Aggregation
+          type: string
+          enum:
+          - count
+      required:
+      - aggregation
+      title: VariationsMapCountAggregation
+      type: object
+    VariationsMapFilterBy:
+      discriminator:
+        mapping:
+          and: '#/components/schemas/VariationsMapAnd'
+          not: '#/components/schemas/VariationsMapNot'
+          or: '#/components/schemas/VariationsMapOr'
+          range: '#/components/schemas/VariationsMapRange'
+          single: '#/components/schemas/VariationsMapSingleFilter'
+        propertyName: type
+      oneOf:
+      - $ref: '#/components/schemas/VariationsMapRange'
+      - $ref: '#/components/schemas/VariationsMapSingleFilter'
+      - $ref: '#/components/schemas/VariationsMapOr'
+      - $ref: '#/components/schemas/VariationsMapAnd'
+      - $ref: '#/components/schemas/VariationsMapNot'
+      title: VariationsMapFilterBy
+    VariationsMapGrouping:
+      properties:
+        name:
+          pattern: ^\w+([ ]?[\w]+)*$
+          title: Name
+          type: string
+        field:
+          minLength: 1
+          title: Field
+          type: string
+      required:
+      - name
+      - field
+      title: VariationsMapGrouping
+      type: object
+    VariationsMapNot:
+      additionalProperties: false
+      properties:
+        not_:
+          type: object
+          title: Not
+      required:
+      - not_
+      title: VariationsMapNot
+      type: object
+    VariationsMapOr:
+      additionalProperties: false
+      properties:
+        or_:
+          items:
+            type: array
+          title: Or
+          type: array
+      required:
+      - or_
+      title: VariationsMapOr
+      type: object
+    VariationsMapRange:
+      additionalProperties: false
+      properties:
+        field:
+          description: Path to a metadata field (dot-separated)
+          minLength: 1
+          title: Field
+          type: string
+        range:
+          description: This filter matches items where the specified field is within the specified range (min and max). The values are inclusive. Use "inf" for an unbounded upper limit or "-inf" for an unbounded lower limit.
+          items:
+            anyOf:
+            - enum:
+              - inf
+              - -inf
+              type: string
+            - type: integer
+            - type: number
+          maxItems: 2
+          minItems: 2
+          title: Range
+          type: array
+      required:
+      - field
+      - range
+      title: VariationsMapRange
+      type: object
+    VariationsMapSimpleAggregation:
+      properties:
+        aggregation:
+          enum:
+          - first
+          - all
+          - distinct
+          - min
+          - max
+          - field_count
+          title: Aggregation
+          type: string
+        field:
+          minLength: 1
+          title: Field
+          type: string
+      required:
+      - aggregation
+      - field
+      title: VariationsMapSimpleAggregation
+      type: object
+    VariationsMapSingleFilter:
+      additionalProperties: false
+      properties:
+        field:
+          description: Path to a metadata field (dot-separated)
+          minLength: 1
+          title: Field
+          type: string
+        value:
+          anyOf:
+          - type: boolean
+          - type: integer
+          - type: number
+          - type: string
+          description: The value of this field to filter by
+          title: Value
+      required:
+      - field
+      - value
+      title: VariationsMapSingleFilter
+      type: object
+    VariationsMapValueCountAggregation:
+      properties:
+        aggregation:
+          title: Aggregation
+          type: string
+          enum:
+          - value_count
+        field:
+          minLength: 1
+          title: Field
+          type: string
+        value:
+          anyOf:
+          - type: boolean
+          - type: integer
+          - type: number
+          - type: string
+          title: Value
+      required:
+      - aggregation
+      - field
+      - value
+      title: VariationsMapValueCountAggregation
+      type: object
+    VariationsReturnType:
+      enum:
+      - default
+      - all
+      - matched
+      title: VariationsReturnType
+      type: string
+    BrowseGetResponse:
+      additionalProperties: false
+      properties:
+        request:
+          description: The request arguments how they were interpreted by the API. This field is of arbitrary type, ie it doesn't have a guaranteed schema, and data from it shouldn't be used programmatically, it is for debugging purposes only.
+          title: Request
+          type: object
+        result_id:
+          title: Result Id
+          type: string
+        response:
+          $ref: '#/components/schemas/BrowseResponse'
+      required:
+      - request
+      - response
+      title: BrowseGetResponse
+      type: object
+    BrowseResponse:
+      additionalProperties: false
+      properties:
+        result_sources:
+          description: Summary of result sources.
+          allOf:
+          - $ref: '#/components/schemas/ResultSources'
+          title: Result Sources
+        facets:
+          description: An array of facets associated with the items returned by the search query.
+          items:
+            discriminator:
+              mapping:
+                hierarchical: '#/components/schemas/HierarchicalFacet'
+                multiple: '#/components/schemas/SingleOrMultipleFacet'
+                range: '#/components/schemas/RangeFacet'
+                single: '#/components/schemas/SingleOrMultipleFacet'
+              propertyName: type
+            oneOf:
+            - $ref: '#/components/schemas/RangeFacet'
+            - $ref: '#/components/schemas/SingleOrMultipleFacet'
+            - $ref: '#/components/schemas/HierarchicalFacet'
+          title: Facets
+          type: array
+        groups:
+          description: An array of item groups and the number of results belonging to each group.
+          items:
+            $ref: '#/components/schemas/Group'
+          title: Groups
+          type: array
+        results:
+          items:
+            $ref: '#/components/schemas/SearchandizedResult'
+          title: Results
+          type: array
+        sort_options:
+          description: Sort options configured for this index through the [Sort options API](https://docs.constructor.com/reference/v1-sort-options-create-or-replace-sort-options). It does not restrict the values accepted by `sort_by` or `sort_order`. Any sortable field can be used in ascending or descending order. Returns an empty array when no sort options are configured, in which case results default to sorting by relevance in descending order.
+          items:
+            $ref: '#/components/schemas/SortOption'
+          title: Sort Options
+          type: array
+        refined_content:
+          description: Arbitrary content attached to the search query via [content rule](#). Constructor doesn't enforce any restrictions on the attached data except for a size limit of 200kB, and just returns it as-is when there is a query match. There can be several rules attached to the same query, so the `refined_content` itself is an array of objects.
+          items:
+            additionalProperties:
+              additionalProperties: true
+              type: object
+            type: object
+          title: Refined Content
+          type: array
+        total_num_results:
+          description: Total count of results within the section
+          minimum: 0
+          title: Total Num Results
+          type: integer
+        features:
+          description: State of features for Affinity Engine, Searchandizing, Personalization and Learn To Rank
+          items:
+            $ref: '#/components/schemas/Feature'
+          title: Features
+          type: array
+        collection:
+          description: Information on browsed collection. Present only for browse collection request `/browse/collection_id/<collection_id>`
+          allOf:
+          - $ref: '#/components/schemas/Collection'
+          title: Collection
+        related_searches:
+          description: An array of related queries.
+          items:
+            $ref: '#/components/schemas/RelatedSearch'
+          title: Related Searches
+          type: array
+        related_browse_pages:
+          description: An array of related browse pages.
+          items:
+            $ref: '#/components/schemas/RelatedBrowseEntity'
+          title: Related Browse Pages
+          type: array
+      required:
+      - result_sources
+      - facets
+      - groups
+      - results
+      - sort_options
+      - refined_content
+      - total_num_results
+      - features
+      - related_searches
+      - related_browse_pages
+      title: Browse response
+      type: object
+    Collection:
+      additionalProperties: false
+      properties:
+        id:
+          description: The ID of the browsed collection.
+          title: Id
+          type: string
+        display_name:
+          description: The name of the collection as you'd present it to users.
+          title: Display Name
+          type: string
+        data:
+          description: Object containing custom data associated with this collection.
+          title: Data
+          type: object
+        start_time:
+          description: The start time of the collection if it is time-bound.
+          title: Start Time
+          format: date-time
+          type: string
+        end_time:
+          description: The end time of the collection if it is time-bound.
+          title: End Time
+          format: date-time
+          type: string
+        active_overriding_collection:
+          description: The currently active overriding collection if part of content scheduling.
+          allOf:
+          - $ref: '#/components/schemas/Collection'
+          title: Active Overriding Collection
+      required:
+      - id
+      title: Collection
+      type: object
+    FacetOption:
+      additionalProperties: false
+      properties:
+        display_name:
+          description: The name of the facet option as it is displayed to end users. Note that in `filters` parameter you need to use not `display_name` but `name`.
+          title: Display Name
+          type: string
+        status:
+          description: '`selected` if this option is selected in the current search request, empty string otherwise.'
+          enum:
+          - selected
+          - ''
+          title: Status
+          type: string
+        value:
+          description: 'The value that should be passed in `filters` to select this option: `filters[name]=value`'
+          title: Value
+          type: string
+        count:
+          description: Number of items in the current search that match this option.
+          minimum: 0
+          title: Count
+          type: integer
+        data:
+          description: Object containing custom data associated with this facet option. An empty object (`{}`) if no data is currently associated with this option.
+          title: Data
+          type: object
+        range:
+          description: 'Array containing 2 values: the parsed `min` & `max` values that are represented by this facet option. The field exists only for options of a facet with type `range` or `single` if it is configured specially.'
+          title: Range
+          items:
+            anyOf:
+            - type: number
+            - type: integer
+            - enum:
+              - -inf
+              - +inf
+              - inf
+              type: string
+          type: array
+      required:
+      - display_name
+      - status
+      - value
+      - count
+      title: FacetOption
+      type: object
+    Feature:
+      additionalProperties: false
+      properties:
+        display_name:
+          description: The name of the features as it is displayed to end users.
+          title: Display Name
+          type: string
+        enabled:
+          description: Displays the enabled status of the feature.
+          title: Enabled
+          type: boolean
+        feature_name:
+          description: The name of the feature.
+          title: Feature Name
+          type: string
+        variant:
+          description: Displays the variant of this feature if there are any.
+          allOf:
+          - $ref: '#/components/schemas/FeatureVariant'
+          title: Variant
+      required:
+      - display_name
+      - enabled
+      - feature_name
+      title: Feature
+      type: object
+    FeatureVariant:
+      additionalProperties: false
+      properties:
+        name:
+          description: The name of the feature variant.
+          title: Name
+          type: string
+        display_name:
+          description: The name of the feature variant as it is displayed to end users.
+          title: Display Name
+          type: string
+      required:
+      - name
+      title: FeatureVariant
+      type: object
+    Group:
+      additionalProperties: false
+      properties:
+        group_id:
+          description: The ID of the group.
+          title: Group Id
+          type: string
+        display_name:
+          description: The name of the group as it is displayed to end users.
+          title: Display Name
+          type: string
+        count:
+          description: The number of results within this group.
+          minimum: 0
+          title: Count
+          type: integer
+        data:
+          description: Object containing custom data associated with this group.
+          title: Data
+          type: object
+        children:
+          description: An array of groups that are 'children' of the group in question.
+          items:
+            type: object
+          title: Children
+          type: array
+        parents:
+          description: An array of groups that are 'parents' of the group in question.
+          items:
+            $ref: '#/components/schemas/GroupBase'
+          title: Parents
+          type: array
+      required:
+      - group_id
+      - count
+      - children
+      - parents
+      title: Group
+      type: object
+    GroupBase:
+      additionalProperties: false
+      properties:
+        group_id:
+          description: The ID of the group.
+          title: Group Id
+          type: string
+        display_name:
+          description: The name of the group as it is displayed to end users.
+          title: Display Name
+          type: string
+      required:
+      - group_id
+      title: GroupBase
+      type: object
+    HierarchicalFacet:
+      additionalProperties: false
+      properties:
+        type:
+          title: Type
+          type: string
+          enum:
+          - hierarchical
+        name:
+          description: The name of the facet. This should be passed in the filters parameter when a facet of this type is selected. `filters[name]=value`
+          title: Name
+          type: string
+        display_name:
+          description: The name of the facet as it is displayed to end users. Note that in `filters` parameter you need to use not `display_name` but `name`.
+          title: Display Name
+          type: string
+        hidden:
+          description: The boolean value saying whether facet is available for interaction.
+          title: Hidden
+          type: boolean
+        data:
+          description: Object containing custom data associated with this facet. An empty object (`{}`) if no data is currently associated with this facet.
+          title: Data
+          type: object
+        options:
+          description: An array of possible facet values matching this search. By default, facet options are sorted by relevance.
+          title: Options
+          items:
+            $ref: '#/components/schemas/HierarchicalFacetOption'
+          type: array
+      required:
+      - type
+      - name
+      - display_name
+      - hidden
+      - data
+      title: Hierarchical facet
+      type: object
+    HierarchicalFacetOption:
+      additionalProperties: false
+      properties:
+        display_name:
+          description: The name of the facet option as it is displayed to end users. Note that in `filters` parameter you need to use not `display_name` but `name`.
+          title: Display Name
+          type: string
+        status:
+          description: '`selected` if this option is selected in the current search request, empty string otherwise.'
+          enum:
+          - selected
+          - ''
+          title: Status
+          type: string
+        value:
+          description: 'The value that should be passed in `filters` to select this option: `filters[name]=value`'
+          title: Value
+          type: string
+        count:
+          description: Number of items in the current search that match this option.
+          minimum: 0
+          title: Count
+          type: integer
+        data:
+          description: Object containing custom data associated with this facet option. An empty object (`{}`) if no data is currently associated with this option.
+          title: Data
+          type: object
+        range:
+          description: 'Array containing 2 values: the parsed `min` & `max` values that are represented by this facet option. The field exists only for options of a facet with type `range` or `single` if it is configured specially.'
+          title: Range
+          items:
+            anyOf:
+            - type: number
+            - type: integer
+            - enum:
+              - -inf
+              - +inf
+              - inf
+              type: string
+          type: array
+        options:
+          description: An array of possible facet values matching this search. By default, facet options are sorted by relevance. The field exists only for options of a facet with type `hierarchical`.
+          title: Options
+          items:
+            type: object
+          type: array
+      required:
+      - display_name
+      - status
+      - value
+      - count
+      title: HierarchicalFacetOption
+      type: object
+    Path:
+      additionalProperties: false
+      properties:
+        id:
+          description: The ID of the group.
+          title: Id
+          type: string
+        display_name:
+          description: The name of the group as it is displayed to end users.
+          title: Display Name
+          type: string
+      required:
+      - id
+      title: Path
+      type: object
+    RangeFacet:
+      additionalProperties: false
+      properties:
+        type:
+          description: If a facet is of type `range`, then no facet options are provided. Instead a `min` and `max` value is provided to specify the range of values that can be sent in `filters`.
+          title: Type
+          type: string
+          enum:
+          - range
+        name:
+          description: The name of the facet. This should be passed in the filters parameter when a facet of this type is selected. `filters[name]=value`
+          title: Name
+          type: string
+        display_name:
+          description: The name of the facet as it is displayed to end users. Note that in `filters` parameter you need to use not `display_name` but `name`.
+          title: Display Name
+          type: string
+        hidden:
+          description: The boolean value saying whether facet is available for interaction.
+          title: Hidden
+          type: boolean
+        data:
+          description: Object containing custom data associated with this facet. An empty object (`{}`) if no data is currently associated with this facet.
+          title: Data
+          type: object
+        status:
+          description: Specifies the selected facet value range. If no range is selected the field will be omitted.
+          allOf:
+          - $ref: '#/components/schemas/RangeFacetStatus'
+          title: Status
+        min:
+          anyOf:
+          - type: number
+          - type: integer
+          - enum:
+            - -inf
+            - +inf
+            - inf
+            type: string
+          description: Minimum facet value of the result items.
+          title: Min
+        max:
+          anyOf:
+          - type: number
+          - type: integer
+          - enum:
+            - -inf
+            - +inf
+            - inf
+            type: string
+          description: Maximum facet value of the result items.
+          title: Max
+      required:
+      - type
+      - name
+      - display_name
+      - hidden
+      - data
+      title: Range facet
+      type: object
+    RangeFacetStatus:
+      additionalProperties: false
+      properties:
+        min:
+          anyOf:
+          - type: number
+          - type: integer
+          - enum:
+            - -inf
+            - +inf
+            - inf
+            type: string
+          - type: string
+          description: Selected minimum value of the range facet.
+          title: Min
+        max:
+          anyOf:
+          - type: number
+          - type: integer
+          - enum:
+            - -inf
+            - +inf
+            - inf
+            type: string
+          - type: string
+          description: Selected maximum value of the range facet.
+          title: Max
+      title: RangeFacetStatus
+      type: object
+    RelatedBrowseEntity:
+      additionalProperties: false
+      properties:
+        filter_name:
+          description: The name of the related browse filter.
+          title: Filter Name
+          type: string
+        filter_value:
+          description: The value of the related browse filter.
+          title: Filter Value
+          type: string
+        display_name:
+          description: The display name of the related browse filter.
+          title: Display Name
+          type: string
+        image_url:
+          description: The thumbnail for the browse filter.
+          title: Image Url
+          type: string
+      required:
+      - filter_name
+      - filter_value
+      - display_name
+      - image_url
+      title: RelatedBrowseEntity
+      type: object
+    RelatedSearch:
+      additionalProperties: false
+      properties:
+        query:
+          description: The related search query.
+          title: Query
+          type: string
+      required:
+      - query
+      title: RelatedSearch
+      type: object
+    ResultData:
+      properties:
+        id:
+          description: The ID of this item as specified in the catalog.
+          title: Id
+          type: string
+        url:
+          description: The URL where the item can be viewed or purchased.
+          title: Url
+          type: string
+        image_url:
+          description: The item's image URL for display in results.
+          title: Image Url
+          type: string
+        variation_id:
+          description: ID of the selected (best matching) variation. All metadata of the best matching variation will also be merged into the item's `data` object.Returned when [item variation](#) data is defined.
+          title: Variation Id
+          type: string
+        facets:
+          description: The item's associated facets.
+          title: Facets
+          items:
+            $ref: '#/components/schemas/ResultFacet'
+          type: array
+        groups:
+          description: The item's associated categories.
+          title: Groups
+          items:
+            $ref: '#/components/schemas/ResultGroup'
+          type: array
+      title: Result data
+      type: object
+    ResultFacet:
+      additionalProperties: false
+      properties:
+        name:
+          title: Name
+          type: string
+        values:
+          items:
+            anyOf:
+            - type: number
+            - type: integer
+            - type: string
+            - type: boolean
+          title: Values
+          type: array
+      required:
+      - name
+      - values
+      title: ResultFacet
+      type: object
+    ResultGroup:
+      additionalProperties: false
+      properties:
+        group_id:
+          description: The ID of the group.
+          title: Group Id
+          type: string
+        display_name:
+          description: The name of the group as it is displayed to end users.
+          title: Display Name
+          type: string
+        path:
+          description: The path of `group_id`s above this group. `/great-grandparent/grandparent/parent/`
+          examples:
+          - /great-grandparent/grandparent/parent/
+          title: Path
+          type: string
+        path_list:
+          description: An array of groups constituting the path
+          items:
+            $ref: '#/components/schemas/Path'
+          title: Path List
+          type: array
+      required:
+      - group_id
+      - path
+      - path_list
+      title: ResultGroup
+      type: object
+    ResultSourceValue:
+      additionalProperties: false
+      properties:
+        count:
+          description: Number of results returned from their respective sources
+          minimum: 0
+          title: Count
+          type: integer
+      required:
+      - count
+      title: ResultSourceValue
+      type: object
+    ResultSources:
+      additionalProperties: false
+      properties:
+        token_match:
+          description: The summary of results that came from matching a keyword
+          allOf:
+          - $ref: '#/components/schemas/ResultSourceValue'
+          title: Token Match
+        embeddings_match:
+          description: The summary of results that originated from cognitive embeddings
+          allOf:
+          - $ref: '#/components/schemas/ResultSourceValue'
+          title: Embeddings Match
+      required:
+      - token_match
+      - embeddings_match
+      title: ResultSources
+      type: object
+    ResultVariation:
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/ResultData'
+        value:
+          title: Value
+          type: string
+      required:
+      - data
+      - value
+      title: ResultVariation
+      type: object
+    SearchandizedResult:
+      additionalProperties: false
+      properties:
+        value:
+          description: Name of the matched item or variation (if variations are defined).
+          title: Value
+          type: string
+        matched_terms:
+          description: All terms within the item matching the user's query (regardless of whether misspelled).
+          items:
+            type: string
+          title: Matched Terms
+          type: array
+        data:
+          $ref: '#/components/schemas/ResultData'
+        variations:
+          description: An array of this item's variations matching user's query.
+          maxItems: 50
+          title: Variations
+          items:
+            $ref: '#/components/schemas/ResultVariation'
+          type: array
+        variations_map:
+          anyOf:
+          - items: {}
+            type: array
+          - additionalProperties: true
+            type: object
+          description: Variations data in the format requested by `variations_map` query parameter.
+          title: Variations Map
+        variation_slice:
+          description: If variation slicing is enabled, this represents the variation slice of the item.
+          title: Variation Slice
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          type: object
+        is_slotted:
+          description: '`true` if the current product is slotted as a result of searchandizing.'
+          title: Is Slotted
+          type: boolean
+        labels:
+          description: A set of miscellaneous properties of this result. For example, it can indicate whether a slotted result is advertised or promoted.
+          title: Labels
+          type: object
+      required:
+      - value
+      - matched_terms
+      - data
+      - is_slotted
+      - labels
+      title: SearchandizedResult
+      type: object
+    SingleOrMultipleFacet:
+      additionalProperties: false
+      properties:
+        type:
+          description: 'If a facet is of type `single`, then only one of the options may be selected (e.g: display as radio button). If the type is `multiple`, then multiple options may be selected (e.g: display as checkboxes).'
+          enum:
+          - single
+          - multiple
+          title: Type
+          type: string
+        name:
+          description: The name of the facet. This should be passed in the filters parameter when a facet of this type is selected. `filters[name]=value`
+          title: Name
+          type: string
+        display_name:
+          description: The name of the facet as it is displayed to end users. Note that in `filters` parameter you need to use not `display_name` but `name`.
+          title: Display Name
+          type: string
+        hidden:
+          description: The boolean value saying whether facet is available for interaction.
+          title: Hidden
+          type: boolean
+        data:
+          description: Object containing custom data associated with this facet. An empty object (`{}`) if no data is currently associated with this facet.
+          title: Data
+          type: object
+        options:
+          description: An array of possible facet values matching this search. By default, facet options are sorted by relevance. Number of options is limited, by default, to 500. But the limit can be configured per [facet](/reference/v1-facets-create-facet) key.
+          title: Options
+          items:
+            $ref: '#/components/schemas/FacetOption'
+          type: array
+      required:
+      - type
+      - name
+      - display_name
+      - hidden
+      - data
+      title: Single or Multiple facet
+      type: object
+    SortOption:
+      additionalProperties: false
+      properties:
+        display_name:
+          description: The name of the sortable field as it is displayed to end users.
+          title: Display Name
+          type: string
+        status:
+          description: '`selected` if this option is selected in the current search request, empty string otherwise.'
+          enum:
+          - selected
+          - ''
+          title: Status
+          type: string
+        sort_by:
+          description: The attribute to sort by, and the value of the sort_by query parameter in the search request.
+          title: Sort By
+          type: string
+        sort_order:
+          description: The value of this attribute should be passed to the `sort_order` query string parameter in the search request when this option is selected.
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+        hidden:
+          description: '`true` if this sort option is hidden, `false` otherwise.'
+          title: Hidden
+          type: boolean
+      required:
+      - display_name
+      - status
+      - sort_by
+      - sort_order
+      - hidden
+      title: SortOption
+      type: object
+    BrowseFmtOptions:
+      additionalProperties: false
+      properties:
+        fields:
+          description: A list of specific item fields to return in the response. Allows the request to control which fields are returned.
+          title: Fields
+          items:
+            maxLength: 300
+            minLength: 1
+            type: string
+            examples:
+            - image_url
+            - price
+            - brand
+          maxItems: 20
+          type: array
+        show_hidden_fields:
+          default: false
+          description: A flag to return all `hidden` fields in the response.
+          examples:
+          - false
+          - true
+          title: Show Hidden Fields
+          type: boolean
+        hidden_fields:
+          description: A list of specific hidden fields to return in the response. Unlike `show_hidden_fields` this parameter allows the request to control which `hidden` fields are returned.  Used to return item fields for a particular store or user segment.
+          title: Hidden Fields
+          items:
+            maxLength: 300
+            minLength: 1
+            type: string
+            examples:
+            - inventory_count
+            - store_availability
+          maxItems: 30
+          type: array
+        variations_return_type:
+          description: A flag to return `default`, `all`, or `matched` variations.
+          examples:
+          - default
+          allOf:
+          - $ref: '#/components/schemas/VariationsReturnType'
+        groups_max_depth:
+          default: 1
+          description: The maximum depth of the group hierarchy in the response.
+          examples:
+          - 1
+          - 3
+          title: Groups Max Depth
+          type: integer
+        groups_start:
+          default: current
+          description: A flag to specify the start of the group hierarchy returned in the response. `current` returns groups starting from the currently selected one. `top` returns groups starting from the root category in the hierarchy. `group_id:{id}`, returns the whole tree starting from group with the provided ID.
+          examples:
+          - current
+          - top
+          - group_id:jeans
+          title: Groups Start
+          type: string
+        groups_path:
+          description: Specifies the path from the root group to the current group you are browsing. It is used to construct the parents path in the `response.groups` for the current browsed group. Max depth allowed for the path is 10. This option is only accepted when `groups_start` is 'current'.
+          title: Groups Path
+          items:
+            maxLength: 100
+            minLength: 1
+            type: string
+            examples:
+            - root-category
+            - parent-category
+            - current-category
+          maxItems: 10
+          type: array
+        groups_sort_by:
+          description: A string indicating the option to sort results by. Sorting options are created from item fields and facets in the product catalog.
+          examples:
+          - relevance
+          allOf:
+          - $ref: '#/components/schemas/FacetOptionSortOrder'
+        groups_sort_order:
+          description: A flag to sort either `ascending` or `descending`.
+          examples:
+          - descending
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+        show_hidden_facets:
+          default: false
+          description: A flag to return all facets configured as `hidden` in `response.facets`.
+          examples:
+          - false
+          - true
+          title: Show Hidden Facets
+          type: boolean
+        hidden_facets:
+          description: A list of specific hidden facets to return in the response. Unlike `show_hidden_facets` this parameter allows the request to control which hidden facets are returned.  Used to return facets for a particular store or user segment.
+          title: Hidden Facets
+          items:
+            maxLength: 100
+            minLength: 1
+            type: string
+            examples:
+            - store_id
+            - region
+          maxItems: 50
+          type: array
+        show_hidden_facet_options:
+          description: A flag to return all `hidden` facets options in the response.
+          examples:
+          - true
+          - false
+          title: Show Hidden Facet Options
+          type: boolean
+        show_protected_facets:
+          default: false
+          description: A flag to return all `protected` facets in the response. Requires authentication.
+          examples:
+          - false
+          - true
+          title: Show Protected Facets
+          type: boolean
+        facet_options:
+          description: A list of specific facet options per facet to return in the response. This parameter accepts up to 5 facets and works only with facets of type `multiple`. Invalid facet options will be ignored. Used to return facet options for a particular facet like store or user segment.
+          examples:
+          - brand:
+            - nike
+            - adidas
+            color:
+            - red
+            - blue
+          title: Facet Options
+          additionalProperties:
+            items:
+              maxLength: 100
+              minLength: 1
+              type: string
+            maxItems: 15
+            type: array
+          type: object
+        facet_groups_limit:
+          description: The maximum limit of the facet groups returned in the response.
+          examples:
+          - 10
+          title: Facet Groups Limit
+          minimum: 0
+          type: integer
+        show_hidden_sort_options:
+          description: A flag to return all sort options configured as `hidden` in `response.sort_options`.
+          examples:
+          - true
+          - false
+          title: Show Hidden Sort Options
+          type: boolean
+        hidden_sort_options:
+          description: A list of `sort_by` fields whose hidden sort options should be included in the response. Unlike `show_hidden_sort_options` this parameter allows you to specify exactly which hidden sort options are returned.
+          title: Hidden Sort Options
+          items:
+            maxLength: 100
+            minLength: 1
+            type: string
+            examples:
+            - price
+            - rating
+          maxItems: 25
+          type: array
+      title: BrowseFmtOptions
+      type: object
+    BrowseItemsFmtOptions:
+      additionalProperties: false
+      properties:
+        fields:
+          description: A list of specific item fields to return in the response. Allows the request to control which fields are returned.
+          title: Fields
+          items:
+            maxLength: 300
+            minLength: 1
+            type: string
+            examples:
+            - image_url
+            - price
+            - brand
+          maxItems: 20
+          type: array
+        show_hidden_fields:
+          default: false
+          description: A flag to return all `hidden` fields in the response.
+          examples:
+          - false
+          - true
+          title: Show Hidden Fields
+          type: boolean
+        hidden_fields:
+          description: A list of specific hidden fields to return in the response. Unlike `show_hidden_fields` this parameter allows the request to control which `hidden` fields are returned.  Used to return item fields for a particular store or user segment.
+          title: Hidden Fields
+          items:
+            maxLength: 300
+            minLength: 1
+            type: string
+            examples:
+            - inventory_count
+            - store_availability
+          maxItems: 30
+          type: array
+        variations_return_type:
+          description: A flag to return `default`, `all`, or `matched` variations.
+          examples:
+          - default
+          allOf:
+          - $ref: '#/components/schemas/VariationsReturnType'
+        groups_max_depth:
+          default: 1
+          description: The maximum depth of the group hierarchy in the response.
+          examples:
+          - 1
+          - 3
+          title: Groups Max Depth
+          type: integer
+        groups_start:
+          default: current
+          description: A flag to specify the start of the group hierarchy returned in the response. `current` returns groups starting from the currently selected one. `top` returns groups starting from the root category in the hierarchy. `group_id:{id}`, returns the whole tree starting from group with the provided ID.
+          examples:
+          - current
+          - top
+          - group_id:jeans
+          title: Groups Start
+          type: string
+        groups_sort_by:
+          description: A string indicating the option to sort results by. Sorting options are created from item fields and facets in the product catalog.
+          examples:
+          - relevance
+          allOf:
+          - $ref: '#/components/schemas/FacetOptionSortOrder'
+        groups_sort_order:
+          description: A flag to sort either `ascending` or `descending`.
+          examples:
+          - descending
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+        show_hidden_facets:
+          default: false
+          description: A flag to return all facets configured as `hidden` in `response.facets`.
+          examples:
+          - false
+          - true
+          title: Show Hidden Facets
+          type: boolean
+        hidden_facets:
+          description: A list of specific hidden facets to return in the response. Unlike `show_hidden_facets` this parameter allows the request to control which hidden facets are returned.  Used to return facets for a particular store or user segment.
+          title: Hidden Facets
+          items:
+            maxLength: 100
+            minLength: 1
+            type: string
+            examples:
+            - store_id
+            - region
+          maxItems: 50
+          type: array
+        show_hidden_facet_options:
+          description: A flag to return all `hidden` facets options in the response.
+          examples:
+          - true
+          - false
+          title: Show Hidden Facet Options
+          type: boolean
+        show_protected_facets:
+          default: false
+          description: A flag to return all `protected` facets in the response. Requires authentication.
+          examples:
+          - false
+          - true
+          title: Show Protected Facets
+          type: boolean
+        facet_options:
+          description: A list of specific facet options per facet to return in the response. This parameter accepts up to 5 facets and works only with facets of type `multiple`. Invalid facet options will be ignored. Used to return facet options for a particular facet like store or user segment.
+          examples:
+          - brand:
+            - nike
+            - adidas
+            color:
+            - red
+            - blue
+          title: Facet Options
+          additionalProperties:
+            items:
+              maxLength: 100
+              minLength: 1
+              type: string
+            maxItems: 15
+            type: array
+          type: object
+        facet_groups_limit:
+          description: The maximum limit of the facet groups returned in the response.
+          examples:
+          - 10
+          title: Facet Groups Limit
+          minimum: 0
+          type: integer
+        show_hidden_sort_options:
+          description: A flag to return all sort options configured as `hidden` in `response.sort_options`.
+          examples:
+          - true
+          - false
+          title: Show Hidden Sort Options
+          type: boolean
+        hidden_sort_options:
+          description: A list of `sort_by` fields whose hidden sort options should be included in the response. Unlike `show_hidden_sort_options` this parameter allows you to specify exactly which hidden sort options are returned.
+          title: Hidden Sort Options
+          items:
+            maxLength: 100
+            minLength: 1
+            type: string
+            examples:
+            - price
+            - rating
+          maxItems: 25
+          type: array
+        face_out_variations:
+          description: A mapping of item ID to variation ID that specifies which variation should be used as the face out for each item in this request. Overrides the default algorithmic variation for valid item-variation pairs. Can contain at most 100 mappings.
+          examples:
+          - item-123: variation-456
+            item-789: variation-012
+          title: Face Out Variations
+          additionalProperties:
+            minLength: 1
+            type: string
+          type: object
+      title: BrowseItemsFmtOptions
+      type: object
+    BrowseItemsGetResponse:
+      additionalProperties: false
+      properties:
+        request:
+          description: The request arguments how they were interpreted by the API. This field is of arbitrary type, ie it doesn't have a guaranteed schema, and data from it shouldn't be used programmatically, it is for debugging purposes only.
+          title: Request
+          type: object
+        result_id:
+          title: Result Id
+          type: string
+        response:
+          $ref: '#/components/schemas/BrowseItemsResponse'
+      required:
+      - request
+      - response
+      title: BrowseItemsGetResponse
+      type: object
+    BrowseItemsResponse:
+      additionalProperties: false
+      properties:
+        result_sources:
+          description: Summary of result sources.
+          allOf:
+          - $ref: '#/components/schemas/ResultSources'
+          title: Result Sources
+        facets:
+          description: An array of facets associated with the items returned by the search query.
+          items:
+            discriminator:
+              mapping:
+                hierarchical: '#/components/schemas/HierarchicalFacet'
+                multiple: '#/components/schemas/SingleOrMultipleFacet'
+                range: '#/components/schemas/RangeFacet'
+                single: '#/components/schemas/SingleOrMultipleFacet'
+              propertyName: type
+            oneOf:
+            - $ref: '#/components/schemas/RangeFacet'
+            - $ref: '#/components/schemas/SingleOrMultipleFacet'
+            - $ref: '#/components/schemas/HierarchicalFacet'
+          title: Facets
+          type: array
+        groups:
+          description: An array of item groups and the number of results belonging to each group.
+          items:
+            $ref: '#/components/schemas/Group'
+          title: Groups
+          type: array
+        results:
+          items:
+            $ref: '#/components/schemas/Result'
+          title: Results
+          type: array
+        sort_options:
+          description: Sort options configured for this index through the [Sort options API](https://docs.constructor.com/reference/v1-sort-options-create-or-replace-sort-options). It does not restrict the values accepted by `sort_by` or `sort_order`. Any sortable field can be used in ascending or descending order. Returns an empty array when no sort options are configured, in which case results default to sorting by relevance in descending order.
+          items:
+            $ref: '#/components/schemas/SortOption'
+          title: Sort Options
+          type: array
+        refined_content:
+          description: Arbitrary content attached to the search query via [content rule](#). Constructor doesn't enforce any restrictions on the attached data except for a size limit of 200kB, and just returns it as-is when there is a query match. There can be several rules attached to the same query, so the `refined_content` itself is an array of objects.
+          items:
+            additionalProperties:
+              additionalProperties: true
+              type: object
+            type: object
+          title: Refined Content
+          type: array
+        total_num_results:
+          description: Total count of results within the section
+          minimum: 0
+          title: Total Num Results
+          type: integer
+        features:
+          description: State of features for Affinity Engine, Searchandizing, Personalization and Learn To Rank
+          items:
+            $ref: '#/components/schemas/Feature'
+          title: Features
+          type: array
+        collection:
+          description: Information on browsed collection. Present only for browse collection request `/browse/collection_id/<collection_id>`
+          allOf:
+          - $ref: '#/components/schemas/Collection'
+          title: Collection
+      required:
+      - result_sources
+      - facets
+      - groups
+      - results
+      - sort_options
+      - refined_content
+      - total_num_results
+      - features
+      title: BrowseItemsResponse
+      type: object
+    Result:
+      additionalProperties: false
+      properties:
+        value:
+          description: Name of the matched item or variation (if variations are defined).
+          title: Value
+          type: string
+        matched_terms:
+          description: All terms within the item matching the user's query (regardless of whether misspelled).
+          items:
+            type: string
+          title: Matched Terms
+          type: array
+        data:
+          $ref: '#/components/schemas/ResultData'
+        variations:
+          description: An array of this item's variations matching user's query.
+          maxItems: 50
+          title: Variations
+          items:
+            $ref: '#/components/schemas/ResultVariation'
+          type: array
+        variations_map:
+          anyOf:
+          - items: {}
+            type: array
+          - additionalProperties: true
+            type: object
+          description: Variations data in the format requested by `variations_map` query parameter.
+          title: Variations Map
+        variation_slice:
+          description: If variation slicing is enabled, this represents the variation slice of the item.
+          title: Variation Slice
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          type: object
+      required:
+      - value
+      - matched_terms
+      - data
+      title: Result
+      type: object
+    FacetFmtOptions:
+      additionalProperties: false
+      properties:
+        show_hidden_facets:
+          default: false
+          description: A flag to return all facets configured as `hidden` in `response.facets`.
+          examples:
+          - false
+          - true
+          title: Show Hidden Facets
+          type: boolean
+        hidden_facets:
+          description: A list of specific hidden facets to return in the response. Unlike `show_hidden_facets` this parameter allows the request to control which hidden facets are returned.  Used to return facets for a particular store or user segment.
+          title: Hidden Facets
+          items:
+            maxLength: 100
+            minLength: 1
+            type: string
+            examples:
+            - store_id
+            - region
+          maxItems: 20
+          type: array
+        show_hidden_facet_options:
+          description: A flag to return all `hidden` facets options in the response.
+          examples:
+          - false
+          - true
+          title: Show Hidden Facet Options
+          type: boolean
+        show_protected_facets:
+          default: false
+          description: A flag to return all `protected` facets in the response. Requires authentication.
+          examples:
+          - false
+          - true
+          title: Show Protected Facets
+          type: boolean
+        show_internal_facets:
+          title: Show Internal Facets
+          type: boolean
+      title: FacetFmtOptions
+      type: object
+    BrowseFacetsGetResponse:
+      additionalProperties: false
+      properties:
+        request:
+          description: The request arguments how they were interpreted by the API. This field is of arbitrary type, ie it doesn't have a guaranteed schema, and data from it shouldn't be used programmatically, it is for debugging purposes only.
+          title: Request
+          type: object
+        result_id:
+          title: Result Id
+          type: string
+        response:
+          $ref: '#/components/schemas/BrowseFacetsResponse'
+      required:
+      - request
+      - response
+      title: BrowseFacetsGetResponse
+      type: object
+    BrowseFacetsResponse:
+      additionalProperties: false
+      properties:
+        facets:
+          description: An array of facets within the section.
+          items:
+            discriminator:
+              mapping:
+                hierarchical: '#/components/schemas/HierarchicalFacet'
+                multiple: '#/components/schemas/SingleOrMultipleFacet'
+                range: '#/components/schemas/RangeFacet'
+                single: '#/components/schemas/SingleOrMultipleFacet'
+              propertyName: type
+            oneOf:
+            - $ref: '#/components/schemas/RangeFacet'
+            - $ref: '#/components/schemas/SingleOrMultipleFacet'
+            - $ref: '#/components/schemas/HierarchicalFacet'
+          title: Facets
+          type: array
+        total_num_results:
+          description: Total count of facets within the section.
+          minimum: 0
+          title: Total Num Results
+          type: integer
+      required:
+      - facets
+      - total_num_results
+      title: Browse facets response
+      type: object
+    BrowseFacetOptionsGetResponse:
+      additionalProperties: false
+      properties:
+        request:
+          description: The request arguments how they were interpreted by the API. This field is of arbitrary type, ie it doesn't have a guaranteed schema, and data from it shouldn't be used programmatically, it is for debugging purposes only.
+          title: Request
+          type: object
+        result_id:
+          title: Result Id
+          type: string
+        response:
+          $ref: '#/components/schemas/BrowseFacetOptionsResponse'
+      required:
+      - request
+      - response
+      title: BrowseFacetOptionsGetResponse
+      type: object
+    BrowseFacetOptionsResponse:
+      additionalProperties: false
+      properties:
+        facets:
+          description: An array with the single requested facet.
+          items:
+            discriminator:
+              mapping:
+                hierarchical: '#/components/schemas/HierarchicalFacet'
+                multiple: '#/components/schemas/SingleOrMultipleFacet'
+                range: '#/components/schemas/RangeFacet'
+                single: '#/components/schemas/SingleOrMultipleFacet'
+              propertyName: type
+            oneOf:
+            - $ref: '#/components/schemas/RangeFacet'
+            - $ref: '#/components/schemas/SingleOrMultipleFacet'
+            - $ref: '#/components/schemas/HierarchicalFacet'
+          title: Facets
+          type: array
+        total_num_results:
+          description: Total count of facet options for the requested facet.
+          title: Total Num Results
+          type: integer
+      required:
+      - facets
+      - total_num_results
+      title: Browse facet options response
+      type: object
+    GroupFilters:
+      additionalProperties: false
+      properties:
+        group_id:
+          items:
+            minLength: 1
+            type: string
+          title: Group Id
+          type: array
+      required:
+      - group_id
+      title: GroupFilters
+      type: object
+    GroupFmtOptions:
+      additionalProperties: false
+      properties:
+        groups_max_depth:
+          default: 1
+          description: The maximum depth of the group hierarchy in the response.
+          examples:
+          - 1
+          - 3
+          title: Groups Max Depth
+          type: integer
+        groups_start:
+          default: current
+          description: A flag to specify the start of the group hierarchy returned in the response. `current` returns groups starting from the currently selected one. `top` returns groups starting from the root category in the hierarchy. `group_id:{id}`, returns the whole tree starting from group with the provided ID.
+          examples:
+          - current
+          - top
+          - group_id:jeans
+          title: Groups Start
+          type: string
+      title: GroupFmtOptions
+      type: object
+    BrowseGroupsGetResponse:
+      additionalProperties: false
+      properties:
+        request:
+          description: The request arguments how they were interpreted by the API. This field is of arbitrary type, ie it doesn't have a guaranteed schema, and data from it shouldn't be used programmatically, it is for debugging purposes only.
+          title: Request
+          type: object
+        result_id:
+          title: Result Id
+          type: string
+        response:
+          $ref: '#/components/schemas/BrowseGroupsResponse'
+      required:
+      - request
+      - response
+      title: BrowseGroupsGetResponse
+      type: object
+    BrowseGroupsResponse:
+      additionalProperties: false
+      properties:
+        result_sources:
+          description: Summary of result sources.
+          allOf:
+          - $ref: '#/components/schemas/ResultSources'
+          title: Result Sources
+        groups:
+          description: An array of groups within the section.
+          title: Groups
+          items:
+            $ref: '#/components/schemas/Group'
+          type: array
+        refined_content:
+          description: Arbitrary content attached to the search query via [content rule](#). Constructor doesn't enforce any restrictions on the attached data except for a size limit of 200kB, and just returns it as-is when there is a query match. There can be several rules attached to the same query, so the `refined_content` itself is an array of objects.
+          items:
+            additionalProperties:
+              additionalProperties: true
+              type: object
+            type: object
+          title: Refined Content
+          type: array
+      required:
+      - result_sources
+      - refined_content
+      title: Browse groups response
+      type: object
+    BrowseFacetsWithOptionsGetResponse:
+      additionalProperties: false
+      properties:
+        response:
+          $ref: '#/components/schemas/BrowseFacetsResponse'
+        result_id:
+          title: Result Id
+          type: string
+      required:
+      - response
+      title: BrowseFacetsWithOptionsGetResponse
+      type: object
+    BrowseCollectionsGetResponse:
+      additionalProperties: false
+      properties:
+        response:
+          $ref: '#/components/schemas/BrowseCollectionsResponse'
+      required:
+      - response
+      title: BrowseCollectionsGetResponse
+      type: object
+    BrowseCollectionsResponse:
+      additionalProperties: false
+      properties:
+        collections:
+          description: Information on browsed collections.
+          items:
+            $ref: '#/components/schemas/Collection'
+          title: Collections
+          type: array
+        total_num_results:
+          description: Total count of collections.
+          title: Total Num Results
+          type: integer
+      required:
+      - collections
+      - total_num_results
+      title: BrowseCollectionsResponse
+      type: object
+  securitySchemes:
+    http_basic_auth:
+      type: http
+      scheme: basic
+    http_bearer_auth:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: false

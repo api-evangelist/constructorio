@@ -1,0 +1,381 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Retail Media",
+    "contact": {
+      "email": "support@constructor.io"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://retail.media-cnstrc.com"
+    }
+  ],
+  "paths": {
+    "/v1/engagements/{engagement_id}": {
+      "patch": {
+        "tags": [
+          "Engagements"
+        ],
+        "summary": "Update Engagement",
+        "description": "**\ud83d\udd10 This endpoint requires [HTTP Bearer authentication](https://docs.constructor.com/reference/main-authentication#bearer-authentication).**\nFor authenticating with Bearer token, required scopes are: `retail_media.engagements(w)`.\n\n**Beta:** This endpoint is in beta and may change. Updates the suspension status of an advertiser engagement. When suspended, the engagement's ads will stop serving. When unsuspended, the engagement's ads will resume serving.",
+        "operationId": "v1-engagements-update",
+        "parameters": [
+          {
+            "name": "engagement_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Engagement ID",
+              "description": "The advertiser engagement ID."
+            },
+            "description": "The advertiser engagement ID."
+          },
+          {
+            "name": "key",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The key of the index to use.",
+              "title": "Key"
+            },
+            "description": "The key of the index to use."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EngagementUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EngagementResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "retail_media.engagements(w)"
+            ]
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://retail.media-cnstrc.com"
+        }
+      ]
+    },
+    "/v1/advertiser_spend": {
+      "get": {
+        "tags": [
+          "Engagements"
+        ],
+        "summary": "Retrieve Advertiser Spend",
+        "description": "**\ud83d\udd10 This endpoint requires [HTTP Bearer authentication](https://docs.constructor.com/reference/main-authentication#bearer-authentication).**\nFor authenticating with Bearer token, required scopes are: `retail_media.ad_spend_tracking(r)`.\n\n**Beta:** This endpoint is in beta and may change. Returns the spend for every advertiser (engagement) that has accrued spend within the given index, broken down by day for the last 30 days.",
+        "operationId": "v1-advertiser-spend-retrieve-advertiser-spend",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The key of the index to use.",
+              "title": "Key"
+            },
+            "description": "The key of the index to use."
+          },
+          {
+            "name": "next_page_cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Opaque cursor returned by a previous response. When omitted, the first page is returned.",
+              "title": "Next Page Cursor"
+            },
+            "description": "Opaque cursor returned by a previous response. When omitted, the first page is returned."
+          },
+          {
+            "name": "num_results_per_page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Maximum number of advertisers to return in a single page. Defaults to 100, with a maximum of 1000. Values above the maximum are clamped.",
+              "default": 100,
+              "title": "Num Results Per Page"
+            },
+            "description": "Maximum number of advertisers to return in a single page. Defaults to 100, with a maximum of 1000. Values above the maximum are clamped."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdvertiserSpendResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": [
+              "retail_media.ad_spend_tracking(r)"
+            ]
+          }
+        ]
+      },
+      "servers": [
+        {
+          "url": "https://retail.media-cnstrc.com"
+        }
+      ]
+    }
+  },
+  "components": {
+    "schemas": {
+      "AdvertiserSpendRecord": {
+        "properties": {
+          "engagement_id": {
+            "type": "string",
+            "title": "Engagement ID",
+            "description": "The advertiser (engagement) ID for the record."
+          },
+          "daily_spend": {
+            "additionalProperties": {
+              "type": "string",
+              "pattern": "^(?!^[-+.]*$)[+-]?0*\\d*\\.?\\d*$"
+            },
+            "type": "object",
+            "title": "Daily Spend",
+            "description": "Map of date (YYYY-MM-DD) to spend for that advertiser. Includes the last 30 days.",
+            "examples": [
+              {
+                "2026-06-18": "40.0",
+                "2026-06-19": "12.5"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "engagement_id",
+          "daily_spend"
+        ],
+        "title": "AdvertiserSpendRecord"
+      },
+      "AdvertiserSpendResponse": {
+        "properties": {
+          "advertiser_spend": {
+            "items": {
+              "$ref": "#/components/schemas/AdvertiserSpendRecord"
+            },
+            "type": "array",
+            "title": "Advertiser Spend",
+            "description": "Array of advertiser (engagement) spend records for the given index. Contains at most `num_results_per_page` entries."
+          },
+          "total_count": {
+            "type": "integer",
+            "title": "Total Count",
+            "description": "Total number of advertisers with accrued spend for the index in the window, across all pages.",
+            "examples": [
+              5
+            ]
+          },
+          "next_page_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Page Cursor",
+            "description": "Opaque cursor for the next page, or null when the current page is the last one."
+          }
+        },
+        "type": "object",
+        "required": [
+          "advertiser_spend",
+          "total_count",
+          "next_page_cursor"
+        ],
+        "title": "AdvertiserSpendResponse"
+      },
+      "EngagementResponse": {
+        "properties": {
+          "engagement_id": {
+            "type": "string",
+            "title": "Engagement ID",
+            "description": "The advertiser engagement ID."
+          },
+          "key": {
+            "type": "string",
+            "title": "Key",
+            "description": "The key of the index."
+          },
+          "is_suspended": {
+            "type": "boolean",
+            "title": "Is Suspended",
+            "description": "Whether the engagement is suspended."
+          }
+        },
+        "type": "object",
+        "required": [
+          "engagement_id",
+          "key",
+          "is_suspended"
+        ],
+        "title": "EngagementResponse"
+      },
+      "EngagementUpdateRequest": {
+        "properties": {
+          "is_suspended": {
+            "type": "boolean",
+            "title": "Is Suspended",
+            "description": "Whether the engagement is suspended."
+          }
+        },
+        "type": "object",
+        "required": [
+          "is_suspended"
+        ],
+        "title": "EngagementUpdateRequest"
+      },
+      "PublicErrorDetails": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "message",
+          "source"
+        ],
+        "title": "PublicErrorDetails"
+      },
+      "PublicErrorResponse": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "errors": {
+            "items": {
+              "$ref": "#/components/schemas/PublicErrorDetails"
+            },
+            "type": "array",
+            "title": "Errors"
+          },
+          "trace_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Trace ID"
+          }
+        },
+        "type": "object",
+        "required": [
+          "message",
+          "errors",
+          "trace_id"
+        ],
+        "title": "PublicErrorResponse"
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "token"
+      }
+    }
+  },
+  "x-readme": {
+    "explorer-enabled": false
+  }
+}

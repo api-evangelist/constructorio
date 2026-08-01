@@ -1,0 +1,336 @@
+openapi: 3.0.3
+info:
+  contact:
+    email: support@constructor.io
+  title: Behavioral actions
+  version: '0.1'
+servers:
+- url: https://ac.cnstrc.com
+security:
+- http_basic_auth: []
+tags:
+- name: Catalog
+- name: Item groups
+- name: Items
+- name: Item statistics
+- name: Variations
+- name: Tasks
+- name: Facets
+- name: Synonyms
+- name: Searchabilities
+- name: Sort options
+- name: Synonym groups
+- name: Quizzes
+- name: Collections
+- name: Redirect rules
+- name: Searchandising for Browse
+- name: Searchandising for Collections
+- name: Searchandising for Search
+- name: Searchandising by User Request Data
+- name: Campaigns
+- name: Companies
+- name: Searchandising for Recommendations
+- name: Attribute overrides
+- name: Behavioral actions
+paths:
+  /v1/offline_behavioral_actions:
+    post:
+      tags:
+      - Behavioral actions
+      operationId: v1-offline-behavioral-actions-create-actions
+      summary: Post a list of offline behavioral actions
+      description: '**🔐 This endpoint requires [HTTP Basic authentication](https://docs.constructor.com/reference/main-authentication#basic-authentication).**
+
+
+        Send list of behavioral actions (purchase,return) performed by your users offline.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OfflineBehavioralActionListPostBody'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden
+        '429':
+          description: Rate limit breached
+components:
+  schemas:
+    OfflineBehavioralActionListPostBody:
+      title: OfflineBehavioralActionListPostBody
+      type: object
+      properties:
+        behavioral_actions:
+          title: Behavioral Actions
+          description: An array of actions. Each item of the array is an object containing action and data keys.
+          minItems: 1
+          maxItems: 100
+          type: array
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/OfflinePurchase'
+            - $ref: '#/components/schemas/OfflineReturn'
+      required:
+      - behavioral_actions
+      additionalProperties: false
+    ItemSchema:
+      title: ItemSchema
+      type: object
+      properties:
+        item_id:
+          title: Item Id
+          description: Id of purchased item. Either item_id or item_name is required to be passed.
+          maxLength: 250
+          minLength: 1
+          type: string
+        item_name:
+          title: Item Name
+          description: Name of purchased item. Either item_id or item_name is required to be passed.
+          maxLength: 250
+          minLength: 1
+          type: string
+        variation_id:
+          title: Variation Id
+          description: Id of purchased variation, if applicable. Either item_id or item_name of related item must be passed along with variation_id.
+          maxLength: 250
+          minLength: 1
+          type: string
+        price:
+          title: Price
+          description: Price of purchased item or variation. Will be used to calculate purchase revenue if order revenue is not passed. Passed as string, from which numeric value will be extracted.
+          anyOf:
+          - type: number
+          - type: integer
+        count:
+          title: Count
+          description: Count of item purchased. Price will be multiplied by count to get purchase revenue if order revenue is not passed.
+          type: integer
+      additionalProperties: false
+    OfflineItemPurchaseSchema:
+      title: OfflineItemPurchaseSchema
+      type: object
+      properties:
+        _dt:
+          title: _dt
+          description: Unix timestamp in seconds of when the event happened
+          type: integer
+        ui:
+          title: Ui
+          description: Identifier that maps to an internal user account ID on a customer website.
+          type: string
+        order_id:
+          title: Order Id
+          description: Order id. Can be used to merge different events into single one.
+          type: string
+        lat:
+          title: Lat
+          description: Latitude of store.
+          maxLength: 20
+          minLength: 1
+          type: string
+        lon:
+          title: Lon
+          description: Longitude of store.
+          maxLength: 20
+          minLength: 1
+          type: string
+        store_id:
+          title: Store Id
+          description: Store id.
+          maxLength: 250
+          minLength: 1
+          type: string
+        items:
+          title: Items
+          description: Array of items.
+          minItems: 1
+          maxItems: 500
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemSchema'
+        revenue:
+          title: Revenue
+          description: Revenue of order. Can be passed explicitly or will be evaluated by summation of passed item prices and its counts.
+          anyOf:
+          - type: number
+          - type: integer
+      required:
+      - _dt
+      - items
+      additionalProperties: false
+    OfflinePurchase:
+      title: OfflinePurchase
+      type: object
+      properties:
+        action:
+          title: Action
+          description: Event action.
+          enum:
+          - purchase
+          type: string
+        data:
+          title: Data
+          description: Action data.
+          allOf:
+          - $ref: '#/components/schemas/OfflineItemPurchaseSchema'
+      required:
+      - action
+      - data
+      additionalProperties: false
+    ReturnActionReturnType:
+      title: ReturnActionReturnType
+      enum:
+      - full
+      - partial
+      type: string
+    ReturnActionReturnPreference:
+      title: ReturnActionReturnPreference
+      enum:
+      - refund
+      - replacement
+      type: string
+    OfflineItemReturnSchema:
+      title: OfflineItemReturnSchema
+      type: object
+      properties:
+        _dt:
+          title: _dt
+          description: Unix timestamp in seconds of when the event happened
+          type: integer
+        ui:
+          title: Ui
+          description: Identifier that maps to an internal user account ID on a customer website.
+          type: string
+        order_id:
+          title: Order Id
+          description: Order id. Can be used to merge different events into single one.
+          type: string
+        items_returned:
+          title: Items Returned
+          description: Array of items that were returned.
+          minItems: 1
+          maxItems: 500
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemSchema'
+        items_kept:
+          title: Items Kept
+          description: Array of items from one order that were kept.
+          minItems: 1
+          maxItems: 500
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemSchema'
+        items_cross_sold:
+          title: Items Cross Sold
+          description: Array of items that were sold to user instead of returned items
+          minItems: 1
+          maxItems: 500
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemSchema'
+        revenue:
+          title: Revenue
+          description: Revenue of order. Can be passed explicitly or will be evaluated by summation of passed item prices and its counts.
+          anyOf:
+          - type: number
+          - type: integer
+        return_expenses:
+          title: Return Expenses
+          description: Return expenses of order. Can be passed explicitly or will be evaluated by summation of passed refund and return_shipping_cost
+          anyOf:
+          - type: number
+          - type: integer
+        refund:
+          title: Refund
+          description: Refund. Can be passed explicitly or will be evaluated by summation of passed item prices and cost
+          anyOf:
+          - type: number
+          - type: integer
+        return_shipping_cost:
+          title: Return Shipping Cost
+          description: The cost associated with the return shipping, if applicable
+          anyOf:
+          - type: number
+          - type: integer
+        return_reason:
+          title: Return Reason
+          description: The reason provided by the customer for the return (e.g., damaged item, wrong size, changed mind, etc.).
+          type: string
+        return_type:
+          description: Indicates whether the return is a full or partial return.
+          allOf:
+          - $ref: '#/components/schemas/ReturnActionReturnType'
+        return_preference:
+          description: Indicate if the return preference.
+          allOf:
+          - $ref: '#/components/schemas/ReturnActionReturnPreference'
+        lat:
+          title: Lat
+          description: Latitude of drop off place.
+          maxLength: 20
+          minLength: 1
+          type: string
+        lon:
+          title: Lon
+          description: Longitude of drop off place.
+          maxLength: 20
+          minLength: 1
+          type: string
+        return_drop_off:
+          title: Return Drop Off
+          description: The designated point or place where the return was made. It can encompass various options, including post offices, physical stores, or other specific locations.
+          maxLength: 250
+          minLength: 1
+          type: string
+      required:
+      - _dt
+      - items_returned
+      additionalProperties: false
+    OfflineReturn:
+      title: OfflineReturn
+      type: object
+      properties:
+        action:
+          title: Action
+          description: Event action.
+          enum:
+          - return
+          type: string
+        data:
+          title: Data
+          description: Action data.
+          allOf:
+          - $ref: '#/components/schemas/OfflineItemReturnSchema'
+      required:
+      - action
+      - data
+      additionalProperties: false
+  securitySchemes:
+    http_basic_auth:
+      type: http
+      scheme: basic
+x-readme:
+  explorer-enabled: false

@@ -1,0 +1,112 @@
+generated: '2026-08-01'
+method: searched
+source: https://constructor.com/security-and-compliance
+sources:
+- https://constructor.com/security-and-compliance
+- https://docs.constructor.com/reference/main-authentication
+- openapi/*.yml
+standards:
+- id: openapi-3.1
+  conforms: true
+  evidence: 'all 17 published specs declare `openapi: 3.1.0`'
+- id: http-basic-auth
+  conforms: true
+  evidence: securityScheme `http_basic_auth` (type http, scheme basic) declared in 11
+    specs; documented as API token supplied as the Basic username
+- id: http-bearer-auth
+  conforms: true
+  evidence: securityScheme `http_bearer_auth` / `bearerAuth` (type http, scheme bearer)
+    declared in 13 specs, with per-operation scope requirements
+- id: oauth2
+  conforms: false
+  evidence: no oauth2 securityScheme in any spec; Constructor issues long-lived scoped
+    API tokens rather than running an authorization server
+- id: oidc
+  conforms: false
+  evidence: no openIdConnect scheme; /.well-known/openid-configuration returns 404 on
+    every host
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: error responses are plain application/json (`ErrorResponse` with a `message`
+    field); no application/problem+json media type appears in any spec
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: '23 operations carry `deprecated: true` but no Sunset or Deprecation response
+    header is declared'
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on constructor.com, docs.constructor.com,
+    ac.cnstrc.com and agent.cnstrc.com
+- id: rfc6570-uri-templates
+  conforms: true
+  evidence: path templating used throughout (/v1/search/{search_query}, /v2/items/{id},
+    /v1/browse/{filter_name}/{filter_value})
+- id: json-api
+  conforms: false
+  evidence: responses use a Constructor-specific `{request, response, result_id}` envelope,
+    not the JSON:API document structure
+- id: server-sent-events
+  conforms: true
+  evidence: text/event-stream responses declared on v1-asa-retrieve-intent and v1-asa-retrieve-item-questions-answer
+- id: pagination
+  conforms: true
+  evidence: page-number pagination via `page` + `num_results_per_page` (with `offset`
+    alternative), echoed in the response `request` object; see conventions/constructorio-conventions.yml
+- id: idempotency
+  conforms: false
+  evidence: no Idempotency-Key header/parameter in any of the 17 specs; write safety
+    relies on PUT create-or-replace and PATCH merge semantics plus 409 Conflict on duplicate
+    creates
+- id: rate-limit-headers
+  conforms: false
+  evidence: 429 declared on 146 of 180 operations, but no RateLimit-*, X-RateLimit-*
+    or Retry-After response header is declared
+- id: soc2-type2
+  conforms: true
+  evidence: '"Constructor''s service is independently audited under both the SOC2 Type
+    2 and ISO27001 frameworks" — https://constructor.com/security-and-compliance. Reports
+    are released under NDA via an account executive or CSM, not published.'
+- id: iso-27001
+  conforms: true
+  evidence: same statement on https://constructor.com/security-and-compliance
+- id: ccpa
+  conforms: true
+  evidence: CCPA compliance asserted on the Security & Compliance page; privacy posture
+    detailed at https://constructor.com/privacy-policy
+- id: gdpr
+  conforms: true
+  evidence: 'privacy-by-design controls described on the Security & Compliance page:
+    anonymous IDs, last-octet IP truncation, hashed identifiers'
+- id: owasp-top-10
+  conforms: true
+  evidence: named on the Security & Compliance page alongside NIST-compliant coding
+    practices, SAST and DAST in the SDLC
+- id: pci-dss
+  conforms: false
+  evidence: not claimed; Constructor processes catalog and behavioral data, not cardholder
+    data
+- id: hipaa
+  conforms: false
+  evidence: not claimed
+- id: fedramp
+  conforms: false
+  evidence: not claimed
+- id: mach-alliance
+  conforms: true
+  evidence: MACH Certified badge displayed on https://constructor.com/security-and-compliance
+- id: asyncapi
+  conforms: false
+  evidence: Constructor publishes no event, streaming or webhook surface — see the note
+    in this repo's README; not applicable rather than missing
+- id: a2a-agent-card
+  conforms: false
+  evidence: /.well-known/agent-card.json and /.well-known/agent.json return 404 on every
+    Constructor host
+- id: model-context-protocol
+  conforms: true
+  evidence: 'remote MCP server at https://docs.constructor.com/mcp answering protocolVersion
+    2025-06-18 with six tools; scope is documentation, not the product API — see mcp/constructorio-tool-crosswalk.yml'
+- id: llms-txt
+  conforms: true
+  evidence: https://docs.constructor.com/llms.txt returns 200 (138 KB, 482 entries across
+    Guides and API Reference)

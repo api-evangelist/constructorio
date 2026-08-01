@@ -1,0 +1,187 @@
+generated: '2026-08-01'
+method: searched
+source: https://docs.constructor.com/reference/main-authentication
+sources:
+- https://docs.constructor.com/reference/main-authentication
+- https://docs.constructor.com/reference/constructor-concepts-results-response-structure
+- https://docs.constructor.com/reference/constructor-concepts-filter-expressions
+- https://docs.constructor.com/reference/constructor-concepts-pre-filter-expressions
+- https://docs.constructor.com/reference/constructor-concepts-variations-mapping
+- https://docs.constructor.com/docs/integrating-with-constructor-retrieving-results-getting-started
+- https://docs.constructor.com/docs/faq-general-what-is-constructors-policy-on-load-testing
+- openapi/*.yml
+
+index_addressing:
+  parameter: key
+  location: query
+  description: >-
+    Every request carries a `key` query parameter naming the index (API key) it
+    targets. The API key is a PUBLIC identifier — it selects an index, it does not
+    authenticate. Accounts commonly hold several keys (dev / staging / prod, or one
+    per site).
+
+authentication:
+  style: two-track — public read endpoints are unauthenticated; private write/config
+    endpoints require an API token
+  public_endpoints: search, natural-language search, browse, autocomplete, recommendations,
+    image search, quizzes, AI Shopping Agent, offsite discovery
+  private_endpoints: catalog management, catalog batching, configuration, searchandising,
+    retail media, user profile, behavioral actions
+  schemes:
+  - name: HTTP Basic
+    usage: API token supplied as the USERNAME with an empty password (`-u "<token>:"`)
+    spec_name: http_basic_auth
+  - name: HTTP Bearer
+    usage: '`Authorization: Bearer <token>`; the token carries explicit scoped permissions'
+    spec_name: http_bearer_auth (bearerAuth on the retail-media specs)
+  token_source: https://app.constructor.io/dashboard/integration/api_tokens
+  token_scope: one token per account, valid across every API key on that account unless
+    narrowed by the permission `resources` list
+  detail: authentication/constructorio-authentication.yml
+  scopes: scopes/constructorio-scopes.yml
+
+idempotency:
+  supported: false
+  idempotency_key_header: null
+  evidence: >-
+    No `Idempotency-Key` (or equivalent) header, parameter or extension appears in any
+    of the 17 harvested OpenAPI documents, and the documentation defines no
+    request-replay contract. Write safety is instead achieved structurally: most
+    mutating endpoints are declared as create-or-replace (PUT, key-addressed, naturally
+    idempotent) or merge-update (PATCH), so re-sending the same body converges on the
+    same state. Genuinely non-idempotent creates (POST list-create operations) return
+    409 Conflict on a repeat rather than duplicating.
+  patterns:
+  - {pattern: create-or-replace, method: PUT, note: 'replays converge; e.g. v2-items-create-or-replace-items,
+      v2-item-groups-create-or-replace-item-groups'}
+  - {pattern: merge-update, method: PATCH, note: 'data in the request is merged into
+      the existing record; e.g. v2-items-update-items, v2-variations-update-variations'}
+  - {pattern: conflict-on-duplicate, method: POST, note: 34 operations declare 409 Conflict,
+      which is the duplicate-create signal in place of an idempotency key}
+
+pagination:
+  style: page-number
+  request_params:
+  - {name: page, description: 1-based page number of the result set}
+  - {name: num_results_per_page, description: page size}
+  - {name: offset, description: alternative absolute offset, accepted on search/browse
+      in place of `page`}
+  response_fields:
+  - {name: request.page, description: echoed current page}
+  - {name: request.num_results_per_page, description: echoed page size}
+  - {name: response.total_num_results, description: total matching records}
+  notes: >-
+    `page` and `num_results_per_page` are among the parameters that always appear in
+    the echoed `request` object because they carry defaults. Constructor documents a
+    ceiling on how many results may be requested — see
+    https://docs.constructor.com/docs/faq-product-results-is-there-a-limit-to-the-number-of-results-that-can-be-requested
+
+filtering:
+  filters: '`filters` query parameter, plus `filter_match_types` controlling how multiple
+    values within a filter combine'
+  pre_filter_expression: >-
+    A JSON expression evaluated BEFORE ranking, supporting and/or/not composition over
+    field/value clauses — the mechanism for hard business rules (availability, region,
+    entitlement). Documented at /reference/constructor-concepts-pre-filter-expressions
+  filter_expression: >-
+    The searchandising-side expression language used to define which items a refined
+    filter, collection or campaign applies to.
+    /reference/constructor-concepts-filter-expressions
+
+sections:
+  parameter: section
+  default: Products
+  description: >-
+    An index is divided into sections; results default to the `Products` section unless
+    the index is configured otherwise. Autocomplete can return several sections in one
+    response (e.g. `Products` and `Search Suggestions`).
+
+variations:
+  variations_map: >-
+    A `variations_map` request parameter projects, groups and aggregates variation-level
+    data into the result set (mapping) and can also split one item into several results
+    (slicing). Documented at /reference/constructor-concepts-variations-mapping and
+    /reference/constructor-concepts-variations-slicing
+
+response_envelope:
+  shape: '{ request: {...}, response: {...}, result_id: "..." }'
+  request_object: >-
+    Echoes the parameters the API understood and acted on — term, page,
+    num_results_per_page, section, sort_by, sort_order, filters, filter_match_types,
+    browse_filter_name/value, fmt_options, features, feature_variants, variations_map,
+    us. API keys and user identifiers are deliberately omitted for privacy.
+  caution: >-
+    Constructor explicitly documents the `request` property as debugging-only and
+    subject to change — production code must not depend on it.
+  consistency: >-
+    Search, Browse, Recommendations, Autocomplete (Products section) and Image Search
+    all return the same `response.results` shape, so render logic can be shared across
+    endpoints.
+
+tracing:
+  request_id_header: null
+  result_id: >-
+    Responses carry a `result_id` that identifies the result set. It is the correlation
+    handle Constructor's behavioral tracking (beacon) uses to attribute downstream
+    clicks, add-to-carts and purchases back to the originating result set — the
+    practical equivalent of a request id for support and attribution.
+  error_trace: the `ErrorResponseWithTrace` schema adds a trace identifier on some 401
+    responses
+
+versioning:
+  scheme: uri-path
+  versions_in_use: {v1: 63 paths, v2: 16 paths}
+  note: >-
+    Version is carried in the path (`/v1/...`, `/v2/...`). v2 is the current generation
+    for items, variations, item groups, facets, searchabilities, one-way synonyms,
+    display ads and image search; the v1 equivalents remain live and are marked
+    `deprecated: true` in the spec. Constructor also versions per-service — each of the
+    17 specs is versioned independently.
+  detail: lifecycle/constructorio-lifecycle.yml
+
+error_envelope:
+  content_type: application/json
+  rfc9457: false
+  shape: '{ "message": "..." } — schema `ErrorResponse`; also `PublicErrorResponse`,
+    `ErrorResponseWithTrace`, and FastAPI-style `HTTPValidationError` on 422'
+
+  detail: errors/constructorio-problem-types.yml
+
+rate_limits:
+  declared_status: 429 "Rate limit breached" is declared on 146 of 180 operations
+  headers: >-
+    No `RateLimit-*`, `X-RateLimit-*` or `Retry-After` response header is declared in
+    any of the 17 specs, so an agent has no in-band budget signal — it can only observe
+    the 429 after the fact.
+  published_limits: >-
+    Constructor publishes no numeric request-per-second limit. It states its
+    infrastructure auto-scales to legitimate customer traffic, and that LOAD TESTING IS
+    NOT PERMITTED — violations may result in warnings, usage fines, throttling (which
+    affects real user traffic too) or termination of service.
+  policy: https://docs.constructor.com/docs/faq-general-what-is-constructors-policy-on-load-testing
+
+streaming:
+  server_sent_events:
+  - operation: v1-asa-retrieve-intent
+    note: AI Shopping Agent intent results stream back as text/event-stream in small
+      batches
+  - operation: v1-asa-retrieve-item-questions-answer
+    note: streams when the client sends Accept text/event-stream, otherwise returns
+      complete JSON
+
+async_operations:
+  pattern: task handle
+  description: >-
+    Catalog writes (full catalog replace, delta update, item/variation/item-group
+    create-replace-update-delete) return 202 Accepted with a task identifier rather
+    than applying synchronously. Poll v1-tasks-retrieve-task / v1-tasks-retrieve-tasks
+    for status.
+  operations: [v1-tasks-retrieve-task, v1-tasks-retrieve-tasks, v1-tasks-create-task,
+    v1-tasks-update-task, v1-tasks-update-tasks]
+
+cross_links:
+  errors: errors/constructorio-problem-types.yml
+  lifecycle: lifecycle/constructorio-lifecycle.yml
+  authentication: authentication/constructorio-authentication.yml
+  scopes: scopes/constructorio-scopes.yml
+  data_model: data-model/constructorio-data-model.yml

@@ -1,0 +1,5215 @@
+openapi: 3.1.0
+info:
+  contact:
+    email: support@constructor.io
+  title: Catalog management
+  version: '0.1'
+servers:
+- url: https://ac.cnstrc.com
+security: []
+tags:
+- name: Catalog
+- name: Item groups
+- name: Items
+- name: Item statistics
+- name: Variations
+- name: Tasks
+paths:
+  /v1/catalog:
+    put:
+      tags:
+      - Catalog
+      operationId: v1-catalog-create-or-replace-catalog
+      summary: Create or replace catalog
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`, `search_suggestions(w)`.
+
+
+        Replace the current catalog using one of two modes: **Full mode** (`mode=full`, default): Send full catalog files to replace the current catalog. You may upload up to three [files](https://docs.constructor.com/docs/integrating-with-constructor-product-catalog-catalog-files-via-http-or-ftps-catalog-file-upload-step-by-step-guide) in the form data under the following keys: `items`, `variations`, `item_groups`. If you do not wish to replace one of these types of resources then omit it from the request. Any records that already exist will be deleted and replaced with the records you provide in the files. **IDs mode** (`mode=ids`): Send files containing only the IDs of records to keep. Files should contain only an `id` column (CSV) or `id` field (JSONL). All records whose IDs are not present in the uploaded files will be deleted from the catalog. Returns an identifier for a background [task](https://docs.constructor.com/reference/v1-tasks-retrieve-task).'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      - name: force
+        in: query
+        schema:
+          title: Force
+          description: A flag to process the catalog even if it will invalidate a large part of existing data. By default, operations that would invalidate more than 50% of existing data are blocked unless `force=true` is used. Defaults to `False`.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        required: false
+      - name: notification_email
+        in: query
+        schema:
+          title: Notification Email
+          description: The email address(es) to send a notification to if the task fails. Multiple addresses may be specified for multiple recipients.
+          type: array
+          items:
+            type: string
+            format: email
+            examples:
+            - user@example.com
+        required: false
+      - name: format
+        in: query
+        schema:
+          description: File format of the uploaded items and variations files. Can be either `csv` or `jsonl`.
+          default: csv
+          examples:
+          - csv
+          - jsonl
+          allOf:
+          - $ref: '#/components/schemas/FileFormat'
+        required: false
+      - name: mode
+        in: query
+        schema:
+          description: 'Mode for catalog upload: `full` (default, send complete catalog files) or `ids` (send ID-only files to keep specific records, others will be removed).'
+          default: full
+          examples:
+          - full
+          - ids
+          allOf:
+          - $ref: '#/components/schemas/CatalogMode'
+        required: false
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CatalogPutRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogPutResponse'
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogPutAcceptedResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+        - search_suggestions(w)
+    patch:
+      tags:
+      - Catalog
+      operationId: v1-catalog-update-catalog
+      summary: Update catalog
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`, `search_suggestions(w)`.
+
+
+        Send delta catalog files to replace the current catalog. You may upload up to three [files](https://docs.constructor.com/docs/integrating-with-constructor-product-catalog-catalog-files-via-http-or-ftps-catalog-file-upload-step-by-step-guide) in the form data under the following keys: `items`, `variations`, `item_groups`. If you do not wish to replace one of these types of resources then omit it from the request. Any records that already exist will be deleted and replaced with the records you provide in the files. Returns an identifier for a background [task](https://docs.constructor.com/reference/v1-tasks-retrieve-task).'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      - name: force
+        in: query
+        schema:
+          title: Force
+          description: A flag to process the catalog even if it will invalidate a large part of existing data. By default, operations that would invalidate more than 50% of existing data are blocked unless `force=true` is used. Defaults to `False`.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        required: false
+      - name: notification_email
+        in: query
+        schema:
+          title: Notification Email
+          description: The email address(es) to send a notification to if the task fails. Multiple addresses may be specified for multiple recipients.
+          type: array
+          items:
+            type: string
+            format: email
+            examples:
+            - user@example.com
+        required: false
+      - name: patch_delta
+        in: query
+        schema:
+          title: Patch Delta
+          description: A flag to process updates as partial updates, meaning only provided fields will be updated in database. Fields not included in the upload or which are blank for a particular item will be ignored.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        required: false
+      - name: on_missing
+        in: query
+        schema:
+          description: The strategy used to handle items that exist in the file and do not exist in the index. `IGNORE` silently ignores them and does not add them to the index, `CREATE` creates them, `FAIL` fails the ingestion. Can be set only when `patch_delta` is `true`. Default is `FAIL`.
+          examples:
+          - IGNORE
+          - CREATE
+          - FAIL
+          allOf:
+          - $ref: '#/components/schemas/MissingRecordsStrategy'
+        required: false
+      - name: format
+        in: query
+        schema:
+          description: File format of the uploaded items and variations files. Can be either `csv` or `jsonl`.
+          default: csv
+          examples:
+          - csv
+          - jsonl
+          allOf:
+          - $ref: '#/components/schemas/FileFormat'
+        required: false
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CatalogPatchRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogPatchResponse'
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogPatchAcceptedResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+        - search_suggestions(w)
+  /v2/item_groups:
+    get:
+      tags:
+      - Item groups
+      operationId: v2-item-groups-retrieve-item-groups
+      summary: Retrieve item groups
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(r)`.
+
+
+        Retrieve all items groups, optionally filtered by ids.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: id
+        in: query
+        schema:
+          title: Id
+          description: Array of item group ID(s) to filter by.
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 250
+          maxItems: 1000
+        required: false
+      - name: num_results_per_page
+        in: query
+        schema:
+          title: Num Results Per Page
+          description: The number of results per page to return.
+          default: 20
+          minimum: 1
+          maximum: 100
+          examples:
+          - 20
+          - 50
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          title: Page
+          description: The page of results to return.
+          minimum: 1
+          examples:
+          - 1
+          - 2
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          title: Offset
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          minimum: 0
+          examples:
+          - 0
+          - 100
+          type: integer
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupsListGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(r)
+    put:
+      tags:
+      - Item groups
+      operationId: v2-item-groups-create-or-replace-item-groups
+      summary: Create or replace item groups
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`.
+
+
+        Create item groups or replace the data of existing item groups. Returns an identifier for a background [task](/reference/v1-tasks-retrieve-task).'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      - name: force
+        in: query
+        schema:
+          title: Force
+          description: A flag to process the catalog even if it will invalidate a large part of existing data. Defaults to `False`.
+          examples:
+          - false
+          - true
+          type: boolean
+        required: false
+      - name: notification_email
+        in: query
+        schema:
+          title: Notification Email
+          description: The email address(es) to send a notification to if the task fails. Multiple addresses may be specified for multiple recipients.
+          type: array
+          items:
+            type: string
+            format: email
+            examples:
+            - user@example.com
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemGroupsListPutRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupsListPutResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+    patch:
+      tags:
+      - Item groups
+      operationId: v2-item-groups-update-item-groups
+      summary: Update item groups
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`.
+
+
+        Update existing item groups data. Data included in the request will be merged with data of the existing items groups. Returns an identifier for a background [task](/reference/v1-tasks-retrieve-task).'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      - name: force
+        in: query
+        schema:
+          title: Force
+          description: A flag to process the catalog even if it will invalidate a large part of existing data. Defaults to `False`.
+          examples:
+          - false
+          - true
+          type: boolean
+        required: false
+      - name: notification_email
+        in: query
+        schema:
+          title: Notification Email
+          description: The email address(es) to send a notification to if the task fails. Multiple addresses may be specified for multiple recipients.
+          type: array
+          items:
+            type: string
+            format: email
+            examples:
+            - user@example.com
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemGroupsListPatchRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupsListPatchResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+    delete:
+      tags:
+      - Item groups
+      operationId: v2-item-groups-delete-item-groups
+      summary: Delete item groups
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`.
+
+
+        Delete item groups. Returns an identifier for a background [task](/reference/v1-tasks-retrieve-task).'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      - name: force
+        in: query
+        schema:
+          title: Force
+          description: A flag to process the catalog even if it will invalidate a large part of existing data. Defaults to `False`.
+          examples:
+          - false
+          - true
+          type: boolean
+        required: false
+      - name: notification_email
+        in: query
+        schema:
+          title: Notification Email
+          description: The email address(es) to send a notification to if the task fails. Multiple addresses may be specified for multiple recipients.
+          type: array
+          items:
+            type: string
+            format: email
+            examples:
+            - user@example.com
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemGroupsListDeleteRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupsListDeleteResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+  /v2/item_groups/{item_group_id}:
+    get:
+      tags:
+      - Item groups
+      operationId: v2-item-groups-retrieve-item-group
+      summary: Retrieve item group
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(r)`.
+
+
+        Retrieve an item group.'
+      parameters:
+      - name: item_group_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupsGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(r)
+  /v1/item_groups:
+    get:
+      deprecated: true
+      tags:
+      - Item groups
+      operationId: v1-item-groups-retrieve-item-groups
+      summary: Retrieve item groups (Deprecated)
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(r)`.
+
+
+        Retrieve all item groups.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupListGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(r)
+    post:
+      deprecated: true
+      tags:
+      - Item groups
+      operationId: v1-item-groups-create-item-groups
+      summary: Create new item groups (Deprecated)
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`.
+
+
+        Create new item groups. If the item groups already exist, they will be skipped..'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemGroupListPostRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupListPostResponse'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupListPostResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+    put:
+      deprecated: true
+      tags:
+      - Item groups
+      operationId: v1-item-groups-create-or-replace-item-groups
+      summary: Create or replace item groups (Deprecated)
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`.
+
+
+        Update item groups. If the item groups already exist, they will be updated. If not, they will be created. Existing item groups not sent in the request will be deleted.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemGroupListPutRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupListPutResponse'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupListPutResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+    patch:
+      deprecated: true
+      tags:
+      - Item groups
+      operationId: v1-item-groups-create-or-update-item-groups
+      summary: Create or update item groups (Deprecated)
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`.
+
+
+        Update item groups. If the item groups already exist, they will be updated. If not, they will be created.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemGroupListPatchRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupListPatchResponse'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupListPatchResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+    delete:
+      deprecated: true
+      tags:
+      - Item groups
+      operationId: v1-item-groups-delete-item-groups
+      summary: Delete item groups (Deprecated)
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`.
+
+
+        Delete all item groups.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupListDeleteResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+  /v1/item_groups/{group_id}:
+    get:
+      deprecated: true
+      tags:
+      - Item groups
+      operationId: v1-item-groups-retrieve-item-group
+      summary: Retrieve item group (Deprecated)
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(r)`.
+
+
+        Retrieve an item group.'
+      parameters:
+      - name: group_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(r)
+    put:
+      deprecated: true
+      tags:
+      - Item groups
+      operationId: v1-item-groups-create-or-update-item-group
+      summary: Create or update item group (Deprecated)
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`.
+
+
+        Create or update an item group.'
+      parameters:
+      - name: group_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemGroupPutRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupPutResponse'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupPutResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+  /v2/items:
+    get:
+      tags:
+      - Items
+      operationId: v2-items-retrieve-items
+      summary: Retrieve items
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(r)`.
+
+
+        Retrieve all items, optionally filtered by id(s).'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: id
+        in: query
+        schema:
+          title: Id
+          description: The ID(s) of the items to return.
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 250
+            examples:
+            - nike-shoes
+            - product-123
+          maxItems: 1000
+        required: false
+      - name: next_page_cursor
+        in: query
+        schema:
+          title: Pagination cursor
+          description: Pagination cursor from which to start returning results. Cannot be used together with `page` or `offset`.
+          maxLength: 250
+          minLength: 1
+          type: string
+        required: false
+      - name: num_results_per_page
+        in: query
+        schema:
+          title: Num Results Per Page
+          description: The number of results per page to return.
+          default: 100
+          minimum: 1
+          maximum: 1000
+          examples:
+          - 100
+          - 500
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          title: Page
+          description: The page of results to return.
+          minimum: 1
+          examples:
+          - 1
+          - 2
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          title: Offset
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          minimum: 0
+          examples:
+          - 0
+          - 100
+          type: integer
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemListGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(r)
+    put:
+      tags:
+      - Items
+      operationId: v2-items-create-or-replace-items
+      summary: Create or replace items
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`, `search_suggestions(w)`.
+
+
+        Create items or replace the data of existing items. Returns an identifier for a background [task](/reference/v1-tasks-retrieve-task).'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      - name: force
+        in: query
+        schema:
+          title: Force
+          description: A flag to process the catalog even if it will invalidate a large part of existing data. Defaults to `False`.
+          examples:
+          - false
+          - true
+          type: boolean
+        required: false
+      - name: notification_email
+        in: query
+        schema:
+          title: Notification Email
+          description: The email address(es) to send a notification to if the task fails. Multiple addresses may be specified for multiple recipients.
+          type: array
+          items:
+            type: string
+            format: email
+            examples:
+            - user@example.com
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemListPutRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemListPutResponse'
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemListPutAcceptedResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+        - search_suggestions(w)
+    patch:
+      tags:
+      - Items
+      operationId: v2-items-update-items
+      summary: Update items
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`, `search_suggestions(w)`.
+
+
+        Update existing item data. Data included in the request will be merged with data of the existing items. Returns an identifier for a background [task](/reference/v1-tasks-retrieve-task).'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      - name: force
+        in: query
+        schema:
+          title: Force
+          description: A flag to process the catalog even if it will invalidate a large part of existing data. Defaults to `False`.
+          examples:
+          - false
+          - true
+          type: boolean
+        required: false
+      - name: notification_email
+        in: query
+        schema:
+          title: Notification Email
+          description: The email address(es) to send a notification to if the task fails. Multiple addresses may be specified for multiple recipients.
+          type: array
+          items:
+            type: string
+            format: email
+            examples:
+            - user@example.com
+        required: false
+      - name: on_missing
+        in: query
+        schema:
+          description: The strategy used to handle items that exist in the file and do not exist in the index. `IGNORE` silently ignores them and does not add them to the index, `CREATE` creates them, `FAIL` fails the ingestion. Can be set only when `patch_delta` is `true`. Default is `FAIL`.
+          default: FAIL
+          examples:
+          - FAIL
+          - IGNORE
+          - CREATE
+          allOf:
+          - $ref: '#/components/schemas/MissingRecordsStrategy'
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemListPatchRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemListPatchResponse'
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemListPatchAcceptedResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+        - search_suggestions(w)
+    delete:
+      tags:
+      - Items
+      operationId: v2-items-delete-items
+      summary: Delete items
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`, `search_suggestions(w)`.
+
+
+        Delete items. Returns an identifier for a background [task](/reference/v1-tasks-retrieve-task).'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      - name: force
+        in: query
+        schema:
+          title: Force
+          description: A flag to process the catalog even if it will invalidate a large part of existing data. Defaults to `False`.
+          examples:
+          - false
+          - true
+          type: boolean
+        required: false
+      - name: notification_email
+        in: query
+        schema:
+          title: Notification Email
+          description: The email address(es) to send a notification to if the task fails. Multiple addresses may be specified for multiple recipients.
+          type: array
+          items:
+            type: string
+            format: email
+            examples:
+            - user@example.com
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemListDeleteRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemListDeleteResponse'
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemListDeleteAcceptedResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+        - search_suggestions(w)
+  /v2/items/{item_id}:
+    get:
+      tags:
+      - Items
+      operationId: v2-items-retrieve-item
+      summary: Retrieve item
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(r)`.
+
+
+        Retrieve an item.'
+      parameters:
+      - name: item_id
+        in: path
+        required: true
+        schema:
+          type: string
+          examples:
+          - nike-shoes
+          - product-123
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(r)
+  /v1/items_fields_stats:
+    get:
+      tags:
+      - Item statistics
+      operationId: v1-items-fields-stats-retrieve-items-fields-stats
+      summary: Retrieve item field statistics
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(r)`.
+
+
+        Retrieve a list of statistics for all fields (such as `brand` or `size`).'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: filters
+        in: query
+        schema:
+          $ref: '#/components/schemas/ItemFieldFilters'
+        required: false
+        style: deepObject
+        explode: true
+      - name: num_results_per_page
+        in: query
+        schema:
+          title: Num Results Per Page
+          description: The number of results per page to return.
+          default: 20
+          minimum: 1
+          maximum: 1000
+          examples:
+          - 20
+          - 100
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          title: Page
+          description: The page of results to return.
+          minimum: 1
+          examples:
+          - 1
+          - 2
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          title: Offset
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          minimum: 0
+          examples:
+          - 0
+          - 100
+          type: integer
+        required: false
+      - name: sort_by
+        in: query
+        schema:
+          title: Sort By
+          description: The item field name to sort results by.
+          examples:
+          - name
+          - percentage_presence
+          enum:
+          - name
+          - percentage_presence
+          type: string
+        required: false
+      - name: sort_order
+        in: query
+        schema:
+          description: The order by which results should be sorted. Only valid in conjunction with `sort_by`.
+          default: ascending
+          examples:
+          - ascending
+          - descending
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemFieldStatsListGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(r)
+  /v1/items_fields_stats/{name}:
+    get:
+      tags:
+      - Item statistics
+      operationId: v1-items-fields-stats-retrieve-item-field-stats
+      summary: Retrieve item field statistic
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(r)`.
+
+
+        Retrieve a list of statistics for a specific field (such as `brand` or `size`).'
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemFieldStatsGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(r)
+  /v2/variations:
+    get:
+      tags:
+      - Variations
+      operationId: v2-variations-retrieve-variations
+      summary: Retrieve variations
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(r)`.
+
+
+        Retrieve all item variations, optionally filtered by id(s).'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: id
+        in: query
+        schema:
+          title: Id
+          description: The ID(s) of the variations to return.
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 250
+            examples:
+            - red-nike-shoes
+            - variation-123
+          maxItems: 1000
+        required: false
+      - name: item_id
+        in: query
+        schema:
+          title: Item Id
+          description: The item ID(s) of variations to return.
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 250
+            examples:
+            - nike-shoes
+            - product-123
+          maxItems: 1000
+        required: false
+      - name: next_page_cursor
+        in: query
+        schema:
+          title: Pagination cursor
+          description: Pagination cursor from which to start returning results. Cannot be used together with `page` or `offset`.
+          maxLength: 250
+          minLength: 1
+          type: string
+        required: false
+      - name: num_results_per_page
+        in: query
+        schema:
+          title: Num Results Per Page
+          description: The number of results per page to return.
+          default: 100
+          minimum: 1
+          maximum: 1000
+          examples:
+          - 100
+          - 500
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          title: Page
+          description: The page of results to return.
+          minimum: 1
+          examples:
+          - 1
+          - 2
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          title: Offset
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          minimum: 0
+          examples:
+          - 0
+          - 100
+          type: integer
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VariationListGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(r)
+    put:
+      tags:
+      - Variations
+      operationId: v2-variations-create-or-replace-variations
+      summary: Create or replace variations
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`, `search_suggestions(w)`.
+
+
+        Create item variations or replace the data of existing item variations. Returns an identifier for a background [task](/reference/v1-tasks-retrieve-task).'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      - name: force
+        in: query
+        schema:
+          title: Force
+          description: A flag to process the catalog even if it will invalidate a large part of existing data. Defaults to `False`.
+          examples:
+          - false
+          - true
+          type: boolean
+        required: false
+      - name: notification_email
+        in: query
+        schema:
+          title: Notification Email
+          description: The email address(es) to send a notification to if the task fails. Multiple addresses may be specified for multiple recipients.
+          type: array
+          items:
+            type: string
+            format: email
+            examples:
+            - user@example.com
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VariationListPutRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VariationListPutResponse'
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VariationListPutAcceptedResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+        - search_suggestions(w)
+    patch:
+      tags:
+      - Variations
+      operationId: v2-variations-update-variations
+      summary: Update variations
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`, `search_suggestions(w)`.
+
+
+        Update existing item variation data. Data included in the request will be merged with data of the existing item variations. Returns an identifier for a background [task](/reference/v1-tasks-retrieve-task).'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      - name: force
+        in: query
+        schema:
+          title: Force
+          description: A flag to process the catalog even if it will invalidate a large part of existing data. Defaults to `False`.
+          examples:
+          - false
+          - true
+          type: boolean
+        required: false
+      - name: notification_email
+        in: query
+        schema:
+          title: Notification Email
+          description: The email address(es) to send a notification to if the task fails. Multiple addresses may be specified for multiple recipients.
+          type: array
+          items:
+            type: string
+            format: email
+            examples:
+            - user@example.com
+        required: false
+      - name: on_missing
+        in: query
+        schema:
+          description: The strategy for handling variations which are exist in the request and do not exist in the system. `IGNORE` silently prevents adding them to the system, `CREATE` creates them, `FAIL` fails the ingestion in case of their presence.
+          default: FAIL
+          examples:
+          - FAIL
+          - IGNORE
+          - CREATE
+          allOf:
+          - $ref: '#/components/schemas/MissingRecordsStrategy'
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VariationListPatchRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VariationListPatchResponse'
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VariationListPatchAcceptedResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+        - search_suggestions(w)
+    delete:
+      tags:
+      - Variations
+      operationId: v2-variations-delete-variations
+      summary: Delete variations
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`, `search_suggestions(w)`.
+
+
+        Delete item variations. Returns an identifier for a background [task](/reference/v1-tasks-retrieve-task).'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      - name: force
+        in: query
+        schema:
+          title: Force
+          description: A flag to process the catalog even if it will invalidate a large part of existing data. Defaults to `False`.
+          examples:
+          - false
+          - true
+          type: boolean
+        required: false
+      - name: notification_email
+        in: query
+        schema:
+          title: Notification Email
+          description: The email address(es) to send a notification to if the task fails. Multiple addresses may be specified for multiple recipients.
+          type: array
+          items:
+            type: string
+            format: email
+            examples:
+            - user@example.com
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VariationListDeleteRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VariationListDeleteResponse'
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VariationListDeleteAcceptedResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+        - search_suggestions(w)
+  /v2/variations/{variation_id}:
+    get:
+      tags:
+      - Variations
+      operationId: v2-variations-retrieve-variation
+      summary: Retrieve variation
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(r)`.
+
+
+        Retrieve an item variation.'
+      parameters:
+      - name: variation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          examples:
+          - red-nike-shoes
+          - variation-123
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VariationGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(r)
+  /v1/tasks:
+    get:
+      tags:
+      - Tasks
+      operationId: v1-tasks-retrieve-tasks
+      summary: Retrieve tasks
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(r)`.
+
+
+        Retrieve all tasks.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: num_results_per_page
+        in: query
+        schema:
+          title: Num Results Per Page
+          description: The number of results per page to return.
+          default: 20
+          minimum: 1
+          maximum: 100
+          examples:
+          - 20
+          - 50
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          title: Page
+          description: The page of results to return.
+          minimum: 1
+          examples:
+          - 1
+          - 2
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          title: Offset
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          minimum: 0
+          examples:
+          - 0
+          - 100
+          type: integer
+        required: false
+      - name: status
+        in: query
+        schema:
+          description: The status to filter tasks by
+          examples:
+          - QUEUED
+          - DONE
+          - FAILED
+          allOf:
+          - $ref: '#/components/schemas/TaskStatus'
+        required: false
+      - name: type
+        in: query
+        schema:
+          title: Type
+          description: The type to filter tasks by. Possible values are `ingestion`, `user_data_request`, `copy_data`, `catalog_export`.
+          default:
+          - ingestion
+          - user_data_request
+          - copy_data
+          - catalog_export
+          examples:
+          - ingestion
+          - copy_data
+          - catalog_export
+          anyOf:
+          - type: string
+            enum:
+            - ingestion
+            - user_data_request
+            - copy_data
+            - catalog_export
+          - type: array
+            items:
+              type: string
+              enum:
+              - ingestion
+              - user_data_request
+              - copy_data
+              - catalog_export
+        required: false
+      - name: end_date
+        in: query
+        schema:
+          title: End Date
+          description: The end date to filter tasks by. Date format should be `yyyy-mm-dd`
+          examples:
+          - '2024-12-31'
+          - '2024-06-30'
+          type: string
+        required: false
+      - name: start_date
+        in: query
+        schema:
+          title: Start Date
+          description: The start date to filter tasks by. Date format should be `yyyy-mm-dd`
+          examples:
+          - '2024-01-01'
+          - '2024-06-15'
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskListGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(r)
+    post:
+      tags:
+      - Tasks
+      operationId: v1-tasks-create-task
+      summary: Create task
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`.
+
+
+        Create a task.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskListPostRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskListPostResponse'
+        '303':
+          description: See Other
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskListPostAlreadyExistsResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+    patch:
+      tags:
+      - Tasks
+      operationId: v1-tasks-update-tasks
+      summary: Update tasks
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`.
+
+
+        Update the status of a list of tasks to queue or cancel them.'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskListPatchRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskListPatchResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+  /v1/tasks/{task_id}:
+    get:
+      tags:
+      - Tasks
+      operationId: v1-tasks-retrieve-task
+      summary: Retrieve task
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(r)`.
+
+
+        Retrieve a task.'
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(r)
+    patch:
+      tags:
+      - Tasks
+      operationId: v1-tasks-update-task
+      summary: Update task
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`.
+
+
+        Update the status of a single task to queue or cancel it.'
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskPatchRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskPatchResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+components:
+  schemas:
+    FileFormat:
+      title: FileFormat
+      enum:
+      - csv
+      - jsonl
+    CatalogMode:
+      title: CatalogMode
+      enum:
+      - full
+      - ids
+      type: string
+    CatalogPutRequestBody:
+      title: CatalogPutRequestBody
+      type: object
+      properties:
+        items:
+          title: Items
+          description: File with items in CSV or JSONL format
+          type: string
+          format: binary
+        variations:
+          title: Variations
+          description: File with variations in CSV or JSONL format
+          type: string
+          format: binary
+        item_groups:
+          title: Item Groups
+          description: File with item groups in CSV or JSONL format
+          type: string
+          format: binary
+    CatalogPutResponse:
+      title: CatalogPutResponse
+      type: object
+      properties:
+        task_id:
+          title: Task Id
+          description: Task ID for the ingestion job
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          description: Path to check the status of the ingestion job
+          type: string
+      required:
+      - task_id
+      - task_status_path
+    CatalogPutAcceptedResponse:
+      title: CatalogPutAcceptedResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          description: Info message
+          type: string
+      required:
+      - message
+    MissingRecordsStrategy:
+      title: MissingRecordsStrategy
+      enum:
+      - CREATE
+      - IGNORE
+      - FAIL
+    CatalogPatchRequestBody:
+      title: CatalogPatchRequestBody
+      type: object
+      properties:
+        items:
+          title: Items
+          description: File with items in CSV or JSONL format
+          type: string
+          format: binary
+        variations:
+          title: Variations
+          description: File with variations in CSV or JSONL format
+          type: string
+          format: binary
+        item_groups:
+          title: Item Groups
+          description: File with item groups in CSV or JSONL format
+          type: string
+          format: binary
+    CatalogPatchResponse:
+      title: CatalogPatchResponse
+      type: object
+      properties:
+        task_id:
+          title: Task Id
+          description: Task ID for the ingestion job
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          description: Path to check the status of the ingestion job
+          type: string
+      required:
+      - task_id
+      - task_status_path
+    CatalogPatchAcceptedResponse:
+      title: CatalogPatchAcceptedResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          description: Info message
+          type: string
+      required:
+      - message
+    ItemFieldStatsGetResponse:
+      title: ItemFieldStatsGetResponse
+      type: object
+      properties:
+        name:
+          title: Metadata Name
+          description: The item field name on which stats are computed
+          maxLength: 300
+          minLength: 1
+          type: string
+        percentage_presence:
+          title: Percentage Presence
+          description: Percentage presence
+          minimum: 0
+          maximum: 1
+          type: number
+        type:
+          description: The item field type
+          allOf:
+          - $ref: '#/components/schemas/MetadataSearchabilityType'
+        example_items:
+          title: Example Items
+          type: array
+          items:
+            type: string
+        created_at:
+          title: Created At
+          description: Item field stats creation date and time
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Item field stats last update date and time
+          type: string
+          format: date-time
+      required:
+      - name
+      - created_at
+    MetadataSearchabilityType:
+      title: MetadataSearchabilityType
+      enum:
+      - number
+      - string
+      - array
+      - object
+      - boolean
+      - mixed
+      type: string
+    ItemFieldFilters:
+      title: Filters
+      type: object
+      properties:
+        name:
+          title: Name
+          description: The item field name on which stats are computed
+          maxLength: 300
+          minLength: 1
+          type: string
+      additionalProperties: false
+    SortOrderType:
+      title: SortOrderType
+      enum:
+      - ascending
+      - descending
+      type: string
+    ItemFieldStatsListGetResponse:
+      title: ItemFieldStatsListGetResponse
+      type: object
+      properties:
+        items_fields_stats:
+          title: Items Fields Stats
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemFieldStatsResponse'
+        total_count:
+          title: Total Count
+          description: Number of item field stats
+          minimum: 0
+          type: integer
+      required:
+      - items_fields_stats
+      - total_count
+    ItemFieldStatsResponse:
+      title: ItemFieldStatsResponse
+      type: object
+      properties:
+        name:
+          title: Metadata Name
+          description: The item field name on which stats are computed
+          maxLength: 300
+          minLength: 1
+          type: string
+        percentage_presence:
+          title: Percentage Presence
+          description: Percentage presence
+          minimum: 0
+          maximum: 1
+          type: number
+        type:
+          description: The item field type
+          allOf:
+          - $ref: '#/components/schemas/MetadataSearchabilityType'
+        example_items:
+          title: Example Items
+          type: array
+          items:
+            type: string
+        created_at:
+          title: Created At
+          description: Item field stats creation date and time
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Item field stats last update date and time
+          type: string
+          format: date-time
+      required:
+      - name
+      - created_at
+    ItemGroupGetResponse:
+      title: ItemGroupGetResponse
+      type: object
+      properties:
+        item_groups:
+          title: Item Groups
+          description: A list of item groups.
+          type: array
+          items:
+            $ref: '#/components/schemas/V1ItemGroup'
+        total_count:
+          title: Total Count
+          description: Total number of item groups.
+          minimum: 0
+          type: integer
+      required:
+      - item_groups
+      - total_count
+      additionalProperties: false
+    V1ItemGroup:
+      title: V1ItemGroup
+      type: object
+      properties:
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this item group. The maximum size of data object is limited to 5kb. The average size of data objects for all ingested item groups should not exceed 1kb.
+          type: object
+        id:
+          title: Id
+          description: ID of the item group.
+          examples:
+          - category-electronics
+          - group-123
+          minLength: 1
+          maxLength: 200
+          type: string
+        name:
+          title: Name
+          description: Item group display name.
+          examples:
+          - Electronics
+          - Men's Clothing
+          minLength: 1
+          maxLength: 500
+          type: string
+        children:
+          title: Children
+          description: A list of item groups categorized under the current item group.
+          type: array
+          items:
+            type: object
+      required:
+      - id
+      - name
+      additionalProperties: false
+    ItemGroupPutRequestBody:
+      title: ItemGroupPutRequestBody
+      type: object
+      properties:
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this item group. The maximum size of data object is limited to 5kb. The average size of data objects for all ingested item groups should not exceed 1kb.
+          type: object
+        name:
+          title: Name
+          description: Item group display name.
+          examples:
+          - Electronics
+          - Men's Clothing
+          minLength: 1
+          maxLength: 500
+          type: string
+        parent_id:
+          title: Parent Id
+          description: Parent item group ID or null for root item groups.
+          examples:
+          - parent-group-1
+          - root-category
+          type: string
+      additionalProperties: false
+    ItemGroupPutResponse:
+      title: ItemGroupPutResponse
+      type: object
+      properties:
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this item group. The maximum size of data object is limited to 5kb. The average size of data objects for all ingested item groups should not exceed 1kb.
+          type: object
+        id:
+          title: Id
+          description: ID of the item group.
+          examples:
+          - category-electronics
+          - group-123
+          minLength: 1
+          maxLength: 200
+          type: string
+        name:
+          title: Name
+          description: Item group display name.
+          examples:
+          - Electronics
+          - Men's Clothing
+          minLength: 1
+          maxLength: 500
+          type: string
+        parent_id:
+          title: Parent Id
+          description: Parent item group ID or null for root item groups.
+          type: string
+        path_list:
+          title: Path List
+          description: A list of item group IDs in the hierarchy.
+          type: array
+          items:
+            type: string
+        path:
+          title: Path
+          description: Path to a item group IDs in the hierarchy (forward slash-separated).
+          type: string
+      required:
+      - id
+      - name
+      - path_list
+      - path
+      additionalProperties: false
+    ItemGroupListGetResponse:
+      title: ItemGroupListGetResponse
+      type: object
+      properties:
+        item_groups:
+          title: Item Groups
+          description: A list of item groups.
+          type: array
+          items:
+            $ref: '#/components/schemas/V1ItemGroup'
+        total_count:
+          title: Total Count
+          description: Total number of item groups.
+          minimum: 0
+          type: integer
+      required:
+      - item_groups
+      - total_count
+      additionalProperties: false
+    ItemGroupListPostRequestBody:
+      title: ItemGroupListPostRequestBody
+      type: object
+      properties:
+        item_groups:
+          title: Item Groups
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/V1ItemGroup'
+      required:
+      - item_groups
+      additionalProperties: false
+    ItemGroupListPostResponse:
+      title: ItemGroupListPostResponse
+      type: object
+      properties:
+        item_groups:
+          $ref: '#/components/schemas/ItemGroupCountModel'
+      required:
+      - item_groups
+      additionalProperties: false
+    ItemGroupCountModel:
+      title: ItemGroupCountModel
+      type: object
+      properties:
+        processed:
+          title: Processed
+          description: Number of item groups processed.
+          minimum: 0
+          type: integer
+        inserted:
+          title: Inserted
+          description: Number of item groups inserted.
+          minimum: 0
+          type: integer
+        updated:
+          title: Updated
+          description: Number of item groups updated.
+          minimum: 0
+          type: integer
+        deleted:
+          title: Deleted
+          description: Number of item groups deleted.
+          minimum: 0
+          type: integer
+      required:
+      - processed
+      - inserted
+      - updated
+      - deleted
+      additionalProperties: false
+    ItemGroupListPatchRequestBody:
+      title: ItemGroupListPatchRequestBody
+      type: object
+      properties:
+        item_groups:
+          title: Item Groups
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/V1ItemGroup'
+      required:
+      - item_groups
+      additionalProperties: false
+    ItemGroupListPatchResponse:
+      title: ItemGroupListPatchResponse
+      type: object
+      properties:
+        item_groups:
+          $ref: '#/components/schemas/ItemGroupCountModel'
+      required:
+      - item_groups
+      additionalProperties: false
+    ItemGroupListPutRequestBody:
+      title: ItemGroupListPutRequestBody
+      type: object
+      properties:
+        item_groups:
+          title: Item Groups
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/V1ItemGroup'
+      required:
+      - item_groups
+      additionalProperties: false
+    ItemGroupListPutResponse:
+      title: ItemGroupListPutResponse
+      type: object
+      properties:
+        item_groups:
+          $ref: '#/components/schemas/ItemGroupCountModel'
+      required:
+      - item_groups
+      additionalProperties: false
+    ItemGroupListDeleteResponse:
+      title: ItemGroupListDeleteResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          description: Item group list delete message.
+          type: string
+      required:
+      - message
+      additionalProperties: false
+    ItemGroupsGetResponse:
+      title: ItemGroupsGetResponse
+      type: object
+      properties:
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this item group. The maximum size of data object is limited to 5kB. The average size of data objects for all ingested item groups should not exceed 1kB.
+          type: object
+        id:
+          title: ID
+          description: The ID of the item group
+          minLength: 1
+          maxLength: 200
+          type: string
+        name:
+          title: Display Name
+          description: Item group display name.
+          minLength: 1
+          maxLength: 500
+          type: string
+        parent_ids:
+          title: Parent Ids
+          description: List of parent item group IDs
+          type: array
+          items:
+            type: string
+            examples:
+            - parent-1
+            - root
+      required:
+      - id
+      - name
+    ItemGroupsListGetResponse:
+      title: ItemGroupsListGetResponse
+      type: object
+      properties:
+        item_groups:
+          title: Item Groups
+          minItems: 0
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemGroupsGetResponse'
+        total_count:
+          title: Total Count
+          description: Total number of item groups.
+          minimum: 0
+          type: integer
+      required:
+      - item_groups
+      - total_count
+    ItemGroupsListPutRequestBody:
+      title: ItemGroupsListPutRequestBody
+      type: object
+      properties:
+        item_groups:
+          title: Item Groups
+          description: Array of item groups you want to create or replace.
+          minItems: 1
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemGroup'
+      required:
+      - item_groups
+    ItemGroup:
+      title: ItemGroup
+      type: object
+      properties:
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this item group. The maximum size of data object is limited to 5kB. The average size of data objects for all ingested item groups should not exceed 1kB.
+          type: object
+        id:
+          title: Id
+          description: ID of the item group.
+          examples:
+          - category-electronics
+          - group-123
+          minLength: 1
+          maxLength: 200
+          type: string
+        name:
+          title: Name
+          description: Item group display name.
+          examples:
+          - Electronics
+          - Men's Clothing
+          minLength: 1
+          maxLength: 500
+          type: string
+        parent_ids:
+          title: Parent Ids
+          description: List of parent item group IDs
+          type: array
+          items:
+            type: string
+            examples:
+            - parent-1
+            - root
+      required:
+      - id
+      - name
+    ItemGroupsListPutResponse:
+      title: ItemGroupsListPutResponse
+      type: object
+      properties:
+        task_id:
+          title: Task ID
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          type: string
+      required:
+      - task_id
+      - task_status_path
+    ItemGroupsListPatchRequestBody:
+      title: ItemGroupsListPatchRequestBody
+      type: object
+      properties:
+        item_groups:
+          title: Item Groups
+          description: Array of item groups you want to update.
+          minItems: 1
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemGroupPatch'
+      required:
+      - item_groups
+    ItemGroupPatch:
+      title: ItemGroupPatch
+      type: object
+      properties:
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this item group. The maximum size of data object is limited to 5kB. The average size of data objects for all ingested item groups should not exceed 1kB.
+          type: object
+        id:
+          title: Id
+          description: ID of the item group.
+          examples:
+          - category-electronics
+          - group-123
+          minLength: 1
+          maxLength: 200
+          type: string
+        name:
+          title: Name
+          description: Item group display name.
+          minLength: 1
+          maxLength: 500
+          type: string
+        parent_ids:
+          title: Parent Ids
+          description: List of parent item group IDs
+          type: array
+          items:
+            type: string
+            examples:
+            - parent-1
+            - root
+      required:
+      - id
+    ItemGroupsListPatchResponse:
+      title: ItemGroupsListPatchResponse
+      type: object
+      properties:
+        task_id:
+          title: Task ID
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          type: string
+      required:
+      - task_id
+      - task_status_path
+    ItemGroupsListDeleteRequestBody:
+      title: ItemGroupsListDeleteRequestBody
+      type: object
+      properties:
+        item_groups:
+          title: Item Groups
+          description: Array of item group IDs you want to delete.
+          minItems: 1
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemGroupBase'
+      required:
+      - item_groups
+    ItemGroupBase:
+      title: ItemGroupBase
+      type: object
+      properties:
+        id:
+          title: Id
+          description: ID of the item group.
+          examples:
+          - category-electronics
+          - group-123
+          minLength: 1
+          maxLength: 200
+          type: string
+      required:
+      - id
+    ItemGroupsListDeleteResponse:
+      title: ItemGroupsListDeleteResponse
+      type: object
+      properties:
+        task_id:
+          title: Task ID
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          type: string
+      required:
+      - task_id
+      - task_status_path
+    ItemGetResponse:
+      title: ItemGetResponse
+      type: object
+      properties:
+        id:
+          title: ID
+          description: The ID of the item, must be unique.
+          minLength: 1
+          maxLength: 250
+          type: string
+        name:
+          title: Name
+          description: The name of the item, as it will appear in the results. Contains at least one alphanumeric character.
+          maxLength: 250
+          minLength: 1
+          type: string
+        suggested_score:
+          title: Suggested score
+          description: A number that will influence the item's initial ranking relative to other item scores (the higher the score, the higher in the list of suggestions the item will appear).
+          minimum: -1
+          maximum: 500000000
+          type: integer
+        data:
+          title: Data
+          description: Object containing additional data attached to this item.
+          allOf:
+          - $ref: '#/components/schemas/ItemMetadataResponse'
+        updated_at:
+          title: Updated at
+          description: A date when the item or any of item's variations were updated.
+          type: string
+          format: date-time
+      required:
+      - id
+      - name
+      - updated_at
+      additionalProperties: false
+    FacetValue:
+      title: FacetValue
+      anyOf:
+      - type: string
+        minLength: 0
+        maxLength: 200
+      - type: integer
+      - type: number
+    FacetValuesCoercedToList:
+      title: FacetValuesCoercedToList
+      type: array
+      items:
+        $ref: '#/components/schemas/FacetValue'
+    Facets:
+      title: Facets
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/FacetValuesCoercedToList'
+    ItemMetadataResponse:
+      title: ItemMetadataResponse
+      description: 'Additional data about item. In addition to the listed properties
+
+        you can also provide any other information you want to associate
+
+        with that item. No special validation is made for that data.'
+      type: object
+      properties:
+        keywords:
+          title: Keywords
+          description: An array of keywords for this item. Keywords are useful if you want a product name to appear when a user enters a search term that isn't in the product name itself.
+          type: array
+          items:
+            type: string
+            examples:
+            - running
+            - athletic
+            - sports
+        url:
+          title: Url
+          description: A URL to directly send the user after selecting the item. Might be required in some cases. Please contact support@constructor.io if you have questions around that.
+          examples:
+          - http://www.example.com/product/123
+          - /products/shoes
+          type: string
+        image_url:
+          title: Image Url
+          description: A URL that points to an image you'd like displayed next to some item (only applicable when url is supplied).
+          examples:
+          - http://www.example.com/images/product.jpg
+          type: string
+        facets:
+          title: Facets
+          description: 'Warning: ingesting data directly as facets has been deprecated. Please ingest the data as metadata instead, and create a facet configuration as shown in our guide on global facet configuration. '
+          deprecated: true
+          examples:
+          - color:
+            - red
+            - blue
+            size:
+            - L
+            - XL
+          allOf:
+          - $ref: '#/components/schemas/Facets'
+        group_ids:
+          title: Group Ids
+          description: You can associate each item with one or more groups (i.e. categories). To set up a group hierarchy please contact support@constructor.io group_ids can be used as filters in search, autosuggest, and browse requests.
+          type: array
+          items:
+            type: string
+            examples:
+            - shoes
+            - athletic
+        description:
+          title: Description
+          description: A description for this item. The maximum length of this field is 4000 characters.
+          examples:
+          - A comfortable running shoe with cushioned sole
+          maxLength: 4000
+          type: string
+        active:
+          title: Active
+          examples:
+          - true
+          - false
+          type: boolean
+      additionalProperties: true
+    ItemListGetResponse:
+      title: ItemListGetResponse
+      type: object
+      properties:
+        total_count:
+          title: Total Count
+          description: Total number of items. Omitted when using cursor-based pagination (`next_page_cursor`).
+          minimum: 0
+          examples:
+          - 100
+          - 5000
+          type: integer
+        items:
+          title: Items
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemGetResponse'
+        next_page_cursor:
+          title: Pagination cursor
+          description: Pagination cursor to use to receive the next page of results. The value is returned by the previous page response. Cannot be used together with `page` or `offset`.
+          maxLength: 250
+          minLength: 1
+          examples:
+          - nike-shoes
+          - product-123
+          type: string
+      required:
+      - items
+    ItemListDeleteRequestBody:
+      title: ItemListDeleteRequestBody
+      type: object
+      properties:
+        items:
+          title: Items
+          description: Array of item IDs you want to delete.
+          minItems: 1
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemBase'
+      required:
+      - items
+    ItemBase:
+      title: ItemBase
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the item, must be unique.
+          examples:
+          - nike-shoes
+          - product-123
+          minLength: 1
+          maxLength: 250
+          type: string
+      required:
+      - id
+      additionalProperties: false
+    ItemListDeleteResponse:
+      title: ItemListDeleteResponse
+      type: object
+      properties:
+        task_id:
+          title: Task Id
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          type: string
+      required:
+      - task_id
+      - task_status_path
+    ItemListDeleteAcceptedResponse:
+      title: ItemListDeleteAcceptedResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          description: Info message
+          type: string
+      required:
+      - message
+    ItemListPutRequestBody:
+      title: ItemListPutRequestBody
+      type: object
+      properties:
+        items:
+          title: Items
+          description: Array of items you want to create or replace.
+          minItems: 1
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+      required:
+      - items
+    ItemMetadata:
+      title: ItemMetadata
+      description: 'Additional data about item. In addition to the listed properties
+
+        you can also provide any other information you want to associate
+
+        with that item. No special validation is made for that data.'
+      type: object
+      properties:
+        keywords:
+          title: Keywords
+          description: An array of keywords for this item. Keywords are useful if you want a product name to appear when a user enters a search term that isn't in the product name itself.
+          type: array
+          items:
+            type: string
+            examples:
+            - running
+            - athletic
+            - sports
+        url:
+          title: Url
+          description: A URL to directly send the user after selecting the item. Might be required in some cases. Please contact support@constructor.io if you have questions around that.
+          examples:
+          - http://www.example.com/product/123
+          - /products/shoes
+          type: string
+        image_url:
+          title: Image Url
+          description: A URL that points to an image you'd like displayed next to some item (only applicable when url is supplied).
+          examples:
+          - http://www.example.com/images/product.jpg
+          type: string
+        facets:
+          title: Facets
+          description: 'Warning: ingesting data directly as facets has been deprecated. Please ingest the data as metadata instead, and create a facet configuration as shown in our guide on global facet configuration. '
+          deprecated: true
+          examples:
+          - color:
+            - red
+            - blue
+            size:
+            - L
+            - XL
+          allOf:
+          - $ref: '#/components/schemas/Facets'
+        group_ids:
+          title: Group Ids
+          description: You can associate each item with one or more groups (i.e. categories). To set up a group hierarchy please contact support@constructor.io group_ids can be used as filters in search, autosuggest, and browse requests.
+          type: array
+          items:
+            type: string
+            examples:
+            - shoes
+            - athletic
+        description:
+          title: Description
+          description: A description for this item. The maximum length of this field is 4000 characters.
+          examples:
+          - A comfortable running shoe with cushioned sole
+          maxLength: 4000
+          type: string
+        active:
+          title: Active
+          examples:
+          - true
+          - false
+          type: boolean
+        __cnstrc_release_time:
+          title: Release time
+          description: Date and time of item's release, useful to hide items from search results until its official release.
+          examples:
+          - '2024-01-15T10:30:00Z'
+          type: string
+          format: date-time
+    Item:
+      title: Item
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the item, must be unique.
+          examples:
+          - nike-shoes
+          - product-123
+          minLength: 1
+          maxLength: 250
+          type: string
+        name:
+          title: Name
+          description: The name of the item, as it will appear in the results. Must contain at least one alphanumeric character.
+          maxLength: 250
+          minLength: 1
+          examples:
+          - Running Shoes
+          - Blue T-Shirt
+          type: string
+        suggested_score:
+          title: Suggested Score
+          description: A number that will influence the item's initial ranking relative to other item scores (the higher the score, the higher in the list of suggestions the item will appear).
+          minimum: -1
+          maximum: 500000000
+          examples:
+          - 100
+          - 1000
+          type: integer
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this item. The maximum size of data object is limited to 200kb. The average size of data objects for all ingested items and variations should not exceed 30kb.
+          examples:
+          - url: http://example.com/product
+            brand: Nike
+          allOf:
+          - $ref: '#/components/schemas/ItemMetadata'
+      required:
+      - id
+      - name
+      additionalProperties: false
+    ItemListPutResponse:
+      title: ItemListPutResponse
+      type: object
+      properties:
+        task_id:
+          title: Task Id
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          type: string
+      required:
+      - task_id
+      - task_status_path
+    ItemListPutAcceptedResponse:
+      title: ItemListPutAcceptedResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          description: Info message
+          type: string
+      required:
+      - message
+    ItemListPatchRequestBody:
+      title: ItemListPatchRequestBody
+      type: object
+      properties:
+        items:
+          title: Items
+          description: Array of items you want to update.
+          minItems: 1
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemPatch'
+      required:
+      - items
+    ItemPatch:
+      title: ItemPatch
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the item, must be unique.
+          examples:
+          - nike-shoes
+          - product-123
+          minLength: 1
+          maxLength: 250
+          type: string
+        name:
+          title: Name
+          description: The name of the item, as it will appear in the results. Must contain at least one alphanumeric character.
+          maxLength: 250
+          minLength: 1
+          examples:
+          - Running Shoes
+          - Blue T-Shirt
+          type: string
+        suggested_score:
+          title: Suggested Score
+          description: A number that will influence the item's initial ranking relative to other item scores (the higher the score, the higher in the list of suggestions the item will appear).
+          minimum: -1
+          maximum: 500000000
+          examples:
+          - 100
+          - 1000
+          type: integer
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this item. The maximum size of data object is limited to 200kb. The average size of data objects for all ingested items and variations should not exceed 30kb.
+          examples:
+          - url: http://example.com/product
+            brand: Nike
+          allOf:
+          - $ref: '#/components/schemas/ItemMetadata'
+      required:
+      - id
+      additionalProperties: false
+    ItemListPatchResponse:
+      title: ItemListPatchResponse
+      type: object
+      properties:
+        task_id:
+          title: Task Id
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          type: string
+      required:
+      - task_id
+      - task_status_path
+    ItemListPatchAcceptedResponse:
+      title: ItemListPatchAcceptedResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          description: Info message
+          type: string
+      required:
+      - message
+    TaskGetResponse:
+      title: TaskGetResponse
+      oneOf:
+      - oneOf:
+        - $ref: '#/components/schemas/IngestionTaskResponse'
+        - $ref: '#/components/schemas/IngestionTaskErrorResponse'
+      - oneOf:
+        - $ref: '#/components/schemas/UserDataRequestTaskResponse'
+        - $ref: '#/components/schemas/UserDataRequestTaskErrorResponse'
+      - oneOf:
+        - $ref: '#/components/schemas/CopyDataTaskResponse'
+        - $ref: '#/components/schemas/CopyDataTaskErrorResponse'
+      - oneOf:
+        - $ref: '#/components/schemas/CatalogExportTaskResponse'
+        - $ref: '#/components/schemas/CatalogExportTaskErrorResponse'
+    DirectUploadChangelog:
+      title: DirectUploadChangelog
+      type: object
+      properties:
+        item_groups_updated:
+          title: Item Groups Updated
+          type: integer
+        item_groups_deleted:
+          title: Item Groups Deleted
+          type: integer
+        total_item_groups_changed:
+          title: Total Item Groups Changed
+          type: integer
+        sections:
+          title: Sections
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: integer
+    IngestionWarning:
+      title: IngestionWarning
+      type: object
+      properties:
+        code:
+          title: Code
+          description: Warning code
+          examples:
+          - MISSING_FIELD
+          - DUPLICATE_ITEM
+          type: string
+        message:
+          title: Message
+          description: Warning message
+          examples:
+          - Field 'price' is missing for item 'product-123'
+          type: string
+        data:
+          title: Data
+          description: Additional data related to warning
+          examples:
+          - item_id: product-123
+            field: price
+          type: object
+      required:
+      - code
+      - message
+      additionalProperties: false
+    IngestionResult:
+      title: Ingestion result
+      type: object
+      properties:
+        changelog:
+          title: Changelog
+          description: Changes in catalog made by the task.
+          examples:
+          - item_groups_updated: 10
+            item_groups_deleted: 0
+          allOf:
+          - $ref: '#/components/schemas/DirectUploadChangelog'
+        index_built:
+          title: Index Built
+          description: Shows if changes from the task have been indexed.
+          examples:
+          - true
+          - false
+          type: boolean
+        ingestion_warnings:
+          title: Ingestion Warnings
+          description: A list of the warnings produced during ingestion.
+          type: array
+          items:
+            $ref: '#/components/schemas/IngestionWarning'
+      required:
+      - changelog
+      - index_built
+    IngestionTaskResponse:
+      title: Ingestion task response
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the task.
+          type: integer
+        status:
+          title: Status
+          description: Current status of the task.
+          enum:
+          - QUEUED
+          - CANCELED
+          - IN_PROGRESS
+          - DONE
+          - FAILED
+          type: string
+        submission_time:
+          title: Submission Time
+          description: Time of task submission.
+          type: string
+          format: date-time
+        last_update:
+          title: Last Update
+          description: Last time the status of this task was updated. May be `null` if the task has never been run before.
+          type: string
+          format: date-time
+        start_time:
+          title: Start Time
+          description: Starting time of the task. May be `null` if the task has not been run yet.
+          type: string
+          format: date-time
+        type:
+          title: Type
+          enum:
+          - ingestion
+          type: string
+        filename:
+          title: Filename
+          description: The name of the file uploaded to Constructor.
+          type: string
+        protocol:
+          title: Protocol
+          description: Describes if the ingestion was created via FTP, HTTP API or other source (then null).
+          enum:
+          - ftp
+          - http
+          type: string
+        result:
+          $ref: '#/components/schemas/IngestionResult'
+      required:
+      - id
+      - status
+      - submission_time
+      - type
+    IngestionTaskErrorResponse:
+      title: Ingestion task error response
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the task.
+          type: integer
+        status:
+          title: Status
+          description: Current status of the task.
+          enum:
+          - FAILED
+          type: string
+        submission_time:
+          title: Submission Time
+          description: Time of task submission.
+          type: string
+          format: date-time
+        last_update:
+          title: Last Update
+          description: Last time the status of this task was updated. May be `null` if the task has never been run before.
+          type: string
+          format: date-time
+        start_time:
+          title: Start Time
+          description: Starting time of the task. May be `null` if the task has not been run yet.
+          type: string
+          format: date-time
+        type:
+          title: Type
+          enum:
+          - ingestion
+          type: string
+        error:
+          title: Error
+          description: Data about errors in case of task failure.
+          anyOf:
+          - type: string
+          - type: object
+        filename:
+          title: Filename
+          description: The name of the file uploaded to Constructor.
+          type: string
+        protocol:
+          title: Protocol
+          description: Describes if the ingestion was created via FTP, HTTP API or other source (then null).
+          enum:
+          - ftp
+          - http
+          type: string
+      required:
+      - id
+      - status
+      - submission_time
+      - type
+    UserDataRequestResult:
+      title: UserDataRequestResult
+      type: object
+      properties:
+        data_url:
+          title: Data Url
+          description: Link to file with user's data.
+          type: string
+      additionalProperties: false
+    UserDataRequestTaskResponse:
+      title: User data request task response
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the task.
+          type: integer
+        status:
+          title: Status
+          description: Current status of the task.
+          enum:
+          - QUEUED
+          - CANCELED
+          - IN_PROGRESS
+          - DONE
+          - FAILED
+          type: string
+        submission_time:
+          title: Submission Time
+          description: Time of task submission.
+          type: string
+          format: date-time
+        last_update:
+          title: Last Update
+          description: Last time the status of this task was updated. May be `null` if the task has never been run before.
+          type: string
+          format: date-time
+        start_time:
+          title: Start Time
+          description: Starting time of the task. May be `null` if the task has not been run yet.
+          type: string
+          format: date-time
+        type:
+          title: Type
+          enum:
+          - user_data_request
+          type: string
+        user_id:
+          title: User Id
+          type: string
+        result:
+          $ref: '#/components/schemas/UserDataRequestResult'
+      required:
+      - id
+      - status
+      - submission_time
+      - type
+    UserDataRequestTaskErrorResponse:
+      title: User data request task error response
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the task.
+          type: integer
+        status:
+          title: Status
+          description: Current status of the task.
+          enum:
+          - FAILED
+          type: string
+        submission_time:
+          title: Submission Time
+          description: Time of task submission.
+          type: string
+          format: date-time
+        last_update:
+          title: Last Update
+          description: Last time the status of this task was updated. May be `null` if the task has never been run before.
+          type: string
+          format: date-time
+        start_time:
+          title: Start Time
+          description: Starting time of the task. May be `null` if the task has not been run yet.
+          type: string
+          format: date-time
+        type:
+          title: Type
+          enum:
+          - user_data_request
+          type: string
+        error:
+          title: Error
+          description: Data about errors in case of task failure.
+          anyOf:
+          - type: string
+          - type: object
+        user_id:
+          title: User Id
+          type: string
+      required:
+      - id
+      - status
+      - submission_time
+      - type
+    ResourcesToCopy:
+      title: ResourcesToCopy
+      enum:
+      - ITEMS
+      - VARIATIONS
+      - SEARCHABILITIES
+      - ITEM_GROUPS
+      - REDIRECTS
+      - ONE_WAY_SYNONYMS
+      - TWO_WAY_SYNONYMS
+      - FACETS
+      - BROWSE_FACETS
+      - SEARCH_FACETS
+      - FACET_RULE_CAMPAIGNS
+      - USER_SEGMENTS
+      - SEARCH_RULES_AND_CAMPAIGNS
+      - BROWSE_FILTERS_AND_RULES
+      - COLLECTION_RULES
+      - COLLECTIONS
+      type: string
+    CopyDataSectionResult:
+      title: CopyDataSectionResult
+      type: object
+      properties:
+        succeeded:
+          description: A list of the succeeded resources to copy for this section.
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourcesToCopy'
+            examples:
+            - ITEMS
+            - VARIATIONS
+        failed:
+          description: A list of the failed resources to copy for this section.
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourcesToCopy'
+      required:
+      - succeeded
+      - failed
+      additionalProperties: false
+    CopyDataResult:
+      title: CopyDataResult
+      description: Object of each section which has the succeeded and failed resources to copy.
+      type: object
+      additionalProperties: false
+    CopyDataTaskResponse:
+      title: Copy data task response
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the task.
+          type: integer
+        status:
+          title: Status
+          description: Current status of the task.
+          enum:
+          - QUEUED
+          - CANCELED
+          - IN_PROGRESS
+          - DONE
+          - FAILED
+          type: string
+        submission_time:
+          title: Submission Time
+          description: Time of task submission.
+          type: string
+          format: date-time
+        last_update:
+          title: Last Update
+          description: Last time the status of this task was updated. May be `null` if the task has never been run before.
+          type: string
+          format: date-time
+        start_time:
+          title: Start Time
+          description: Starting time of the task. May be `null` if the task has not been run yet.
+          type: string
+          format: date-time
+        type:
+          title: Type
+          enum:
+          - copy_data
+          type: string
+        result:
+          $ref: '#/components/schemas/CopyDataResult'
+      required:
+      - id
+      - status
+      - submission_time
+      - type
+      - args
+    CopyDataTaskErrorResponse:
+      title: Copy data task error response
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the task.
+          type: integer
+        status:
+          title: Status
+          description: Current status of the task.
+          enum:
+          - FAILED
+          type: string
+        submission_time:
+          title: Submission Time
+          description: Time of task submission.
+          type: string
+          format: date-time
+        last_update:
+          title: Last Update
+          description: Last time the status of this task was updated. May be `null` if the task has never been run before.
+          type: string
+          format: date-time
+        start_time:
+          title: Start Time
+          description: Starting time of the task. May be `null` if the task has not been run yet.
+          type: string
+          format: date-time
+        type:
+          title: Type
+          enum:
+          - copy_data
+          type: string
+        error:
+          title: Error
+          description: Data about errors in case of task failure.
+          anyOf:
+          - type: string
+          - type: object
+      required:
+      - id
+      - status
+      - submission_time
+      - type
+      - args
+    CatalogExportResult:
+      title: Catalog export result
+      description: Contains the export file URL and entity count for a catalog export task result.
+      type: object
+      properties:
+        url:
+          title: URL
+          description: An expiring download URL for the export file. The URL expires three days after the export file is generated. May be `null` when the export contains no entities.
+          type:
+          - string
+          - 'null'
+        count:
+          title: Count
+          description: Count of exported entities, such as items, variations, or item groups. For catalog export task results created before counts were returned, this key is omitted rather than returned as `null`.
+          type: integer
+      required:
+      - url
+    CatalogExportTaskResponse:
+      title: Catalog export task response
+      description: Response for a catalog export task.
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the task.
+          type: integer
+        status:
+          title: Status
+          description: Current status of the task.
+          enum:
+          - QUEUED
+          - CANCELED
+          - IN_PROGRESS
+          - DONE
+          type: string
+        submission_time:
+          title: Submission Time
+          description: Time of task submission.
+          type: string
+          format: date-time
+        last_update:
+          title: Last Update
+          description: Last time the status of this task was updated. May be `null` if the task has never been run before.
+          type:
+          - string
+          - 'null'
+          format: date-time
+        start_time:
+          title: Start Time
+          description: Starting time of the task. May be `null` if the task has not been run yet.
+          type:
+          - string
+          - 'null'
+          format: date-time
+        type:
+          title: Type
+          description: The type of the task.
+          enum:
+          - catalog_export
+          type: string
+        section:
+          title: Section
+          description: The catalog section used for the export. Valid values are the catalog section names configured for the index, such as `Products`; this mirrors the `section` request parameter.
+          type: string
+        catalog_part:
+          title: Catalog Part
+          description: The part of the catalog that was exported.
+          enum:
+          - items
+          - variations
+          - item_groups
+          - items_with_variations
+          type: string
+        result:
+          description: The result of the catalog export task.
+          $ref: '#/components/schemas/CatalogExportResult'
+      required:
+      - id
+      - status
+      - submission_time
+      - type
+    CatalogExportTaskErrorResponse:
+      title: Catalog export task error response
+      description: Error response for a catalog export task.
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the task.
+          type: integer
+        status:
+          title: Status
+          description: Current status of the task.
+          enum:
+          - FAILED
+          type: string
+        submission_time:
+          title: Submission Time
+          description: Time of task submission.
+          type: string
+          format: date-time
+        last_update:
+          title: Last Update
+          description: Last time the status of this task was updated. May be `null` if the task has never been run before.
+          type:
+          - string
+          - 'null'
+          format: date-time
+        start_time:
+          title: Start Time
+          description: Starting time of the task. May be `null` if the task has not been run yet.
+          type:
+          - string
+          - 'null'
+          format: date-time
+        type:
+          title: Type
+          description: The type of the task.
+          enum:
+          - catalog_export
+          type: string
+        error:
+          title: Error
+          description: Data about errors in case of task failure.
+          anyOf:
+          - type: string
+          - type: object
+        section:
+          title: Section
+          description: The catalog section used for the export. Valid values are the catalog section names configured for the index, such as `Products`; this mirrors the `section` request parameter.
+          type: string
+        catalog_part:
+          title: Catalog Part
+          description: The part of the catalog that was exported.
+          enum:
+          - items
+          - variations
+          - item_groups
+          - items_with_variations
+          type: string
+      required:
+      - id
+      - status
+      - submission_time
+      - type
+    TaskPatchRequestBody:
+      title: TaskPatchRequestBody
+      type: object
+      properties:
+        status:
+          title: Status
+          description: This contains the new status that you want to update the task with. It is only allowed to cancel queued tasks by setting their status to `CANCELED` or re-run tasks that are not in progress by setting their status to `QUEUED`.In-progress tasks cannot be modified.
+          examples:
+          - QUEUED
+          - CANCELED
+          enum:
+          - QUEUED
+          - CANCELED
+          type: string
+      required:
+      - status
+      additionalProperties: false
+    TaskPatchResponse:
+      title: TaskPatchResponse
+      oneOf:
+      - oneOf:
+        - $ref: '#/components/schemas/IngestionTaskResponse'
+        - $ref: '#/components/schemas/IngestionTaskErrorResponse'
+      - oneOf:
+        - $ref: '#/components/schemas/UserDataRequestTaskResponse'
+        - $ref: '#/components/schemas/UserDataRequestTaskErrorResponse'
+      - oneOf:
+        - $ref: '#/components/schemas/CatalogExportTaskResponse'
+        - $ref: '#/components/schemas/CatalogExportTaskErrorResponse'
+    TaskStatus:
+      title: TaskStatus
+      enum:
+      - QUEUED
+      - IN_PROGRESS
+      - DONE
+      - FAILED
+      - CANCELED
+      type: string
+    TaskListGetResponse:
+      title: TaskListGetResponse
+      type: object
+      properties:
+        tasks:
+          title: Tasks
+          default: []
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskResponse'
+        total_count:
+          title: Total Count
+          minimum: 0
+          type: integer
+        status_counts:
+          title: Status Counts
+          type: object
+          additionalProperties:
+            type: integer
+            minimum: 0
+      required:
+      - total_count
+      - status_counts
+      additionalProperties: false
+    TaskResponse:
+      title: TaskResponse
+      oneOf:
+      - oneOf:
+        - $ref: '#/components/schemas/IngestionTaskResponse'
+        - $ref: '#/components/schemas/IngestionTaskErrorResponse'
+      - oneOf:
+        - $ref: '#/components/schemas/UserDataRequestTaskResponse'
+        - $ref: '#/components/schemas/UserDataRequestTaskErrorResponse'
+      - oneOf:
+        - $ref: '#/components/schemas/CopyDataTaskResponse'
+        - $ref: '#/components/schemas/CopyDataTaskErrorResponse'
+      - oneOf:
+        - $ref: '#/components/schemas/CatalogExportTaskResponse'
+        - $ref: '#/components/schemas/CatalogExportTaskErrorResponse'
+    TaskListPostRequestBody:
+      title: TaskListPostRequestBody
+      oneOf:
+      - $ref: '#/components/schemas/TaskListPostRequestBodyUserDataRequest'
+      - $ref: '#/components/schemas/TaskListPostRequestBodyCatalogExport'
+    TaskListPostRequestBodyUserDataRequest:
+      title: User data request task
+      type: object
+      properties:
+        action:
+          title: Action
+          default: request_report
+          enum:
+          - request_report
+          type: string
+        user_id:
+          title: User Id
+          type: string
+        type:
+          title: Type
+          enum:
+          - user_data_request
+          type: string
+      required:
+      - user_id
+      - type
+      additionalProperties: false
+    TaskListPostRequestBodyCatalogExport:
+      title: Catalog export task
+      description: Creates an export of catalog data. Only one catalog export can be queued or in progress per key.
+      type: object
+      properties:
+        section:
+          title: Section
+          description: The catalog section to export. Required for `items`, `variations`, and `items_with_variations`; omit for `item_groups`. The API enforces this conditional requirement during request validation.
+          type: string
+        catalog_part:
+          title: Catalog Part
+          description: The part of the catalog to export. Supported values are `items`, `variations`, `item_groups`, and `items_with_variations`.
+          examples:
+          - items
+          - variations
+          - item_groups
+          - items_with_variations
+          enum:
+          - items
+          - variations
+          - item_groups
+          - items_with_variations
+          type: string
+        from_timestamp:
+          title: From Timestamp
+          description: Only export catalog entities updated at or after this timestamp.
+          examples:
+          - '2026-01-31T10:30:00Z'
+          type: string
+          format: date-time
+        type:
+          title: Type
+          description: The type of the task.
+          enum:
+          - catalog_export
+          type: string
+      oneOf:
+      - description: Use this shape when exporting items, variations, or items with variations.
+        properties:
+          catalog_part:
+            enum:
+            - items
+            - variations
+            - items_with_variations
+          section:
+            type: string
+        required:
+        - section
+      - description: Use this shape when exporting item groups. The `section` field must be omitted.
+        properties:
+          catalog_part:
+            enum:
+            - item_groups
+        not:
+          properties:
+            section:
+              type: string
+          required:
+          - section
+      required:
+      - catalog_part
+      - type
+      additionalProperties: false
+    TaskListPostResponse:
+      title: TaskListPostResponse
+      oneOf:
+      - oneOf:
+        - $ref: '#/components/schemas/UserDataRequestTaskResponse'
+        - $ref: '#/components/schemas/UserDataRequestTaskErrorResponse'
+      - oneOf:
+        - $ref: '#/components/schemas/CatalogExportTaskResponse'
+        - $ref: '#/components/schemas/CatalogExportTaskErrorResponse'
+    TaskListPostAlreadyExistsResponse:
+      title: TaskListPostAlreadyExistsResponse
+      type: object
+      properties:
+        task_id:
+          title: Task Id
+          type: integer
+      required:
+      - task_id
+    TaskListPatchRequestBody:
+      title: TaskListPatchRequestBody
+      type: object
+      properties:
+        tasks:
+          title: Tasks
+          description: This will have the list of tasks that you want to update, each task is a JSON that have id and status fields, maximum length of tasks is 1000.
+          minItems: 1
+          maxItems: 1000
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskBatchItem'
+      required:
+      - tasks
+      additionalProperties: false
+    TaskBatchItem:
+      title: TaskBatchItem
+      type: object
+      properties:
+        id:
+          title: Id
+          description: This contains the task id that you want to update, note that if one of the ids does not exists, the whole batch won't be updated.
+          examples:
+          - 1
+          - 42
+          type: integer
+        status:
+          title: Status
+          description: 'This contains the new status that you want to update the task with, the only allowed values are: [''QUEUED'', ''CANCELED''].'
+          examples:
+          - QUEUED
+          - CANCELED
+          enum:
+          - QUEUED
+          - CANCELED
+          type: string
+      required:
+      - id
+      - status
+      additionalProperties: false
+    TaskListPatchResponse:
+      title: TaskListPatchResponse
+      type: object
+      properties:
+        tasks:
+          title: Tasks
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskResponse'
+      required:
+      - tasks
+      additionalProperties: false
+    VariationGetResponse:
+      title: VariationGetResponse
+      type: object
+      properties:
+        id:
+          title: ID
+          description: The ID of the variation, must be unique.
+          minLength: 1
+          maxLength: 250
+          type: string
+        item_id:
+          title: Item ID
+          description: The ID of the item this variation is attached to.
+          minLength: 1
+          maxLength: 250
+          type: string
+        name:
+          title: Name
+          description: The name of the variation, as it will appear in the results. Contains at least one alphanumeric character.
+          maxLength: 250
+          minLength: 1
+          type: string
+        suggested_score:
+          title: Score
+          description: A number that will influence the variation's initial ranking relative to other variation scores (the higher the score, the higher in the list of suggestions the variation will appear).
+          minimum: -1
+          maximum: 500000000
+          type: integer
+        data:
+          title: Data
+          description: Object containing additional data attached to this variation.
+          allOf:
+          - $ref: '#/components/schemas/VariationMetadataResponse'
+        updated_at:
+          title: Updated at
+          description: A date when the variation was updated.
+          type: string
+          format: date-time
+      required:
+      - id
+      - item_id
+      - updated_at
+      additionalProperties: false
+    VariationMetadataResponse:
+      title: VariationMetadataResponse
+      description: 'Additional data about item. In addition to the listed properties
+
+        you can also provide any other information you want to associate
+
+        with that item. No special validation is made for that data.'
+      type: object
+      properties:
+        keywords:
+          title: Keywords
+          description: An array of keywords for this item. Keywords are useful if you want a product name to appear when a user enters a search term that isn't in the product name itself.
+          type: array
+          items:
+            type: string
+            examples:
+            - running
+            - athletic
+            - sports
+        url:
+          title: Url
+          description: A URL to directly send the user after selecting the item. Might be required in some cases. Please contact support@constructor.io if you have questions around that.
+          examples:
+          - http://www.example.com/product/123
+          - /products/shoes
+          type: string
+        image_url:
+          title: Image Url
+          description: A URL that points to an image you'd like displayed next to some item (only applicable when url is supplied).
+          examples:
+          - http://www.example.com/images/product.jpg
+          type: string
+        facets:
+          title: Facets
+          description: 'Warning: ingesting data directly as facets has been deprecated. Please ingest the data as metadata instead, and create a facet configuration as shown in our guide on global facet configuration. '
+          deprecated: true
+          examples:
+          - color:
+            - red
+            - blue
+            size:
+            - L
+            - XL
+          allOf:
+          - $ref: '#/components/schemas/Facets'
+        group_ids:
+          title: Group Ids
+          description: You can associate each item with one or more groups (i.e. categories). To set up a group hierarchy please contact support@constructor.io group_ids can be used as filters in search, autosuggest, and browse requests.
+          type: array
+          items:
+            type: string
+            examples:
+            - shoes
+            - athletic
+        description:
+          title: Description
+          description: A description for this item. The maximum length of this field is 4000 characters.
+          examples:
+          - A comfortable running shoe with cushioned sole
+          maxLength: 4000
+          type: string
+        active:
+          title: Active
+          examples:
+          - true
+          - false
+          type: boolean
+        is_default:
+          title: Is Default
+          description: Whether this variation should always be returned as the best matching variation.
+          examples:
+          - true
+          - false
+          type: boolean
+      additionalProperties: true
+    VariationListGetResponse:
+      title: VariationListGetResponse
+      type: object
+      properties:
+        total_count:
+          title: Total Count
+          description: Total number of variations. Omitted when using cursor-based pagination (`next_page_cursor`).
+          minimum: 0
+          examples:
+          - 100
+          - 5000
+          type: integer
+        variations:
+          title: Variations
+          type: array
+          items:
+            $ref: '#/components/schemas/VariationGetResponse'
+        next_page_cursor:
+          title: Pagination cursor
+          description: Pagination cursor to use to receive the next page of results. The value is returned by the previous page response. Cannot be used together with `page` or `offset`.
+          maxLength: 250
+          minLength: 1
+          examples:
+          - red-nike-shoes
+          - variation-123
+          type: string
+      required:
+      - variations
+    VariationListDeleteRequestBody:
+      title: VariationListDeleteRequestBody
+      type: object
+      properties:
+        variations:
+          title: Variations
+          description: Array of variation IDs you want to delete.
+          minItems: 1
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/VariationBase'
+      required:
+      - variations
+    VariationBase:
+      title: VariationBase
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the variation, must be unique.
+          examples:
+          - red-nike-shoes
+          - variation-123
+          minLength: 1
+          maxLength: 250
+          type: string
+      required:
+      - id
+      additionalProperties: false
+    VariationListDeleteResponse:
+      title: VariationListDeleteResponse
+      type: object
+      properties:
+        task_id:
+          title: Task Id
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          type: string
+      required:
+      - task_id
+      - task_status_path
+    VariationListDeleteAcceptedResponse:
+      title: VariationListDeleteAcceptedResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          description: Info message
+          type: string
+      required:
+      - message
+    VariationListPutRequestBody:
+      title: VariationListPutRequestBody
+      type: object
+      properties:
+        variations:
+          title: Variations
+          description: Array of variations you want to create or replace.
+          minItems: 1
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/Variation'
+      required:
+      - variations
+    VariationMetadata:
+      title: VariationMetadata
+      description: 'Additional data about item. In addition to the listed properties
+
+        you can also provide any other information you want to associate
+
+        with that item. No special validation is made for that data.'
+      type: object
+      properties:
+        keywords:
+          title: Keywords
+          description: An array of keywords for this item. Keywords are useful if you want a product name to appear when a user enters a search term that isn't in the product name itself.
+          type: array
+          items:
+            type: string
+            examples:
+            - running
+            - athletic
+            - sports
+        url:
+          title: Url
+          description: A URL to directly send the user after selecting the item. Might be required in some cases. Please contact support@constructor.io if you have questions around that.
+          examples:
+          - http://www.example.com/product/123
+          - /products/shoes
+          type: string
+        image_url:
+          title: Image Url
+          description: A URL that points to an image you'd like displayed next to some item (only applicable when url is supplied).
+          examples:
+          - http://www.example.com/images/product.jpg
+          type: string
+        facets:
+          title: Facets
+          description: 'Warning: ingesting data directly as facets has been deprecated. Please ingest the data as metadata instead, and create a facet configuration as shown in our guide on global facet configuration. '
+          deprecated: true
+          examples:
+          - color:
+            - red
+            - blue
+            size:
+            - L
+            - XL
+          allOf:
+          - $ref: '#/components/schemas/Facets'
+        group_ids:
+          title: Group Ids
+          description: You can associate each item with one or more groups (i.e. categories). To set up a group hierarchy please contact support@constructor.io group_ids can be used as filters in search, autosuggest, and browse requests.
+          type: array
+          items:
+            type: string
+            examples:
+            - shoes
+            - athletic
+        description:
+          title: Description
+          description: A description for this item. The maximum length of this field is 4000 characters.
+          examples:
+          - A comfortable running shoe with cushioned sole
+          maxLength: 4000
+          type: string
+        active:
+          title: Active
+          examples:
+          - true
+          - false
+          type: boolean
+        is_default:
+          title: Is Default
+          description: Whether this variation should always be returned as the best matching variation.
+          examples:
+          - true
+          - false
+          type: boolean
+        __cnstrc_release_time:
+          title: Release time
+          description: Date and time of item's release, useful to hide items from search results until its official release.
+          examples:
+          - '2024-01-15T10:30:00Z'
+          type: string
+          format: date-time
+    Variation:
+      title: Variation
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the variation, must be unique.
+          examples:
+          - red-nike-shoes
+          - variation-123
+          minLength: 1
+          maxLength: 250
+          type: string
+        item_id:
+          title: Item Id
+          description: The ID of the item this variation is attached to.
+          examples:
+          - nike-shoes
+          - product-123
+          minLength: 1
+          maxLength: 250
+          type: string
+        name:
+          title: Name
+          description: The name of the variation, as it will appear in the results. Must contain at least one alphanumeric character.
+          maxLength: 250
+          minLength: 1
+          examples:
+          - Running Shoes - Size 10
+          - Blue T-Shirt - Large
+          type: string
+        suggested_score:
+          title: Suggested Score
+          description: A number that will influence the variation's initial ranking relative to other variation scores (the higher the score, the higher in the list of suggestions the variation will appear).
+          minimum: -1
+          maximum: 500000000
+          examples:
+          - 100
+          - 9999
+          type: integer
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this variation. The maximum size of data object is limited to 200kb. The average size of data objects for all ingested items and variations should not exceed 30kb.
+          examples:
+          - url: http://example.com/variation
+            size: L
+          allOf:
+          - $ref: '#/components/schemas/VariationMetadata'
+      required:
+      - id
+      - item_id
+      additionalProperties: false
+    VariationListPutResponse:
+      title: VariationListPutResponse
+      type: object
+      properties:
+        task_id:
+          title: Task Id
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          type: string
+      required:
+      - task_id
+      - task_status_path
+    VariationListPutAcceptedResponse:
+      title: VariationListPutAcceptedResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          description: Info message
+          type: string
+      required:
+      - message
+    VariationListPatchRequestBody:
+      title: VariationListPatchRequestBody
+      type: object
+      properties:
+        variations:
+          title: Variations
+          description: Array of variations you want to update.
+          minItems: 1
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/VariationPatch'
+      required:
+      - variations
+    VariationPatch:
+      title: VariationPatch
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the variation, must be unique.
+          examples:
+          - red-nike-shoes
+          - variation-123
+          minLength: 1
+          maxLength: 250
+          type: string
+        item_id:
+          title: Item Id
+          description: The ID of the item this variation is attached to.
+          examples:
+          - nike-shoes
+          - product-123
+          minLength: 1
+          maxLength: 250
+          type: string
+        name:
+          title: Name
+          description: The name of the variation, as it will appear in the results. Must contain at least one alphanumeric character.
+          maxLength: 250
+          minLength: 1
+          examples:
+          - Running Shoes - Size 10
+          - Blue T-Shirt - Large
+          type: string
+        suggested_score:
+          title: Suggested Score
+          description: A number that will influence the variation's initial ranking relative to other variation scores (the higher the score, the higher in the list of suggestions the variation will appear).
+          minimum: -1
+          maximum: 500000000
+          examples:
+          - 100
+          - 9999
+          type: integer
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this variation. The maximum size of data object is limited to 200kb. The average size of data objects for all ingested items and variations should not exceed 30kb.
+          examples:
+          - url: http://example.com/variation
+            size: L
+          allOf:
+          - $ref: '#/components/schemas/VariationMetadata'
+      required:
+      - id
+      additionalProperties: false
+    VariationListPatchResponse:
+      title: VariationListPatchResponse
+      type: object
+      properties:
+        task_id:
+          title: Task Id
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          type: string
+      required:
+      - task_id
+      - task_status_path
+    VariationListPatchAcceptedResponse:
+      title: VariationListPatchAcceptedResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          description: Info message
+          type: string
+      required:
+      - message
+  securitySchemes:
+    http_basic_auth:
+      type: http
+      scheme: basic
+    http_bearer_auth:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: false

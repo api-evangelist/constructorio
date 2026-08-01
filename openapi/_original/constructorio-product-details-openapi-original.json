@@ -1,0 +1,725 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Product details",
+    "description": "A service for retrieving product details for items and variations.",
+    "contact": {
+      "email": "support@constructor.io"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://product-details.cnstrc.com"
+    }
+  ],
+  "security": [],
+  "tags": [
+    {
+      "name": "Product details"
+    }
+  ],
+  "paths": {
+    "/v1/items": {
+      "get": {
+        "tags": [
+          "Product details"
+        ],
+        "summary": "Retrieve item product details",
+        "description": "Retrieve product details for an item.",
+        "operationId": "v1-product-details-get-items",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "title": "Key",
+              "description": "The key of the index to use.",
+              "examples": [
+                "key_K2pX7vBnU0bgA5xp"
+              ]
+            },
+            "description": "The key of the index to use."
+          },
+          {
+            "name": "section",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "title": "Section",
+              "description": "The section of the index to use (e.g. 'Products').",
+              "examples": [
+                "Products"
+              ]
+            },
+            "description": "The section of the index to use (e.g. 'Products')."
+          },
+          {
+            "name": "item_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Item ID",
+              "description": "The unique identifier of an item in the product catalog."
+            },
+            "description": "The unique identifier of an item in the product catalog."
+          },
+          {
+            "name": "c",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "C",
+              "description": "The ID of the client and version that the request is coming from, such as `cio-js-2.90`.",
+              "examples": [
+                "cio-js-client-2.35.2"
+              ]
+            },
+            "description": "The ID of the client and version that the request is coming from, such as `cio-js-2.90`."
+          },
+          {
+            "name": "ui",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ui",
+              "description": "A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps Constructor to tie multiple client and session IDs together to form a behavioral data profile across devices.",
+              "examples": [
+                "customer-user-id-456"
+              ]
+            },
+            "description": "A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps Constructor to tie multiple client and session IDs together to form a behavioral data profile across devices."
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "const": "enriched_attributes",
+                "type": "string"
+              },
+              "title": "Fields",
+              "description": "One or more product detail fields to include in the response. This parameter may be repeated to specify multiple fields.",
+              "examples": [
+                [
+                  "enriched_attributes"
+                ]
+              ]
+            },
+            "description": "One or more product detail fields to include in the response. This parameter may be repeated to specify multiple fields."
+          },
+          {
+            "name": "s",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "S",
+              "description": "An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity.",
+              "examples": [
+                1
+              ]
+            },
+            "description": "An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity."
+          },
+          {
+            "name": "i",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "I",
+              "description": "A globally unique identifier for the user browser (or mobile application instance) making the request.",
+              "examples": [
+                "user-device-id-123"
+              ]
+            },
+            "description": "A globally unique identifier for the user browser (or mobile application instance) making the request."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleItemGetResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseWithTrace"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/v1/variations": {
+      "get": {
+        "tags": [
+          "Product details"
+        ],
+        "summary": "Retrieve variation product details",
+        "description": "Retrieve product details for variations of an item.",
+        "operationId": "v1-product-details-get-variations",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "title": "Key",
+              "description": "The key of the index to use.",
+              "examples": [
+                "key_K2pX7vBnU0bgA5xp"
+              ]
+            },
+            "description": "The key of the index to use."
+          },
+          {
+            "name": "section",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "title": "Section",
+              "description": "The section of the index to use (e.g. 'Products').",
+              "examples": [
+                "Products"
+              ]
+            },
+            "description": "The section of the index to use (e.g. 'Products')."
+          },
+          {
+            "name": "variation_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 100,
+              "title": "Variation ID",
+              "description": "One or more variation IDs to retrieve product details for. This parameter may be repeated to specify multiple IDs."
+            },
+            "description": "One or more variation IDs to retrieve product details for. This parameter may be repeated to specify multiple IDs."
+          },
+          {
+            "name": "c",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "C",
+              "description": "The ID of the client and version that the request is coming from, such as `cio-js-2.90`.",
+              "examples": [
+                "cio-js-client-2.35.2"
+              ]
+            },
+            "description": "The ID of the client and version that the request is coming from, such as `cio-js-2.90`."
+          },
+          {
+            "name": "ui",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Ui",
+              "description": "A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps Constructor to tie multiple client and session IDs together to form a behavioral data profile across devices.",
+              "examples": [
+                "customer-user-id-456"
+              ]
+            },
+            "description": "A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps Constructor to tie multiple client and session IDs together to form a behavioral data profile across devices."
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "const": "enriched_attributes",
+                "type": "string"
+              },
+              "title": "Fields",
+              "description": "One or more product detail fields to include in the response. This parameter may be repeated to specify multiple fields.",
+              "examples": [
+                [
+                  "enriched_attributes"
+                ]
+              ]
+            },
+            "description": "One or more product detail fields to include in the response. This parameter may be repeated to specify multiple fields."
+          },
+          {
+            "name": "s",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "S",
+              "description": "An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity.",
+              "examples": [
+                1
+              ]
+            },
+            "description": "An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity."
+          },
+          {
+            "name": "i",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "I",
+              "description": "A globally unique identifier for the user browser (or mobile application instance) making the request.",
+              "examples": [
+                "user-device-id-123"
+              ]
+            },
+            "description": "A globally unique identifier for the user browser (or mobile application instance) making the request."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VariationsGetResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseWithTrace"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AttributeType": {
+        "type": "string",
+        "enum": [
+          "standard",
+          "extended"
+        ],
+        "title": "AttributeType",
+        "description": "The type of an enriched attribute value."
+      },
+      "AttributeValue": {
+        "properties": {
+          "value": {
+            "type": "string",
+            "title": "Value"
+          },
+          "type": {
+            "$ref": "#/components/schemas/AttributeType"
+          }
+        },
+        "type": "object",
+        "required": [
+          "value",
+          "type"
+        ],
+        "title": "AttributeValue",
+        "description": "A single enriched attribute value."
+      },
+      "Badge": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "display_name": {
+            "type": "string",
+            "title": "Display Name"
+          },
+          "metadata": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Metadata",
+            "examples": [
+              {
+                "times_was_seen_last_week": "123"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "display_name"
+        ],
+        "title": "Badge",
+        "description": "Fully resolved badge (API type, all {placeholder} replaced)."
+      },
+      "EnrichedAttributes": {
+        "properties": {
+          "badges": {
+            "items": {
+              "$ref": "#/components/schemas/Badge"
+            },
+            "type": "array",
+            "title": "Badges"
+          },
+          "attributes": {
+            "additionalProperties": {
+              "items": {
+                "$ref": "#/components/schemas/AttributeValue"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Attributes",
+            "examples": [
+              {
+                "color": [
+                  {
+                    "type": "standard",
+                    "value": "red"
+                  },
+                  {
+                    "type": "standard",
+                    "value": "green"
+                  },
+                  {
+                    "type": "standard",
+                    "value": "blue"
+                  }
+                ],
+                "neckline": [
+                  {
+                    "type": "standard",
+                    "value": "round"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "badges",
+          "attributes"
+        ],
+        "title": "EnrichedAttributes",
+        "description": "Enriched attributes: resolved badges and attributes keyed by name."
+      },
+      "ErrorDetail": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "message"
+        ],
+        "title": "ErrorDetail",
+        "description": "Single error entry in an error response."
+      },
+      "ErrorResponse": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "errors": {
+            "items": {
+              "$ref": "#/components/schemas/ErrorDetail"
+            },
+            "type": "array",
+            "title": "Errors"
+          }
+        },
+        "type": "object",
+        "required": [
+          "message",
+          "errors"
+        ],
+        "title": "ErrorResponse",
+        "description": "Standard error response body."
+      },
+      "ErrorResponseWithTrace": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "errors": {
+            "items": {
+              "$ref": "#/components/schemas/ErrorDetail"
+            },
+            "type": "array",
+            "title": "Errors"
+          },
+          "trace_id": {
+            "type": "string",
+            "title": "Trace Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "message",
+          "errors",
+          "trace_id"
+        ],
+        "title": "ErrorResponseWithTrace",
+        "description": "Error response body with trace ID."
+      },
+      "ItemWithEnrichedAttributes": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "ID"
+          },
+          "enriched_attributes": {
+            "$ref": "#/components/schemas/EnrichedAttributes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "enriched_attributes"
+        ],
+        "title": "ItemWithEnrichedAttributes",
+        "description": "Item with nested enriched_attributes (used in GET /v1/items)."
+      },
+      "Variation": {
+        "properties": {
+          "variation_id": {
+            "type": "string",
+            "title": "Variation ID"
+          },
+          "enriched_attributes": {
+            "$ref": "#/components/schemas/EnrichedAttributes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "variation_id",
+          "enriched_attributes"
+        ],
+        "title": "Variation",
+        "description": "Variation with nested enriched_attributes (used in GET /v1/variations)."
+      },
+      "SingleItemGetResponse": {
+        "properties": {
+          "trace_id": {
+            "type": "string",
+            "title": "Trace Id"
+          },
+          "response": {
+            "title": "Response",
+            "type": "object",
+            "properties": {
+              "item": {
+                "$ref": "#/components/schemas/ItemWithEnrichedAttributes"
+              }
+            },
+            "required": [
+              "item"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "trace_id",
+          "response"
+        ],
+        "title": "SingleItemGetResponse",
+        "description": "Full response for GET /v1/items."
+      },
+      "VariationsGetResponse": {
+        "properties": {
+          "trace_id": {
+            "type": "string",
+            "title": "Trace Id"
+          },
+          "response": {
+            "title": "Response",
+            "type": "object",
+            "properties": {
+              "variations": {
+                "title": "Variations",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Variation"
+                }
+              }
+            },
+            "required": [
+              "variations"
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "trace_id",
+          "response"
+        ],
+        "title": "VariationsGetResponse",
+        "description": "Full response for GET /v1/variations."
+      }
+    },
+    "securitySchemes": {
+      "http_basic_auth": {
+        "type": "http",
+        "scheme": "basic"
+      },
+      "http_bearer_auth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "x-readme": {
+    "explorer-enabled": false
+  }
+}

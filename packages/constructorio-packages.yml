@@ -1,0 +1,161 @@
+generated: '2026-08-01'
+method: searched
+source: https://docs.constructor.com/docs/integrating-with-constructor-open-source-libraries-client-libraries-sdks
+notes: >-
+  Versions recorded are the registry "latest" observed on 2026-08-01. All packages
+  below are published from the Constructor-io GitHub organization and are documented
+  on Constructor's own client-libraries page, so official: true throughout. UI
+  component libraries are listed here as packages and described in detail in
+  components/constructorio-components.yml; the Connect CLI command surface is in
+  cli/constructorio-cli.yml.
+packages:
+- language: javascript
+  registry: npm
+  name: '@constructor-io/constructorio-client-javascript'
+  version: 2.90.0
+  url: https://www.npmjs.com/package/@constructor-io/constructorio-client-javascript
+  install: npm install @constructor-io/constructorio-client-javascript
+  repository: https://github.com/Constructor-io/constructorio-client-javascript
+  docs: https://constructor-io.github.io/constructorio-client-javascript/
+  role: browser / client-side client (search, browse, autocomplete, recommendations,
+    quizzes, agent, tracker modules)
+  official: true
+- language: javascript
+  registry: npm
+  name: '@constructor-io/constructorio-node'
+  version: 5.10.0
+  url: https://www.npmjs.com/package/@constructor-io/constructorio-node
+  install: npm install @constructor-io/constructorio-node
+  repository: https://github.com/Constructor-io/constructorio-node
+  docs: https://constructor-io.github.io/constructorio-node/
+  role: server-side Node.js client
+  official: true
+- language: javascript
+  registry: npm
+  name: '@constructor-io/constructorio-connect-cli'
+  version: 1.23.0
+  url: https://www.npmjs.com/package/@constructor-io/constructorio-connect-cli
+  install: npx @constructor-io/constructorio-connect-cli
+  repository: https://github.com/Constructor-io/constructorio-connect-cli
+  role: CLI for the Constructor Connect connector ecosystem
+  official: true
+- language: javascript
+  registry: npm
+  name: '@constructor-io/constructorio-id'
+  version: 2.8.0
+  url: https://www.npmjs.com/package/@constructor-io/constructorio-id
+  install: npm install @constructor-io/constructorio-id
+  repository: https://github.com/Constructor-io/constructorio-identity
+  role: identity and session management module
+  official: true
+- language: javascript
+  registry: npm
+  name: '@constructor-io/constructorio-ui-autocomplete'
+  version: 1.30.1
+  url: https://www.npmjs.com/package/@constructor-io/constructorio-ui-autocomplete
+  install: npm install @constructor-io/constructorio-ui-autocomplete
+  repository: https://github.com/Constructor-io/constructorio-ui-autocomplete
+  role: autocomplete UI component library
+  official: true
+- language: javascript
+  registry: npm
+  name: '@constructor-io/constructorio-ui-plp'
+  version: 1.19.1
+  url: https://www.npmjs.com/package/@constructor-io/constructorio-ui-plp
+  install: npm install @constructor-io/constructorio-ui-plp
+  repository: https://github.com/Constructor-io/constructorio-ui-plp
+  role: product listing page (PLP) UI component library
+  official: true
+- language: javascript
+  registry: npm
+  name: '@constructor-io/constructorio-ui-quizzes'
+  version: 1.21.0
+  url: https://www.npmjs.com/package/@constructor-io/constructorio-ui-quizzes
+  install: npm install @constructor-io/constructorio-ui-quizzes
+  repository: https://github.com/Constructor-io/constructorio-ui-quizzes
+  role: quizzes UI component library
+  official: true
+- language: javascript
+  registry: npm
+  name: '@constructor-io/constructorio-ui-recommendations'
+  version: 1.0.0
+  url: https://www.npmjs.com/package/@constructor-io/constructorio-ui-recommendations
+  install: npm install @constructor-io/constructorio-ui-recommendations
+  repository: https://github.com/Constructor-io/constructorio-ui-recommendations
+  role: recommendations UI component library
+  official: true
+- language: javascript
+  registry: npm
+  name: '@constructor-io/constructorio-ui-pia'
+  version: 2.10.0
+  url: https://www.npmjs.com/package/@constructor-io/constructorio-ui-pia
+  install: npm install @constructor-io/constructorio-ui-pia
+  repository: https://github.com/Constructor-io/constructorio-ui-pia
+  role: AI Product Insights Agent UI component library
+  official: true
+- language: javascript
+  registry: npm
+  name: '@constructor-io/constructorio-ui-agent-overview'
+  version: 1.0.0
+  url: https://www.npmjs.com/package/@constructor-io/constructorio-ui-agent-overview
+  install: npm install @constructor-io/constructorio-ui-agent-overview
+  repository: https://github.com/Constructor-io/constructorio-ui-agent-overview
+  role: agent overview UI component library
+  official: true
+- language: python
+  registry: pypi
+  name: constructor-io
+  version: 1.9.1
+  url: https://pypi.org/project/constructor-io/
+  install: pip install constructor-io
+  repository: https://github.com/Constructor-io/constructorio-python
+  role: Python client
+  official: true
+- language: csharp
+  registry: nuget
+  name: constructor.io
+  version: 4.4.0
+  url: https://www.nuget.org/packages/constructor.io
+  install: nuget install constructor.io
+  repository: https://github.com/Constructor-io/constructorio-netcore
+  role: .NET Core REST client
+  official: true
+- language: ruby
+  registry: rubygems
+  name: constructorio
+  version: 2.0.13
+  url: https://rubygems.org/gems/constructorio
+  install: gem install constructorio
+  repository: https://github.com/Constructor-io/constructorio-ruby-gem
+  role: Ruby client
+  official: true
+- language: java
+  registry: jitpack
+  name: constructorio-java
+  url: https://github.com/Constructor-io/constructorio-java
+  repository: https://github.com/Constructor-io/constructorio-java
+  role: Java REST client (distributed via JitPack, not Maven Central)
+  official: true
+- language: kotlin
+  registry: jitpack
+  name: constructorio-client-android
+  url: https://github.com/Constructor-io/constructorio-client-android
+  repository: https://github.com/Constructor-io/constructorio-client-android
+  role: Android client
+  official: true
+- language: swift
+  registry: github
+  name: constructorio-client-swift
+  url: https://github.com/Constructor-io/constructorio-client-swift
+  repository: https://github.com/Constructor-io/constructorio-client-swift
+  role: iOS / Swift client
+  official: true
+registries_checked:
+  npm: found (10 packages under the @constructor-io scope)
+  pypi: found (constructor-io)
+  nuget: found (constructor.io)
+  rubygems: found (constructorio)
+  maven_central: not found — the Java client is distributed via JitPack from GitHub
+  packagist: not found (404)
+  crates_io: not found
+  pkg_go_dev: not found

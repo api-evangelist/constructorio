@@ -1,0 +1,108 @@
+generated: '2026-08-01'
+method: searched
+source: https://releases.constructor.io/
+sources:
+  product_releases: https://releases.constructor.io/
+  docs_whats_new: https://docs.constructor.com/docs/home-whats-new-in-our-docs
+  cli_release_notes: https://docs.constructor.com/docs/integrating-with-constructor-connect-cli-cli-release-notes
+scheme:
+  api_versioning: uri-path (v1 / v2), versioned per service — see lifecycle/constructorio-lifecycle.yml
+  changelog_versioning: none — the product changelog is dated and labelled, not numbered.
+    Only the Connect CLI carries semantic versions.
+  labels: [new, Improvement, Fix, Announcement, This Week in Engineering]
+  organization: reverse-chronological with month/year navigation; entries tagged by
+    feature type
+note: >-
+  releases.constructor.io renders relative dates ("a month ago") rather than absolute
+  ones, so entries below are recorded with the relative age observed on 2026-08-01
+  rather than a fabricated ISO date. The docs "What's new" page does carry absolute
+  months and is captured separately.
+entries:
+- title: Understand the reasoning behind facet visibility and order
+  label: new
+  observed_age: ~1 week before 2026-08-01
+  breaking: false
+  highlight: Facet controls in Interact show visible facets in storefront order, with
+    explainability for why each facet is shown.
+- title: Collections in Offsite Discovery
+  label: new
+  observed_age: ~2 weeks before 2026-08-01
+  breaking: false
+  highlight: Curated collections can now drive email, SMS and push campaigns via the
+    Offsite Discovery surface.
+  related_api: openapi/constructorio-offsite-discovery-recommendations-openapi.yml
+- title: Badges in Recommendations
+  label: new
+  observed_age: ~1 month before 2026-08-01
+  breaking: false
+  highlight: Visual badge labels added to recommendation modules for consistent merchandising
+    signals.
+- title: Image Search with Segmentation
+  label: new
+  observed_age: ~1 month before 2026-08-01
+  breaking: false
+  highlight: Image Search v2 automatically detects multiple objects within one uploaded
+    photo.
+  related_api: openapi/constructorio-image-search-openapi.yml
+  related_operation: v2-image-search-retrieve-search-results
+  supersedes: v1-image-search-get-search-results (now marked deprecated in the spec)
+- title: Product Details API for PDP enrichment
+  label: new
+  observed_age: ~1 month before 2026-08-01
+  breaking: false
+  highlight: Dedicated endpoints deliver enriched item and variation data for product
+    detail pages.
+  related_api: openapi/constructorio-product-details-openapi.yml
+- title: More scalable retrieval for Items & Variations
+  label: new
+  observed_age: ~1 month before 2026-08-01
+  breaking: false
+  highlight: Cursor-based pagination replaces offset-based retrieval for large catalogs.
+  related_api: openapi/constructorio-catalog-management-openapi.yml
+- title: Export a Snapshot of Your Catalog
+  label: new
+  observed_age: ~2 months before 2026-08-01
+  breaking: false
+  highlight: The Tasks API can generate and serve an on-demand catalog export.
+  related_api: openapi/constructorio-catalog-management-openapi.yml
+- title: Rule performance insights in Searchandizing
+  label: Improvement
+  observed_age: ~2 months before 2026-08-01
+  breaking: false
+  highlight: Performance metrics surfaced directly in the merchandising rule tables.
+  related_api: openapi/constructorio-searchandising-openapi.yml
+docs_whats_new:
+- {month: '2026-06', items: [Badges for PDPs and recommendation pods, Catalog ingestion
+      best practices]}
+- {month: '2026-05', items: [Automated campaigns for Sponsored Listings, DAVE extension
+      for validating on-site tracking]}
+- {month: '2026-04', items: [Schedule collection item sets, Configure sort options]}
+- {month: '2026-03', items: [Attribute-based range slotting]}
+- {month: '2026-02', items: [Schedule collections, LLM filtering transparency, Badge
+      visibility in Interact]}
+- {month: '2026-01', items: [Future catalog items in collections]}
+cli:
+  package: '@constructor-io/constructorio-connect-cli'
+  current_version: 1.23.0
+  scheme: semver
+  recent:
+  - {version: 1.23.0, breaking: false, highlights: 'Dependency and security updates;
+      added AGENTS.md agent files to better support agentic development'}
+  - {version: 1.22.0, breaking: false, highlights: connectrc.local.js for testing against
+      a local setup}
+  - {version: 1.21.0, breaking: false, highlights: CLI warns when a newer version is
+      available}
+  - {version: 1.20.1, breaking: false, highlights: 'new `upgrade` command that updates
+      the CLI and syncs repository files'}
+  - {version: 1.18.0, breaking: false, highlights: '`generate-fixture` accepts arguments
+      (connection, type, filename, item-id, variation-id, replace-file)'}
+  - {version: 1.17.0, breaking: false, highlights: live fixtures generated from a real
+      product ID in the partner platform}
+  - {version: 1.15.7, breaking: false, highlights: support for the new API token format}
+  - {version: 1.15.0, breaking: false, highlights: '`deploy` runs tests automatically
+      and fails on test failure; `deploy --force` skips'}
+  - {version: 1.14.0, breaking: soft, highlights: 'template data entrypoints renamed
+      targetData -> data and externalData -> external; old names still work with deprecation
+      warnings'}
+  - {version: 1.13.2, breaking: true, highlights: 'ESLint v9 flat config — requires
+      deleting eslint.config.js and adding eslint.config.mjs plus devDependency updates'}

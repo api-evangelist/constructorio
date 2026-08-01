@@ -1,0 +1,672 @@
+openapi: 3.0.0
+info:
+  title: Quizzes
+  description: ''
+  version: '1.0'
+  contact: {}
+servers:
+- url: https://quizzes.cnstrc.com
+tags: []
+paths:
+  /v1/quizzes/{id}/next:
+    get:
+      operationId: v1-quizzes-get-next-question
+      summary: Next question
+      description: Retrieve the next question given a list of answers. If no answers are specified, it will return the first question. Use a `version_id` to retrieve the next question for a specific version of the quiz.
+      security: []
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The id of the quiz
+        schema:
+          type: string
+      - name: key
+        required: true
+        in: query
+        description: Index key for the customer's product catalog
+        schema:
+          type: string
+      - name: section
+        required: false
+        in: query
+        description: The section of the index to use. Defaults to `products`.
+        schema:
+          type: string
+      - name: quiz_session_id
+        required: false
+        in: query
+        description: Specific quiz session id for the quiz. Session id will be automatically assigned if it is not specified.
+        schema:
+          type: string
+      - name: quiz_version_id
+        required: false
+        in: query
+        description: Specific version id for the quiz.
+        schema:
+          type: string
+      - name: version_id
+        required: false
+        in: query
+        description: Specific version id for the quiz. Deprecated, please use `quiz_version_id` instead.
+        schema:
+          type: string
+      - name: a
+        required: false
+        in: query
+        description: A list of answers in the format ?a=<option_id>,<option_id>&a=<option_id> where multiple options for a single answer are supplied in the same answer parameter (separated by ",") and options for the next question are supplied in the next answer parameter.
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK - Everything worked as expected.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NextQuestion'
+        '400':
+          description: Bad Request - The request was unacceptable, often due to missing a required parameter.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    description: Error code for easier categorization.
+                    type: string
+                  message:
+                    description: Human-readable error message describing the issue.
+                    type: string
+        '404':
+          description: Not Found - The resource you are looking for cannot be found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    description: Error code for easier categorization.
+                    type: string
+                  message:
+                    description: Human-readable error message describing the issue.
+                    type: string
+        '500':
+          description: Internal Server Error - Something went wrong on Constructor's end (these are rare).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    description: Error code for easier categorization.
+                    type: string
+                  message:
+                    description: Human-readable error message describing the issue.
+                    type: string
+      tags:
+      - Results
+  /v1/quizzes/{id}/results:
+    get:
+      operationId: v1-quizzes-get-quiz-results
+      summary: Get results
+      description: Retrieve AI optimized quiz results for products (or optionally other sections).
+      security: []
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The id of the quiz
+        schema:
+          type: string
+      - name: key
+        required: true
+        in: query
+        description: Index key for the customer's product catalog
+        schema:
+          type: string
+      - name: section
+        required: false
+        in: query
+        description: The section of the index to use. Defaults to `products`.
+        schema:
+          type: string
+      - name: quiz_session_id
+        required: false
+        in: query
+        description: Specific quiz session id for the quiz. Session id will be automatically assigned if it is not specified.
+        schema:
+          type: string
+      - name: quiz_version_id
+        required: false
+        in: query
+        description: Specific version id for the quiz.
+        schema:
+          type: string
+      - name: version_id
+        required: false
+        in: query
+        description: Specific version id for the quiz. Deprecated, please use `quiz_version_id` instead.
+        schema:
+          type: string
+      - name: filters[<filter_name>]
+        required: false
+        in: query
+        description: 'Any number of criteria by which you''d like to narrow the result set. This might be by color, size, or category (group) an item belongs to. Facets can be used as filters. Filters with the same key are ''OR''ed together, while filters with different keys are ''AND''ed together by default. If value has the form ''<min>-<max>'', it''s interpreted as a range (e.g: ''filters[Price]=100-200'' will match all items with ''Price'' from ''100'' to ''200'').'
+        schema:
+          type: string
+      - name: num_results_per_page
+        required: false
+        in: query
+        description: Specifies the number of results returned in each request. Defaults to 20 if not specified.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: Specifies the page number of the result to be fetched. Defaults to 1 if not specified.
+        schema:
+          type: string
+      - name: a
+        required: true
+        in: query
+        description: A list of answers in the format ?a=<option_id>,<option_id>&a=<option_id> where multiple options for a single answer are supplied in the same answer parameter (separated by ",") and options for the next question are supplied in the next answer parameter.
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK - Everything worked as expected.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Results'
+        '400':
+          description: Bad Request - The request was unacceptable, often due to missing a required parameter.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    description: Error code for easier categorization.
+                    type: string
+                  message:
+                    description: Human-readable error message describing the issue.
+                    type: string
+        '404':
+          description: Not Found - The resource you are looking for cannot be found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    description: Error code for easier categorization.
+                    type: string
+                  message:
+                    description: Human-readable error message describing the issue.
+                    type: string
+        '500':
+          description: Internal Server Error - Something went wrong on Constructor's end (these are rare).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    description: Error code for easier categorization.
+                    type: string
+                  message:
+                    description: Human-readable error message describing the issue.
+                    type: string
+      tags:
+      - Results
+  /v1/quizzes/{id}/results_config:
+    get:
+      operationId: v1-quizzes-get-quiz-results-config
+      summary: Get results page config
+      description: Retrieve results page configuration
+      security: []
+      parameters:
+      - name: id
+        required: true
+        in: path
+        description: The id of the quiz
+        schema:
+          type: string
+      - name: key
+        required: true
+        in: query
+        description: Index key for the customer's product catalog
+        schema:
+          type: string
+      - name: section
+        required: false
+        in: query
+        description: The section of the index to use. Defaults to `products`.
+        schema:
+          type: string
+      - name: quiz_version_id
+        required: false
+        in: query
+        description: Specific version id for the quiz.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK - Everything worked as expected.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResultsConfigResponse'
+        '400':
+          description: Bad Request - The request was unacceptable, often due to missing a required parameter.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    description: Error code for easier categorization.
+                    type: string
+                  message:
+                    description: Human-readable error message describing the issue.
+                    type: string
+        '404':
+          description: Not Found - The resource you are looking for cannot be found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    description: Error code for easier categorization.
+                    type: string
+                  message:
+                    description: Human-readable error message describing the issue.
+                    type: string
+        '500':
+          description: Internal Server Error - Something went wrong on Constructor's end (these are rare).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    description: Error code for easier categorization.
+                    type: string
+                  message:
+                    description: Human-readable error message describing the issue.
+                    type: string
+      tags:
+      - Results
+components:
+  schemas:
+    Images:
+      type: object
+      properties:
+        primary_url:
+          type: string
+          nullable: true
+          example: PRIMARY_ASSET_URL
+        primary_alt:
+          type: string
+          description: Alt string used for the primary url asset.
+          nullable: true
+          example: PRIMARY_ASSET_ALT
+        secondary_url:
+          type: string
+          nullable: true
+          example: SECONDARY_ASSET_URL
+        secondary_alt:
+          type: string
+          description: Alt string used for the secondary url asset.
+          nullable: true
+          example: SECONDARY_ASSET_ALT
+    Option:
+      type: object
+      properties:
+        id:
+          type: number
+        value:
+          type: string
+          example: OPTION_VALUE
+        attribute:
+          type: object
+          description: Attribute filter expression associated with this option.
+          nullable: true
+          example:
+            name: TEST_FILTER_NAME
+            value: TEST_FILTER_VALUE
+        images:
+          type: object
+          description: Image fields required for rendering the images at the option level on the front-end.
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/Images'
+        key:
+          type: string
+          description: Unique immutable key to identify the option
+    MultipleSelectQuestion:
+      type: object
+      properties:
+        id:
+          type: number
+        title:
+          type: string
+          example: TITLE
+        description:
+          type: string
+          example: DESCRIPTION
+          nullable: true
+        images:
+          type: object
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/Images'
+        cta_text:
+          type: string
+          nullable: true
+        key:
+          type: string
+        is_skippable:
+          type: boolean
+        priority:
+          type: number
+          nullable: true
+        bucket_id:
+          type: string
+          nullable: true
+        option:
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+        type:
+          type: string
+          enum:
+          - multiple
+    SingleSelectQuestion:
+      type: object
+      properties:
+        id:
+          type: number
+        title:
+          type: string
+          example: TITLE
+        description:
+          type: string
+          example: DESCRIPTION
+          nullable: true
+        images:
+          type: object
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/Images'
+        cta_text:
+          type: string
+          nullable: true
+        key:
+          type: string
+        is_skippable:
+          type: boolean
+        priority:
+          type: number
+          nullable: true
+        bucket_id:
+          type: string
+          nullable: true
+        option:
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+        type:
+          type: string
+          enum:
+          - single
+    OpenTextQuestion:
+      type: object
+      properties:
+        id:
+          type: number
+        title:
+          type: string
+          example: TITLE
+        description:
+          type: string
+          example: DESCRIPTION
+          nullable: true
+        images:
+          type: object
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/Images'
+        cta_text:
+          type: string
+          nullable: true
+        key:
+          type: string
+        is_skippable:
+          type: boolean
+        priority:
+          type: number
+          nullable: true
+        bucket_id:
+          type: string
+          nullable: true
+        type:
+          type: string
+          enum:
+          - open
+        input_placeholder:
+          type: string
+          nullable: true
+    CoverPageQuestion:
+      type: object
+      properties:
+        id:
+          type: number
+        title:
+          type: string
+          example: TITLE
+        description:
+          type: string
+          example: DESCRIPTION
+          nullable: true
+        images:
+          type: object
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/Images'
+        cta_text:
+          type: string
+          nullable: true
+        key:
+          type: string
+        is_skippable:
+          type: boolean
+        priority:
+          type: number
+          nullable: true
+        bucket_id:
+          type: string
+          nullable: true
+        type:
+          type: string
+          enum:
+          - cover
+    MultipleFilterSelectQuestion:
+      type: object
+      properties:
+        id:
+          type: number
+        title:
+          type: string
+          example: TITLE
+        description:
+          type: string
+          example: DESCRIPTION
+          nullable: true
+        images:
+          type: object
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/Images'
+        cta_text:
+          type: string
+          nullable: true
+        key:
+          type: string
+        is_skippable:
+          type: boolean
+        priority:
+          type: number
+          nullable: true
+        bucket_id:
+          type: string
+          nullable: true
+        option:
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+        filter_name:
+          type: array
+          items:
+            type: string
+        type:
+          type: string
+          enum:
+          - multiple_filter_values
+    SingleFilterSelectQuestion:
+      type: object
+      properties:
+        id:
+          type: number
+        title:
+          type: string
+          example: TITLE
+        description:
+          type: string
+          example: DESCRIPTION
+          nullable: true
+        images:
+          nullable: true
+          type: object
+          allOf:
+          - $ref: '#/components/schemas/Images'
+        cta_text:
+          type: string
+          nullable: true
+        key:
+          type: string
+        is_skippable:
+          type: boolean
+        priority:
+          type: number
+          nullable: true
+        bucket_id:
+          type: string
+          nullable: true
+        option:
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+        filter_name:
+          type: array
+          items:
+            type: string
+        type:
+          type: string
+          enum:
+          - single_filter_value
+    NextQuestion:
+      type: object
+      properties:
+        next_question:
+          type: object
+          description: Next question
+          oneOf:
+          - $ref: '#/components/schemas/MultipleSelectQuestion'
+          - $ref: '#/components/schemas/SingleSelectQuestion'
+          - $ref: '#/components/schemas/OpenTextQuestion'
+          - $ref: '#/components/schemas/CoverPageQuestion'
+          - $ref: '#/components/schemas/MultipleFilterSelectQuestion'
+          - $ref: '#/components/schemas/SingleFilterSelectQuestion'
+          nullable: true
+        total_questions:
+          type: number
+          description: Gives the total number of questions in the quiz
+        version_id:
+          type: string
+          description: Version id of this quiz
+          example: 11db5ac7-67e1-4000-9000-414d8425cab3
+        quiz_version_id:
+          type: string
+          description: Version id of this quiz
+          example: 11db5ac7-67e1-4000-9000-414d8425cab3
+        quiz_id:
+          type: string
+          description: id of quiz
+          example: 11db5ac7-67e1-4000-9000-414d8425cab3
+        quiz_session_id:
+          type: string
+          description: Session id of this quiz
+          example: 11db5ac7-67e1-4000-9000-414d8425cab3
+    Results:
+      type: object
+      properties:
+        filter_expression:
+          type: object
+          description: Resulting filter expression generated from the various attributes selected after answering a quiz.
+          nullable: true
+          example:
+            or:
+            - and:
+              - name: TEST_FILTER_NAME
+                value: TEST_FILTER_VALUE
+              - not:
+                  name: TEST_FILTER_NAME_2
+                  value: TEST_FILTER_VALUE_2
+            - name: TEST_FILTER_NAME_3
+              value: TEST_FILTER_VALUE_3
+        results:
+          description: Final results
+          nullable: true
+          type: array
+          items:
+            type: object
+    ResultsConfigResponse:
+      type: object
+      properties:
+        results_config:
+          type: object
+          description: Config for the results page
+          example:
+            desktop:
+              title:
+                text: TITLE
+                is_active: true
+              description:
+                text: DESCRIPTION
+                is_active: false
+              response_summary:
+                text: SUMMARY
+                is_active: true
+                items_separator: ','
+                last_separator: AND
+        quiz_version_id:
+          type: string
+          description: Version id of this quiz
+          example: 11db5ac7-67e1-4000-9000-414d8425cab3
+        quiz_id:
+          type: string
+          description: id of quiz
+          example: 11db5ac7-67e1-4000-9000-414d8425cab3
+        metadata:
+          type: object
+          description: Metadata for the quiz
+          example: null
+x-readme:
+  explorer-enabled: false

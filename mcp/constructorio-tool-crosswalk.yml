@@ -1,0 +1,96 @@
+generated: '2026-08-01'
+method: derived
+source: mcp/constructorio-mcp.yml + openapi/*.yml
+summary: >-
+  Constructor's published MCP server is a DOCUMENTATION server, not a projection of
+  the product REST API. Its six tools operate over the OpenAPI documents and doc
+  pages themselves (list-specs / list-endpoints / get-endpoint / search-endpoints /
+  search / fetch), so not one MCP tool maps to a Constructor product operationId.
+  The honest crosswalk is therefore: zero bound tools, six meta tools, and all 180
+  REST operations unexposed to agents via MCP. This is a real and material surface
+  divergence — an agent connected to Constructor's MCP server can read about the
+  Search API but cannot call it — and is recorded rather than papered over.
+surfaces:
+  openapi:
+    files: 17
+    operations: 180
+    hosts: [ac.cnstrc.com, agent.cnstrc.com, image-search.cnstrc.com, quizzes.cnstrc.com,
+      offsite-discovery.cnstrc.com, product-details.cnstrc.com, user-profile.cnstrc.com,
+      batching.catalog.cnstrc.com, retail.media-cnstrc.com, display.media-cnstrc.com]
+    gated: false
+    note: specs are published through the ReadMe-hosted docs at docs.constructor.com
+      and are harvested verbatim in openapi/
+  graphql:
+    endpoint: null
+    note: Constructor publishes no GraphQL surface
+  mcp:
+    url: https://docs.constructor.com/mcp
+    gated: false
+    note: anonymous tools/list returned 200 with full inputSchema for all six tools
+crosswalk: []
+mcp_only:
+- tool: list-specs
+  reason: meta tool over the OpenAPI catalog itself; no backing REST operation
+- tool: list-endpoints
+  reason: meta tool that enumerates paths within a named spec; no backing REST operation
+- tool: get-endpoint
+  reason: meta tool that returns one operation's definition (security schemes, servers);
+    no backing REST operation
+- tool: search-endpoints
+  reason: meta tool performing pattern search across paths/operations/parameters; no
+    backing REST operation
+- tool: search
+  reason: documentation search; no backing REST operation (Constructor's product search
+    at /v1/search/{search_query} searches a customer product index, not the docs, so
+    this is NOT a match)
+- tool: fetch
+  reason: documentation page retrieval by ID; no backing REST operation
+rest_only:
+- capability: Search
+  operations: [v1-search-get-search-results, v1-search-get-natural-language-search-results]
+- capability: Autocomplete
+  operations: [v1-autocomplete-get-autocomplete-results]
+- capability: Browse
+  operations: [v1-browse-get-browse-results, v1-browse-get-browse-results-by-collection-id,
+    v1-browse-get-browse-results-by-group-id, v1-browse-get-browse-items-results,
+    v1-browse-get-browse-groups, v1-browse-get-browse-facets, v1-browse-get-browse-facet-options,
+    v1-browse-get-browse-facets-with-options, v1-browse-get-browse-collections]
+- capability: Recommendations
+  operations: [v1-recommendations-get-pod-results]
+- capability: Image Search
+  operations: [v2-image-search-retrieve-search-results, v1-image-search-get-search-results]
+- capability: AI Shopping Agent
+  operations: [v1-asa-retrieve-intent, v1-asa-retrieve-item-questions, v1-asa-retrieve-item-questions-answer]
+- capability: Quizzes
+  operations: [v1-quizzes-get-next-question, v1-quizzes-get-quiz-results, v1-quizzes-get-quiz-results-config]
+- capability: Offsite Discovery
+  operations_count: 6
+  note: pod, collection, item-image and item-URL redirect operations in openapi/constructorio-offsite-discovery-recommendations-openapi.yml
+- capability: Catalog management
+  operations_count: 31
+  note: catalog files, items, variations, item groups, field statistics and tasks in openapi/constructorio-catalog-management-openapi.yml
+- capability: Catalog batching
+  operations: [v2-batching-items-update-items, v2-batching-items-delete-items, v2-batching-variations-update-variations,
+    v2-batching-variations-delete-variations]
+- capability: Configuration
+  operations_count: 77
+  note: facets, facet options, searchabilities, synonyms, sort options, redirects, collections, quizzes and metadata overrides in openapi/constructorio-configuration-openapi.yml
+- capability: Searchandising
+  operations_count: 33
+  note: refined queries, filters, collections, tags, campaigns and facet-rule campaigns in openapi/constructorio-searchandising-openapi.yml
+- capability: Retail media
+  operations: [v1-engagements-update, v1-advertiser-spend-retrieve-advertiser-spend,
+    v2-display-ads-retrieve-display-ads, v1-display-ads-retrieve-display-ads]
+- capability: Product details
+  operations: [v1-product-details-get-items, v1-product-details-get-variations]
+- capability: Behavioral actions
+  operations: [v1-offline-behavioral-actions-create-actions]
+- capability: User profile
+  operations: [v1-user-profile-create-preferences]
+coverage:
+  tools_named: 6
+  tools_bound_to_rest: 0
+  mcp_only: 6
+  rest_operations_total: 180
+  rest_operations_with_a_tool: 0
+  rest_operations_without_a_tool: 180

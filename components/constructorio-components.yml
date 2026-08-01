@@ -1,0 +1,97 @@
+generated: '2026-08-01'
+method: searched
+source: https://github.com/Constructor-io
+sources:
+- https://github.com/Constructor-io
+- https://www.npmjs.com/org/constructor-io
+- https://docs.constructor.com/docs/integrating-with-constructor-open-source-libraries-client-libraries-sdks
+summary: >-
+  Constructor ships a family of open-source React UI libraries — one per discovery
+  surface — that render results returned by the JavaScript client. The client library
+  (@constructor-io/constructorio-client-javascript) is the data layer for all of them
+  and is documented as deliberately render-free ("rendering capabilities require
+  separate UI libraries"), which is why these components are catalogued separately
+  from the SDKs in packages/constructorio-packages.yml.
+loader:
+  package: '@constructor-io/constructorio-client-javascript'
+  version: 2.90.0
+  role: browser data layer — exposes search, browse, autocomplete, recommendations,
+    quizzes, agent and tracker modules that the UI libraries consume
+  repository: https://github.com/Constructor-io/constructorio-client-javascript
+families:
+- family: Search & autocomplete
+  components:
+  - name: Autocomplete UI
+    package: '@constructor-io/constructorio-ui-autocomplete'
+    version: 1.30.1
+    repository: https://github.com/Constructor-io/constructorio-ui-autocomplete
+    description: Autocomplete / autosuggest dropdown for web applications, backed by
+      the Autocomplete API.
+    backing_api: openapi/constructorio-autocomplete-openapi.yml
+- family: Product listing
+  components:
+  - name: PLP UI
+    package: '@constructor-io/constructorio-ui-plp'
+    version: 1.19.1
+    repository: https://github.com/Constructor-io/constructorio-ui-plp
+    description: Product Listing Page library rendering search and browse result grids,
+      facets, sort controls and pagination.
+    backing_api: [openapi/constructorio-search-openapi.yml, openapi/constructorio-browse-openapi.yml]
+- family: Recommendations
+  components:
+  - name: Recommendations UI
+    package: '@constructor-io/constructorio-ui-recommendations'
+    version: 1.0.0
+    repository: https://github.com/Constructor-io/constructorio-ui-recommendations
+    description: Recommendation pod / carousel rendering for onsite placements.
+    backing_api: openapi/constructorio-recommendations-openapi.yml
+- family: Guided selling
+  components:
+  - name: Quizzes UI
+    package: '@constructor-io/constructorio-ui-quizzes'
+    version: 1.21.0
+    repository: https://github.com/Constructor-io/constructorio-ui-quizzes
+    description: Renders the question / answer / results flow of a Constructor quiz.
+    backing_api: openapi/constructorio-quizzes-openapi.yml
+- family: AI agents
+  components:
+  - name: Product Insights Agent UI
+    package: '@constructor-io/constructorio-ui-pia'
+    version: 2.10.0
+    repository: https://github.com/Constructor-io/constructorio-ui-pia
+    description: Renders the AI Product Insights Agent — item questions and streamed
+      answers — on a product detail page.
+    backing_api: openapi/constructorio-ai-shopping-agent-openapi.yml
+    backing_operations: [v1-asa-retrieve-item-questions, v1-asa-retrieve-item-questions-answer]
+  - name: Agent Overview UI
+    package: '@constructor-io/constructorio-ui-agent-overview'
+    version: 1.0.0
+    repository: https://github.com/Constructor-io/constructorio-ui-agent-overview
+    description: Agent overview surface for the AI Shopping Agent experience.
+    backing_api: openapi/constructorio-ai-shopping-agent-openapi.yml
+- family: Identity & session
+  components:
+  - name: Constructor Identity
+    package: '@constructor-io/constructorio-id'
+    version: 2.8.0
+    repository: https://github.com/Constructor-io/constructorio-identity
+    description: Manages the client-side identity and session identifiers (client id,
+      session id) that Constructor's personalization and attribution depend on.
+- family: Shared
+  components:
+  - name: UI Components
+    package: null
+    repository: https://github.com/Constructor-io/constructorio-ui-components
+    description: Shared React component library the other UI libraries build on. Published
+      as a source repository; not separately catalogued on npm at the time of harvest.
+examples:
+- {name: Next.js sandbox examples, repository: 'https://github.com/Constructor-io/constructorio-example-nextjs'}
+- {name: React sandbox example, repository: 'https://github.com/Constructor-io/constructorio-example-react'}
+- {name: Integration examples, repository: 'https://github.com/Constructor-io/integration-examples'}
+storefront_cartridges_and_connectors:
+  note: >-
+    Distinct from the React libraries above — these are platform-native frontend
+    integrations documented under Platform connectors.
+  surfaces: [Salesforce B2C Commerce cartridge (SFRA and Site Genesis), BigCommerce
+      Stencil, Vue Storefront, Shopify UI]
+  docs: https://docs.constructor.com/docs/integrating-with-constructor-platform-connectors

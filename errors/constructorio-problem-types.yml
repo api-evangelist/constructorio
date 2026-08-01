@@ -1,0 +1,147 @@
+generated: '2026-08-01'
+method: derived
+source: openapi/*.yml 4xx/5xx responses (17 specs, 180 operations)
+docs: https://docs.constructor.com/reference/main-authentication
+format: vendor-json
+format_note: Constructor does NOT use RFC 9457 application/problem+json. Error bodies are plain application/json.
+  Where a schema is declared it is `ErrorResponse` (a `message` string), `PublicErrorResponse`, `ErrorResponseWithTrace`
+  (adds a trace identifier) or FastAPI-style `HTTPValidationError`; the large majority of 4xx responses are declared
+  with a description only and no response schema, which is the single biggest contract-quality gap in this API surface.
+coverage:
+  operations: 180
+  operations_with_4xx: 180
+  distinct_status_codes:
+  - 400
+  - 401
+  - 403
+  - 404
+  - 409
+  - 422
+  - 429
+  - 500
+problems:
+- status: 400
+  title: Validation Error
+  occurrences: 180
+  distinct_descriptions:
+  - Validation Error
+  - Bad Request
+  - Bad Request - Invalid syntax or missing required parameters.
+  - Bad Request.
+  - Invalid request parameters.
+  - Bad Request - The request was unacceptable, often due to missing a required parameter.
+  schemas:
+  - ErrorResponse
+  - PublicErrorResponse
+  remediation: Validate query/body parameters against the operation schema; Constructor returns a JSON body with
+    a `message` describing the invalid or missing parameter.
+  example_operations:
+  - openapi/constructorio-ai-shopping-agent-openapi.yml#v1-asa-retrieve-intent
+  - openapi/constructorio-ai-shopping-agent-openapi.yml#v1-asa-retrieve-item-questions
+  - openapi/constructorio-ai-shopping-agent-openapi.yml#v1-asa-retrieve-item-questions-answer
+- status: 401
+  title: Credentials are not passed or action is forbidden.
+  occurrences: 151
+  distinct_descriptions:
+  - Credentials are not passed or action is forbidden.
+  - Unauthorized
+  - Unauthorized.
+  - Credentials are not passed or action is forbidden
+  - Authentication Error
+  schemas:
+  - ErrorResponseWithTrace
+  remediation: 'Supply an API token — Basic auth with the token as the username and an empty password, or `Authorization:
+    Bearer <token>`. Tokens are generated in the dashboard under Integration > API Integration.'
+  example_operations:
+  - openapi/constructorio-behavioral-actions-openapi.yml#v1-offline-behavioral-actions-create-actions
+  - openapi/constructorio-catalog-batching-openapi.yml#v2-batching-items-delete-items
+  - openapi/constructorio-catalog-batching-openapi.yml#v2-batching-items-update-items
+- status: 403
+  title: The supplied token does not have the required permissions.
+  occurrences: 148
+  distinct_descriptions:
+  - The supplied token does not have the required permissions.
+  - Forbidden
+  - Forbidden.
+  - Permission Denied
+  schemas: null
+  remediation: The token authenticated but lacks the permission the endpoint requires. Add the scope listed on the
+    endpoint reference page (form `scope(r)` / `scope(w)`) to the token, and confirm the target API key is in the
+    permission `resources` list.
+  example_operations:
+  - openapi/constructorio-catalog-batching-openapi.yml#v2-batching-items-delete-items
+  - openapi/constructorio-catalog-batching-openapi.yml#v2-batching-items-update-items
+  - openapi/constructorio-catalog-batching-openapi.yml#v2-batching-variations-delete-variations
+- status: 404
+  title: Not Found
+  occurrences: 93
+  distinct_descriptions:
+  - Not Found
+  - Not Found - The requested resource could not be found based on the provided parameters, possibly due to expired
+    recommendations or out-of-range position.
+  - Not Found - The resource you are looking for cannot be found.
+  - Not Found - The requested pod ID could not be found.
+  - Not Found - The requested collection ID could not be found.
+  schemas:
+  - ErrorResponse
+  remediation: The addressed resource (item, item group, facet, collection, pod, quiz, redirect rule, campaign)
+    does not exist in this index. Confirm the `key` query parameter targets the right index and that the identifier
+    exists.
+  example_operations:
+  - openapi/constructorio-browse-openapi.yml#v1-browse-get-browse-results-by-collection-id
+  - openapi/constructorio-catalog-management-openapi.yml#v1-item-groups-create-or-update-item-group
+  - openapi/constructorio-catalog-management-openapi.yml#v1-items-fields-stats-retrieve-item-field-stats
+- status: 409
+  title: Conflict
+  occurrences: 34
+  distinct_descriptions:
+  - Conflict
+  schemas: null
+  remediation: Conflicting state — usually a create against an identifier that already exists. Use the create-or-replace
+    / update variant of the operation instead.
+  example_operations:
+  - openapi/constructorio-catalog-management-openapi.yml#v1-tasks-create-task
+  - openapi/constructorio-catalog-management-openapi.yml#v1-tasks-update-task
+  - openapi/constructorio-catalog-management-openapi.yml#v1-tasks-update-tasks
+- status: 422
+  title: Validation Error
+  occurrences: 7
+  distinct_descriptions:
+  - Validation Error
+  schemas:
+  - HTTPValidationError
+  remediation: Request body failed schema validation; the response carries an `HTTPValidationError` detailing the
+    failing field location.
+  example_operations:
+  - openapi/constructorio-ai-shopping-agent-openapi.yml#v1-asa-retrieve-intent
+  - openapi/constructorio-ai-shopping-agent-openapi.yml#v1-asa-retrieve-item-questions
+  - openapi/constructorio-ai-shopping-agent-openapi.yml#v1-asa-retrieve-item-questions-answer
+- status: 429
+  title: Rate limit breached
+  occurrences: 146
+  distinct_descriptions:
+  - Rate limit breached
+  - Too Many Requests
+  schemas:
+  - ErrorResponse
+  remediation: Rate limit breached. Back off and retry with exponential backoff. Note Constructor does not permit
+    load testing (https://docs.constructor.com/docs/faq-general-what-is-constructors-policy-on-load-testing).
+  example_operations:
+  - openapi/constructorio-behavioral-actions-openapi.yml#v1-offline-behavioral-actions-create-actions
+  - openapi/constructorio-catalog-batching-openapi.yml#v2-batching-items-delete-items
+  - openapi/constructorio-catalog-batching-openapi.yml#v2-batching-items-update-items
+- status: 500
+  title: Internal Server Error - An unexpected error occurred on the server.
+  occurrences: 12
+  distinct_descriptions:
+  - Internal Server Error - An unexpected error occurred on the server.
+  - Internal server error.
+  - Internal Server Error - Something went wrong on Constructor's end (these are rare).
+  schemas:
+  - ErrorResponse
+  remediation: Server-side failure at Constructor. Retry idempotent reads; for persistent failures contact support@constructor.io,
+    or emergency-response@constructor.io for critical production impact.
+  example_operations:
+  - openapi/constructorio-ai-shopping-agent-openapi.yml#v1-asa-retrieve-intent
+  - openapi/constructorio-ai-shopping-agent-openapi.yml#v1-asa-retrieve-item-questions
+  - openapi/constructorio-ai-shopping-agent-openapi.yml#v1-asa-retrieve-item-questions-answer

@@ -1,0 +1,69 @@
+generated: '2026-08-01'
+method: searched
+source: https://docs.constructor.com/docs/integrating-with-constructor-connect-cli
+sources:
+- https://docs.constructor.com/docs/integrating-with-constructor-connect-cli-get-started-with-connect-cli
+- https://docs.constructor.com/docs/integrating-with-constructor-connect-cli-development-flow
+- https://docs.constructor.com/docs/integrating-with-constructor-connect-cli-cli-release-notes
+- https://www.npmjs.com/package/@constructor-io/constructorio-connect-cli
+name: Constructor Connect CLI
+package: '@constructor-io/constructorio-connect-cli'
+version: 1.23.0
+repository: https://github.com/Constructor-io/constructorio-connect-cli
+scope: >-
+  The Connect CLI is a catalog-integration development tool, not a general API client.
+  It scaffolds and tests the JSONata mapping/transformation templates that a Constructor
+  Connector uses to turn a partner platform's product data into Constructor's item,
+  variation and item-group shapes. It is not a wrapper around the REST APIs in openapi/
+  — for those, use the language SDKs in packages/constructorio-packages.yml.
+install:
+- method: npx
+  command: npx @constructor-io/constructorio-connect-cli init YOUR_REPO_NAME
+  note: the documented entry point; init pulls the account's indexes and configured
+    connectors from Constructor and scaffolds a repository
+- method: npm
+  command: npm install @constructor-io/constructorio-connect-cli
+authentication:
+  requires: index key + API token
+  token_source: https://app.constructor.io/dashboard/integration/api_tokens
+  index_key_docs: https://docs.constructor.com/docs/using-the-constructor-dashboard-configuring-rules-indexes
+commands:
+- group: repository
+  commands:
+  - {name: init, invocation: 'npx @constructor-io/constructorio-connect-cli init <repo>',
+    description: 'Scaffold a new connector repository with starting templates, fixtures
+      and tests; prompts for index key and API token.'}
+  - {name: upgrade, invocation: 'npx @constructor-io/constructorio-connect-cli upgrade',
+    description: 'Update the CLI and sync repository files (including package.json)
+      to the latest CLI version. Added in 1.20.1.'}
+- group: development
+  commands:
+  - {name: generate-fixture, invocation: npm run generate-fixture, description: 'Generate
+      a fixture — the raw partner-platform record a template runs against. Prompts for
+      connection, fixture type (mapping / item / variation / item group / external data),
+      filename and optionally a live product ID. Arguments connection, type, filename,
+      item-id, variation-id and replace-file may be passed non-interactively (1.18.0).'}
+  - {name: execute, invocation: npm run execute, description: 'Run a template against
+      a fixture and show the transformed output in real time.'}
+  - {name: test, invocation: npm test, description: 'Run the repository''s automated
+      template tests, including snapshot tests (shipped by default since 1.15.1).'}
+- group: deployment
+  commands:
+  - {name: deploy, invocation: npm run deploy, description: 'Deploy templates to the
+      connector. Runs the test suite first and fails on any test failure since 1.15.0;
+      deploy --force skips tests. Reports data insights on completion (1.18.3).'}
+concepts:
+  template_engine: JSONata
+  template_types: [mapping, transformation]
+  fixture_types: [mapping, item, variation, item group, external data]
+  template_inputs:
+    data: the record being transformed (renamed from targetData in June 2026; old name
+      still works with a deprecation warning)
+    external: connector/connection-scoped data injected into every template (renamed
+      from externalData)
+  local_override: connectrc.local.js for testing against a local setup (1.22.0)
+  agent_support: an AGENTS.md file ships with scaffolded repositories as of 1.23.0
+partner_platforms_with_helper_functions: [Akeneo, BigCommerce, Commercetools, Shopify]
+connectors_supported: [Commercetools, Shopify, Salesforce B2C Commerce, VTEX, Omni,
+  Kafka, Elastic Path, fabric, BigCommerce Stencil, Vue Storefront]
+release_notes: https://docs.constructor.com/docs/integrating-with-constructor-connect-cli-cli-release-notes

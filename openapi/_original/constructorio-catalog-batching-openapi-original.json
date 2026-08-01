@@ -1,0 +1,1073 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Catalog Batching Service",
+    "contact": {
+      "email": "support@constructor.io"
+    },
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://batching.catalog.cnstrc.com"
+    }
+  ],
+  "paths": {
+    "/v2/items": {
+      "patch": {
+        "tags": [
+          "Items"
+        ],
+        "summary": "Update catalog items",
+        "description": "**\ud83d\udd10 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `catalog(w)`.\n\nUpdate items in the catalog. If an item does not exist, it will be created.",
+        "operationId": "v2-batching-items-update-items",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The key of the index to use.",
+              "title": "Key"
+            },
+            "description": "The key of the index to use."
+          },
+          {
+            "name": "section",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The section of the index to use. Defaults to `Products`.",
+              "title": "Section"
+            },
+            "description": "The section of the index to use. Defaults to `Products`."
+          },
+          {
+            "name": "on_missing",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/MissingRecordsStrategy",
+              "description": "Strategy for handling items that do not exist. Only CREATE is supported.",
+              "default": "CREATE"
+            },
+            "description": "Strategy for handling items that do not exist. Only CREATE is supported."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ItemsBatchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BatchAcceptedResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "http_basic_auth": []
+          },
+          {
+            "http_bearer_auth": [
+              "catalog(w)"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Items"
+        ],
+        "summary": "Delete catalog items",
+        "description": "**\ud83d\udd10 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `catalog(w)`.\n\nDelete items from the catalog. Deletions are processed asynchronously.",
+        "operationId": "v2-batching-items-delete-items",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The key of the index to use.",
+              "title": "Key"
+            },
+            "description": "The key of the index to use."
+          },
+          {
+            "name": "section",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The section of the index to use. Defaults to `Products`.",
+              "title": "Section"
+            },
+            "description": "The section of the index to use. Defaults to `Products`."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ItemsDeleteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BatchAcceptedResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "http_basic_auth": []
+          },
+          {
+            "http_bearer_auth": [
+              "catalog(w)"
+            ]
+          }
+        ]
+      }
+    },
+    "/v2/variations": {
+      "patch": {
+        "tags": [
+          "Variations"
+        ],
+        "summary": "Update catalog variations",
+        "description": "**\ud83d\udd10 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `catalog(w)`.\n\nUpdate variations in the catalog. If a variation does not exist, it will be created.",
+        "operationId": "v2-batching-variations-update-variations",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The key of the index to use.",
+              "title": "Key"
+            },
+            "description": "The key of the index to use."
+          },
+          {
+            "name": "section",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The section of the index to use. Defaults to `Products`.",
+              "title": "Section"
+            },
+            "description": "The section of the index to use. Defaults to `Products`."
+          },
+          {
+            "name": "on_missing",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/MissingRecordsStrategy",
+              "description": "Strategy for handling variations that do not exist. Only CREATE is supported.",
+              "default": "CREATE"
+            },
+            "description": "Strategy for handling variations that do not exist. Only CREATE is supported."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VariationsBatchRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BatchAcceptedResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "http_basic_auth": []
+          },
+          {
+            "http_bearer_auth": [
+              "catalog(w)"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Variations"
+        ],
+        "summary": "Delete catalog variations",
+        "description": "**\ud83d\udd10 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `catalog(w)`.\n\nDelete variations from the catalog. Deletions are processed asynchronously.",
+        "operationId": "v2-batching-variations-delete-variations",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The key of the index to use.",
+              "title": "Key"
+            },
+            "description": "The key of the index to use."
+          },
+          {
+            "name": "section",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The section of the index to use. Defaults to `Products`.",
+              "title": "Section"
+            },
+            "description": "The section of the index to use. Defaults to `Products`."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VariationsDeleteRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BatchAcceptedResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "http_basic_auth": []
+          },
+          {
+            "http_bearer_auth": [
+              "catalog(w)"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BatchAcceptedResponse": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "Message",
+            "description": "Success message"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count",
+            "description": "Number of items/variations accepted."
+          }
+        },
+        "type": "object",
+        "required": [
+          "message",
+          "count"
+        ],
+        "title": "BatchAcceptedResponse",
+        "description": "Response for accepted batching requests."
+      },
+      "ErrorResponse": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "Message",
+            "description": "Error message"
+          },
+          "errors": {
+            "anyOf": [
+              {
+                "items": {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Errors",
+            "description": "Detailed validation errors"
+          }
+        },
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "title": "ErrorResponse",
+        "description": "Error response model."
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "Item": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 250,
+            "minLength": 1,
+            "title": "ID",
+            "description": "The ID of the item, must be unique."
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 250,
+            "minLength": 1,
+            "title": "Name",
+            "description": "The name of the item, as it will appear in the results. Must contain at least one alphanumeric character."
+          },
+          "suggested_score": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 500000000,
+                "minimum": -1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Suggested Score",
+            "description": "A number that will influence the item's initial ranking relative to other item scores (the higher the score, the higher in the list of suggestions the item will appear)."
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ItemMetadata"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Object containing additional data, that should be attached to this item. The maximum size of data object is limited to 30kB."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "name"
+        ],
+        "title": "Item",
+        "description": "Catalog item model."
+      },
+      "ItemDeletePayload": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 250,
+            "minLength": 1,
+            "title": "ID",
+            "description": "The ID of the item to delete."
+          }
+        },
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "title": "ItemDeletePayload",
+        "description": "Payload for deleting a single item."
+      },
+      "ItemMetadata": {
+        "properties": {
+          "keywords": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Keywords",
+            "description": "An array of keywords for this item. Keywords are useful if you want a product name to appear when a user enters a search term that is not in the product name itself."
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "URL",
+            "description": "A URL to directly send the user after selecting the item. Might be required in some cases. Please consult with your integration team for more information."
+          },
+          "image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image URL",
+            "description": "A URL that points to an image you would like displayed next to some item (only applicable when URL is supplied)."
+          },
+          "group_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Group IDs",
+            "description": "You can associate each item with one or more groups (i.e. categories). To set up a group hierarchy please consult with your integration team for more information. `group_ids` can be used as filters in search, autosuggest, and browse requests."
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 4000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description",
+            "description": "A description for this item. The maximum length of this field is 4,000 characters."
+          },
+          "active": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active",
+            "description": "Determines whether the item is active and eligible to be returned in results."
+          },
+          "facets": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "integer"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      "type": "array"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Facets",
+            "description": "A mapping of facet names to values. Each value is either a single string, integer, or floating point number, or a list of those. Facet keys are limited to 100 characters; string values are limited to 200 characters.",
+            "deprecated": true
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "ItemMetadata",
+        "description": "Additional metadata for an item."
+      },
+      "ItemsBatchRequest": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/Item"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "minItems": 1,
+            "title": "Items",
+            "description": "Array of items to batch (1-100 items)."
+          }
+        },
+        "type": "object",
+        "required": [
+          "items"
+        ],
+        "title": "ItemsBatchRequest",
+        "description": "Request body for batching items."
+      },
+      "ItemsDeleteRequest": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ItemDeletePayload"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "minItems": 1,
+            "title": "Items",
+            "description": "Array of items to delete (1-100 items)."
+          }
+        },
+        "type": "object",
+        "required": [
+          "items"
+        ],
+        "title": "ItemsDeleteRequest",
+        "description": "Request body for deleting items."
+      },
+      "MissingRecordsStrategy": {
+        "type": "string",
+        "enum": [
+          "CREATE"
+        ],
+        "title": "MissingRecordsStrategy",
+        "description": "Strategy for handling records that do not exist in the system."
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "Variation": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 250,
+            "minLength": 1,
+            "title": "ID",
+            "description": "The ID of the variation, must be unique."
+          },
+          "item_id": {
+            "type": "string",
+            "maxLength": 250,
+            "minLength": 1,
+            "title": "Item ID",
+            "description": "The ID of the item this variation is attached to."
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 250,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name",
+            "description": "The name of the variation, as it will appear in the results. Must contain at least one alphanumeric character."
+          },
+          "suggested_score": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 500000000,
+                "minimum": -1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Suggested Score",
+            "description": "A number that will influence the variation's initial ranking relative to other variation scores (the higher the score, the higher in the list of suggestions the variation will appear)."
+          },
+          "data": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/VariationMetadata"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Object containing additional data, that should be attached to this variation. The maximum size of data object is limited to 30kB."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "item_id"
+        ],
+        "title": "Variation",
+        "description": "Catalog variation model."
+      },
+      "VariationDeletePayload": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 250,
+            "minLength": 1,
+            "title": "ID",
+            "description": "The ID of the variation to delete."
+          }
+        },
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "title": "VariationDeletePayload",
+        "description": "Payload for deleting a single variation."
+      },
+      "VariationMetadata": {
+        "properties": {
+          "keywords": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Keywords",
+            "description": "An array of keywords for this variation. Keywords are useful if you want a product name to appear when a user enters a search term that is not in the product name itself."
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "URL",
+            "description": "A URL to directly send the user after selecting the variation. Might be required in some cases. Please consult with your integration team for more information."
+          },
+          "image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Image URL",
+            "description": "A URL that points to an image you would like displayed next to some variation (only applicable when URL is supplied)."
+          },
+          "group_ids": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Group IDs",
+            "description": "You can associate each variation with one or more groups (i.e. categories). To set up a group hierarchy please contact support@constructor.io group_ids can be used as filters in search, autosuggest, and browse requests."
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 4000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description",
+            "description": "A description for this variation. The maximum length of this field is 4000 characters."
+          },
+          "active": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active",
+            "description": "Whether the variation is active and eligible to be returned in results."
+          },
+          "facets": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "items": {
+                        "anyOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "integer"
+                          },
+                          {
+                            "type": "number"
+                          }
+                        ]
+                      },
+                      "type": "array"
+                    }
+                  ]
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Facets",
+            "description": "A mapping of facet names to values. Each value is either a single string, integer, or floating point number, or a list of those. Facet keys are limited to 100 characters; string values are limited to 200 characters.",
+            "deprecated": true
+          },
+          "is_default": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Default",
+            "description": "Whether this variation should always be returned as the best matching variation."
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "title": "VariationMetadata",
+        "description": "Additional metadata for a variation."
+      },
+      "VariationsBatchRequest": {
+        "properties": {
+          "variations": {
+            "items": {
+              "$ref": "#/components/schemas/Variation"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "minItems": 1,
+            "title": "Variations",
+            "description": "Array of variations to batch (1-100 variations)."
+          }
+        },
+        "type": "object",
+        "required": [
+          "variations"
+        ],
+        "title": "VariationsBatchRequest",
+        "description": "Request body for batching variations."
+      },
+      "VariationsDeleteRequest": {
+        "properties": {
+          "variations": {
+            "items": {
+              "$ref": "#/components/schemas/VariationDeletePayload"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "minItems": 1,
+            "title": "Variations",
+            "description": "Array of variations to delete (1-100 variations)."
+          }
+        },
+        "type": "object",
+        "required": [
+          "variations"
+        ],
+        "title": "VariationsDeleteRequest",
+        "description": "Request body for deleting variations."
+      }
+    },
+    "securitySchemes": {
+      "http_basic_auth": {
+        "type": "http",
+        "scheme": "basic"
+      },
+      "http_bearer_auth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  },
+  "x-readme": {
+    "explorer-enabled": false
+  }
+}

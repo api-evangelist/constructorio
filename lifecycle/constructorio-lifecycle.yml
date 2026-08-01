@@ -1,0 +1,97 @@
+generated: '2026-08-01'
+method: searched
+source: https://docs.constructor.com/docs/integrating-with-constructor-customer-support-guide
+versioning:
+  scheme: uri-path
+  current: mixed — v2 is current for items, variations, item groups, facets, searchabilities,
+    one-way synonyms, image search and display ads; v1 remains current for search,
+    autocomplete, browse, recommendations, quizzes, synonym groups, sort options, redirects,
+    collections, searchandising, tasks, behavioral actions and user profile
+  per_service: true
+  note: >-
+    Constructor ships 17 independently versioned OpenAPI documents rather than one
+    monolith, each with its own info.version (0.1 through 1.0.0), so "the API version"
+    is per service. The wire version lives in the path.
+  path_versions: {v1: 63 paths, v2: 16 paths, unversioned: 10 paths (legacy /browse/*
+      and /recommendations/* aliases)}
+  docs: https://docs.constructor.com/reference/main-readme
+
+deprecation:
+  policy_url: https://docs.constructor.com/reference/configuration-facets-and-searchabilities-v2-migration-guide
+  policy_note: >-
+    Constructor publishes no standalone written deprecation/sunset policy page. What it
+    does publish is (a) explicit `deprecated: true` flags in the OpenAPI contract,
+    (b) "(Deprecated)" labels on the affected pages in the API reference, and (c) a
+    per-surface migration guide — the Facets & Searchabilities v2 migration guide — for
+    the largest deprecation wave. Superseded v1 endpoints are left running alongside
+    their v2 replacements rather than being removed.
+  sunset_header: false
+  sunset_header_evidence: no `Sunset` or `Deprecation` response header (RFC 8594) is
+    declared in any of the 17 harvested specs
+  deprecated_operation_count: 23
+  deprecated_operations:
+  - openapi/constructorio-catalog-management-openapi.yml#v1-item-groups-retrieve-item-group
+  - openapi/constructorio-catalog-management-openapi.yml#v1-item-groups-retrieve-item-groups
+  - openapi/constructorio-catalog-management-openapi.yml#v1-item-groups-create-item-groups
+  - openapi/constructorio-catalog-management-openapi.yml#v1-item-groups-create-or-replace-item-groups
+  - openapi/constructorio-catalog-management-openapi.yml#v1-item-groups-create-or-update-item-group
+  - openapi/constructorio-catalog-management-openapi.yml#v1-item-groups-create-or-update-item-groups
+  - openapi/constructorio-catalog-management-openapi.yml#v1-item-groups-delete-item-groups
+  - openapi/constructorio-configuration-openapi.yml#v1-facets-retrieve-facet
+  - openapi/constructorio-configuration-openapi.yml#v1-facets-retrieve-facets
+  - openapi/constructorio-configuration-openapi.yml#v1-facets-create-facet
+  - openapi/constructorio-configuration-openapi.yml#v1-facets-create-or-replace-facets
+  - openapi/constructorio-configuration-openapi.yml#v1-facets-update-facet
+  - openapi/constructorio-configuration-openapi.yml#v1-facets-update-facets
+  - openapi/constructorio-configuration-openapi.yml#v1-facets-replace-facet
+  - openapi/constructorio-configuration-openapi.yml#v1-facets-delete-facet
+  - openapi/constructorio-configuration-openapi.yml#v1-searchabilities-retrieve-searchability
+  - openapi/constructorio-configuration-openapi.yml#v1-searchabilities-retrieve-searchabilities
+  - openapi/constructorio-configuration-openapi.yml#v1-searchabilities-create-or-update-searchability
+  - openapi/constructorio-configuration-openapi.yml#v1-searchabilities-create-or-update-searchabilities
+  - openapi/constructorio-configuration-openapi.yml#v1-searchabilities-delete-searchability
+  - openapi/constructorio-configuration-openapi.yml#v1-searchabilities-delete-searchabilities
+  - openapi/constructorio-image-search-openapi.yml#v1-image-search-get-search-results
+  - openapi/constructorio-retail-media-display-ads-openapi.yml#v1-display-ads-retrieve-display-ads
+
+status_page: https://constructor.status.io/
+status_page_evidence: >-
+  Named in Constructor's own customer support guide as the place to get real-time
+  updates on service availability and information about incidents or scheduled
+  maintenance.
+
+sla:
+  url: null
+  uptime_target: null
+  note: >-
+    SLA terms are contractual, not published. The support guide states that response
+    prioritization aligns with "your contracted Service Level Agreement (SLA)" but
+    publishes no uptime figure or credit schedule.
+
+support:
+  standard: support@constructor.io (business hours, auto-ticketed, triaged by severity
+    and contracted SLA)
+  emergency: emergency-response@constructor.io (24/7/365; pages an on-call engineer)
+  slack: shared Slack channel available to organizations that have opted in
+  docs: https://docs.constructor.com/docs/integrating-with-constructor-customer-support-guide
+
+release_notes:
+  product: https://releases.constructor.io/
+  docs_whats_new: https://docs.constructor.com/docs/home-whats-new-in-our-docs
+  cli: https://docs.constructor.com/docs/integrating-with-constructor-connect-cli-cli-release-notes
+  detail: changelog/constructorio-changelog.yml
+
+beta_surface:
+  note: >-
+    Two retail-media operations are explicitly labelled Beta in the reference and "may
+    change" — v1-engagements-update and v1-advertiser-spend-retrieve-advertiser-spend.
+  operations:
+  - openapi/constructorio-retail-media-openapi.yml#v1-engagements-update
+  - openapi/constructorio-retail-media-openapi.yml#v1-advertiser-spend-retrieve-advertiser-spend
+
+load_testing_policy:
+  permitted: false
+  url: https://docs.constructor.com/docs/faq-general-what-is-constructors-policy-on-load-testing
+  note: >-
+    Load testing is not permitted except under specific agreed conditions; violations
+    may draw warnings, usage fines, throttling or termination of service.

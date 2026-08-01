@@ -1,0 +1,73 @@
+generated: '2026-08-01'
+method: searched
+source: openapi/constructorio-autocomplete-openapi.yml, openapi/constructorio-behavioral-actions-openapi.yml,
+  openapi/constructorio-browse-openapi.yml, openapi/constructorio-catalog-batching-openapi.yml, openapi/constructorio-catalog-management-openapi.yml,
+  openapi/constructorio-configuration-openapi.yml, openapi/constructorio-image-search-openapi.yml, openapi/constructorio-product-details-openapi.yml,
+  openapi/constructorio-recommendations-openapi.yml, openapi/constructorio-retail-media-display-ads-openapi.yml,
+  openapi/constructorio-retail-media-openapi.yml, openapi/constructorio-search-openapi.yml ...
+summary:
+  types:
+  - http
+  http_schemes:
+  - basic
+  - bearer
+schemes:
+- name: http_basic_auth
+  type: http
+  scheme: basic
+  sources:
+  - openapi/constructorio-autocomplete-openapi.yml
+  - openapi/constructorio-behavioral-actions-openapi.yml
+  - openapi/constructorio-browse-openapi.yml
+  - openapi/constructorio-catalog-batching-openapi.yml
+  - openapi/constructorio-catalog-management-openapi.yml
+  - openapi/constructorio-configuration-openapi.yml
+  - openapi/constructorio-image-search-openapi.yml
+  - openapi/constructorio-product-details-openapi.yml
+  - openapi/constructorio-recommendations-openapi.yml
+  - openapi/constructorio-search-openapi.yml
+  - openapi/constructorio-searchandising-openapi.yml
+- name: http_bearer_auth
+  type: http
+  scheme: bearer
+  sources:
+  - openapi/constructorio-autocomplete-openapi.yml
+  - openapi/constructorio-browse-openapi.yml
+  - openapi/constructorio-catalog-batching-openapi.yml
+  - openapi/constructorio-catalog-management-openapi.yml
+  - openapi/constructorio-configuration-openapi.yml
+  - openapi/constructorio-image-search-openapi.yml
+  - openapi/constructorio-product-details-openapi.yml
+  - openapi/constructorio-recommendations-openapi.yml
+  - openapi/constructorio-retail-media-display-ads-openapi.yml
+  - openapi/constructorio-retail-media-openapi.yml
+  - openapi/constructorio-search-openapi.yml
+  - openapi/constructorio-searchandising-openapi.yml
+  - openapi/constructorio-user-profile-openapi.yml
+docs: https://docs.constructor.com/reference/main-authentication
+model:
+  public_endpoints: Search, natural-language search, browse, autocomplete, recommendations, image search,
+    quizzes, AI Shopping Agent and offsite discovery require NO authentication — they are shopper-facing
+    and are addressed by the public `key` query parameter, which names an index and is not a credential.
+  private_endpoints: Catalog management, catalog batching, configuration, searchandising, retail media,
+    user profile and behavioral actions require an API token. Most accept either Basic or Bearer.
+  basic: HTTP Basic with the API token supplied as the USERNAME and an empty password (curl -u "<token>:").
+    Failure returns 401 Unauthorized.
+  bearer: 'Authorization: Bearer <token>. Bearer tokens carry explicit permissions of the form {"scope":
+    "<scope>", "operation": "r|w|rw", "resources": ["<API key>", ...]}. A token missing the required permission
+    is rejected with 403 Forbidden.'
+  token_management: https://app.constructor.io/dashboard/integration/api_tokens — admin-level account
+    access is required to mint a token. Constructor staff cannot retrieve an existing token; it must be
+    stored securely by the customer.
+  token_scope: One token serves every API key on the account unless narrowed via the permission `resources`
+    list, which currently accepts API keys.
+  key_vs_token: The API key is a PUBLIC identifier selecting an index. The API token authenticates and
+    authorizes and is sensitive. They are not interchangeable.
+  oauth2: false
+  openid_connect: false
+  mtls: false
+  scopes_artifact: scopes/constructorio-scopes.yml
+x-evidence:
+  fetched: '2026-08-01'
+  url: https://docs.constructor.com/reference/main-authentication
+  http_status: 200

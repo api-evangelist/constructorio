@@ -1,18 +1,327 @@
 aid: constructorio
 name: Constructor.io
-description: 'Constructor.io is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: Constructor (Constructor.io) is an AI-powered ecommerce search and product
+  discovery platform for online retailers. Its APIs cover autocomplete/autosuggest,
+  keyword and natural-language search, image search, category browse, recommendations,
+  quizzes, collections, offsite/email discovery, retail media (sponsored listings and
+  display ads), an AI Shopping Agent and Product Insights Agent, plus a full catalog-management
+  and configuration surface for items, variations, item groups, facets, searchabilities,
+  synonyms, sort options, redirects and searchandising rules. Results are optimized
+  against ecommerce KPIs (conversion, revenue per visit) using natural-language processing,
+  behavioral re-ranking and per-user personalization, and are delivered through a REST
+  API served from the ac.cnstrc.com family of hosts with first-party client libraries
+  for JavaScript, Node.js, Python, Java, .NET, Ruby, Swift and Kotlin.
+image: https://constructor.com/hubfs/constructor-featured-image-2026.png
 url: https://raw.githubusercontent.com/api-evangelist/constructorio/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-01'
 modified: '2026-08-01'
 tags:
 - Company
-apis: []
+- Search
+- Ecommerce
+- Product Discovery
+- Recommendations
+- Personalization
+- Retail
+- Retail Media
+- Artificial Intelligence
+- Merchandising
+- Catalog Management
+- Agentic Commerce
+apis:
+- name: Constructor Search API
+  description: AI-optimized keyword and natural-language search results for products
+    and other index sections, returned by search query with filtering, faceting, sorting,
+    pagination and variations mapping.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - search
+  - natural-language-search
+  - ecommerce
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-search-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: Overlay
+    url: overlays/constructorio-search-overlay.yaml
+- name: Constructor Autocomplete API
+  description: AI-optimized autocomplete and autosuggest results for products and search
+    suggestions retrieved by query prefix, with multi-section responses.
+  humanURL: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - autocomplete
+  - autosuggest
+  - search
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-autocomplete-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: Overlay
+    url: overlays/constructorio-autocomplete-overlay.yaml
+- name: Constructor Browse API
+  description: AI-optimized category browse results by facet name/value, item ID, collection
+    ID or group ID, plus endpoints for browse groups, countable facets, facet options
+    and collections.
+  humanURL: https://docs.constructor.com/reference/browse-browse-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - browse
+  - facets
+  - collections
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-browse-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: Overlay
+    url: overlays/constructorio-browse-overlay.yaml
+- name: Constructor Recommendations API
+  description: AI-optimized recommendation results retrieved by pod identifier for
+    onsite recommendation placements.
+  humanURL: https://docs.constructor.com/reference/recommendations-recommendation-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - recommendations
+  - personalization
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-recommendations-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: Overlay
+    url: overlays/constructorio-recommendations-overlay.yaml
+- name: Constructor Image Search API
+  description: AI-optimized search results retrieved by uploaded image, with optional
+    multi-item detection (segmentation) support.
+  humanURL: https://docs.constructor.com/reference/image-search-image-search-results
+  baseURL: https://image-search.cnstrc.com
+  tags:
+  - image-search
+  - visual-search
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-image-search-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: Overlay
+    url: overlays/constructorio-image-search-overlay.yaml
+- name: Constructor AI Shopping Agent API
+  description: Conversational product-discovery API returning intent-based suggestions
+    over a Server-Sent Events stream, plus AI-generated item questions and answers.
+  humanURL: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  baseURL: https://agent.cnstrc.com
+  tags:
+  - ai-agent
+  - conversational-commerce
+  - server-sent-events
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-ai-shopping-agent-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: Overlay
+    url: overlays/constructorio-ai-shopping-agent-overlay.yaml
+- name: Constructor Catalog Management API
+  description: Authenticated catalog surface for creating, replacing, updating and
+    deleting items, variations, item groups and full catalog files, plus item field
+    statistics and asynchronous task tracking.
+  humanURL: https://docs.constructor.com/reference/catalog-management-introduction
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - catalog
+  - items
+  - variations
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-catalog-management-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: Overlay
+    url: overlays/constructorio-catalog-management-overlay.yaml
+- name: Constructor Catalog Batching API
+  description: Batched catalog ingestion service for high-volume item and variation
+    update and delete operations.
+  humanURL: https://docs.constructor.com/reference/v2-batching-items-update-items
+  baseURL: https://batching.catalog.cnstrc.com
+  tags:
+  - catalog
+  - batching
+  - ingestion
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-catalog-batching-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: Overlay
+    url: overlays/constructorio-catalog-batching-overlay.yaml
+- name: Constructor Configuration API
+  description: Authenticated configuration surface for facets, facet options, searchabilities,
+    one-way synonyms, synonym groups, sort options, redirect rules, collections, quizzes
+    and metadata overrides.
+  humanURL: https://docs.constructor.com/reference/configuration-facets
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - configuration
+  - facets
+  - synonyms
+  - redirects
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-configuration-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: Overlay
+    url: overlays/constructorio-configuration-overlay.yaml
+- name: Constructor Searchandising API
+  description: Merchandising-rule surface for refined queries, refined filters, refined
+    collections, refined tags, campaigns and facet-rule campaigns across search, browse
+    and collections.
+  humanURL: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - searchandising
+  - merchandising
+  - campaigns
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-searchandising-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: Overlay
+    url: overlays/constructorio-searchandising-overlay.yaml
+- name: Constructor Quizzes API
+  description: Guided-selling quiz surface returning the next question given prior
+    answers, quiz results and results-page configuration.
+  humanURL: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  baseURL: https://quizzes.cnstrc.com
+  tags:
+  - quizzes
+  - guided-selling
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-quizzes-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: Overlay
+    url: overlays/constructorio-quizzes-overlay.yaml
+- name: Constructor Offsite Discovery Recommendations API
+  description: Recommendation and collection results for offsite channels (email, SMS,
+    push, social, paid media), including redirecting item image and item URL endpoints
+    addressable by pod/collection and position.
+  humanURL: https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  baseURL: https://offsite-discovery.cnstrc.com
+  tags:
+  - offsite-discovery
+  - email-recommendations
+  - cross-channel
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-offsite-discovery-recommendations-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: Overlay
+    url: overlays/constructorio-offsite-discovery-recommendations-overlay.yaml
+- name: Constructor Retail Media API
+  description: Retail media surface for updating advertiser engagement suspension status
+    and retrieving per-advertiser ad spend accrued within an index.
+  humanURL: https://docs.constructor.com/reference/v1-engagements-update
+  baseURL: https://retail.media-cnstrc.com
+  tags:
+  - retail-media
+  - sponsored-listings
+  - advertising
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-retail-media-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: Overlay
+    url: overlays/constructorio-retail-media-overlay.yaml
+- name: Constructor Retail Media Display Ads API
+  description: Display-ads surface returning ads for each requested placement, with
+    banner and multi-banner placement responses ordered by auction rank.
+  humanURL: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  baseURL: https://display.media-cnstrc.com
+  tags:
+  - retail-media
+  - display-ads
+  - advertising
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-retail-media-display-ads-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: Overlay
+    url: overlays/constructorio-retail-media-display-ads-overlay.yaml
+- name: Constructor Product Details API
+  description: Retrieval of item and variation product-detail records for a given index.
+  humanURL: https://docs.constructor.com/reference/v1-product-details-get-items
+  baseURL: https://product-details.cnstrc.com
+  tags:
+  - product-details
+  - catalog
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-product-details-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: Overlay
+    url: overlays/constructorio-product-details-overlay.yaml
+- name: Constructor Behavioral Actions API
+  description: Offline behavioral-action ingestion for submitting user events (such
+    as purchases and conversions) that feed Constructor's KPI-optimized ranking.
+  humanURL: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - behavioral-data
+  - analytics
+  - events
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-behavioral-actions-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: Overlay
+    url: overlays/constructorio-behavioral-actions-overlay.yaml
+- name: Constructor User Profile API
+  description: Creation of user preference records that personalize discovery results
+    for an identified shopper.
+  humanURL: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+  baseURL: https://user-profile.cnstrc.com
+  tags:
+  - user-profile
+  - personalization
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-user-profile-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+  - type: Overlay
+    url: overlays/constructorio-user-profile-overlay.yaml
+- name: Constructor Documentation MCP Server
+  description: Remote, anonymously reachable Model Context Protocol server published
+    by Constructor that exposes documentation search/fetch and OpenAPI endpoint discovery
+    tools to AI coding tools such as Claude, Cursor and Windsurf.
+  humanURL: https://docs.constructor.com/docs/ai-tooling-mcp-server
+  baseURL: https://docs.constructor.com/mcp
+  tags:
+  - mcp
+  - agent-native
+  - documentation
+  properties:
+  - type: MCPServer
+    url: mcp/constructorio-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/constructorio-tool-crosswalk.yml
+  - type: Documentation
+    url: https://docs.constructor.com/docs/ai-tooling-mcp-server
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -20,4 +329,73 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
-  url: https://forgeglobal.com/constructorio_stock/
+  url: https://constructor.com/
+- type: DeveloperPortal
+  url: https://docs.constructor.com/
+- type: Documentation
+  url: https://docs.constructor.com/
+- type: APIReference
+  url: https://docs.constructor.com/reference/main-readme
+- type: GettingStarted
+  url: https://docs.constructor.com/docs/integrating-with-constructor-retrieving-results-getting-started
+- type: Support
+  url: https://docs.constructor.com/docs/integrating-with-constructor-customer-support-guide
+- type: Blog
+  url: https://constructor.com/blog
+- type: GitHubOrganization
+  url: https://github.com/Constructor-io
+- type: SignUp
+  url: https://info.constructor.com/ecommerce-search-discovery-demo
+- type: Login
+  url: https://app.constructor.io/users/sign_in
+- type: TermsOfService
+  url: https://constructor.com/terms-of-service-agreement/
+- type: PrivacyPolicy
+  url: https://constructor.com/privacy-policy
+- type: Compliance
+  url: https://constructor.com/security-and-compliance
+- type: StatusPage
+  url: https://constructor.status.io/
+- type: ChangeLog
+  url: https://releases.constructor.io/
+- type: SDKs
+  url: packages/constructorio-packages.yml
+- type: Packages
+  url: packages/constructorio-packages.yml
+- type: CLI
+  url: cli/constructorio-cli.yml
+- type: Components
+  url: components/constructorio-components.yml
+- type: Authentication
+  url: authentication/constructorio-authentication.yml
+- type: OAuthScopes
+  url: scopes/constructorio-scopes.yml
+- type: Conventions
+  url: conventions/constructorio-conventions.yml
+- type: ErrorCatalog
+  url: errors/constructorio-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/constructorio-lifecycle.yml
+- type: Deprecation
+  url: https://docs.constructor.com/reference/configuration-facets-and-searchabilities-v2-migration-guide
+- type: Conformance
+  url: conformance/constructorio-conformance.yml
+- type: TrustCenter
+  url: security/constructorio-trust-center.yml
+- type: DomainSecurity
+  url: security/constructorio-domain-security.yml
+- type: WellKnown
+  url: well-known/constructorio-well-known.yml
+- type: LLMsTxt
+  url: llms/constructorio-llms.txt
+- type: DataModel
+  url: data-model/constructorio-data-model.yml
+- type: ChangeLog
+  url: changelog/constructorio-changelog.yml
+- type: AgentSkill
+  url: skills/_index.yml
+x-enrichment:
+  date: '2026-08-01'
+  status: enriched
+  artifacts_added:       76
+  pass: local-v1
