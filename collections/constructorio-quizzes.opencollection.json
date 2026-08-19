@@ -1,0 +1,183 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Quizzes",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Results",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Next question",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://quizzes.cnstrc.com/v1/quizzes/:id/next",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the quiz"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Index key for the customer's product catalog"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query",
+                "description": "The section of the index to use. Defaults to `products`."
+              },
+              {
+                "name": "quiz_session_id",
+                "value": "",
+                "type": "query",
+                "description": "Specific quiz session id for the quiz. Session id will be automatically assigned if it is not specified."
+              },
+              {
+                "name": "quiz_version_id",
+                "value": "",
+                "type": "query",
+                "description": "Specific version id for the quiz."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "query",
+                "description": "Specific version id for the quiz. Deprecated, please use `quiz_version_id` instead."
+              },
+              {
+                "name": "a",
+                "value": "",
+                "type": "query",
+                "description": "A list of answers in the format ?a=<option_id>,<option_id>&a=<option_id> where multiple options for a single answer are supplied in the same answer parameter (separated by \",\") and options for the next question are supplied in the next answer parameter."
+              }
+            ]
+          },
+          "docs": "Retrieve the next question given a list of answers. If no answers are specified, it will return the first question. Use a `version_id` to retrieve the next question for a specific version of the quiz."
+        },
+        {
+          "info": {
+            "name": "Get results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://quizzes.cnstrc.com/v1/quizzes/:id/results",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the quiz"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Index key for the customer's product catalog"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query",
+                "description": "The section of the index to use. Defaults to `products`."
+              },
+              {
+                "name": "quiz_session_id",
+                "value": "",
+                "type": "query",
+                "description": "Specific quiz session id for the quiz. Session id will be automatically assigned if it is not specified."
+              },
+              {
+                "name": "quiz_version_id",
+                "value": "",
+                "type": "query",
+                "description": "Specific version id for the quiz."
+              },
+              {
+                "name": "version_id",
+                "value": "",
+                "type": "query",
+                "description": "Specific version id for the quiz. Deprecated, please use `quiz_version_id` instead."
+              },
+              {
+                "name": "filters[<filter_name>]",
+                "value": "",
+                "type": "query",
+                "description": "Any number of criteria by which you'd like to narrow the result set. This might be by color, size, or category (group) an item belongs to. Facets can be used as filters. Filters with the same key are 'OR'ed together, while filters with different keys are 'AND'ed together by default. If value has the form '<min>-<max>', it's interpreted as a range (e.g: 'filters[Price]=100-200' will match all items with 'Price' from '100' to '200')."
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the number of results returned in each request. Defaults to 20 if not specified."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the page number of the result to be fetched. Defaults to 1 if not specified."
+              },
+              {
+                "name": "a",
+                "value": "",
+                "type": "query",
+                "description": "A list of answers in the format ?a=<option_id>,<option_id>&a=<option_id> where multiple options for a single answer are supplied in the same answer parameter (separated by \",\") and options for the next question are supplied in the next answer parameter."
+              }
+            ]
+          },
+          "docs": "Retrieve AI optimized quiz results for products (or optionally other sections)."
+        },
+        {
+          "info": {
+            "name": "Get results page config",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://quizzes.cnstrc.com/v1/quizzes/:id/results_config",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The id of the quiz"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "Index key for the customer's product catalog"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query",
+                "description": "The section of the index to use. Defaults to `products`."
+              },
+              {
+                "name": "quiz_version_id",
+                "value": "",
+                "type": "query",
+                "description": "Specific version id for the quiz."
+              }
+            ]
+          },
+          "docs": "Retrieve results page configuration"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

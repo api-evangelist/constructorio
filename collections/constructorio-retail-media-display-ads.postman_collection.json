@@ -1,0 +1,448 @@
+{
+  "item": [
+    {
+      "id": "456f5baf-0bc6-4b9b-8a2f-fd7a2453081e",
+      "name": "Display Ads",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "43af4552-afe5-4147-ae72-f4e5d2d7d84f",
+          "name": "Retrieve Display Ads (Deprecated)",
+          "request": {
+            "name": "Retrieve Display Ads (Deprecated)",
+            "description": {
+              "content": "Retrieves an ad for each of the given placement IDs. If no ad is available for a placement ID, the placement ID will be missing from the response.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "display-ads"
+              ],
+              "host": [
+                "{{v1-display-ads-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) The key of the index to use."
+                },
+                {
+                  "disabled": false,
+                  "key": "placement_ids",
+                  "value": "<string>",
+                  "description": "(Required) List of placement IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "placement_ids",
+                  "value": "<string>",
+                  "description": "(Required) List of placement IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Search query for keyword targeting."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter_name",
+                  "value": "<string>",
+                  "description": "The name of the related browse filter."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter_value",
+                  "value": "<string>",
+                  "description": "The value of the related browse filter."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "62675182-1795-4289-99d5-cc26ce9ad46e",
+              "name": "Successful Response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "display-ads"
+                  ],
+                  "host": [
+                    "{{v1-display-ads-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "placement_ids",
+                      "value": "home_page"
+                    },
+                    {
+                      "key": "placement_ids",
+                      "value": "mobile_search_results"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"display_ads\": {\n    \"home_page\": {\n      \"advertiser\": \"Advertiser Name\",\n      \"banner_ad_id\": \"AD_ID\",\n      \"image_banner\": {\n        \"cta\": \"Ad CTA\",\n        \"cta_label\": \"Call to action label\",\n        \"description\": \"Ad Description\",\n        \"images\": [\n          {\n            \"media\": \"(min-width: 1024px)\",\n            \"srcset\": [\n              {\n                \"alt_text\": \"An example image\",\n                \"pixel_density\": 1,\n                \"src\": \"https://example.com/image.jpg\"\n              }\n            ]\n          }\n        ],\n        \"srcset\": [\n          {\n            \"pixel_density\": 1,\n            \"src\": \"https://example.com/image.jpg\"\n          }\n        ],\n        \"target_url\": \"https://example.com\",\n        \"title\": \"Ad Title\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4ec7d6f4-c4a6-495d-9754-9e2a1b2291ab",
+              "name": "Bad Request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "display-ads"
+                  ],
+                  "host": [
+                    "{{v1-display-ads-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "placement_ids",
+                      "value": "home_page"
+                    },
+                    {
+                      "key": "placement_ids",
+                      "value": "mobile_search_results"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"message\": \"string\",\n      \"source\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"message\": \"string\",\n      \"source\": \"string\"\n    }\n  ],\n  \"trace_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "81c49a8e-2ef3-4556-8e31-26d424619938",
+          "name": "Retrieve Display Ads",
+          "request": {
+            "name": "Retrieve Display Ads",
+            "description": {
+              "content": "Retrieves ads for each of the given placements. Each placement maps to a typed response object. Banner placements return a single flattened ad; multi-banner placements return an array of ads ordered by auction rank. If no ad is available for a placement, the placement will be missing from the response. Placements are specified as repeated `placements` query parameters. Optionally, `num_results[{id}]=N` can be used to request a specific number of ads for a placement. When omitted, the placement's configured maximum is used.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "display-ads"
+              ],
+              "host": [
+                "{{v2-display-ads-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) The key of the index to use."
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "Search query for keyword targeting."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter_name",
+                  "value": "<string>",
+                  "description": "The name of the related browse filter."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter_value",
+                  "value": "<string>",
+                  "description": "The value of the related browse filter."
+                },
+                {
+                  "disabled": false,
+                  "key": "num_results[key_0]",
+                  "value": "<integer>",
+                  "description": "Optional deepObject parameter to request a specific number of ads for each placement. Example: num_results[home_page]=3&num_results[carousel]=1. When omitted, the placement's configured maximum is used."
+                },
+                {
+                  "disabled": false,
+                  "key": "placements",
+                  "value": "<string>",
+                  "description": "(Required) Placement customer IDs to fetch ads for."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "20b2ca01-f78d-43fe-a5b6-b406252c4bf6",
+              "name": "Successful Response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "display-ads"
+                  ],
+                  "host": [
+                    "{{v2-display-ads-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "num_results[key_0]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "num_results[key_1]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "placements",
+                      "value": "home_page"
+                    },
+                    {
+                      "key": "placements",
+                      "value": "carousel"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"display_ads\": {\n    \"key_0\": {\n      \"type\": \"string\",\n      \"banner_ad_id\": \"string\",\n      \"advertiser\": \"string\",\n      \"target_url\": \"string\",\n      \"title\": \"string\",\n      \"description\": \"string\",\n      \"cta\": \"string\",\n      \"srcset\": [\n        {\n          \"src\": \"string\",\n          \"pixel_density\": 1500.0044557062097,\n          \"alt_text\": \"string\"\n        },\n        {\n          \"src\": \"string\",\n          \"pixel_density\": 4505.734226604742,\n          \"alt_text\": \"string\"\n        }\n      ],\n      \"images\": [\n        {\n          \"media\": \"string\",\n          \"srcset\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"media\": \"string\",\n          \"srcset\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ],\n      \"cta_label\": \"string\",\n      \"custom_fields\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "361423b6-30d0-4d7b-ba9d-6098a6b5470b",
+              "name": "Bad Request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "display-ads"
+                  ],
+                  "host": [
+                    "{{v2-display-ads-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "num_results[key_0]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "num_results[key_1]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "placements",
+                      "value": "home_page"
+                    },
+                    {
+                      "key": "placements",
+                      "value": "carousel"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"message\": \"string\",\n      \"source\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"message\": \"string\",\n      \"source\": \"string\"\n    }\n  ],\n  \"trace_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://display.media-cnstrc.com",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://display.media-cnstrc.com",
+      "key": "v1-display-ads-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://display.media-cnstrc.com",
+      "key": "v2-display-ads-Url"
+    }
+  ],
+  "info": {
+    "_postman_id": "7b7220d8-6fbf-4fa0-89dd-db28fc363402",
+    "name": "Retail Media - Display Ads",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Contact Support:\n Email: support@constructor.io",
+      "type": "text/plain"
+    }
+  }
+}

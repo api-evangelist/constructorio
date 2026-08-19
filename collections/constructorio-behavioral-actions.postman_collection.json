@@ -1,0 +1,550 @@
+{
+  "item": [
+    {
+      "id": "9fa44313-3fe0-4b8f-90ac-ae4f1b4636f8",
+      "name": "Catalog",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "b056a230-5793-4627-89ee-6fdb20aba7e1",
+      "name": "Item groups",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "e7ab89a1-1632-4ef3-b5df-3a4f9372f951",
+      "name": "Items",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "975bc966-ce23-47e2-9758-6cdc736ea6e0",
+      "name": "Item statistics",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "1dd94ab8-3da8-4a7b-98c0-355781cd3e49",
+      "name": "Variations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "e716be5e-ba4a-4c56-bd44-265083ea71a8",
+      "name": "Tasks",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "fccf0a4d-afac-4309-8dca-36a7df9f754c",
+      "name": "Facets",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "86964b11-18cf-432b-890e-7abb74603fe8",
+      "name": "Synonyms",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "9bb5c942-6c0b-489b-a8e1-8ebca58b085f",
+      "name": "Searchabilities",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "f2815c8b-bb36-4891-ab27-3de6b6ef7cbf",
+      "name": "Sort options",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "be364658-2021-4637-9785-0556316a7451",
+      "name": "Synonym groups",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "64b93ac9-ec22-4bab-a87b-95ae97a1cef4",
+      "name": "Quizzes",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "86cc76c3-2567-4af2-89dc-cad2b415f430",
+      "name": "Collections",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "6af2bd62-d656-4c22-9725-f8c3b69c3cb1",
+      "name": "Redirect rules",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "d01ad838-d73f-496d-be5b-85c72ca6193f",
+      "name": "Searchandising for Browse",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "716ae076-8d0a-4705-835b-ce60c13655f4",
+      "name": "Searchandising for Collections",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "c1f869b6-b2a7-4327-a732-dd519a21fc39",
+      "name": "Searchandising for Search",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "b9bc6f05-6c07-455e-8694-2ccf02f12941",
+      "name": "Searchandising by User Request Data",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "79879384-3db0-4647-a268-58a837982e1c",
+      "name": "Campaigns",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "e96cdf13-2ebd-4c51-a15e-85ae50d80831",
+      "name": "Companies",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "cacfa77b-0852-4d3f-94d2-8bd1541e90ab",
+      "name": "Searchandising for Recommendations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "bbe66017-3d4f-43ea-b35c-dc32f5c47c58",
+      "name": "Attribute overrides",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "dbcb1ba8-18c9-471b-8c5f-b094a3da1b6d",
+      "name": "Behavioral actions",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "95aba6a8-8c76-44f2-821a-341f35c4a5d5",
+          "name": "Post a list of offline behavioral actions",
+          "request": {
+            "name": "Post a list of offline behavioral actions",
+            "description": {
+              "content": "**🔐 This endpoint requires [HTTP Basic authentication](https://docs.constructor.com/reference/main-authentication#basic-authentication).**\n\nSend list of behavioral actions (purchase,return) performed by your users offline.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "offline_behavioral_actions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "section",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"behavioral_actions\": [\n    {\n      \"action\": \"<string>\",\n      \"data\": {\n        \"_dt\": \"<integer>\",\n        \"items\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"ui\": \"<string>\",\n        \"order_id\": \"<string>\",\n        \"lat\": \"<string>\",\n        \"lon\": \"<string>\",\n        \"store_id\": \"<string>\",\n        \"revenue\": \"<number>\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c152dd1c-3d47-43dc-8ded-c13f18b296e3",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "offline_behavioral_actions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "section",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"behavioral_actions\": [\n    {\n      \"action\": \"<string>\",\n      \"data\": {\n        \"_dt\": \"<integer>\",\n        \"items\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"ui\": \"<string>\",\n        \"order_id\": \"<string>\",\n        \"lat\": \"<string>\",\n        \"lon\": \"<string>\",\n        \"store_id\": \"<string>\",\n        \"revenue\": \"<number>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "52c36d52-7331-460e-9399-fab48f2c35a3",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "offline_behavioral_actions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "section",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"behavioral_actions\": [\n    {\n      \"action\": \"<string>\",\n      \"data\": {\n        \"_dt\": \"<integer>\",\n        \"items\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"ui\": \"<string>\",\n        \"order_id\": \"<string>\",\n        \"lat\": \"<string>\",\n        \"lon\": \"<string>\",\n        \"store_id\": \"<string>\",\n        \"revenue\": \"<number>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ac713c56-8a20-4ff2-ab2d-d469f3c38613",
+              "name": "Credentials are not passed or action is forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "offline_behavioral_actions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "section",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"behavioral_actions\": [\n    {\n      \"action\": \"<string>\",\n      \"data\": {\n        \"_dt\": \"<integer>\",\n        \"items\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"ui\": \"<string>\",\n        \"order_id\": \"<string>\",\n        \"lat\": \"<string>\",\n        \"lon\": \"<string>\",\n        \"store_id\": \"<string>\",\n        \"revenue\": \"<number>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5cb1e954-11db-4b38-b882-1d129a59292b",
+              "name": "Rate limit breached",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "offline_behavioral_actions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "section",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"behavioral_actions\": [\n    {\n      \"action\": \"<string>\",\n      \"data\": {\n        \"_dt\": \"<integer>\",\n        \"items\": [\n          {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        ],\n        \"ui\": \"<string>\",\n        \"order_id\": \"<string>\",\n        \"lat\": \"<string>\",\n        \"lon\": \"<string>\",\n        \"store_id\": \"<string>\",\n        \"revenue\": \"<number>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://ac.cnstrc.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6552f29b-1c2f-4369-a8b2-62c316197fc9",
+    "name": "Behavioral actions",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Contact Support:\n Email: support@constructor.io",
+      "type": "text/plain"
+    }
+  }
+}

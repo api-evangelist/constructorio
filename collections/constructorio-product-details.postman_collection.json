@@ -1,0 +1,788 @@
+{
+  "item": [
+    {
+      "id": "8d85c26f-bf19-4e9b-ad5a-a818f5a54c33",
+      "name": "Product details",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b85be202-7ac2-4cec-8924-efbc78d9302d",
+          "name": "Retrieve item product details",
+          "request": {
+            "name": "Retrieve item product details",
+            "description": {
+              "content": "Retrieve product details for an item.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) The key of the index to use."
+                },
+                {
+                  "disabled": false,
+                  "key": "section",
+                  "value": "<string>",
+                  "description": "(Required) The section of the index to use (e.g. 'Products')."
+                },
+                {
+                  "disabled": false,
+                  "key": "item_id",
+                  "value": "<string>",
+                  "description": "(Required) The unique identifier of an item in the product catalog."
+                },
+                {
+                  "disabled": false,
+                  "key": "c",
+                  "value": "<string>",
+                  "description": "The ID of the client and version that the request is coming from, such as `cio-js-2.90`."
+                },
+                {
+                  "disabled": false,
+                  "key": "ui",
+                  "value": "<string>",
+                  "description": "A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps Constructor to tie multiple client and session IDs together to form a behavioral data profile across devices."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "(Required) One or more product detail fields to include in the response. This parameter may be repeated to specify multiple fields."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "(Required) One or more product detail fields to include in the response. This parameter may be repeated to specify multiple fields."
+                },
+                {
+                  "disabled": false,
+                  "key": "s",
+                  "value": "<integer>",
+                  "description": "An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity."
+                },
+                {
+                  "disabled": false,
+                  "key": "i",
+                  "value": "<string>",
+                  "description": "A globally unique identifier for the user browser (or mobile application instance) making the request."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ad242d50-b566-4881-8464-4869b7e87b6a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "key_K2pX7vBnU0bgA5xp"
+                    },
+                    {
+                      "key": "section",
+                      "value": "Products"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "c",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "enriched_attributes"
+                    },
+                    {
+                      "key": "s",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "i",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"trace_id\": \"string\",\n  \"response\": {\n    \"item\": {\n      \"id\": \"string\",\n      \"enriched_attributes\": {\n        \"badges\": [\n          {\n            \"type\": \"string\",\n            \"display_name\": \"string\",\n            \"metadata\": {\n              \"times_was_seen_last_week\": \"123\"\n            }\n          },\n          {\n            \"type\": \"string\",\n            \"display_name\": \"string\",\n            \"metadata\": {\n              \"times_was_seen_last_week\": \"123\"\n            }\n          }\n        ],\n        \"attributes\": {\n          \"key_0\": [\n            {\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      }\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9c8e5495-8358-4063-9e12-fd4602bb71b4",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "key_K2pX7vBnU0bgA5xp"
+                    },
+                    {
+                      "key": "section",
+                      "value": "Products"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "c",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "enriched_attributes"
+                    },
+                    {
+                      "key": "s",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "i",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "770f8713-3e0e-4ba3-a2e0-caf2c0d762f2",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "key_K2pX7vBnU0bgA5xp"
+                    },
+                    {
+                      "key": "section",
+                      "value": "Products"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "c",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "enriched_attributes"
+                    },
+                    {
+                      "key": "s",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "i",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"trace_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da61416c-d538-4766-b847-dfe2565951d6",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "key_K2pX7vBnU0bgA5xp"
+                    },
+                    {
+                      "key": "section",
+                      "value": "Products"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "c",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "enriched_attributes"
+                    },
+                    {
+                      "key": "s",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "i",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b84d805c-1c61-4117-9927-6587434d15a8",
+          "name": "Retrieve variation product details",
+          "request": {
+            "name": "Retrieve variation product details",
+            "description": {
+              "content": "Retrieve product details for variations of an item.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "variations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) The key of the index to use."
+                },
+                {
+                  "disabled": false,
+                  "key": "section",
+                  "value": "<string>",
+                  "description": "(Required) The section of the index to use (e.g. 'Products')."
+                },
+                {
+                  "disabled": false,
+                  "key": "variation_id",
+                  "value": "<string>",
+                  "description": "(Required) One or more variation IDs to retrieve product details for. This parameter may be repeated to specify multiple IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "variation_id",
+                  "value": "<string>",
+                  "description": "(Required) One or more variation IDs to retrieve product details for. This parameter may be repeated to specify multiple IDs."
+                },
+                {
+                  "disabled": false,
+                  "key": "c",
+                  "value": "<string>",
+                  "description": "The ID of the client and version that the request is coming from, such as `cio-js-2.90`."
+                },
+                {
+                  "disabled": false,
+                  "key": "ui",
+                  "value": "<string>",
+                  "description": "A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps Constructor to tie multiple client and session IDs together to form a behavioral data profile across devices."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "(Required) One or more product detail fields to include in the response. This parameter may be repeated to specify multiple fields."
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "(Required) One or more product detail fields to include in the response. This parameter may be repeated to specify multiple fields."
+                },
+                {
+                  "disabled": false,
+                  "key": "s",
+                  "value": "<integer>",
+                  "description": "An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity."
+                },
+                {
+                  "disabled": false,
+                  "key": "i",
+                  "value": "<string>",
+                  "description": "A globally unique identifier for the user browser (or mobile application instance) making the request."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9adafa64-ee24-49f6-bf07-a733f901e955",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "variations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "key_K2pX7vBnU0bgA5xp"
+                    },
+                    {
+                      "key": "section",
+                      "value": "Products"
+                    },
+                    {
+                      "key": "variation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "variation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "c",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "enriched_attributes"
+                    },
+                    {
+                      "key": "s",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "i",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"trace_id\": \"string\",\n  \"response\": {\n    \"variations\": [\n      {\n        \"variation_id\": \"string\",\n        \"enriched_attributes\": {\n          \"badges\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"metadata\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"metadata\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"attributes\": {\n            \"key_0\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        }\n      },\n      {\n        \"variation_id\": \"string\",\n        \"enriched_attributes\": {\n          \"badges\": [\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"metadata\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"type\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"display_name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"metadata\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"attributes\": {\n            \"key_0\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        }\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc67b513-8da3-4be5-8a4c-1af7bed2d415",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "variations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "key_K2pX7vBnU0bgA5xp"
+                    },
+                    {
+                      "key": "section",
+                      "value": "Products"
+                    },
+                    {
+                      "key": "variation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "variation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "c",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "enriched_attributes"
+                    },
+                    {
+                      "key": "s",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "i",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "142485b1-b2ff-4529-9342-8e4d8554b203",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "variations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "key_K2pX7vBnU0bgA5xp"
+                    },
+                    {
+                      "key": "section",
+                      "value": "Products"
+                    },
+                    {
+                      "key": "variation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "variation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "c",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "enriched_attributes"
+                    },
+                    {
+                      "key": "s",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "i",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ],\n  \"trace_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3dee4df2-8163-41bb-839f-060ce229bf10",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "variations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "key_K2pX7vBnU0bgA5xp"
+                    },
+                    {
+                      "key": "section",
+                      "value": "Products"
+                    },
+                    {
+                      "key": "variation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "variation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "c",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "enriched_attributes"
+                    },
+                    {
+                      "key": "s",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "i",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://product-details.cnstrc.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5e89969c-90f2-4e47-ab83-4177c0cf6d1c",
+    "name": "Product details",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "A service for retrieving product details for items and variations.\n\nContact Support:\n Email: support@constructor.io",
+      "type": "text/plain"
+    }
+  }
+}

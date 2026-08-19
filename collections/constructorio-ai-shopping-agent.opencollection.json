@@ -1,0 +1,279 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "AI Shopping Agent",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Results",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve by intent",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://agent.cnstrc.com/v1/intent/:query",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "path",
+                "description": "The query provided by the user as free-form text."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "The key of the index to use."
+              },
+              {
+                "name": "thread_id",
+                "value": "",
+                "type": "query",
+                "description": "A unique identifier for the conversation thread. This ID links multiple requests to the same conversation."
+              },
+              {
+                "name": "pre_filter_expression",
+                "value": "",
+                "type": "query",
+                "description": "A URL-encoded JSON string containing filters (inaccessible to end users) used to narrow the result set. Applied before filters accessible to end users. Does not affect facet counts. Only results that match the filters are returned. More details on https://docs.constructor.com/reference/shared-pre-filter-expressions"
+              },
+              {
+                "name": "domain",
+                "value": "",
+                "type": "query",
+                "description": "The domain specifying a set of specific instructions for processing the intent, e.g., 'recipes', 'sportsgear'."
+              },
+              {
+                "name": "guard",
+                "value": "",
+                "type": "query",
+                "description": "Enable or disable the moderation check."
+              },
+              {
+                "name": "num_result_events",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of result events to return."
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query",
+                "description": "**Deprecated. Please, use ``num_results_per_event`` instead.**"
+              },
+              {
+                "name": "num_results_per_event",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of results to return per ``search_result`` event."
+              },
+              {
+                "name": "fmt_options",
+                "value": "",
+                "type": "query",
+                "description": "An object containing options to format different aspects of the response."
+              },
+              {
+                "name": "qs",
+                "value": "",
+                "type": "query",
+                "description": "A URL-encoded JSON string. More details on https://docs.constructor.com/reference/search-search-results#using-the-qs-parameter"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query",
+                "description": "The id of the client and version that the request is coming from, such as `cio-js-2.90`."
+              },
+              {
+                "name": "us",
+                "value": "",
+                "type": "query",
+                "description": "A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments."
+              },
+              {
+                "name": "ui",
+                "value": "",
+                "type": "query",
+                "description": "A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps constructor to tie multiple client and session ID's together to form a behavioral data profile across devices."
+              },
+              {
+                "name": "s",
+                "value": "",
+                "type": "query",
+                "description": "An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity."
+              },
+              {
+                "name": "i",
+                "value": "",
+                "type": "query",
+                "description": "A globally unique identifier for the user browser (or mobile application instance) making the request."
+              }
+            ]
+          },
+          "docs": "Retrieves AI powered product discovery suggestions based on conversational free-form text. Returns results in small batches using a real time [Server-sent Events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) stream for a dynamic user experience."
+        },
+        {
+          "info": {
+            "name": "Retrieve questions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://agent.cnstrc.com/v1/item_questions",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "The key of the index to use."
+              },
+              {
+                "name": "item_id",
+                "value": "",
+                "type": "query",
+                "description": "The id of the item to return questions for."
+              },
+              {
+                "name": "variation_id",
+                "value": "",
+                "type": "query",
+                "description": "The id of the variation of the item to return questions for."
+              },
+              {
+                "name": "num_results",
+                "value": "",
+                "type": "query",
+                "description": "The number of questions to return."
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query",
+                "description": "The id of the client and version that the request is coming from, such as `cio-js-2.90`."
+              },
+              {
+                "name": "us",
+                "value": "",
+                "type": "query",
+                "description": "A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments."
+              },
+              {
+                "name": "ui",
+                "value": "",
+                "type": "query",
+                "description": "A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps constructor to tie multiple client and session ID's together to form a behavioral data profile across devices."
+              },
+              {
+                "name": "s",
+                "value": "",
+                "type": "query",
+                "description": "An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity."
+              },
+              {
+                "name": "i",
+                "value": "",
+                "type": "query",
+                "description": "A globally unique identifier for the user browser (or mobile application instance) making the request."
+              }
+            ]
+          },
+          "docs": "Retrieves AI powered list of frequently asked questions for the given item."
+        },
+        {
+          "info": {
+            "name": "Retrieves answers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://agent.cnstrc.com/v1/item_questions/:question/answer",
+            "params": [
+              {
+                "name": "question",
+                "value": "",
+                "type": "path",
+                "description": "The question provided by the user as free-form text."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "The key of the index to use."
+              },
+              {
+                "name": "item_id",
+                "value": "",
+                "type": "query",
+                "description": "The id of the item to return answer(s) for."
+              },
+              {
+                "name": "thread_id",
+                "value": "",
+                "type": "query",
+                "description": "A unique identifier for the conversation thread. This ID links multiple requests to the same conversation."
+              },
+              {
+                "name": "variation_id",
+                "value": "",
+                "type": "query",
+                "description": "The id of the variation of the item to return answer(s) for."
+              },
+              {
+                "name": "guard",
+                "value": "",
+                "type": "query",
+                "description": "Enable or disable the moderation check."
+              },
+              {
+                "name": "num_results",
+                "value": "",
+                "type": "query",
+                "description": "The number of answers to return."
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query",
+                "description": "The id of the client and version that the request is coming from, such as `cio-js-2.90`."
+              },
+              {
+                "name": "us",
+                "value": "",
+                "type": "query",
+                "description": "A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments."
+              },
+              {
+                "name": "ui",
+                "value": "",
+                "type": "query",
+                "description": "A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps constructor to tie multiple client and session ID's together to form a behavioral data profile across devices."
+              },
+              {
+                "name": "s",
+                "value": "",
+                "type": "query",
+                "description": "An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity."
+              },
+              {
+                "name": "i",
+                "value": "",
+                "type": "query",
+                "description": "A globally unique identifier for the user browser (or mobile application instance) making the request."
+              }
+            ]
+          },
+          "docs": "Retrieves AI powered answers to questions for a given item. If the client accepts [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) (text/event-stream content) response will be streamed back, otherwise complete response JSON is returned."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

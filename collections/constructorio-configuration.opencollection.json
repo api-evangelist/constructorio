@@ -1,0 +1,3397 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Configuration",
+    "version": "0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Facets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve facet configurations (Deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/facets",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets(r)`.\n\nRetrieve all facet configurations."
+        },
+        {
+          "info": {
+            "name": "Create facet configuration (Deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ac.cnstrc.com/v1/facets",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets(w)`.\n\nCreate facet configuration with specified `facet_name`."
+        },
+        {
+          "info": {
+            "name": "Create or replace facet configurations with options (Deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://ac.cnstrc.com/v1/facets",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets(w)`.\n\nCreate or replace facet configurations with their options. Replacing will delete the existing facet and recreate it with t"
+        },
+        {
+          "info": {
+            "name": "Update facet configurations (Deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ac.cnstrc.com/v1/facets",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets(w)`.\n\nUpdate facet configurations with specified `facet_name`."
+        },
+        {
+          "info": {
+            "name": "Retrieve facet configuration (Deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/facets/:facet_name",
+            "params": [
+              {
+                "name": "facet_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets(r)`.\n\nRetrieve facet configuration with specified `facet_name`."
+        },
+        {
+          "info": {
+            "name": "Replace facet configuration (Deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://ac.cnstrc.com/v1/facets/:facet_name",
+            "params": [
+              {
+                "name": "facet_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets(w)`.\n\nReplace facet configuration with specified `facet_name`. This will overwrite all other configurations you may have defined"
+        },
+        {
+          "info": {
+            "name": "Update facet configuration (Deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ac.cnstrc.com/v1/facets/:facet_name",
+            "params": [
+              {
+                "name": "facet_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets(w)`.\n\nPartially update facet configuration with specified `facet_name`."
+        },
+        {
+          "info": {
+            "name": "Delete facet configuration (Deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ac.cnstrc.com/v1/facets/:facet_name",
+            "params": [
+              {
+                "name": "facet_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets(w)`.\n\nDelete facet configuration with specified `facet_name`. This does not delete the facet from items in your index you may ha"
+        },
+        {
+          "info": {
+            "name": "Retrieve facet configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v2/facets",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets(r)`.\n\nRetrieve all facet configurations."
+        },
+        {
+          "info": {
+            "name": "Create facet configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ac.cnstrc.com/v2/facets",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets(w)`.\n\nCreate facet configuration with specified `facet_name`."
+        },
+        {
+          "info": {
+            "name": "Create or replace facet configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://ac.cnstrc.com/v2/facets",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets(w)`.\n\nCreate or replace facet configurations. Replacing will overwrite all other configurations you may have defined for the fac"
+        },
+        {
+          "info": {
+            "name": "Update facet configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ac.cnstrc.com/v2/facets",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets(w)`.\n\nUpdate facet configurations."
+        },
+        {
+          "info": {
+            "name": "Retrieve facet configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v2/facets/:facet_name",
+            "params": [
+              {
+                "name": "facet_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets(r)`.\n\nRetrieve facet configuration with specified `facet_name`."
+        },
+        {
+          "info": {
+            "name": "Replace facet configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://ac.cnstrc.com/v2/facets/:facet_name",
+            "params": [
+              {
+                "name": "facet_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets(w)`.\n\nReplace facet configuration with specified `facet_name`. This will overwrite all other configurations you may have defined"
+        },
+        {
+          "info": {
+            "name": "Update facet configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ac.cnstrc.com/v2/facets/:facet_name",
+            "params": [
+              {
+                "name": "facet_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets(w)`.\n\nPartially update facet configuration with specified `facet_name`."
+        },
+        {
+          "info": {
+            "name": "Delete facet configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ac.cnstrc.com/v2/facets/:facet_name",
+            "params": [
+              {
+                "name": "facet_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets(w)`.\n\nDelete facet configuration with specified `facet_name`. This does not delete the facet from items in your index you may ha"
+        },
+        {
+          "info": {
+            "name": "Retrieve facet options",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/facets/:facet_name/options",
+            "params": [
+              {
+                "name": "facet_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets(r)`.\n\nRetrieve facet options for the given `facet_name`."
+        },
+        {
+          "info": {
+            "name": "Create facet option",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ac.cnstrc.com/v1/facets/:facet_name/options",
+            "params": [
+              {
+                "name": "facet_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets(w)`.\n\nCreate facet option for the given `facet_name`."
+        },
+        {
+          "info": {
+            "name": "Create or update facet options",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ac.cnstrc.com/v1/facets/:facet_name/options",
+            "params": [
+              {
+                "name": "facet_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets(w)`.\n\nUpdate a list of facet options with specified `value` for the given `facet_name`. If a facet option config with provided v"
+        },
+        {
+          "info": {
+            "name": "Retrieve facet option",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/facets/:facet_name/options/:facet_option_value",
+            "params": [
+              {
+                "name": "facet_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "facet_option_value",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets(r)`.\n\nRetrieve facet option with specified `facet_name` and `facet_option_value`."
+        },
+        {
+          "info": {
+            "name": "Replace facet option",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://ac.cnstrc.com/v1/facets/:facet_name/options/:facet_option_value",
+            "params": [
+              {
+                "name": "facet_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "facet_option_value",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets(w)`.\n\nReplace facet option with specified `facet_name` and `facet_option_value`."
+        },
+        {
+          "info": {
+            "name": "Update facet option",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ac.cnstrc.com/v1/facets/:facet_name/options/:facet_option_value",
+            "params": [
+              {
+                "name": "facet_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "facet_option_value",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets(w)`.\n\nPartially update facet option with specified `facet_name` and `facet_option_value`."
+        },
+        {
+          "info": {
+            "name": "Delete facet option",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ac.cnstrc.com/v1/facets/:facet_name/options/:facet_option_value",
+            "params": [
+              {
+                "name": "facet_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "facet_option_value",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets(w)`.\n\nDelete facet option with specified `facet_name` and `facet_option_value`. Only do this if you want all configuration optio"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Synonyms",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve one-way synonym",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v2/one_way_synonyms/:parent_phrase",
+            "params": [
+              {
+                "name": "parent_phrase",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "phrase",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `synonyms(r)`.\n\nRetrieve one-way synonym with specified `parent_phrase`."
+        },
+        {
+          "info": {
+            "name": "Create one-way synonym",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ac.cnstrc.com/v2/one_way_synonyms/:parent_phrase",
+            "params": [
+              {
+                "name": "parent_phrase",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `synonyms(w)`.\n\nCreate one-way synonym with specified `parent_phrase`."
+        },
+        {
+          "info": {
+            "name": "Replace one-way synonym",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://ac.cnstrc.com/v2/one_way_synonyms/:parent_phrase",
+            "params": [
+              {
+                "name": "parent_phrase",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `synonyms(w)`.\n\nReplace one-way synonym with specified `parent_phrase`. This will overwrite all child phrases with those provided in the"
+        },
+        {
+          "info": {
+            "name": "Delete one-way synonym",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ac.cnstrc.com/v2/one_way_synonyms/:parent_phrase",
+            "params": [
+              {
+                "name": "parent_phrase",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `synonyms(w)`.\n\nDelete one-way synonyms with specified `parent_phrase`."
+        },
+        {
+          "info": {
+            "name": "Retrieve one-way synonyms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v2/one_way_synonyms",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "parent_phrase",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "phrase",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `synonyms(r)`.\n\nRetrieve all one-way synonyms."
+        },
+        {
+          "info": {
+            "name": "Delete one-way synonyms",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ac.cnstrc.com/v2/one_way_synonyms",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `synonyms(w)`.\n\nDelete one-way synonyms. It is done asynchronously in a background task."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Searchabilities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve searchabilities (Deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/searchabilities",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "excludes",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "includes",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search_configurable",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchabilities(r)`.\n\nRetrieve all searchabilities."
+        },
+        {
+          "info": {
+            "name": "Create or update searchabilities (Deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ac.cnstrc.com/v1/searchabilities",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "skip_rebuild",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchabilities(w)`.\n\nCreate or update searchabilities."
+        },
+        {
+          "info": {
+            "name": "Delete searchabilities (Deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ac.cnstrc.com/v1/searchabilities",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "skip_rebuild",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchabilities(w)`.\n\nDelete searchabilities."
+        },
+        {
+          "info": {
+            "name": "Retrieve searchability (Deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/searchabilities/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchabilities(r)`.\n\nRetrieve searchability with specified `name`."
+        },
+        {
+          "info": {
+            "name": "Create or update searchability (Deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ac.cnstrc.com/v1/searchabilities/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "skip_rebuild",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchabilities(w)`.\n\nCreate or update searchability with specified `name`."
+        },
+        {
+          "info": {
+            "name": "Delete searchability (Deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ac.cnstrc.com/v1/searchabilities/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "skip_rebuild",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchabilities(w)`.\n\nDelete searchability with specified `name`."
+        },
+        {
+          "info": {
+            "name": "Retrieve searchabilities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v2/searchabilities",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "match_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exact_searchable",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fuzzy_searchable",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "displayable",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchabilities(r)`.\n\nRetrieve all searchabilities."
+        },
+        {
+          "info": {
+            "name": "Create or update searchabilities",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ac.cnstrc.com/v2/searchabilities",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "skip_rebuild",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchabilities(w)`.\n\nCreate or update searchabilities."
+        },
+        {
+          "info": {
+            "name": "Delete searchabilities",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ac.cnstrc.com/v2/searchabilities",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "skip_rebuild",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchabilities(w)`.\n\nDelete searchabilities."
+        },
+        {
+          "info": {
+            "name": "Retrieve searchability",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v2/searchabilities/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchabilities(r)`.\n\nRetrieve searchability with specified `name`."
+        },
+        {
+          "info": {
+            "name": "Create or update searchability",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ac.cnstrc.com/v2/searchabilities/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "skip_rebuild",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchabilities(w)`.\n\nCreate or update searchability with specified `name`."
+        },
+        {
+          "info": {
+            "name": "Delete searchability",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ac.cnstrc.com/v2/searchabilities/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "skip_rebuild",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchabilities(w)`.\n\nDelete searchability with specified `name`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Sort options",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve sort options",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/sort_options",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `sort_options(r)`.\n\nRetrieve all sort options, optionally filtered by `sort_by`."
+        },
+        {
+          "info": {
+            "name": "Create or replace sort options",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://ac.cnstrc.com/v1/sort_options",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `sort_options(w)`.\n\nCreate or replace existing sort options. When providing sort options, every combination of `sort_by` and `sort_order"
+        },
+        {
+          "info": {
+            "name": "Delete sort options",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ac.cnstrc.com/v1/sort_options",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `sort_options(w)`.\n\nDelete sort option with specified `sort_by` and `sort_order`."
+        },
+        {
+          "info": {
+            "name": "Create a sort option",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ac.cnstrc.com/v1/sort_option",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `sort_options(w)`.\n\nCreate a new sort option. Note that total number of sort options is limited, and every combination of `sort_by` and "
+        },
+        {
+          "info": {
+            "name": "Replace a sort option",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://ac.cnstrc.com/v1/sort_option/:sort_by/:sort_order",
+            "params": [
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `sort_options(w)`.\n\nReplace a sort option. If the sort option already exists, it will be updated, if not it will be created. Note that t"
+        },
+        {
+          "info": {
+            "name": "Update a sort option",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ac.cnstrc.com/v1/sort_option/:sort_by/:sort_order",
+            "params": [
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `sort_options(w)`.\n\nUpdate existing sort option. Note that total number of sort options is limited, and every combination of `sort_by` a"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Synonym groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve synonym group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/synonym_groups/:group_id",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `synonyms(r)`.\n\nRetrieve synonym group by identifier."
+        },
+        {
+          "info": {
+            "name": "Update synonym group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://ac.cnstrc.com/v1/synonym_groups/:group_id",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `synonyms(w)`.\n\nUpdate existing synonym group by identifier. Synonyms list inside the group will be replaced with a newly provided synon"
+        },
+        {
+          "info": {
+            "name": "Delete synonym group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ac.cnstrc.com/v1/synonym_groups/:group_id",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `synonyms(w)`.\n\nDelete synonyms group by identifier."
+        },
+        {
+          "info": {
+            "name": "Retrieve synonym groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/synonym_groups",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "synonym_group_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "phrase",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `synonyms(r)`.\n\nRetrieve all synonyms, optionally filtered by phrase."
+        },
+        {
+          "info": {
+            "name": "Create synonym group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ac.cnstrc.com/v1/synonym_groups",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `synonyms(w)`.\n\nCreate synonym groups by providing list of the names for the synonyms."
+        },
+        {
+          "info": {
+            "name": "Delete synonym groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ac.cnstrc.com/v1/synonym_groups",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `synonyms(w)`.\n\nDelete all synonyms groups for the provided `key`. Starts a background [task](/reference/v1-tasks-retrieve-task). Return"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Quizzes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve quiz",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/quizzes/:quiz_id",
+            "params": [
+              {
+                "name": "quiz_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `quizzes(r)`.\n\nRetrieve a quiz."
+        },
+        {
+          "info": {
+            "name": "Create or replace quiz",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://ac.cnstrc.com/v1/quizzes/:quiz_id",
+            "params": [
+              {
+                "name": "quiz_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `quizzes(w)`.\n\nCreate or replace an existing quiz."
+        },
+        {
+          "info": {
+            "name": "Update quiz",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ac.cnstrc.com/v1/quizzes/:quiz_id",
+            "params": [
+              {
+                "name": "quiz_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `quizzes(w)`.\n\nUpdate a quiz. Data sent through the request body will be merged with existing quiz. Full validation (e.g. logic) will be"
+        },
+        {
+          "info": {
+            "name": "Delete quiz",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ac.cnstrc.com/v1/quizzes/:quiz_id",
+            "params": [
+              {
+                "name": "quiz_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `quizzes(w)`.\n\nDelete a quiz."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Collections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/collections/:collection_id",
+            "params": [
+              {
+                "name": "collection_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `collections(r)`.\n\nRetrieve a collection."
+        },
+        {
+          "info": {
+            "name": "Replace collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://ac.cnstrc.com/v1/collections/:collection_id",
+            "params": [
+              {
+                "name": "collection_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `collections(w)`.\n\nReplace collection."
+        },
+        {
+          "info": {
+            "name": "Update collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ac.cnstrc.com/v1/collections/:collection_id",
+            "params": [
+              {
+                "name": "collection_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `collections(w)`.\n\nUpdate a collection. Data sent through the request body will be merged with existing collection. Validation will be p"
+        },
+        {
+          "info": {
+            "name": "Delete collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ac.cnstrc.com/v1/collections/:collection_id",
+            "params": [
+              {
+                "name": "collection_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `collections(w)`.\n\nDelete a collection."
+        },
+        {
+          "info": {
+            "name": "Retrieve collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/collections",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "overridden_collection_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "has_future_items",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `collections(r)`.\n\nRetrieve all collections. By default, only base collections (collections with no `overridden_collection_id`) are retu"
+        },
+        {
+          "info": {
+            "name": "Create collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ac.cnstrc.com/v1/collections",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `collections(w)`.\n\nCreate a collection."
+        },
+        {
+          "info": {
+            "name": "Delete item from a collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ac.cnstrc.com/v1/collections/:collection_id/items/:item_id",
+            "params": [
+              {
+                "name": "collection_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "item_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `collections(w)`.\n\nDelete an item from a collection."
+        },
+        {
+          "info": {
+            "name": "Retrieve collection items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/collections/:collection_id/items",
+            "params": [
+              {
+                "name": "collection_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `collections(r)`.\n\nRetrieve all items of a collection, optionally filtered by `type`, i.e. method  of addition to the collection."
+        },
+        {
+          "info": {
+            "name": "Add or update items in a collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://ac.cnstrc.com/v1/collections/:collection_id/items",
+            "params": [
+              {
+                "name": "collection_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "on_missing",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `collections(w)`.\n\nAdd items to a collection, or update existing items. Items already in the collection are updated, others are added. N"
+        },
+        {
+          "info": {
+            "name": "Delete items from a collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ac.cnstrc.com/v1/collections/:collection_id/items",
+            "params": [
+              {
+                "name": "collection_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `collections(w)`.\n\nDelete items from a collection. If no items are provided, all items in the given collection will be deleted. Invalid "
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Redirect rules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve redirect rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/redirect_rules/:redirect_rule_id",
+            "params": [
+              {
+                "name": "redirect_rule_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `redirects(r)`.\n\nRetrieve a redirect rule"
+        },
+        {
+          "info": {
+            "name": "Replace redirect rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://ac.cnstrc.com/v1/redirect_rules/:redirect_rule_id",
+            "params": [
+              {
+                "name": "redirect_rule_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `redirects(w)`.\n\nReplace a redirect rule"
+        },
+        {
+          "info": {
+            "name": "Update redirect rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ac.cnstrc.com/v1/redirect_rules/:redirect_rule_id",
+            "params": [
+              {
+                "name": "redirect_rule_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `redirects(w)`.\n\nUpdate a redirect rule"
+        },
+        {
+          "info": {
+            "name": "Delete redirect rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ac.cnstrc.com/v1/redirect_rules/:redirect_rule_id",
+            "params": [
+              {
+                "name": "redirect_rule_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `redirects(w)`.\n\nDelete a redirect rule"
+        },
+        {
+          "info": {
+            "name": "Retrieve redirect rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/redirect_rules",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `redirects(r)`.\n\nRetrieve all redirect rules"
+        },
+        {
+          "info": {
+            "name": "Create redirect rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ac.cnstrc.com/v1/redirect_rules",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `redirects(w)`.\n\nCreate a redirect rule"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Metadata overrides",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get metadata overrides for the specified autocomplete ID and",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/metadata_overrides",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "field_name",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `metadata_overrides(r)`.\n\noptionally query via field name and/or active."
+        },
+        {
+          "info": {
+            "name": "Create a new metadata override rule for the specified field name.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ac.cnstrc.com/v1/metadata_overrides",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `metadata_overrides(w)`.\n\n"
+        },
+        {
+          "info": {
+            "name": "Patch an existing metadata override rule for the specified field name.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ac.cnstrc.com/v1/metadata_overrides/:field_name",
+            "params": [
+              {
+                "name": "field_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `metadata_overrides(w)`.\n\n"
+        },
+        {
+          "info": {
+            "name": "Delete an existing metadata override rule for the specified field name.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ac.cnstrc.com/v1/metadata_overrides/:field_name",
+            "params": [
+              {
+                "name": "field_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `metadata_overrides(w)`.\n\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

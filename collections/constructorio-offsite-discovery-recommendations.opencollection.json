@@ -1,0 +1,602 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Offsite Discovery recommendations",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Offsite Discovery results",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve recommendations by pod",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://offsite-discovery.cnstrc.com/v1/recommendations/pods/:pod_id",
+            "params": [
+              {
+                "name": "pod_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the recommendation pod containing the product set."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "The key of the index to use."
+              },
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "query",
+                "description": "Email campaign identifier for tracking and analytics."
+              },
+              {
+                "name": "item_id",
+                "value": "",
+                "type": "query",
+                "description": "Seed item ID used for item-based recommendations (e.g., complementary)."
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query",
+                "description": "Any number of filtering criteria used to narrow the result set, such as `color=blue` or `group_id=sandals` or `price=100-200`. Facets, item groups and collection IDs can be used as filters. If `filter_value` has the form `<min>-<max>`, it is interpreted as a range. Filters with the same key are ORed together and filters with different keys are ANDed together by default. Only results that match the filters are returned. Boolean values are serialized with the first letter capitalized (e.g., `True` / `False`) as a convention."
+              },
+              {
+                "name": "filter_name",
+                "value": "",
+                "type": "query",
+                "description": "**DEPRECATED. Please, use 'filters' instead**. Name of the product attribute to filter by (e.g., brand, category, color). Must be provided together with `filter_value`."
+              },
+              {
+                "name": "filter_value",
+                "value": "",
+                "type": "query",
+                "description": "**DEPRECATED. Please, use 'filters' instead**. Value to filter the specified attribute by. Must be provided together with `filter_name`."
+              },
+              {
+                "name": "num_results",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of recommended items to retrieve."
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the client and version that the request is coming from, such as `cio-js-2.90`."
+              },
+              {
+                "name": "us",
+                "value": "",
+                "type": "query",
+                "description": "User segment is a client context value (such as platform, location, etc.) that is used to evaluate redirect or refined tag rules. You can supply multiple segments by passing multiple `us` arguments."
+              },
+              {
+                "name": "ui",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier for the user to personalize recommendation results."
+              },
+              {
+                "name": "base_url",
+                "value": "",
+                "type": "query",
+                "description": "Base URL used to construct the product detail page redirect URL (e.g., 'https://example.com')."
+              }
+            ]
+          },
+          "docs": "Retrieve AI-optimized recommendation results for products by pod identifier."
+        },
+        {
+          "info": {
+            "name": "Retrieve recommendations by collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://offsite-discovery.cnstrc.com/v1/browse/collection_id/:collection_id",
+            "params": [
+              {
+                "name": "collection_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the collection containing the product set."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "The key of the index to use."
+              },
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "query",
+                "description": "Email campaign identifier for tracking and analytics."
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query",
+                "description": "Any number of filtering criteria used to narrow the result set, such as `color=blue` or `group_id=sandals` or `price=100-200`. Facets, item groups and collection IDs can be used as filters. If `filter_value` has the form `<min>-<max>`, it is interpreted as a range. Filters with the same key are ORed together and filters with different keys are ANDed together by default. Only results that match the filters are returned. Boolean values are serialized with the first letter capitalized (e.g., `True` / `False`) as a convention."
+              },
+              {
+                "name": "filter_name",
+                "value": "",
+                "type": "query",
+                "description": "**DEPRECATED. Please, use 'filters' instead**. Name of the product attribute to filter by (e.g., brand, category, color). Must be provided together with `filter_value`."
+              },
+              {
+                "name": "filter_value",
+                "value": "",
+                "type": "query",
+                "description": "**DEPRECATED. Please, use 'filters' instead**. Value to filter the specified attribute by. Must be provided together with `filter_name`."
+              },
+              {
+                "name": "num_results",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of collection items to retrieve."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "The method to sort results by. The default value `relevance` sorts by Constructor's attractiveness & personalization algorithms and is reserved. Alternative sort criteria can be configured using the [sort options](https://docs.constructor.com/reference/v1-sort-options-create-or-replace-sort-options)"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query",
+                "description": "The order by which results should be sorted. Only valid in conjunction with `sort_by`."
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the client and version that the request is coming from, such as `cio-js-2.90`."
+              },
+              {
+                "name": "us",
+                "value": "",
+                "type": "query",
+                "description": "User segment is a client context value (such as platform, location, etc.) that is used to evaluate redirect or refined tag rules. You can supply multiple segments by passing multiple `us` arguments."
+              },
+              {
+                "name": "ui",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier for the user to personalize recommendation results."
+              },
+              {
+                "name": "base_url",
+                "value": "",
+                "type": "query",
+                "description": "Base URL used to construct the product detail page redirect URL (e.g., 'https://example.com')."
+              }
+            ]
+          },
+          "docs": "Retrieve AI-optimized products from a specified collection"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Product resources",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve recommendation result item image",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://offsite-discovery.cnstrc.com/v1/recommendations/pods/:pod_id/positions/:position/image_url",
+            "params": [
+              {
+                "name": "pod_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the recommendation pod containing the product set."
+              },
+              {
+                "name": "position",
+                "value": "",
+                "type": "path",
+                "description": "The position of the desired product within the results."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "The key of the index to use."
+              },
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "query",
+                "description": "Email campaign identifier for tracking and analytics."
+              },
+              {
+                "name": "item_id",
+                "value": "",
+                "type": "query",
+                "description": "Seed item ID used for item-based recommendations (e.g., complementary)."
+              },
+              {
+                "name": "style_id",
+                "value": "",
+                "type": "query",
+                "description": "Specific style ID within a product, used for retrieving style-specific images."
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query",
+                "description": "Any number of filtering criteria used to narrow the result set, such as `color=blue` or `group_id=sandals` or `price=100-200`. Facets, item groups and collection IDs can be used as filters. If `filter_value` has the form `<min>-<max>`, it is interpreted as a range. Filters with the same key are ORed together and filters with different keys are ANDed together by default. Only results that match the filters are returned. Boolean values are serialized with the first letter capitalized (e.g., `True` / `False`) as a convention."
+              },
+              {
+                "name": "filter_name",
+                "value": "",
+                "type": "query",
+                "description": "**DEPRECATED. Please, use 'filters' instead**. Name of the product attribute to filter by (e.g., brand, category, color). Must be provided together with `filter_value`."
+              },
+              {
+                "name": "filter_value",
+                "value": "",
+                "type": "query",
+                "description": "**DEPRECATED. Please, use 'filters' instead**. Value to filter the specified attribute by. Must be provided together with `filter_name`."
+              },
+              {
+                "name": "num_results",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of recommended items to retrieve."
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the client and version that the request is coming from, such as `cio-js-2.90`."
+              },
+              {
+                "name": "us",
+                "value": "",
+                "type": "query",
+                "description": "User segment is a client context value (such as platform, location, etc.) that is used to evaluate redirect or refined tag rules. You can supply multiple segments by passing multiple `us` arguments."
+              },
+              {
+                "name": "ui",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier for the user to personalize recommendation results."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response, either 'redirect' (default for 302 redirect) or 'json' (for 200 OK with JSON body for debugging)."
+              }
+            ]
+          },
+          "docs": "Redirects to a recommended item image or returns JSON based on its pod ID and position in a recommendation result set (`pod_id` and `position` as path parameters). Parameter values should correspond to a previously generated set of recommendations."
+        },
+        {
+          "info": {
+            "name": "Retrieve recommendation result item URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://offsite-discovery.cnstrc.com/v1/recommendations/pods/:pod_id/positions/:position/url",
+            "params": [
+              {
+                "name": "pod_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the recommendation pod containing the product set."
+              },
+              {
+                "name": "position",
+                "value": "",
+                "type": "path",
+                "description": "The position of the desired product within the results."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "The key of the index to use."
+              },
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "query",
+                "description": "Email campaign identifier for tracking and analytics."
+              },
+              {
+                "name": "item_id",
+                "value": "",
+                "type": "query",
+                "description": "Seed item ID used for item-based recommendations (e.g., complementary)."
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query",
+                "description": "Any number of filtering criteria used to narrow the result set, such as `color=blue` or `group_id=sandals` or `price=100-200`. Facets, item groups and collection IDs can be used as filters. If `filter_value` has the form `<min>-<max>`, it is interpreted as a range. Filters with the same key are ORed together and filters with different keys are ANDed together by default. Only results that match the filters are returned. Boolean values are serialized with the first letter capitalized (e.g., `True` / `False`) as a convention."
+              },
+              {
+                "name": "filter_name",
+                "value": "",
+                "type": "query",
+                "description": "**DEPRECATED. Please, use 'filters' instead**. Name of the product attribute to filter by (e.g., brand, category, color). Must be provided together with `filter_value`."
+              },
+              {
+                "name": "filter_value",
+                "value": "",
+                "type": "query",
+                "description": "**DEPRECATED. Please, use 'filters' instead**. Value to filter the specified attribute by. Must be provided together with `filter_name`."
+              },
+              {
+                "name": "num_results",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of recommended items to retrieve."
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the client and version that the request is coming from, such as `cio-js-2.90`."
+              },
+              {
+                "name": "us",
+                "value": "",
+                "type": "query",
+                "description": "User segment is a client context value (such as platform, location, etc.) that is used to evaluate redirect or refined tag rules. You can supply multiple segments by passing multiple `us` arguments."
+              },
+              {
+                "name": "ui",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier for the user to personalize recommendation results."
+              },
+              {
+                "name": "base_url",
+                "value": "",
+                "type": "query",
+                "description": "Base URL used to construct the product detail page redirect URL (e.g., 'https://example.com')."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response, either 'redirect' (default for 302 redirect) or 'json' (for 200 OK with JSON body for debugging)."
+              }
+            ]
+          },
+          "docs": "Redirects to a recommended item PDP URL or returns JSON based on its pod ID and position in a recommendation result set (`pod_id` and `position` as path parameters). Parameter values should correspond to a previously generated set of recommendations."
+        },
+        {
+          "info": {
+            "name": "Retrieve collection item image",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://offsite-discovery.cnstrc.com/v1/browse/collection_id/:collection_id/positions/:position/image_url",
+            "params": [
+              {
+                "name": "collection_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the collection containing the product set."
+              },
+              {
+                "name": "position",
+                "value": "",
+                "type": "path",
+                "description": "The position of the desired product within the results."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "The key of the index to use."
+              },
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "query",
+                "description": "Email campaign identifier for tracking and analytics."
+              },
+              {
+                "name": "style_id",
+                "value": "",
+                "type": "query",
+                "description": "Specific style ID within a product, used for retrieving style-specific images."
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query",
+                "description": "Any number of filtering criteria used to narrow the result set, such as `color=blue` or `group_id=sandals` or `price=100-200`. Facets, item groups and collection IDs can be used as filters. If `filter_value` has the form `<min>-<max>`, it is interpreted as a range. Filters with the same key are ORed together and filters with different keys are ANDed together by default. Only results that match the filters are returned. Boolean values are serialized with the first letter capitalized (e.g., `True` / `False`) as a convention."
+              },
+              {
+                "name": "filter_name",
+                "value": "",
+                "type": "query",
+                "description": "**DEPRECATED. Please, use 'filters' instead**. Name of the product attribute to filter by (e.g., brand, category, color). Must be provided together with `filter_value`."
+              },
+              {
+                "name": "filter_value",
+                "value": "",
+                "type": "query",
+                "description": "**DEPRECATED. Please, use 'filters' instead**. Value to filter the specified attribute by. Must be provided together with `filter_name`."
+              },
+              {
+                "name": "num_results",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of collection items to retrieve."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "The method to sort results by. The default value `relevance` sorts by Constructor's attractiveness & personalization algorithms and is reserved. Alternative sort criteria can be configured using the [sort options](https://docs.constructor.com/reference/v1-sort-options-create-or-replace-sort-options)"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query",
+                "description": "The order by which results should be sorted. Only valid in conjunction with `sort_by`."
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the client and version that the request is coming from, such as `cio-js-2.90`."
+              },
+              {
+                "name": "us",
+                "value": "",
+                "type": "query",
+                "description": "User segment is a client context value (such as platform, location, etc.) that is used to evaluate redirect or refined tag rules. You can supply multiple segments by passing multiple `us` arguments."
+              },
+              {
+                "name": "ui",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier for the user to personalize recommendation results."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response, either 'redirect' (default for 302 redirect) or 'json' (for 200 OK with JSON body for debugging)."
+              }
+            ]
+          },
+          "docs": "Redirects to a collection item image or returns JSON based on its collection ID and position in a collection result set (`collection_id` and `position` as path parameters)."
+        },
+        {
+          "info": {
+            "name": "Retrieve collection item URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://offsite-discovery.cnstrc.com/v1/browse/collection_id/:collection_id/positions/:position/url",
+            "params": [
+              {
+                "name": "collection_id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the collection containing the product set."
+              },
+              {
+                "name": "position",
+                "value": "",
+                "type": "path",
+                "description": "The position of the desired product within the results."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "The key of the index to use."
+              },
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "query",
+                "description": "Email campaign identifier for tracking and analytics."
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query",
+                "description": "Any number of filtering criteria used to narrow the result set, such as `color=blue` or `group_id=sandals` or `price=100-200`. Facets, item groups and collection IDs can be used as filters. If `filter_value` has the form `<min>-<max>`, it is interpreted as a range. Filters with the same key are ORed together and filters with different keys are ANDed together by default. Only results that match the filters are returned. Boolean values are serialized with the first letter capitalized (e.g., `True` / `False`) as a convention."
+              },
+              {
+                "name": "filter_name",
+                "value": "",
+                "type": "query",
+                "description": "**DEPRECATED. Please, use 'filters' instead**. Name of the product attribute to filter by (e.g., brand, category, color). Must be provided together with `filter_value`."
+              },
+              {
+                "name": "filter_value",
+                "value": "",
+                "type": "query",
+                "description": "**DEPRECATED. Please, use 'filters' instead**. Value to filter the specified attribute by. Must be provided together with `filter_name`."
+              },
+              {
+                "name": "num_results",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of collection items to retrieve."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "The method to sort results by. The default value `relevance` sorts by Constructor's attractiveness & personalization algorithms and is reserved. Alternative sort criteria can be configured using the [sort options](https://docs.constructor.com/reference/v1-sort-options-create-or-replace-sort-options)"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query",
+                "description": "The order by which results should be sorted. Only valid in conjunction with `sort_by`."
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the client and version that the request is coming from, such as `cio-js-2.90`."
+              },
+              {
+                "name": "us",
+                "value": "",
+                "type": "query",
+                "description": "User segment is a client context value (such as platform, location, etc.) that is used to evaluate redirect or refined tag rules. You can supply multiple segments by passing multiple `us` arguments."
+              },
+              {
+                "name": "ui",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier for the user to personalize recommendation results."
+              },
+              {
+                "name": "base_url",
+                "value": "",
+                "type": "query",
+                "description": "Base URL used to construct the product detail page redirect URL (e.g., 'https://example.com')."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Format of the response, either 'redirect' (default for 302 redirect) or 'json' (for 200 OK with JSON body for debugging)."
+              }
+            ]
+          },
+          "docs": "Redirects to a collection item PDP URL or returns JSON based on its collection ID and position in a collection result set (`collection_id` and `position` as path parameters)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

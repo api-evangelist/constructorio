@@ -1,0 +1,654 @@
+{
+  "item": [
+    {
+      "id": "088ce62c-6573-494b-a196-893e4312920b",
+      "name": "Engagements",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b54d5675-658d-4715-8c93-cbc761410b34",
+          "name": "Update Engagement",
+          "request": {
+            "name": "Update Engagement",
+            "description": {
+              "content": "**🔐 This endpoint requires [HTTP Bearer authentication](https://docs.constructor.com/reference/main-authentication#bearer-authentication).**\nFor authenticating with Bearer token, required scopes are: `retail_media.engagements(w)`.\n\n**Beta:** This endpoint is in beta and may change. Updates the suspension status of an advertiser engagement. When suspended, the engagement's ads will stop serving. When unsuspended, the engagement's ads will resume serving.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "engagements",
+                ":engagement_id"
+              ],
+              "host": [
+                "{{v1-engagements-engagement_id-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) The key of the index to use."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "engagement_id",
+                  "description": "(Required) The advertiser engagement ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"is_suspended\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f4ed1419-1aa8-450a-b3d9-9badfd616bfc",
+              "name": "Successful Response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "engagements",
+                    ":engagement_id"
+                  ],
+                  "host": [
+                    "{{v1-engagements-engagement_id-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "engagement_id",
+                      "description": "(Required) The advertiser engagement ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"is_suspended\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"engagement_id\": \"string\",\n  \"key\": \"string\",\n  \"is_suspended\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "204dd942-6742-44eb-b3e7-d4ef1ac26a3e",
+              "name": "Bad Request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "engagements",
+                    ":engagement_id"
+                  ],
+                  "host": [
+                    "{{v1-engagements-engagement_id-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "engagement_id",
+                      "description": "(Required) The advertiser engagement ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"is_suspended\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"message\": \"string\",\n      \"source\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"message\": \"string\",\n      \"source\": \"string\"\n    }\n  ],\n  \"trace_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc08c3ee-ffad-459e-a1f2-e9890ceefb0c",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "engagements",
+                    ":engagement_id"
+                  ],
+                  "host": [
+                    "{{v1-engagements-engagement_id-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "engagement_id",
+                      "description": "(Required) The advertiser engagement ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"is_suspended\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fd122865-a170-410b-a1eb-8700a6f476b2",
+              "name": "Forbidden.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "engagements",
+                    ":engagement_id"
+                  ],
+                  "host": [
+                    "{{v1-engagements-engagement_id-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "engagement_id",
+                      "description": "(Required) The advertiser engagement ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"is_suspended\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "87cc7fa1-fa1f-4d6d-bb4e-b5f4630429ca",
+          "name": "Retrieve Advertiser Spend",
+          "request": {
+            "name": "Retrieve Advertiser Spend",
+            "description": {
+              "content": "**🔐 This endpoint requires [HTTP Bearer authentication](https://docs.constructor.com/reference/main-authentication#bearer-authentication).**\nFor authenticating with Bearer token, required scopes are: `retail_media.ad_spend_tracking(r)`.\n\n**Beta:** This endpoint is in beta and may change. Returns the spend for every advertiser (engagement) that has accrued spend within the given index, broken down by day for the last 30 days.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "advertiser_spend"
+              ],
+              "host": [
+                "{{v1-advertiser_spend-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) The key of the index to use."
+                },
+                {
+                  "disabled": false,
+                  "key": "next_page_cursor",
+                  "value": "<string>",
+                  "description": "Opaque cursor returned by a previous response. When omitted, the first page is returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "num_results_per_page",
+                  "value": "100",
+                  "description": "Maximum number of advertisers to return in a single page. Defaults to 100, with a maximum of 1000. Values above the maximum are clamped."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ce3c6ca8-05b5-47de-b49c-5711a7388a75",
+              "name": "Successful Response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "advertiser_spend"
+                  ],
+                  "host": [
+                    "{{v1-advertiser_spend-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "next_page_cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "num_results_per_page",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"advertiser_spend\": [\n    {\n      \"engagement_id\": \"string\",\n      \"daily_spend\": {\n        \"2026-06-18\": \"40.0\",\n        \"2026-06-19\": \"12.5\"\n      }\n    },\n    {\n      \"engagement_id\": \"string\",\n      \"daily_spend\": {\n        \"2026-06-18\": \"40.0\",\n        \"2026-06-19\": \"12.5\"\n      }\n    }\n  ],\n  \"total_count\": 5,\n  \"next_page_cursor\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2507aaea-b4a8-42e3-9c77-f52319c2e27d",
+              "name": "Bad Request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "advertiser_spend"
+                  ],
+                  "host": [
+                    "{{v1-advertiser_spend-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "next_page_cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "num_results_per_page",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"message\": \"string\",\n      \"source\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"message\": \"string\",\n      \"source\": \"string\"\n    }\n  ],\n  \"trace_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6cd00bc0-20c5-4099-bbf6-fb80f53df519",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "advertiser_spend"
+                  ],
+                  "host": [
+                    "{{v1-advertiser_spend-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "next_page_cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "num_results_per_page",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6b8699da-2edd-4765-99f2-518e2a1874a0",
+              "name": "Forbidden.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "advertiser_spend"
+                  ],
+                  "host": [
+                    "{{v1-advertiser_spend-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "next_page_cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "num_results_per_page",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://retail.media-cnstrc.com",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://retail.media-cnstrc.com",
+      "key": "v1-engagements-engagement_id-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://retail.media-cnstrc.com",
+      "key": "v1-advertiser_spend-Url"
+    }
+  ],
+  "info": {
+    "_postman_id": "aeb8e8f8-d97c-4cc7-9c9b-af82bc7dc4e9",
+    "name": "Retail Media",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Contact Support:\n Email: support@constructor.io",
+      "type": "text/plain"
+    }
+  }
+}

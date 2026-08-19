@@ -1,0 +1,1129 @@
+{
+  "item": [
+    {
+      "id": "b4908874-95d1-4208-bcda-2b864e9847d4",
+      "name": "Image Search results",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8b0bec7a-1e1b-4c16-8f32-b6c4def6a69d",
+          "name": "Retrieve by image (Deprecated)",
+          "request": {
+            "name": "Retrieve by image (Deprecated)",
+            "description": {
+              "content": "Retrieve AI optimized search results for products (or optionally other sections) by image",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "image_search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "section",
+                  "value": "Products"
+                },
+                {
+                  "disabled": false,
+                  "key": "value",
+                  "value": "<Error: Could not resolve allOf schema"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[fields][0]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[fields][1]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[show_hidden_fields]",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[hidden_fields][0]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[hidden_fields][1]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[variations_return_type]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[groups_max_depth]",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[groups_start]",
+                  "value": "current"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[groups_sort_by]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[groups_sort_order]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[show_hidden_facets]",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[hidden_facets][0]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[hidden_facets][1]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[show_hidden_facet_options]",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[show_protected_facets]",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[facet_options][key_0][0]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[facet_options][key_0][1]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[facet_groups_limit]",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[show_hidden_sort_options]",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[hidden_sort_options][0]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[hidden_sort_options][1]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "c",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "us",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "us",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "ui",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "s",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "i",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/octet-stream"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<binary>"
+            }
+          },
+          "response": [
+            {
+              "id": "d3cedc3f-ff9a-465f-a119-ca1f014517af",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "image_search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "section",
+                      "value": "Products"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<Error: Could not resolve allOf schema"
+                    },
+                    {
+                      "key": "fmt_options[fields][0]",
+                      "value": "image_url"
+                    },
+                    {
+                      "key": "fmt_options[fields][1]",
+                      "value": "image_url"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_fields]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[hidden_fields][0]",
+                      "value": "inventory_count"
+                    },
+                    {
+                      "key": "fmt_options[hidden_fields][1]",
+                      "value": "inventory_count"
+                    },
+                    {
+                      "key": "fmt_options[variations_return_type]",
+                      "value": "default"
+                    },
+                    {
+                      "key": "fmt_options[groups_max_depth]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "fmt_options[groups_start]",
+                      "value": "current"
+                    },
+                    {
+                      "key": "fmt_options[groups_sort_by]",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "fmt_options[groups_sort_order]",
+                      "value": "descending"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_facets]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[hidden_facets][0]",
+                      "value": "store_id"
+                    },
+                    {
+                      "key": "fmt_options[hidden_facets][1]",
+                      "value": "store_id"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_facet_options]",
+                      "value": "true"
+                    },
+                    {
+                      "key": "fmt_options[show_protected_facets]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[facet_options][color][0]",
+                      "value": "red"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][color][1]",
+                      "value": "blue"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][brand][0]",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][brand][1]",
+                      "value": "adidas"
+                    },
+                    {
+                      "key": "fmt_options[facet_groups_limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_sort_options]",
+                      "value": "true"
+                    },
+                    {
+                      "key": "fmt_options[hidden_sort_options][0]",
+                      "value": "price"
+                    },
+                    {
+                      "key": "fmt_options[hidden_sort_options][1]",
+                      "value": "price"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-js-client-2.35.2"
+                    },
+                    {
+                      "key": "us",
+                      "value": "vip-member"
+                    },
+                    {
+                      "key": "us",
+                      "value": "vip-member"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "customer-user-id-456"
+                    },
+                    {
+                      "key": "s",
+                      "value": "1"
+                    },
+                    {
+                      "key": "i",
+                      "value": "user-device-id-123"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<binary>"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request\": {},\n  \"response\": {\n    \"result_sources\": {\n      \"token_match\": {\n        \"count\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"embeddings_match\": {\n        \"count\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"facets\": [\n      {\n        \"type\": \"range\",\n        \"name\": \"string\",\n        \"display_name\": \"string\",\n        \"hidden\": false,\n        \"data\": {},\n        \"status\": {\n          \"description\": \"Specifies the selected facet value range. If no range is selected the field will be omitted.\",\n          \"title\": \"Status\",\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"min\": 800.9155789619838,\n        \"max\": 7369.003552088765\n      },\n      {\n        \"type\": \"range\",\n        \"name\": \"string\",\n        \"display_name\": \"string\",\n        \"hidden\": true,\n        \"data\": {},\n        \"status\": {\n          \"description\": \"Specifies the selected facet value range. If no range is selected the field will be omitted.\",\n          \"title\": \"Status\",\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"min\": 3696.5467871203427,\n        \"max\": 3100.6953253254565\n      }\n    ],\n    \"groups\": [\n      {\n        \"group_id\": \"string\",\n        \"count\": 4446,\n        \"parents\": [\n          {\n            \"group_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"group_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"display_name\": \"string\",\n        \"data\": {}\n      },\n      {\n        \"group_id\": \"string\",\n        \"count\": 7080,\n        \"parents\": [\n          {\n            \"group_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"group_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"display_name\": \"string\",\n        \"data\": {}\n      }\n    ],\n    \"results\": [\n      {\n        \"value\": \"string\",\n        \"matched_terms\": [\n          \"string\",\n          \"string\"\n        ],\n        \"data\": {\n          \"id\": \"string\",\n          \"url\": \"string\",\n          \"image_url\": \"string\",\n          \"variation_id\": \"string\",\n          \"facets\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"groups\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"variations\": [\n          {\n            \"data\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"data\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"variation_slice\": {\n          \"key_0\": [\n            \"string\",\n            \"string\"\n          ],\n          \"key_1\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      },\n      {\n        \"value\": \"string\",\n        \"matched_terms\": [\n          \"string\",\n          \"string\"\n        ],\n        \"data\": {\n          \"id\": \"string\",\n          \"url\": \"string\",\n          \"image_url\": \"string\",\n          \"variation_id\": \"string\",\n          \"facets\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"groups\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"variations\": [\n          {\n            \"data\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"data\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"variation_slice\": {\n          \"key_0\": [\n            \"string\",\n            \"string\"\n          ],\n          \"key_1\": [\n            \"string\",\n            \"string\"\n          ],\n          \"key_2\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      }\n    ],\n    \"sort_options\": [\n      {\n        \"display_name\": \"string\",\n        \"status\": \"\",\n        \"sort_by\": \"string\",\n        \"sort_order\": \"ascending\",\n        \"hidden\": false\n      },\n      {\n        \"display_name\": \"string\",\n        \"status\": \"\",\n        \"sort_by\": \"string\",\n        \"sort_order\": \"ascending\",\n        \"hidden\": false\n      }\n    ],\n    \"refined_content\": [\n      {\n        \"key_0\": {\n          \"key_0\": \"string\"\n        },\n        \"key_1\": {\n          \"key_0\": \"string\",\n          \"key_1\": true\n        },\n        \"key_2\": {\n          \"key_0\": true,\n          \"key_1\": 6161.257362511689\n        },\n        \"key_3\": {\n          \"key_0\": 4355\n        }\n      },\n      {\n        \"key_0\": {\n          \"key_0\": 921.141924844181,\n          \"key_1\": false,\n          \"key_2\": \"string\"\n        },\n        \"key_1\": {\n          \"key_0\": 9895,\n          \"key_1\": 3807,\n          \"key_2\": \"string\"\n        },\n        \"key_2\": {\n          \"key_0\": 4527,\n          \"key_1\": true\n        }\n      }\n    ],\n    \"total_num_results\": 5436,\n    \"features\": [\n      {\n        \"display_name\": \"string\",\n        \"enabled\": false,\n        \"feature_name\": \"string\",\n        \"variant\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"display_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      {\n        \"display_name\": \"string\",\n        \"enabled\": true,\n        \"feature_name\": \"string\",\n        \"variant\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"display_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      }\n    ],\n    \"collection\": {\n      \"id\": \"string\",\n      \"display_name\": \"string\",\n      \"data\": {},\n      \"start_time\": \"2016-12-15T06:26:18.689Z\",\n      \"end_time\": \"1949-02-20T08:00:47.872Z\",\n      \"active_overriding_collection\": {\n        \"description\": \"The currently active overriding collection if part of content scheduling.\",\n        \"title\": \"Active Overriding Collection\",\n        \"value\": \"<Circular reference to #/components/schemas/Collection detected>\"\n      }\n    },\n    \"browse_url\": \"string\"\n  },\n  \"result_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c6e22e2-f5c1-4c28-9f69-5cf16d2e619e",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "image_search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "section",
+                      "value": "Products"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<Error: Could not resolve allOf schema"
+                    },
+                    {
+                      "key": "fmt_options[fields][0]",
+                      "value": "image_url"
+                    },
+                    {
+                      "key": "fmt_options[fields][1]",
+                      "value": "image_url"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_fields]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[hidden_fields][0]",
+                      "value": "inventory_count"
+                    },
+                    {
+                      "key": "fmt_options[hidden_fields][1]",
+                      "value": "inventory_count"
+                    },
+                    {
+                      "key": "fmt_options[variations_return_type]",
+                      "value": "default"
+                    },
+                    {
+                      "key": "fmt_options[groups_max_depth]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "fmt_options[groups_start]",
+                      "value": "current"
+                    },
+                    {
+                      "key": "fmt_options[groups_sort_by]",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "fmt_options[groups_sort_order]",
+                      "value": "descending"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_facets]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[hidden_facets][0]",
+                      "value": "store_id"
+                    },
+                    {
+                      "key": "fmt_options[hidden_facets][1]",
+                      "value": "store_id"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_facet_options]",
+                      "value": "true"
+                    },
+                    {
+                      "key": "fmt_options[show_protected_facets]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[facet_options][color][0]",
+                      "value": "red"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][color][1]",
+                      "value": "blue"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][brand][0]",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][brand][1]",
+                      "value": "adidas"
+                    },
+                    {
+                      "key": "fmt_options[facet_groups_limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_sort_options]",
+                      "value": "true"
+                    },
+                    {
+                      "key": "fmt_options[hidden_sort_options][0]",
+                      "value": "price"
+                    },
+                    {
+                      "key": "fmt_options[hidden_sort_options][1]",
+                      "value": "price"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-js-client-2.35.2"
+                    },
+                    {
+                      "key": "us",
+                      "value": "vip-member"
+                    },
+                    {
+                      "key": "us",
+                      "value": "vip-member"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "customer-user-id-456"
+                    },
+                    {
+                      "key": "s",
+                      "value": "1"
+                    },
+                    {
+                      "key": "i",
+                      "value": "user-device-id-123"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<binary>"
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1c7a3f37-1f4a-491b-b940-7ef1ef8cb143",
+          "name": "Retrieve by image",
+          "request": {
+            "name": "Retrieve by image",
+            "description": {
+              "content": "Retrieve AI optimized search results for products (or optionally other sections) by image with optional multi-item detection (segmentation) support.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "image_search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "section",
+                  "value": "Products"
+                },
+                {
+                  "disabled": false,
+                  "key": "search_crop_type",
+                  "value": "bbox"
+                },
+                {
+                  "disabled": false,
+                  "key": "value",
+                  "value": "<Error: Could not resolve allOf schema"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[fields][0]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[fields][1]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[show_hidden_fields]",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[hidden_fields][0]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[hidden_fields][1]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[variations_return_type]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[groups_max_depth]",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[groups_start]",
+                  "value": "current"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[groups_sort_by]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[groups_sort_order]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[show_hidden_facets]",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[hidden_facets][0]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[hidden_facets][1]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[show_hidden_facet_options]",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[show_protected_facets]",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[facet_options][key_0][0]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[facet_options][key_0][1]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[facet_groups_limit]",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[show_hidden_sort_options]",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[hidden_sort_options][0]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[hidden_sort_options][1]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "c",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "us",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "us",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "use_segmentation",
+                  "value": "false"
+                },
+                {
+                  "disabled": false,
+                  "key": "ui",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "return_segments",
+                  "value": "false"
+                },
+                {
+                  "disabled": false,
+                  "key": "s",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "i",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/octet-stream"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<binary>"
+            }
+          },
+          "response": [
+            {
+              "id": "1e7d9c9f-3953-464f-b264-7db6146e5ede",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "image_search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "key_K2pX7vBnU0bgA5xp"
+                    },
+                    {
+                      "key": "section",
+                      "value": "Products"
+                    },
+                    {
+                      "key": "search_crop_type",
+                      "value": "bbox"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<Error: Could not resolve allOf schema"
+                    },
+                    {
+                      "key": "fmt_options[fields][0]",
+                      "value": "image_url"
+                    },
+                    {
+                      "key": "fmt_options[fields][1]",
+                      "value": "image_url"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_fields]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[hidden_fields][0]",
+                      "value": "inventory_count"
+                    },
+                    {
+                      "key": "fmt_options[hidden_fields][1]",
+                      "value": "inventory_count"
+                    },
+                    {
+                      "key": "fmt_options[variations_return_type]",
+                      "value": "default"
+                    },
+                    {
+                      "key": "fmt_options[groups_max_depth]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "fmt_options[groups_start]",
+                      "value": "current"
+                    },
+                    {
+                      "key": "fmt_options[groups_sort_by]",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "fmt_options[groups_sort_order]",
+                      "value": "descending"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_facets]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[hidden_facets][0]",
+                      "value": "store_id"
+                    },
+                    {
+                      "key": "fmt_options[hidden_facets][1]",
+                      "value": "store_id"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_facet_options]",
+                      "value": "true"
+                    },
+                    {
+                      "key": "fmt_options[show_protected_facets]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[facet_options][color][0]",
+                      "value": "red"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][color][1]",
+                      "value": "blue"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][brand][0]",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][brand][1]",
+                      "value": "adidas"
+                    },
+                    {
+                      "key": "fmt_options[facet_groups_limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_sort_options]",
+                      "value": "true"
+                    },
+                    {
+                      "key": "fmt_options[hidden_sort_options][0]",
+                      "value": "price"
+                    },
+                    {
+                      "key": "fmt_options[hidden_sort_options][1]",
+                      "value": "price"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-js-client-2.35.2"
+                    },
+                    {
+                      "key": "us",
+                      "value": "vip-member"
+                    },
+                    {
+                      "key": "us",
+                      "value": "vip-member"
+                    },
+                    {
+                      "key": "use_segmentation",
+                      "value": "true"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "customer-user-id-456"
+                    },
+                    {
+                      "key": "return_segments",
+                      "value": "true"
+                    },
+                    {
+                      "key": "s",
+                      "value": "1"
+                    },
+                    {
+                      "key": "i",
+                      "value": "user-device-id-123"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<binary>"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request\": {},\n  \"response\": {\n    \"result_sources\": {\n      \"token_match\": {\n        \"count\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      },\n      \"embeddings_match\": {\n        \"count\": {\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        }\n      }\n    },\n    \"facets\": [\n      {\n        \"type\": \"range\",\n        \"name\": \"string\",\n        \"display_name\": \"string\",\n        \"hidden\": false,\n        \"data\": {},\n        \"status\": {\n          \"description\": \"Specifies the selected facet value range. If no range is selected the field will be omitted.\",\n          \"title\": \"Status\",\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"min\": 4255.025312363374,\n        \"max\": 5011.215322781923\n      },\n      {\n        \"type\": \"range\",\n        \"name\": \"string\",\n        \"display_name\": \"string\",\n        \"hidden\": true,\n        \"data\": {},\n        \"status\": {\n          \"description\": \"Specifies the selected facet value range. If no range is selected the field will be omitted.\",\n          \"title\": \"Status\",\n          \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n        },\n        \"min\": 5489.101092133322,\n        \"max\": 1938.8144985003896\n      }\n    ],\n    \"groups\": [\n      {\n        \"group_id\": \"string\",\n        \"count\": 6025,\n        \"parents\": [\n          {\n            \"group_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"group_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"display_name\": \"string\",\n        \"data\": {}\n      },\n      {\n        \"group_id\": \"string\",\n        \"count\": 5534,\n        \"parents\": [\n          {\n            \"group_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"group_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"display_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"display_name\": \"string\",\n        \"data\": {}\n      }\n    ],\n    \"results\": [\n      {\n        \"value\": \"string\",\n        \"matched_terms\": [\n          \"string\",\n          \"string\"\n        ],\n        \"data\": {\n          \"id\": \"string\",\n          \"url\": \"string\",\n          \"image_url\": \"string\",\n          \"variation_id\": \"string\",\n          \"facets\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"groups\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"variations\": [\n          {\n            \"data\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"data\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"variation_slice\": {\n          \"key_0\": [\n            \"string\",\n            \"string\"\n          ],\n          \"key_1\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      },\n      {\n        \"value\": \"string\",\n        \"matched_terms\": [\n          \"string\",\n          \"string\"\n        ],\n        \"data\": {\n          \"id\": \"string\",\n          \"url\": \"string\",\n          \"image_url\": \"string\",\n          \"variation_id\": \"string\",\n          \"facets\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"groups\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        \"variations\": [\n          {\n            \"data\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"data\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"value\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ],\n        \"variation_slice\": {\n          \"key_0\": [\n            \"string\",\n            \"string\"\n          ],\n          \"key_1\": [\n            \"string\",\n            \"string\"\n          ]\n        }\n      }\n    ],\n    \"sort_options\": [\n      {\n        \"display_name\": \"string\",\n        \"status\": \"selected\",\n        \"sort_by\": \"string\",\n        \"sort_order\": \"ascending\",\n        \"hidden\": false\n      },\n      {\n        \"display_name\": \"string\",\n        \"status\": \"selected\",\n        \"sort_by\": \"string\",\n        \"sort_order\": \"ascending\",\n        \"hidden\": false\n      }\n    ],\n    \"refined_content\": [\n      {\n        \"key_0\": {\n          \"key_0\": true\n        },\n        \"key_1\": {\n          \"key_0\": 5421.499708932553,\n          \"key_1\": 8356\n        },\n        \"key_2\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\"\n        },\n        \"key_3\": {\n          \"key_0\": \"string\",\n          \"key_1\": 6573,\n          \"key_2\": 3187\n        }\n      },\n      {\n        \"key_0\": {\n          \"key_0\": 4160,\n          \"key_1\": 2286,\n          \"key_2\": \"string\"\n        }\n      }\n    ],\n    \"total_num_results\": 6225,\n    \"features\": [\n      {\n        \"display_name\": \"string\",\n        \"enabled\": true,\n        \"feature_name\": \"string\",\n        \"variant\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"display_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      {\n        \"display_name\": \"string\",\n        \"enabled\": true,\n        \"feature_name\": \"string\",\n        \"variant\": {\n          \"name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"display_name\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      }\n    ],\n    \"collection\": {\n      \"id\": \"string\",\n      \"display_name\": \"string\",\n      \"data\": {},\n      \"start_time\": \"2023-12-26T15:41:34.225Z\",\n      \"end_time\": \"1984-10-23T19:22:31.131Z\",\n      \"active_overriding_collection\": {\n        \"description\": \"The currently active overriding collection if part of content scheduling.\",\n        \"title\": \"Active Overriding Collection\",\n        \"value\": \"<Circular reference to #/components/schemas/Collection detected>\"\n      }\n    },\n    \"browse_url\": \"string\"\n  },\n  \"segmentation_used\": true,\n  \"whole_image_search_fallback\": true,\n  \"result_id\": \"string\",\n  \"segments\": [\n    {\n      \"id\": 673,\n      \"x1\": 3200,\n      \"y1\": 8541,\n      \"x2\": 4805,\n      \"y2\": 6283,\n      \"class_id\": 3946,\n      \"class_name\": \"string\",\n      \"confidence\": 583.8981996176761,\n      \"centroid_x\": 2306,\n      \"centroid_y\": 1208,\n      \"neighbours\": [\n        {\n          \"id\": \"string\",\n          \"distance\": 5398.65238053458,\n          \"data\": {}\n        },\n        {\n          \"id\": \"string\",\n          \"distance\": 9972.844812459603,\n          \"data\": {}\n        }\n      ]\n    },\n    {\n      \"id\": 7278,\n      \"x1\": 4621,\n      \"y1\": 1267,\n      \"x2\": 953,\n      \"y2\": 3184,\n      \"class_id\": 7027,\n      \"class_name\": \"string\",\n      \"confidence\": 4956.710871810164,\n      \"centroid_x\": 4292,\n      \"centroid_y\": 7348,\n      \"neighbours\": [\n        {\n          \"id\": \"string\",\n          \"distance\": 5921.949258323744,\n          \"data\": {}\n        },\n        {\n          \"id\": \"string\",\n          \"distance\": 6434.1080998974085,\n          \"data\": {}\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ddb80465-73d2-4e28-a113-9814f3bd21d1",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "image_search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "key_K2pX7vBnU0bgA5xp"
+                    },
+                    {
+                      "key": "section",
+                      "value": "Products"
+                    },
+                    {
+                      "key": "search_crop_type",
+                      "value": "bbox"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<Error: Could not resolve allOf schema"
+                    },
+                    {
+                      "key": "fmt_options[fields][0]",
+                      "value": "image_url"
+                    },
+                    {
+                      "key": "fmt_options[fields][1]",
+                      "value": "image_url"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_fields]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[hidden_fields][0]",
+                      "value": "inventory_count"
+                    },
+                    {
+                      "key": "fmt_options[hidden_fields][1]",
+                      "value": "inventory_count"
+                    },
+                    {
+                      "key": "fmt_options[variations_return_type]",
+                      "value": "default"
+                    },
+                    {
+                      "key": "fmt_options[groups_max_depth]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "fmt_options[groups_start]",
+                      "value": "current"
+                    },
+                    {
+                      "key": "fmt_options[groups_sort_by]",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "fmt_options[groups_sort_order]",
+                      "value": "descending"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_facets]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[hidden_facets][0]",
+                      "value": "store_id"
+                    },
+                    {
+                      "key": "fmt_options[hidden_facets][1]",
+                      "value": "store_id"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_facet_options]",
+                      "value": "true"
+                    },
+                    {
+                      "key": "fmt_options[show_protected_facets]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[facet_options][color][0]",
+                      "value": "red"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][color][1]",
+                      "value": "blue"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][brand][0]",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][brand][1]",
+                      "value": "adidas"
+                    },
+                    {
+                      "key": "fmt_options[facet_groups_limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_sort_options]",
+                      "value": "true"
+                    },
+                    {
+                      "key": "fmt_options[hidden_sort_options][0]",
+                      "value": "price"
+                    },
+                    {
+                      "key": "fmt_options[hidden_sort_options][1]",
+                      "value": "price"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-js-client-2.35.2"
+                    },
+                    {
+                      "key": "us",
+                      "value": "vip-member"
+                    },
+                    {
+                      "key": "us",
+                      "value": "vip-member"
+                    },
+                    {
+                      "key": "use_segmentation",
+                      "value": "true"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "customer-user-id-456"
+                    },
+                    {
+                      "key": "return_segments",
+                      "value": "true"
+                    },
+                    {
+                      "key": "s",
+                      "value": "1"
+                    },
+                    {
+                      "key": "i",
+                      "value": "user-device-id-123"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "<binary>"
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": [\n    {\n      \"code\": \"string\",\n      \"message\": \"string\",\n      \"source\": \"string\"\n    },\n    {\n      \"code\": \"string\",\n      \"message\": \"string\",\n      \"source\": \"string\"\n    }\n  ],\n  \"trace_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://image-search.cnstrc.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "37aba6f2-b669-48e8-af26-590413b28d0f",
+    "name": "Image Search",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Contact Support:\n Email: support@constructor.io",
+      "type": "text/plain"
+    }
+  }
+}

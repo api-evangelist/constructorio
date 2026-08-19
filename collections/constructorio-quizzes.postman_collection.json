@@ -1,0 +1,1177 @@
+{
+  "item": [
+    {
+      "id": "28c70531-4f7f-4f02-bd1e-dd0e8674ed00",
+      "name": "Results",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9875d058-598e-44aa-a14d-dac47a43b830",
+          "name": "Next question",
+          "request": {
+            "name": "Next question",
+            "description": {
+              "content": "Retrieve the next question given a list of answers. If no answers are specified, it will return the first question. Use a `version_id` to retrieve the next question for a specific version of the quiz.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "quizzes",
+                ":id",
+                "next"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) Index key for the customer's product catalog"
+                },
+                {
+                  "disabled": false,
+                  "key": "section",
+                  "value": "<string>",
+                  "description": "The section of the index to use. Defaults to `products`."
+                },
+                {
+                  "disabled": false,
+                  "key": "quiz_session_id",
+                  "value": "<string>",
+                  "description": "Specific quiz session id for the quiz. Session id will be automatically assigned if it is not specified."
+                },
+                {
+                  "disabled": false,
+                  "key": "quiz_version_id",
+                  "value": "<string>",
+                  "description": "Specific version id for the quiz."
+                },
+                {
+                  "disabled": false,
+                  "key": "version_id",
+                  "value": "<string>",
+                  "description": "Specific version id for the quiz. Deprecated, please use `quiz_version_id` instead."
+                },
+                {
+                  "disabled": false,
+                  "key": "a",
+                  "value": "<string>",
+                  "description": "A list of answers in the format ?a=<option_id>,<option_id>&a=<option_id> where multiple options for a single answer are supplied in the same answer parameter (separated by \",\") and options for the next question are supplied in the next answer parameter."
+                },
+                {
+                  "disabled": false,
+                  "key": "a",
+                  "value": "<string>",
+                  "description": "A list of answers in the format ?a=<option_id>,<option_id>&a=<option_id> where multiple options for a single answer are supplied in the same answer parameter (separated by \",\") and options for the next question are supplied in the next answer parameter."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The id of the quiz"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1f71cafb-04b5-4e39-8080-68273e259e52",
+              "name": "OK - Everything worked as expected.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "quizzes",
+                    ":id",
+                    "next"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "section",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quiz_session_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quiz_version_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "version_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "a",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "a",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the quiz"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"next_question\": {\n    \"id\": 5822.012934483241,\n    \"title\": \"TITLE\",\n    \"description\": \"DESCRIPTION\",\n    \"images\": {\n      \"primary_url\": \"PRIMARY_ASSET_URL\",\n      \"primary_alt\": \"PRIMARY_ASSET_ALT\",\n      \"secondary_url\": \"SECONDARY_ASSET_URL\",\n      \"secondary_alt\": \"SECONDARY_ASSET_ALT\"\n    },\n    \"cta_text\": \"string\",\n    \"key\": \"string\",\n    \"is_skippable\": true,\n    \"priority\": 3439.0269568559906,\n    \"bucket_id\": \"string\",\n    \"option\": [\n      {\n        \"id\": 9205.557652813746,\n        \"value\": \"OPTION_VALUE\",\n        \"attribute\": {\n          \"name\": \"TEST_FILTER_NAME\",\n          \"value\": \"TEST_FILTER_VALUE\"\n        },\n        \"images\": {\n          \"primary_url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"primary_alt\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"secondary_url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"secondary_alt\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"key\": \"string\"\n      },\n      {\n        \"id\": 5372.827319230921,\n        \"value\": \"OPTION_VALUE\",\n        \"attribute\": {\n          \"name\": \"TEST_FILTER_NAME\",\n          \"value\": \"TEST_FILTER_VALUE\"\n        },\n        \"images\": {\n          \"primary_url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"primary_alt\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"secondary_url\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"secondary_alt\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"key\": \"string\"\n      }\n    ],\n    \"type\": \"multiple\"\n  },\n  \"total_questions\": 3635.9102133833644,\n  \"version_id\": \"11db5ac7-67e1-4000-9000-414d8425cab3\",\n  \"quiz_version_id\": \"11db5ac7-67e1-4000-9000-414d8425cab3\",\n  \"quiz_id\": \"11db5ac7-67e1-4000-9000-414d8425cab3\",\n  \"quiz_session_id\": \"11db5ac7-67e1-4000-9000-414d8425cab3\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e929a7e0-abff-4cd2-b1fc-4b621ec5ba16",
+              "name": "Bad Request - The request was unacceptable, often due to missing a required parameter.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "quizzes",
+                    ":id",
+                    "next"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "section",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quiz_session_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quiz_version_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "version_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "a",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "a",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the quiz"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e41500e7-ecc3-4061-b6d4-de7bcace6c86",
+              "name": "Not Found - The resource you are looking for cannot be found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "quizzes",
+                    ":id",
+                    "next"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "section",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quiz_session_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quiz_version_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "version_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "a",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "a",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the quiz"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19a9335a-9f70-4adf-ae28-2102e34fb56f",
+              "name": "Internal Server Error - Something went wrong on Constructor's end (these are rare).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "quizzes",
+                    ":id",
+                    "next"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "section",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quiz_session_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quiz_version_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "version_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "a",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "a",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the quiz"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3fbe6023-c149-4322-b609-b2531c721938",
+          "name": "Get results",
+          "request": {
+            "name": "Get results",
+            "description": {
+              "content": "Retrieve AI optimized quiz results for products (or optionally other sections).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "quizzes",
+                ":id",
+                "results"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) Index key for the customer's product catalog"
+                },
+                {
+                  "disabled": false,
+                  "key": "section",
+                  "value": "<string>",
+                  "description": "The section of the index to use. Defaults to `products`."
+                },
+                {
+                  "disabled": false,
+                  "key": "quiz_session_id",
+                  "value": "<string>",
+                  "description": "Specific quiz session id for the quiz. Session id will be automatically assigned if it is not specified."
+                },
+                {
+                  "disabled": false,
+                  "key": "quiz_version_id",
+                  "value": "<string>",
+                  "description": "Specific version id for the quiz."
+                },
+                {
+                  "disabled": false,
+                  "key": "version_id",
+                  "value": "<string>",
+                  "description": "Specific version id for the quiz. Deprecated, please use `quiz_version_id` instead."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[<filter_name>]",
+                  "value": "<string>",
+                  "description": "Any number of criteria by which you'd like to narrow the result set. This might be by color, size, or category (group) an item belongs to. Facets can be used as filters. Filters with the same key are 'OR'ed together, while filters with different keys are 'AND'ed together by default. If value has the form '<min>-<max>', it's interpreted as a range (e.g: 'filters[Price]=100-200' will match all items with 'Price' from '100' to '200')."
+                },
+                {
+                  "disabled": false,
+                  "key": "num_results_per_page",
+                  "value": "<string>",
+                  "description": "Specifies the number of results returned in each request. Defaults to 20 if not specified."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<string>",
+                  "description": "Specifies the page number of the result to be fetched. Defaults to 1 if not specified."
+                },
+                {
+                  "disabled": false,
+                  "key": "a",
+                  "value": "<string>",
+                  "description": "(Required) A list of answers in the format ?a=<option_id>,<option_id>&a=<option_id> where multiple options for a single answer are supplied in the same answer parameter (separated by \",\") and options for the next question are supplied in the next answer parameter."
+                },
+                {
+                  "disabled": false,
+                  "key": "a",
+                  "value": "<string>",
+                  "description": "(Required) A list of answers in the format ?a=<option_id>,<option_id>&a=<option_id> where multiple options for a single answer are supplied in the same answer parameter (separated by \",\") and options for the next question are supplied in the next answer parameter."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The id of the quiz"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b3cb83f1-3aaa-4f19-8eea-ee1936677c3e",
+              "name": "OK - Everything worked as expected.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "quizzes",
+                    ":id",
+                    "results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "section",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quiz_session_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quiz_version_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "version_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[<filter_name>]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "num_results_per_page",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "a",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "a",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the quiz"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"filter_expression\": {\n    \"or\": [\n      {\n        \"and\": [\n          {\n            \"name\": \"TEST_FILTER_NAME\",\n            \"value\": \"TEST_FILTER_VALUE\"\n          },\n          {\n            \"not\": {\n              \"name\": \"TEST_FILTER_NAME_2\",\n              \"value\": \"TEST_FILTER_VALUE_2\"\n            }\n          }\n        ]\n      },\n      {\n        \"name\": \"TEST_FILTER_NAME_3\",\n        \"value\": \"TEST_FILTER_VALUE_3\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "534c30a4-6cbb-4526-8216-12c48a92d4d5",
+              "name": "Bad Request - The request was unacceptable, often due to missing a required parameter.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "quizzes",
+                    ":id",
+                    "results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "section",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quiz_session_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quiz_version_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "version_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[<filter_name>]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "num_results_per_page",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "a",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "a",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the quiz"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c90ee76-4edc-4186-ae8d-2dec612f3a34",
+              "name": "Not Found - The resource you are looking for cannot be found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "quizzes",
+                    ":id",
+                    "results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "section",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quiz_session_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quiz_version_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "version_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[<filter_name>]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "num_results_per_page",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "a",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "a",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the quiz"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f66a857-ca6c-4188-8f52-1374e2c006f5",
+              "name": "Internal Server Error - Something went wrong on Constructor's end (these are rare).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "quizzes",
+                    ":id",
+                    "results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "section",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quiz_session_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quiz_version_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "version_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[<filter_name>]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "num_results_per_page",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "a",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "a",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the quiz"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "39181f08-22f3-43ec-911a-e581541b4646",
+          "name": "Get results page config",
+          "request": {
+            "name": "Get results page config",
+            "description": {
+              "content": "Retrieve results page configuration",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "quizzes",
+                ":id",
+                "results_config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) Index key for the customer's product catalog"
+                },
+                {
+                  "disabled": false,
+                  "key": "section",
+                  "value": "<string>",
+                  "description": "The section of the index to use. Defaults to `products`."
+                },
+                {
+                  "disabled": false,
+                  "key": "quiz_version_id",
+                  "value": "<string>",
+                  "description": "Specific version id for the quiz."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The id of the quiz"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2ee405f3-2da4-455c-bfd2-e8f811797e49",
+              "name": "OK - Everything worked as expected.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "quizzes",
+                    ":id",
+                    "results_config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "section",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quiz_version_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the quiz"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results_config\": {\n    \"desktop\": {\n      \"title\": {\n        \"text\": \"TITLE\",\n        \"is_active\": true\n      },\n      \"description\": {\n        \"text\": \"DESCRIPTION\",\n        \"is_active\": false\n      },\n      \"response_summary\": {\n        \"text\": \"SUMMARY\",\n        \"is_active\": true,\n        \"items_separator\": \",\",\n        \"last_separator\": \"AND\"\n      }\n    }\n  },\n  \"quiz_version_id\": \"11db5ac7-67e1-4000-9000-414d8425cab3\",\n  \"quiz_id\": \"11db5ac7-67e1-4000-9000-414d8425cab3\",\n  \"metadata\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "312156d4-bbe1-4f7e-b5a2-f0a15b2fb4f5",
+              "name": "Bad Request - The request was unacceptable, often due to missing a required parameter.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "quizzes",
+                    ":id",
+                    "results_config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "section",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quiz_version_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the quiz"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58d23f16-9717-40bd-bc5a-630ad0cf3ebd",
+              "name": "Not Found - The resource you are looking for cannot be found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "quizzes",
+                    ":id",
+                    "results_config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "section",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quiz_version_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the quiz"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f0ffc520-3d5d-4f31-8f37-fcf6ce4b54b5",
+              "name": "Internal Server Error - Something went wrong on Constructor's end (these are rare).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "quizzes",
+                    ":id",
+                    "results_config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "section",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "quiz_version_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The id of the quiz"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://quizzes.cnstrc.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e3885fe4-5edb-4ded-ac4a-6e8004cc092f",
+    "name": "Quizzes",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

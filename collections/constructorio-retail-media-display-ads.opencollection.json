@@ -1,0 +1,110 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Retail Media - Display Ads",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Display Ads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve Display Ads (Deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://display.media-cnstrc.com/v1/display-ads",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "The key of the index to use."
+              },
+              {
+                "name": "placement_ids",
+                "value": "",
+                "type": "query",
+                "description": "List of placement IDs."
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Search query for keyword targeting."
+              },
+              {
+                "name": "filter_name",
+                "value": "",
+                "type": "query",
+                "description": "The name of the related browse filter."
+              },
+              {
+                "name": "filter_value",
+                "value": "",
+                "type": "query",
+                "description": "The value of the related browse filter."
+              }
+            ]
+          },
+          "docs": "Retrieves an ad for each of the given placement IDs. If no ad is available for a placement ID, the placement ID will be missing from the response."
+        },
+        {
+          "info": {
+            "name": "Retrieve Display Ads",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://display.media-cnstrc.com/v2/display-ads",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "The key of the index to use."
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Search query for keyword targeting."
+              },
+              {
+                "name": "filter_name",
+                "value": "",
+                "type": "query",
+                "description": "The name of the related browse filter."
+              },
+              {
+                "name": "filter_value",
+                "value": "",
+                "type": "query",
+                "description": "The value of the related browse filter."
+              },
+              {
+                "name": "num_results",
+                "value": "",
+                "type": "query",
+                "description": "Optional deepObject parameter to request a specific number of ads for each placement. Example: num_results[home_page]=3&num_results[carousel]=1. When omitted, the placement's configured maximum is used."
+              },
+              {
+                "name": "placements",
+                "value": "",
+                "type": "query",
+                "description": "Placement customer IDs to fetch ads for."
+              }
+            ]
+          },
+          "docs": "Retrieves ads for each of the given placements. Each placement maps to a typed response object. Banner placements return a single flattened ad; multi-banner placements return an array of ads ordered by auction rank. If no ad is available for a placement, the placement will be missing from the response. Placements are specified as repeated `placements` query parameters. Optionally, `num_results[{id}]=N` can be used to request a specific number of ads for a placement. When omitted, the placement's"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

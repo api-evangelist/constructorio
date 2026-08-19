@@ -1,0 +1,2106 @@
+{
+  "item": [
+    {
+      "id": "24103654-468e-4284-81b0-e9d60fb59a34",
+      "name": "Results",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "31cd7c7d-6ffb-4ec1-b28b-b5c6e323a307",
+          "name": "Retrieve by intent",
+          "request": {
+            "name": "Retrieve by intent",
+            "description": {
+              "content": "Retrieves AI powered product discovery suggestions based on conversational free-form text. Returns results in small batches using a real time [Server-sent Events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) stream for a dynamic user experience.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "intent",
+                ":query"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) The key of the index to use."
+                },
+                {
+                  "disabled": false,
+                  "key": "thread_id",
+                  "value": "<uuid>",
+                  "description": "A unique identifier for the conversation thread. This ID links multiple requests to the same conversation."
+                },
+                {
+                  "disabled": false,
+                  "key": "pre_filter_expression",
+                  "value": "<string>",
+                  "description": "A URL-encoded JSON string containing filters (inaccessible to end users) used to narrow the result set. Applied before filters accessible to end users. Does not affect facet counts. Only results that match the filters are returned. More details on https://docs.constructor.com/reference/shared-pre-filter-expressions"
+                },
+                {
+                  "disabled": false,
+                  "key": "domain",
+                  "value": "<string>",
+                  "description": "(Required) The domain specifying a set of specific instructions for processing the intent, e.g., 'recipes', 'sportsgear'."
+                },
+                {
+                  "disabled": false,
+                  "key": "guard",
+                  "value": "false",
+                  "description": "Enable or disable the moderation check."
+                },
+                {
+                  "disabled": false,
+                  "key": "num_result_events",
+                  "value": "<integer>",
+                  "description": "The maximum number of result events to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "num_results_per_page",
+                  "value": "<integer>",
+                  "description": "**Deprecated. Please, use ``num_results_per_event`` instead.**"
+                },
+                {
+                  "disabled": false,
+                  "key": "num_results_per_event",
+                  "value": "<integer>",
+                  "description": "The maximum number of results to return per ``search_result`` event."
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[fields][0]",
+                  "value": "<string>",
+                  "description": "An object containing options to format different aspects of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[fields][1]",
+                  "value": "<string>",
+                  "description": "An object containing options to format different aspects of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[show_hidden_fields]",
+                  "value": "",
+                  "description": "An object containing options to format different aspects of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[hidden_fields][0]",
+                  "value": "<string>",
+                  "description": "An object containing options to format different aspects of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[hidden_fields][1]",
+                  "value": "<string>",
+                  "description": "An object containing options to format different aspects of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[variations_return_type]",
+                  "value": "<string>",
+                  "description": "An object containing options to format different aspects of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[groups_max_depth]",
+                  "value": "1",
+                  "description": "An object containing options to format different aspects of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[groups_start]",
+                  "value": "current",
+                  "description": "An object containing options to format different aspects of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[groups_path][0]",
+                  "value": "<string>",
+                  "description": "An object containing options to format different aspects of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[groups_path][1]",
+                  "value": "<string>",
+                  "description": "An object containing options to format different aspects of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[groups_sort_by]",
+                  "value": "<string>",
+                  "description": "An object containing options to format different aspects of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[groups_sort_order]",
+                  "value": "<string>",
+                  "description": "An object containing options to format different aspects of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[show_hidden_facets]",
+                  "value": "",
+                  "description": "An object containing options to format different aspects of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[hidden_facets][0]",
+                  "value": "<string>",
+                  "description": "An object containing options to format different aspects of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[hidden_facets][1]",
+                  "value": "<string>",
+                  "description": "An object containing options to format different aspects of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[show_hidden_facet_options]",
+                  "value": "<boolean>",
+                  "description": "An object containing options to format different aspects of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[show_protected_facets]",
+                  "value": "",
+                  "description": "An object containing options to format different aspects of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[facet_options][key_0][0]",
+                  "value": "<string>",
+                  "description": "An object containing options to format different aspects of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[facet_options][key_0][1]",
+                  "value": "<string>",
+                  "description": "An object containing options to format different aspects of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[facet_options][key_1][0]",
+                  "value": "<string>",
+                  "description": "An object containing options to format different aspects of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[facet_options][key_1][1]",
+                  "value": "<string>",
+                  "description": "An object containing options to format different aspects of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[facet_groups_limit]",
+                  "value": "<integer>",
+                  "description": "An object containing options to format different aspects of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[show_hidden_sort_options]",
+                  "value": "<boolean>",
+                  "description": "An object containing options to format different aspects of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[hidden_sort_options][0]",
+                  "value": "<string>",
+                  "description": "An object containing options to format different aspects of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[hidden_sort_options][1]",
+                  "value": "<string>",
+                  "description": "An object containing options to format different aspects of the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "qs",
+                  "value": "<string>",
+                  "description": "A URL-encoded JSON string. More details on https://docs.constructor.com/reference/search-search-results#using-the-qs-parameter"
+                },
+                {
+                  "disabled": false,
+                  "key": "c",
+                  "value": "<string>",
+                  "description": "The id of the client and version that the request is coming from, such as `cio-js-2.90`."
+                },
+                {
+                  "disabled": false,
+                  "key": "us",
+                  "value": "<string>",
+                  "description": "A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments."
+                },
+                {
+                  "disabled": false,
+                  "key": "us",
+                  "value": "<string>",
+                  "description": "A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments."
+                },
+                {
+                  "disabled": false,
+                  "key": "ui",
+                  "value": "<string>",
+                  "description": "A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps constructor to tie multiple client and session ID's together to form a behavioral data profile across devices."
+                },
+                {
+                  "disabled": false,
+                  "key": "s",
+                  "value": "<integer>",
+                  "description": "An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity."
+                },
+                {
+                  "disabled": false,
+                  "key": "i",
+                  "value": "<string>",
+                  "description": "A globally unique identifier for the user browser (or mobile application instance) making the request."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "query",
+                  "description": "(Required) The query provided by the user as free-form text."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a0e8316c-579c-433f-9bfa-b4a61f24e6d6",
+              "name": "SSE stream containing a series of events with discovered items or AI generated textual messages.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "intent",
+                    ":query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "thread_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "pre_filter_expression",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "guard",
+                      "value": "false"
+                    },
+                    {
+                      "key": "num_result_events",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "num_results_per_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "num_results_per_event",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fmt_options[fields][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[fields][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_fields]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[hidden_fields][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[hidden_fields][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[variations_return_type]",
+                      "value": "all"
+                    },
+                    {
+                      "key": "fmt_options[groups_max_depth]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "fmt_options[groups_start]",
+                      "value": "current"
+                    },
+                    {
+                      "key": "fmt_options[groups_path][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[groups_path][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[groups_sort_by]",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "fmt_options[groups_sort_order]",
+                      "value": "descending"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_facets]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[hidden_facets][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[hidden_facets][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_facet_options]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[show_protected_facets]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_0][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_0][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_1][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_1][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_2][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_2][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_3][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_3][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_4][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_4][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_groups_limit]",
+                      "value": "5663"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_sort_options]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[hidden_sort_options][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[hidden_sort_options][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "qs",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "c",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "s",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "i",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "query",
+                      "description": "(Required) The query provided by the user as free-form text."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/event-stream"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/event-stream"
+                }
+              ],
+              "body": "event: message\ndata: {'event': 'message', 'intent_result_id': 'abcd1234-56ef-7890-ab12-1234567890ab', 'text': 'A collection of refreshing summer recipes.'}",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4f81c480-cdf6-4ccf-b5d2-77468061421d",
+              "name": "Invalid request parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "intent",
+                    ":query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "thread_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "pre_filter_expression",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "guard",
+                      "value": "false"
+                    },
+                    {
+                      "key": "num_result_events",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "num_results_per_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "num_results_per_event",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fmt_options[fields][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[fields][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_fields]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[hidden_fields][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[hidden_fields][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[variations_return_type]",
+                      "value": "all"
+                    },
+                    {
+                      "key": "fmt_options[groups_max_depth]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "fmt_options[groups_start]",
+                      "value": "current"
+                    },
+                    {
+                      "key": "fmt_options[groups_path][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[groups_path][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[groups_sort_by]",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "fmt_options[groups_sort_order]",
+                      "value": "descending"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_facets]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[hidden_facets][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[hidden_facets][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_facet_options]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[show_protected_facets]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_0][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_0][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_1][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_1][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_2][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_2][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_3][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_3][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_4][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_4][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_groups_limit]",
+                      "value": "5663"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_sort_options]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[hidden_sort_options][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[hidden_sort_options][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "qs",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "c",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "s",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "i",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "query",
+                      "description": "(Required) The query provided by the user as free-form text."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f546d101-e9d4-4436-aaa9-8a9d04138e69",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "intent",
+                    ":query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "thread_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "pre_filter_expression",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "guard",
+                      "value": "false"
+                    },
+                    {
+                      "key": "num_result_events",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "num_results_per_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "num_results_per_event",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fmt_options[fields][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[fields][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_fields]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[hidden_fields][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[hidden_fields][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[variations_return_type]",
+                      "value": "all"
+                    },
+                    {
+                      "key": "fmt_options[groups_max_depth]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "fmt_options[groups_start]",
+                      "value": "current"
+                    },
+                    {
+                      "key": "fmt_options[groups_path][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[groups_path][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[groups_sort_by]",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "fmt_options[groups_sort_order]",
+                      "value": "descending"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_facets]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[hidden_facets][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[hidden_facets][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_facet_options]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[show_protected_facets]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_0][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_0][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_1][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_1][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_2][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_2][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_3][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_3][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_4][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_4][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_groups_limit]",
+                      "value": "5663"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_sort_options]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[hidden_sort_options][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[hidden_sort_options][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "qs",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "c",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "s",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "i",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "query",
+                      "description": "(Required) The query provided by the user as free-form text."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0bd9a36-c503-4079-87cd-4ed02a41bf96",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "intent",
+                    ":query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "thread_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "pre_filter_expression",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "domain",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "guard",
+                      "value": "false"
+                    },
+                    {
+                      "key": "num_result_events",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "num_results_per_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "num_results_per_event",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "fmt_options[fields][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[fields][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_fields]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[hidden_fields][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[hidden_fields][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[variations_return_type]",
+                      "value": "all"
+                    },
+                    {
+                      "key": "fmt_options[groups_max_depth]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "fmt_options[groups_start]",
+                      "value": "current"
+                    },
+                    {
+                      "key": "fmt_options[groups_path][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[groups_path][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[groups_sort_by]",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "fmt_options[groups_sort_order]",
+                      "value": "descending"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_facets]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[hidden_facets][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[hidden_facets][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_facet_options]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[show_protected_facets]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_0][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_0][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_1][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_1][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_2][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_2][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_3][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_3][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_4][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][key_4][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[facet_groups_limit]",
+                      "value": "5663"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_sort_options]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[hidden_sort_options][0]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "fmt_options[hidden_sort_options][1]",
+                      "value": "string"
+                    },
+                    {
+                      "key": "qs",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "c",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "s",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "i",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "query",
+                      "description": "(Required) The query provided by the user as free-form text."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8267e865-89c7-4d33-8d3b-170d6eb994ec",
+          "name": "Retrieve questions",
+          "request": {
+            "name": "Retrieve questions",
+            "description": {
+              "content": "Retrieves AI powered list of frequently asked questions for the given item.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "item_questions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) The key of the index to use."
+                },
+                {
+                  "disabled": false,
+                  "key": "item_id",
+                  "value": "<string>",
+                  "description": "(Required) The id of the item to return questions for."
+                },
+                {
+                  "disabled": false,
+                  "key": "variation_id",
+                  "value": "<string>",
+                  "description": "The id of the variation of the item to return questions for."
+                },
+                {
+                  "disabled": false,
+                  "key": "num_results",
+                  "value": "<integer>",
+                  "description": "The number of questions to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "c",
+                  "value": "<string>",
+                  "description": "The id of the client and version that the request is coming from, such as `cio-js-2.90`."
+                },
+                {
+                  "disabled": false,
+                  "key": "us",
+                  "value": "<string>",
+                  "description": "A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments."
+                },
+                {
+                  "disabled": false,
+                  "key": "us",
+                  "value": "<string>",
+                  "description": "A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments."
+                },
+                {
+                  "disabled": false,
+                  "key": "ui",
+                  "value": "<string>",
+                  "description": "A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps constructor to tie multiple client and session ID's together to form a behavioral data profile across devices."
+                },
+                {
+                  "disabled": false,
+                  "key": "s",
+                  "value": "<integer>",
+                  "description": "An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity."
+                },
+                {
+                  "disabled": false,
+                  "key": "i",
+                  "value": "<string>",
+                  "description": "A globally unique identifier for the user browser (or mobile application instance) making the request."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "db3d6405-ec8e-4d25-949b-f1439e20a2d9",
+              "name": "AI powered list of frequently asked questions for the given item.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "item_questions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "variation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "c",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "s",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "i",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"questions\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4aab2931-087a-46dc-b45f-c340a5c0e92d",
+              "name": "Invalid request parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "item_questions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "variation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "c",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "s",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "i",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ead165f1-1b62-4aee-ba45-21f785ab431e",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "item_questions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "variation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "c",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "s",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "i",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e66822c-e1a4-44fd-bd7f-54fd35a9423c",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "item_questions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "variation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "c",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "s",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "i",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b147d3da-bc56-46aa-bb87-5a1aa7e5c1dd",
+          "name": "Retrieves answers",
+          "request": {
+            "name": "Retrieves answers",
+            "description": {
+              "content": "Retrieves AI powered answers to questions for a given item. If the client accepts [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) (text/event-stream content) response will be streamed back, otherwise complete response JSON is returned.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "item_questions",
+                ":question",
+                "answer"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) The key of the index to use."
+                },
+                {
+                  "disabled": false,
+                  "key": "item_id",
+                  "value": "<string>",
+                  "description": "(Required) The id of the item to return answer(s) for."
+                },
+                {
+                  "disabled": false,
+                  "key": "thread_id",
+                  "value": "<uuid>",
+                  "description": "A unique identifier for the conversation thread. This ID links multiple requests to the same conversation."
+                },
+                {
+                  "disabled": false,
+                  "key": "variation_id",
+                  "value": "<string>",
+                  "description": "The id of the variation of the item to return answer(s) for."
+                },
+                {
+                  "disabled": false,
+                  "key": "guard",
+                  "value": "false",
+                  "description": "Enable or disable the moderation check."
+                },
+                {
+                  "disabled": false,
+                  "key": "num_results",
+                  "value": "<integer>",
+                  "description": "The number of answers to return."
+                },
+                {
+                  "disabled": false,
+                  "key": "c",
+                  "value": "<string>",
+                  "description": "The id of the client and version that the request is coming from, such as `cio-js-2.90`."
+                },
+                {
+                  "disabled": false,
+                  "key": "us",
+                  "value": "<string>",
+                  "description": "A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments."
+                },
+                {
+                  "disabled": false,
+                  "key": "us",
+                  "value": "<string>",
+                  "description": "A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments."
+                },
+                {
+                  "disabled": false,
+                  "key": "ui",
+                  "value": "<string>",
+                  "description": "A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps constructor to tie multiple client and session ID's together to form a behavioral data profile across devices."
+                },
+                {
+                  "disabled": false,
+                  "key": "s",
+                  "value": "<integer>",
+                  "description": "An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity."
+                },
+                {
+                  "disabled": false,
+                  "key": "i",
+                  "value": "<string>",
+                  "description": "A globally unique identifier for the user browser (or mobile application instance) making the request."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "question",
+                  "description": "(Required) The question provided by the user as free-form text."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5e13aa6b-ef2b-4158-816c-dd641610fe02",
+              "name": "AI powered answer to question for a given item.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "item_questions",
+                    ":question",
+                    "answer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "thread_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "variation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "guard",
+                      "value": "false"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "c",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "s",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "i",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "question",
+                      "description": "(Required) The question provided by the user as free-form text."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"qna_result_id\": \"string\",\n  \"value\": \"string\",\n  \"item_results\": {\n    \"response\": {\n      \"results\": [\n        {\n          \"value\": \"string\",\n          \"matched_terms\": [\n            \"string\",\n            \"string\"\n          ],\n          \"data\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"url\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"image_url\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"variation_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"facets\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"groups\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"variations\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"variations_map\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        },\n        {\n          \"value\": \"string\",\n          \"matched_terms\": [\n            \"string\",\n            \"string\"\n          ],\n          \"data\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"url\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"image_url\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"variation_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"facets\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"groups\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"variations\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"variations_map\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ]\n        }\n      ]\n    },\n    \"request\": {}\n  },\n  \"follow_up_questions\": [\n    {\n      \"value\": \"string\"\n    },\n    {\n      \"value\": \"string\"\n    }\n  ],\n  \"thread_id\": \"7554f67e-34bb-faab-7dee-8e7e290822cf\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88532f6f-0976-4eff-9566-095d087861e4",
+              "name": "Invalid request parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "item_questions",
+                    ":question",
+                    "answer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "thread_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "variation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "guard",
+                      "value": "false"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "c",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "s",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "i",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "question",
+                      "description": "(Required) The question provided by the user as free-form text."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a43ca324-25e8-49af-aa23-3995d40711ef",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "item_questions",
+                    ":question",
+                    "answer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "thread_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "variation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "guard",
+                      "value": "false"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "c",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "s",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "i",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "question",
+                      "description": "(Required) The question provided by the user as free-form text."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58f8ae29-ac9e-45cc-ace7-117419e3f216",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "item_questions",
+                    ":question",
+                    "answer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "thread_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "variation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "guard",
+                      "value": "false"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "c",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "s",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "i",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "question",
+                      "description": "(Required) The question provided by the user as free-form text."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://agent.cnstrc.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "7b980ce8-210a-458b-b2e1-e6517de9d97e",
+    "name": "AI Shopping Agent",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "API documentation for the AI shopping and product insights agent.",
+      "type": "text/plain"
+    }
+  }
+}

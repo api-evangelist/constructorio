@@ -1,0 +1,904 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Browse",
+    "version": "0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Browse results",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve by filter name/value",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/browse/:filter_name/:filter_value",
+            "params": [
+              {
+                "name": "filter_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filter_value",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter_match_types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pre_filter_expression",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "now",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "variations_map",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fmt_options",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "qs",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "origin_referrer",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "us",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ui",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "s",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "i",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve AI optimized browse results for products (or optionally other sections) by facet name and value."
+        },
+        {
+          "info": {
+            "name": "Retrieve by collection ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/browse/collection_id/:collection_id_value",
+            "params": [
+              {
+                "name": "collection_id_value",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter_match_types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pre_filter_expression",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "now",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "variations_map",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fmt_options",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "qs",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "origin_referrer",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "us",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ui",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "s",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "i",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve AI optimized browse results for products (or optionally other sections) by collection ID."
+        },
+        {
+          "info": {
+            "name": "Retrieve by group ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/browse/group_id/:group_id_value",
+            "params": [
+              {
+                "name": "group_id_value",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter_match_types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pre_filter_expression",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "now",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "variations_map",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fmt_options",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "qs",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "origin_referrer",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "us",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ui",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "s",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "i",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve AI optimized browse results for products (or optionally other sections) by item group ID."
+        },
+        {
+          "info": {
+            "name": "Retrieve by item ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/browse/items",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter_match_types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pre_filter_expression",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "now",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "variations_map",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fmt_options",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "qs",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "origin_referrer",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "us",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ui",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "s",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "i",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve browse results for products (or optionally other sections) by item ID(s)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Browse groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/browse/groups",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "now",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fmt_options",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "origin_referrer",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "us",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ui",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "s",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "i",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve groups for end users."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Browse facets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve countable facets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/browse/facets",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "now",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fmt_options",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "origin_referrer",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "us",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ui",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "s",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "i",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve countable facets for end users."
+        },
+        {
+          "info": {
+            "name": "Retrieve facet options (values) by facet name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/browse/facet_options",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "now",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fmt_options",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "origin_referrer",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "facet_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "us",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ui",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "s",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "i",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve facet options for end users."
+        },
+        {
+          "info": {
+            "name": "Retrieve facets with their options (values)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/browse/facets_with_options",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "now",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fmt_options",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "origin_referrer",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "us",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ui",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "s",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "i",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve facets with options for end users."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Browse collections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/browse/collections",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "now",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "origin_referrer",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "us",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ui",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "display_name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "s",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "i",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve collections for end users. To get specific collection items use the `/browse/collection_id/<collection_id>` endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

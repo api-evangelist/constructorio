@@ -1,0 +1,4017 @@
+{
+  "item": [
+    {
+      "id": "feb374f9-521a-4f46-8e46-2810ca246434",
+      "name": "Offsite Discovery results",
+      "description": {
+        "content": "Endpoints for retrieving AI-optimized recommendation results for products to use in Offsite Discovery.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "05baa803-a179-45b5-a737-193bf6e2935d",
+          "name": "Retrieve recommendations by pod",
+          "request": {
+            "name": "Retrieve recommendations by pod",
+            "description": {
+              "content": "Retrieve AI-optimized recommendation results for products by pod identifier.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "recommendations",
+                "pods",
+                ":pod_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) The key of the index to use."
+                },
+                {
+                  "disabled": false,
+                  "key": "campaign_id",
+                  "value": "<string>",
+                  "description": "(Required) Email campaign identifier for tracking and analytics."
+                },
+                {
+                  "disabled": false,
+                  "key": "item_id",
+                  "value": "<string>",
+                  "description": "Seed item ID used for item-based recommendations (e.g., complementary)."
+                },
+                {
+                  "disabled": false,
+                  "key": "item_id",
+                  "value": "<string>",
+                  "description": "Seed item ID used for item-based recommendations (e.g., complementary)."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[key_0]",
+                  "value": "<string>",
+                  "description": "Any number of filtering criteria used to narrow the result set, such as `color=blue` or `group_id=sandals` or `price=100-200`. Facets, item groups and collection IDs can be used as filters. If `filter_value` has the form `<min>-<max>`, it is interpreted as a range. Filters with the same key are ORed together and filters with different keys are ANDed together by default. Only results that match the filters are returned. Boolean values are serialized with the first letter capitalized (e.g., `True` / `False`) as a convention."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[key_1]",
+                  "value": "<string>",
+                  "description": "Any number of filtering criteria used to narrow the result set, such as `color=blue` or `group_id=sandals` or `price=100-200`. Facets, item groups and collection IDs can be used as filters. If `filter_value` has the form `<min>-<max>`, it is interpreted as a range. Filters with the same key are ORed together and filters with different keys are ANDed together by default. Only results that match the filters are returned. Boolean values are serialized with the first letter capitalized (e.g., `True` / `False`) as a convention."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter_name",
+                  "value": "<string>",
+                  "description": "**DEPRECATED. Please, use 'filters' instead**. Name of the product attribute to filter by (e.g., brand, category, color). Must be provided together with `filter_value`."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter_value",
+                  "value": "<string>",
+                  "description": "**DEPRECATED. Please, use 'filters' instead**. Value to filter the specified attribute by. Must be provided together with `filter_name`."
+                },
+                {
+                  "disabled": false,
+                  "key": "num_results",
+                  "value": "10",
+                  "description": "The maximum number of recommended items to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "c",
+                  "value": "<string>",
+                  "description": "The ID of the client and version that the request is coming from, such as `cio-js-2.90`."
+                },
+                {
+                  "disabled": false,
+                  "key": "us",
+                  "value": "<string>",
+                  "description": "User segment is a client context value (such as platform, location, etc.) that is used to evaluate redirect or refined tag rules. You can supply multiple segments by passing multiple `us` arguments."
+                },
+                {
+                  "disabled": false,
+                  "key": "us",
+                  "value": "<string>",
+                  "description": "User segment is a client context value (such as platform, location, etc.) that is used to evaluate redirect or refined tag rules. You can supply multiple segments by passing multiple `us` arguments."
+                },
+                {
+                  "disabled": false,
+                  "key": "ui",
+                  "value": "<string>",
+                  "description": "Unique identifier for the user to personalize recommendation results."
+                },
+                {
+                  "disabled": false,
+                  "key": "base_url",
+                  "value": "<string>",
+                  "description": "Base URL used to construct the product detail page redirect URL (e.g., 'https://example.com')."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pod_id",
+                  "description": "(Required) The unique identifier of the recommendation pod containing the product set."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "306606d7-5d2c-4b56-be50-709b0c270348",
+              "name": "OK. A list of recommended products.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "recommendations",
+                    "pods",
+                    ":pod_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "base_url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pod_id",
+                      "description": "(Required) The unique identifier of the recommendation pod containing the product set."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"data\": {\n      \"id\": \"PROD_001\",\n      \"variation_id\": \"VAR_001_BLUE\",\n      \"url\": \"https://shop.example.com/products/premium-sneakers\",\n      \"image_url\": \"https://images.example.com/products/PROD_001_main.jpg\"\n    },\n    \"value\": \"Premium Running Sneakers - Blue\"\n  },\n  {\n    \"data\": {\n      \"id\": \"PROD_002\",\n      \"url\": \"https://shop.example.com/products/casual-shirt\",\n      \"image_url\": \"https://images.example.com/products/PROD_002_main.jpg\"\n    },\n    \"value\": \"Casual Cotton Shirt\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8668b65c-22ec-4034-8948-963bb68ea430",
+              "name": "Bad Request - Invalid syntax or missing required parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "recommendations",
+                    "pods",
+                    ":pod_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "base_url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pod_id",
+                      "description": "(Required) The unique identifier of the recommendation pod containing the product set."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Required parameter missing: key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d6bbee7-b47c-4657-9126-a628fdb64e2a",
+              "name": "Not Found - The requested pod ID could not be found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "recommendations",
+                    "pods",
+                    ":pod_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "base_url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pod_id",
+                      "description": "(Required) The unique identifier of the recommendation pod containing the product set."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Required parameter missing: key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f13e8e5-365d-4ee2-a105-373cb386a71a",
+              "name": "Internal Server Error - An unexpected error occurred on the server.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "recommendations",
+                    "pods",
+                    ":pod_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "base_url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pod_id",
+                      "description": "(Required) The unique identifier of the recommendation pod containing the product set."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Required parameter missing: key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "66271f2a-91b1-4634-95ea-f293cc0ece44",
+          "name": "Retrieve recommendations by collection",
+          "request": {
+            "name": "Retrieve recommendations by collection",
+            "description": {
+              "content": "Retrieve AI-optimized products from a specified collection",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "browse",
+                "collection_id",
+                ":collection_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) The key of the index to use."
+                },
+                {
+                  "disabled": false,
+                  "key": "campaign_id",
+                  "value": "<string>",
+                  "description": "(Required) Email campaign identifier for tracking and analytics."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[key_0]",
+                  "value": "<string>",
+                  "description": "Any number of filtering criteria used to narrow the result set, such as `color=blue` or `group_id=sandals` or `price=100-200`. Facets, item groups and collection IDs can be used as filters. If `filter_value` has the form `<min>-<max>`, it is interpreted as a range. Filters with the same key are ORed together and filters with different keys are ANDed together by default. Only results that match the filters are returned. Boolean values are serialized with the first letter capitalized (e.g., `True` / `False`) as a convention."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[key_1]",
+                  "value": "<string>",
+                  "description": "Any number of filtering criteria used to narrow the result set, such as `color=blue` or `group_id=sandals` or `price=100-200`. Facets, item groups and collection IDs can be used as filters. If `filter_value` has the form `<min>-<max>`, it is interpreted as a range. Filters with the same key are ORed together and filters with different keys are ANDed together by default. Only results that match the filters are returned. Boolean values are serialized with the first letter capitalized (e.g., `True` / `False`) as a convention."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter_name",
+                  "value": "<string>",
+                  "description": "**DEPRECATED. Please, use 'filters' instead**. Name of the product attribute to filter by (e.g., brand, category, color). Must be provided together with `filter_value`."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter_value",
+                  "value": "<string>",
+                  "description": "**DEPRECATED. Please, use 'filters' instead**. Value to filter the specified attribute by. Must be provided together with `filter_name`."
+                },
+                {
+                  "disabled": false,
+                  "key": "num_results",
+                  "value": "10",
+                  "description": "The maximum number of collection items to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "relevance",
+                  "description": "The method to sort results by. The default value `relevance` sorts by Constructor's attractiveness & personalization algorithms and is reserved. Alternative sort criteria can be configured using the [sort options](https://docs.constructor.com/reference/v1-sort-options-create-or-replace-sort-options)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_order",
+                  "value": "descending",
+                  "description": "The order by which results should be sorted. Only valid in conjunction with `sort_by`."
+                },
+                {
+                  "disabled": false,
+                  "key": "c",
+                  "value": "<string>",
+                  "description": "The ID of the client and version that the request is coming from, such as `cio-js-2.90`."
+                },
+                {
+                  "disabled": false,
+                  "key": "us",
+                  "value": "<string>",
+                  "description": "User segment is a client context value (such as platform, location, etc.) that is used to evaluate redirect or refined tag rules. You can supply multiple segments by passing multiple `us` arguments."
+                },
+                {
+                  "disabled": false,
+                  "key": "us",
+                  "value": "<string>",
+                  "description": "User segment is a client context value (such as platform, location, etc.) that is used to evaluate redirect or refined tag rules. You can supply multiple segments by passing multiple `us` arguments."
+                },
+                {
+                  "disabled": false,
+                  "key": "ui",
+                  "value": "<string>",
+                  "description": "Unique identifier for the user to personalize recommendation results."
+                },
+                {
+                  "disabled": false,
+                  "key": "base_url",
+                  "value": "<string>",
+                  "description": "Base URL used to construct the product detail page redirect URL (e.g., 'https://example.com')."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "collection_id",
+                  "description": "(Required) The unique identifier of the collection containing the product set."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e6ea3a55-7180-4217-b803-4d24f106c4f9",
+              "name": "OK. A list of products from a specified collection.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "browse",
+                    "collection_id",
+                    ":collection_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "descending"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "base_url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collection_id",
+                      "description": "(Required) The unique identifier of the collection containing the product set."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"data\": {\n      \"id\": \"PROD_001\",\n      \"variation_id\": \"VAR_001_BLUE\",\n      \"url\": \"https://shop.example.com/products/premium-sneakers\",\n      \"image_url\": \"https://images.example.com/products/PROD_001_main.jpg\"\n    },\n    \"value\": \"Premium Running Sneakers - Blue\"\n  },\n  {\n    \"data\": {\n      \"id\": \"PROD_002\",\n      \"url\": \"https://shop.example.com/products/casual-shirt\",\n      \"image_url\": \"https://images.example.com/products/PROD_002_main.jpg\"\n    },\n    \"value\": \"Casual Cotton Shirt\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d71caf07-718b-4e3c-b378-555fe8ab7840",
+              "name": "Bad Request - Invalid syntax or missing required parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "browse",
+                    "collection_id",
+                    ":collection_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "descending"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "base_url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collection_id",
+                      "description": "(Required) The unique identifier of the collection containing the product set."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Required parameter missing: key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "78dd7f5d-cfa4-48bf-ae8c-45ac9f9c0f29",
+              "name": "Not Found - The requested collection ID could not be found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "browse",
+                    "collection_id",
+                    ":collection_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "descending"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "base_url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collection_id",
+                      "description": "(Required) The unique identifier of the collection containing the product set."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Required parameter missing: key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b27c2abd-e196-4bcc-ab3d-90df628e61a1",
+              "name": "Internal Server Error - An unexpected error occurred on the server.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "browse",
+                    "collection_id",
+                    ":collection_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "descending"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "base_url",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collection_id",
+                      "description": "(Required) The unique identifier of the collection containing the product set."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Required parameter missing: key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "171addf2-78c8-45b8-95e7-cbccdf0e6412",
+      "name": "Product resources",
+      "description": {
+        "content": "Endpoints for retrieving individual product resources (e.g., images, URLs) by position.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "71eec69a-75ca-4525-80c9-13ca5f63b354",
+          "name": "Retrieve recommendation result item image",
+          "request": {
+            "name": "Retrieve recommendation result item image",
+            "description": {
+              "content": "Redirects to a recommended item image or returns JSON based on its pod ID and position in a recommendation result set (`pod_id` and `position` as path parameters). Parameter values should correspond to a previously generated set of recommendations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "recommendations",
+                "pods",
+                ":pod_id",
+                "positions",
+                ":position",
+                "image_url"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) The key of the index to use."
+                },
+                {
+                  "disabled": false,
+                  "key": "campaign_id",
+                  "value": "<string>",
+                  "description": "(Required) Email campaign identifier for tracking and analytics."
+                },
+                {
+                  "disabled": false,
+                  "key": "item_id",
+                  "value": "<string>",
+                  "description": "Seed item ID used for item-based recommendations (e.g., complementary)."
+                },
+                {
+                  "disabled": false,
+                  "key": "item_id",
+                  "value": "<string>",
+                  "description": "Seed item ID used for item-based recommendations (e.g., complementary)."
+                },
+                {
+                  "disabled": false,
+                  "key": "style_id",
+                  "value": "<string>",
+                  "description": "(Required) Specific style ID within a product, used for retrieving style-specific images."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[key_0]",
+                  "value": "<string>",
+                  "description": "Any number of filtering criteria used to narrow the result set, such as `color=blue` or `group_id=sandals` or `price=100-200`. Facets, item groups and collection IDs can be used as filters. If `filter_value` has the form `<min>-<max>`, it is interpreted as a range. Filters with the same key are ORed together and filters with different keys are ANDed together by default. Only results that match the filters are returned. Boolean values are serialized with the first letter capitalized (e.g., `True` / `False`) as a convention."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[key_1]",
+                  "value": "<string>",
+                  "description": "Any number of filtering criteria used to narrow the result set, such as `color=blue` or `group_id=sandals` or `price=100-200`. Facets, item groups and collection IDs can be used as filters. If `filter_value` has the form `<min>-<max>`, it is interpreted as a range. Filters with the same key are ORed together and filters with different keys are ANDed together by default. Only results that match the filters are returned. Boolean values are serialized with the first letter capitalized (e.g., `True` / `False`) as a convention."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter_name",
+                  "value": "<string>",
+                  "description": "**DEPRECATED. Please, use 'filters' instead**. Name of the product attribute to filter by (e.g., brand, category, color). Must be provided together with `filter_value`."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter_value",
+                  "value": "<string>",
+                  "description": "**DEPRECATED. Please, use 'filters' instead**. Value to filter the specified attribute by. Must be provided together with `filter_name`."
+                },
+                {
+                  "disabled": false,
+                  "key": "num_results",
+                  "value": "10",
+                  "description": "The maximum number of recommended items to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "c",
+                  "value": "<string>",
+                  "description": "The ID of the client and version that the request is coming from, such as `cio-js-2.90`."
+                },
+                {
+                  "disabled": false,
+                  "key": "us",
+                  "value": "<string>",
+                  "description": "User segment is a client context value (such as platform, location, etc.) that is used to evaluate redirect or refined tag rules. You can supply multiple segments by passing multiple `us` arguments."
+                },
+                {
+                  "disabled": false,
+                  "key": "us",
+                  "value": "<string>",
+                  "description": "User segment is a client context value (such as platform, location, etc.) that is used to evaluate redirect or refined tag rules. You can supply multiple segments by passing multiple `us` arguments."
+                },
+                {
+                  "disabled": false,
+                  "key": "ui",
+                  "value": "<string>",
+                  "description": "Unique identifier for the user to personalize recommendation results."
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "redirect",
+                  "description": "Format of the response, either 'redirect' (default for 302 redirect) or 'json' (for 200 OK with JSON body for debugging)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pod_id",
+                  "description": "(Required) The unique identifier of the recommendation pod containing the product set."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "position",
+                  "description": "(Required) The position of the desired product within the results."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "62de8517-def6-4003-8610-2e215d3e13ef",
+              "name": "OK - JSON response with image resource details (if format=json).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "recommendations",
+                    "pods",
+                    ":pod_id",
+                    "positions",
+                    ":position",
+                    "image_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "style_id",
+                      "value": "style_ABC"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "format",
+                      "value": "redirect"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pod_id",
+                      "description": "(Required) The unique identifier of the recommendation pod containing the product set."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "position",
+                      "description": "(Required) The position of the desired product within the results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"redirect_url\": \"https://images.example.com/products/PROD_001_main.jpg\",\n  \"resource_type\": \"image\",\n  \"product\": {\n    \"id\": \"PROD123\",\n    \"variation_id\": \"VAR456\",\n    \"url\": \"https://example.com/products/prod123\",\n    \"image_url\": \"https://example.com/images/prod123.jpg\"\n  },\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7516157a-7bc5-465a-89a0-b3e83e9436c8",
+              "name": "Found - Redirects to the product image.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "recommendations",
+                    "pods",
+                    ":pod_id",
+                    "positions",
+                    ":position",
+                    "image_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "style_id",
+                      "value": "style_ABC"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "format",
+                      "value": "redirect"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pod_id",
+                      "description": "(Required) The unique identifier of the recommendation pod containing the product set."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "position",
+                      "description": "(Required) The position of the desired product within the results."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Found",
+              "code": 302,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The URL to redirect the client to.",
+                  "key": "Location",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "Cache control directives.",
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, must-revalidate, max-age=0"
+                },
+                {
+                  "disabled": false,
+                  "description": "HTTP/1.0 cache control.",
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "disabled": false,
+                  "description": "Cache expiration time.",
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e2090ae3-44ba-4186-a813-7787aa87ed69",
+              "name": "Bad Request - Invalid syntax or missing required parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "recommendations",
+                    "pods",
+                    ":pod_id",
+                    "positions",
+                    ":position",
+                    "image_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "style_id",
+                      "value": "style_ABC"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "format",
+                      "value": "redirect"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pod_id",
+                      "description": "(Required) The unique identifier of the recommendation pod containing the product set."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "position",
+                      "description": "(Required) The position of the desired product within the results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Required parameter missing: key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8d3fc7f-009d-4be2-b9a6-649f74f30feb",
+              "name": "Not Found - The requested resource could not be found based on the provided parameters, possibly due to expired recommendations or out-of-range position.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "recommendations",
+                    "pods",
+                    ":pod_id",
+                    "positions",
+                    ":position",
+                    "image_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "style_id",
+                      "value": "style_ABC"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "format",
+                      "value": "redirect"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pod_id",
+                      "description": "(Required) The unique identifier of the recommendation pod containing the product set."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "position",
+                      "description": "(Required) The position of the desired product within the results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Required parameter missing: key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e3c18705-5e74-42df-93c7-c6081022f9a9",
+              "name": "Internal Server Error - An unexpected error occurred on the server.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "recommendations",
+                    "pods",
+                    ":pod_id",
+                    "positions",
+                    ":position",
+                    "image_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "style_id",
+                      "value": "style_ABC"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "format",
+                      "value": "redirect"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pod_id",
+                      "description": "(Required) The unique identifier of the recommendation pod containing the product set."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "position",
+                      "description": "(Required) The position of the desired product within the results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Required parameter missing: key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3f5e8eb2-546b-4b18-a43a-9968bf0e73ea",
+          "name": "Retrieve recommendation result item URL",
+          "request": {
+            "name": "Retrieve recommendation result item URL",
+            "description": {
+              "content": "Redirects to a recommended item PDP URL or returns JSON based on its pod ID and position in a recommendation result set (`pod_id` and `position` as path parameters). Parameter values should correspond to a previously generated set of recommendations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "recommendations",
+                "pods",
+                ":pod_id",
+                "positions",
+                ":position",
+                "url"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) The key of the index to use."
+                },
+                {
+                  "disabled": false,
+                  "key": "campaign_id",
+                  "value": "<string>",
+                  "description": "(Required) Email campaign identifier for tracking and analytics."
+                },
+                {
+                  "disabled": false,
+                  "key": "item_id",
+                  "value": "<string>",
+                  "description": "Seed item ID used for item-based recommendations (e.g., complementary)."
+                },
+                {
+                  "disabled": false,
+                  "key": "item_id",
+                  "value": "<string>",
+                  "description": "Seed item ID used for item-based recommendations (e.g., complementary)."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[key_0]",
+                  "value": "<string>",
+                  "description": "Any number of filtering criteria used to narrow the result set, such as `color=blue` or `group_id=sandals` or `price=100-200`. Facets, item groups and collection IDs can be used as filters. If `filter_value` has the form `<min>-<max>`, it is interpreted as a range. Filters with the same key are ORed together and filters with different keys are ANDed together by default. Only results that match the filters are returned. Boolean values are serialized with the first letter capitalized (e.g., `True` / `False`) as a convention."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[key_1]",
+                  "value": "<string>",
+                  "description": "Any number of filtering criteria used to narrow the result set, such as `color=blue` or `group_id=sandals` or `price=100-200`. Facets, item groups and collection IDs can be used as filters. If `filter_value` has the form `<min>-<max>`, it is interpreted as a range. Filters with the same key are ORed together and filters with different keys are ANDed together by default. Only results that match the filters are returned. Boolean values are serialized with the first letter capitalized (e.g., `True` / `False`) as a convention."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter_name",
+                  "value": "<string>",
+                  "description": "**DEPRECATED. Please, use 'filters' instead**. Name of the product attribute to filter by (e.g., brand, category, color). Must be provided together with `filter_value`."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter_value",
+                  "value": "<string>",
+                  "description": "**DEPRECATED. Please, use 'filters' instead**. Value to filter the specified attribute by. Must be provided together with `filter_name`."
+                },
+                {
+                  "disabled": false,
+                  "key": "num_results",
+                  "value": "10",
+                  "description": "The maximum number of recommended items to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "c",
+                  "value": "<string>",
+                  "description": "The ID of the client and version that the request is coming from, such as `cio-js-2.90`."
+                },
+                {
+                  "disabled": false,
+                  "key": "us",
+                  "value": "<string>",
+                  "description": "User segment is a client context value (such as platform, location, etc.) that is used to evaluate redirect or refined tag rules. You can supply multiple segments by passing multiple `us` arguments."
+                },
+                {
+                  "disabled": false,
+                  "key": "us",
+                  "value": "<string>",
+                  "description": "User segment is a client context value (such as platform, location, etc.) that is used to evaluate redirect or refined tag rules. You can supply multiple segments by passing multiple `us` arguments."
+                },
+                {
+                  "disabled": false,
+                  "key": "ui",
+                  "value": "<string>",
+                  "description": "Unique identifier for the user to personalize recommendation results."
+                },
+                {
+                  "disabled": false,
+                  "key": "base_url",
+                  "value": "<string>",
+                  "description": "Base URL used to construct the product detail page redirect URL (e.g., 'https://example.com')."
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "redirect",
+                  "description": "Format of the response, either 'redirect' (default for 302 redirect) or 'json' (for 200 OK with JSON body for debugging)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pod_id",
+                  "description": "(Required) The unique identifier of the recommendation pod containing the product set."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "position",
+                  "description": "(Required) The position of the desired product within the results."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ae5f4cfc-94a6-4320-9635-c63c6c9dbb89",
+              "name": "OK - JSON response with URL resource details (if format=json).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "recommendations",
+                    "pods",
+                    ":pod_id",
+                    "positions",
+                    ":position",
+                    "url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "base_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "redirect"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pod_id",
+                      "description": "(Required) The unique identifier of the recommendation pod containing the product set."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "position",
+                      "description": "(Required) The position of the desired product within the results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"redirect_url\": \"https://images.example.com/products/PROD_001_main.jpg\",\n  \"resource_type\": \"image\",\n  \"product\": {\n    \"id\": \"PROD123\",\n    \"variation_id\": \"VAR456\",\n    \"url\": \"https://example.com/products/prod123\",\n    \"image_url\": \"https://example.com/images/prod123.jpg\"\n  },\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a95074f1-1d98-4996-9a7b-2f3fac615f71",
+              "name": "Found - Redirects to the product detail page.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "recommendations",
+                    "pods",
+                    ":pod_id",
+                    "positions",
+                    ":position",
+                    "url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "base_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "redirect"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pod_id",
+                      "description": "(Required) The unique identifier of the recommendation pod containing the product set."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "position",
+                      "description": "(Required) The position of the desired product within the results."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Found",
+              "code": 302,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The URL to redirect the client to.",
+                  "key": "Location",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "Cache control directives.",
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, must-revalidate, max-age=0"
+                },
+                {
+                  "disabled": false,
+                  "description": "HTTP/1.0 cache control.",
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "disabled": false,
+                  "description": "Cache expiration time.",
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "331d0399-d0ee-42f5-87ca-1f1959d9bce4",
+              "name": "Bad Request - Invalid syntax or missing required parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "recommendations",
+                    "pods",
+                    ":pod_id",
+                    "positions",
+                    ":position",
+                    "url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "base_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "redirect"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pod_id",
+                      "description": "(Required) The unique identifier of the recommendation pod containing the product set."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "position",
+                      "description": "(Required) The position of the desired product within the results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Required parameter missing: key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "89161793-4510-4bdc-aa97-290cb2096478",
+              "name": "Not Found - The requested resource could not be found based on the provided parameters, possibly due to expired recommendations or out-of-range position.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "recommendations",
+                    "pods",
+                    ":pod_id",
+                    "positions",
+                    ":position",
+                    "url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "base_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "redirect"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pod_id",
+                      "description": "(Required) The unique identifier of the recommendation pod containing the product set."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "position",
+                      "description": "(Required) The position of the desired product within the results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Required parameter missing: key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77b9652d-25dc-4b3f-8321-d6379944891a",
+              "name": "Internal Server Error - An unexpected error occurred on the server.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "recommendations",
+                    "pods",
+                    ":pod_id",
+                    "positions",
+                    ":position",
+                    "url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "base_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "redirect"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pod_id",
+                      "description": "(Required) The unique identifier of the recommendation pod containing the product set."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "position",
+                      "description": "(Required) The position of the desired product within the results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Required parameter missing: key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2b97afd6-b33f-47ed-acb7-11c23efb32b1",
+          "name": "Retrieve collection item image",
+          "request": {
+            "name": "Retrieve collection item image",
+            "description": {
+              "content": "Redirects to a collection item image or returns JSON based on its collection ID and position in a collection result set (`collection_id` and `position` as path parameters).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "browse",
+                "collection_id",
+                ":collection_id",
+                "positions",
+                ":position",
+                "image_url"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) The key of the index to use."
+                },
+                {
+                  "disabled": false,
+                  "key": "campaign_id",
+                  "value": "<string>",
+                  "description": "(Required) Email campaign identifier for tracking and analytics."
+                },
+                {
+                  "disabled": false,
+                  "key": "style_id",
+                  "value": "<string>",
+                  "description": "(Required) Specific style ID within a product, used for retrieving style-specific images."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[key_0]",
+                  "value": "<string>",
+                  "description": "Any number of filtering criteria used to narrow the result set, such as `color=blue` or `group_id=sandals` or `price=100-200`. Facets, item groups and collection IDs can be used as filters. If `filter_value` has the form `<min>-<max>`, it is interpreted as a range. Filters with the same key are ORed together and filters with different keys are ANDed together by default. Only results that match the filters are returned. Boolean values are serialized with the first letter capitalized (e.g., `True` / `False`) as a convention."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[key_1]",
+                  "value": "<string>",
+                  "description": "Any number of filtering criteria used to narrow the result set, such as `color=blue` or `group_id=sandals` or `price=100-200`. Facets, item groups and collection IDs can be used as filters. If `filter_value` has the form `<min>-<max>`, it is interpreted as a range. Filters with the same key are ORed together and filters with different keys are ANDed together by default. Only results that match the filters are returned. Boolean values are serialized with the first letter capitalized (e.g., `True` / `False`) as a convention."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter_name",
+                  "value": "<string>",
+                  "description": "**DEPRECATED. Please, use 'filters' instead**. Name of the product attribute to filter by (e.g., brand, category, color). Must be provided together with `filter_value`."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter_value",
+                  "value": "<string>",
+                  "description": "**DEPRECATED. Please, use 'filters' instead**. Value to filter the specified attribute by. Must be provided together with `filter_name`."
+                },
+                {
+                  "disabled": false,
+                  "key": "num_results",
+                  "value": "10",
+                  "description": "The maximum number of collection items to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "relevance",
+                  "description": "The method to sort results by. The default value `relevance` sorts by Constructor's attractiveness & personalization algorithms and is reserved. Alternative sort criteria can be configured using the [sort options](https://docs.constructor.com/reference/v1-sort-options-create-or-replace-sort-options)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_order",
+                  "value": "descending",
+                  "description": "The order by which results should be sorted. Only valid in conjunction with `sort_by`."
+                },
+                {
+                  "disabled": false,
+                  "key": "c",
+                  "value": "<string>",
+                  "description": "The ID of the client and version that the request is coming from, such as `cio-js-2.90`."
+                },
+                {
+                  "disabled": false,
+                  "key": "us",
+                  "value": "<string>",
+                  "description": "User segment is a client context value (such as platform, location, etc.) that is used to evaluate redirect or refined tag rules. You can supply multiple segments by passing multiple `us` arguments."
+                },
+                {
+                  "disabled": false,
+                  "key": "us",
+                  "value": "<string>",
+                  "description": "User segment is a client context value (such as platform, location, etc.) that is used to evaluate redirect or refined tag rules. You can supply multiple segments by passing multiple `us` arguments."
+                },
+                {
+                  "disabled": false,
+                  "key": "ui",
+                  "value": "<string>",
+                  "description": "Unique identifier for the user to personalize recommendation results."
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "redirect",
+                  "description": "Format of the response, either 'redirect' (default for 302 redirect) or 'json' (for 200 OK with JSON body for debugging)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "collection_id",
+                  "description": "(Required) The unique identifier of the collection containing the product set."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "position",
+                  "description": "(Required) The position of the desired product within the results."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0bb38328-ca19-4fa5-94c9-4eddbf2db5ed",
+              "name": "OK - JSON response with image resource details (if format=json).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "browse",
+                    "collection_id",
+                    ":collection_id",
+                    "positions",
+                    ":position",
+                    "image_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "style_id",
+                      "value": "style_ABC"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "descending"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "format",
+                      "value": "redirect"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collection_id",
+                      "description": "(Required) The unique identifier of the collection containing the product set."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "position",
+                      "description": "(Required) The position of the desired product within the results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"redirect_url\": \"https://images.example.com/products/PROD_001_main.jpg\",\n  \"resource_type\": \"image\",\n  \"product\": {\n    \"id\": \"PROD123\",\n    \"variation_id\": \"VAR456\",\n    \"url\": \"https://example.com/products/prod123\",\n    \"image_url\": \"https://example.com/images/prod123.jpg\"\n  },\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3b69c21a-07c3-4148-826a-1b1c6bc10bc4",
+              "name": "Found - Redirects to the product image.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "browse",
+                    "collection_id",
+                    ":collection_id",
+                    "positions",
+                    ":position",
+                    "image_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "style_id",
+                      "value": "style_ABC"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "descending"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "format",
+                      "value": "redirect"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collection_id",
+                      "description": "(Required) The unique identifier of the collection containing the product set."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "position",
+                      "description": "(Required) The position of the desired product within the results."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Found",
+              "code": 302,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The URL to redirect the client to.",
+                  "key": "Location",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "Cache control directives.",
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, must-revalidate, max-age=0"
+                },
+                {
+                  "disabled": false,
+                  "description": "HTTP/1.0 cache control.",
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "disabled": false,
+                  "description": "Cache expiration time.",
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "911e4cff-2d14-4195-8051-da38b63d9a1a",
+              "name": "Bad Request - Invalid syntax or missing required parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "browse",
+                    "collection_id",
+                    ":collection_id",
+                    "positions",
+                    ":position",
+                    "image_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "style_id",
+                      "value": "style_ABC"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "descending"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "format",
+                      "value": "redirect"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collection_id",
+                      "description": "(Required) The unique identifier of the collection containing the product set."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "position",
+                      "description": "(Required) The position of the desired product within the results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Required parameter missing: key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "861a4103-d8b6-4b7b-8ce4-9f1170a1274f",
+              "name": "Not Found - The requested resource could not be found based on the provided parameters, possibly due to expired recommendations or out-of-range position.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "browse",
+                    "collection_id",
+                    ":collection_id",
+                    "positions",
+                    ":position",
+                    "image_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "style_id",
+                      "value": "style_ABC"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "descending"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "format",
+                      "value": "redirect"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collection_id",
+                      "description": "(Required) The unique identifier of the collection containing the product set."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "position",
+                      "description": "(Required) The position of the desired product within the results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Required parameter missing: key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c0b0cca4-ca69-41e0-bbf8-42155a7cc124",
+              "name": "Internal Server Error - An unexpected error occurred on the server.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "browse",
+                    "collection_id",
+                    ":collection_id",
+                    "positions",
+                    ":position",
+                    "image_url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "style_id",
+                      "value": "style_ABC"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "descending"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "format",
+                      "value": "redirect"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collection_id",
+                      "description": "(Required) The unique identifier of the collection containing the product set."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "position",
+                      "description": "(Required) The position of the desired product within the results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Required parameter missing: key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "712e7030-f0c1-4e10-a21c-fd250df2c321",
+          "name": "Retrieve collection item URL",
+          "request": {
+            "name": "Retrieve collection item URL",
+            "description": {
+              "content": "Redirects to a collection item PDP URL or returns JSON based on its collection ID and position in a collection result set (`collection_id` and `position` as path parameters).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "browse",
+                "collection_id",
+                ":collection_id",
+                "positions",
+                ":position",
+                "url"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) The key of the index to use."
+                },
+                {
+                  "disabled": false,
+                  "key": "campaign_id",
+                  "value": "<string>",
+                  "description": "(Required) Email campaign identifier for tracking and analytics."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[key_0]",
+                  "value": "<string>",
+                  "description": "Any number of filtering criteria used to narrow the result set, such as `color=blue` or `group_id=sandals` or `price=100-200`. Facets, item groups and collection IDs can be used as filters. If `filter_value` has the form `<min>-<max>`, it is interpreted as a range. Filters with the same key are ORed together and filters with different keys are ANDed together by default. Only results that match the filters are returned. Boolean values are serialized with the first letter capitalized (e.g., `True` / `False`) as a convention."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters[key_1]",
+                  "value": "<string>",
+                  "description": "Any number of filtering criteria used to narrow the result set, such as `color=blue` or `group_id=sandals` or `price=100-200`. Facets, item groups and collection IDs can be used as filters. If `filter_value` has the form `<min>-<max>`, it is interpreted as a range. Filters with the same key are ORed together and filters with different keys are ANDed together by default. Only results that match the filters are returned. Boolean values are serialized with the first letter capitalized (e.g., `True` / `False`) as a convention."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter_name",
+                  "value": "<string>",
+                  "description": "**DEPRECATED. Please, use 'filters' instead**. Name of the product attribute to filter by (e.g., brand, category, color). Must be provided together with `filter_value`."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter_value",
+                  "value": "<string>",
+                  "description": "**DEPRECATED. Please, use 'filters' instead**. Value to filter the specified attribute by. Must be provided together with `filter_name`."
+                },
+                {
+                  "disabled": false,
+                  "key": "num_results",
+                  "value": "10",
+                  "description": "The maximum number of collection items to retrieve."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "relevance",
+                  "description": "The method to sort results by. The default value `relevance` sorts by Constructor's attractiveness & personalization algorithms and is reserved. Alternative sort criteria can be configured using the [sort options](https://docs.constructor.com/reference/v1-sort-options-create-or-replace-sort-options)"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_order",
+                  "value": "descending",
+                  "description": "The order by which results should be sorted. Only valid in conjunction with `sort_by`."
+                },
+                {
+                  "disabled": false,
+                  "key": "c",
+                  "value": "<string>",
+                  "description": "The ID of the client and version that the request is coming from, such as `cio-js-2.90`."
+                },
+                {
+                  "disabled": false,
+                  "key": "us",
+                  "value": "<string>",
+                  "description": "User segment is a client context value (such as platform, location, etc.) that is used to evaluate redirect or refined tag rules. You can supply multiple segments by passing multiple `us` arguments."
+                },
+                {
+                  "disabled": false,
+                  "key": "us",
+                  "value": "<string>",
+                  "description": "User segment is a client context value (such as platform, location, etc.) that is used to evaluate redirect or refined tag rules. You can supply multiple segments by passing multiple `us` arguments."
+                },
+                {
+                  "disabled": false,
+                  "key": "ui",
+                  "value": "<string>",
+                  "description": "Unique identifier for the user to personalize recommendation results."
+                },
+                {
+                  "disabled": false,
+                  "key": "base_url",
+                  "value": "<string>",
+                  "description": "Base URL used to construct the product detail page redirect URL (e.g., 'https://example.com')."
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "redirect",
+                  "description": "Format of the response, either 'redirect' (default for 302 redirect) or 'json' (for 200 OK with JSON body for debugging)."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "collection_id",
+                  "description": "(Required) The unique identifier of the collection containing the product set."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "position",
+                  "description": "(Required) The position of the desired product within the results."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d7d0f550-fb47-469c-8cfa-d4eab124b612",
+              "name": "OK - JSON response with URL resource details (if format=json).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "browse",
+                    "collection_id",
+                    ":collection_id",
+                    "positions",
+                    ":position",
+                    "url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "descending"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "base_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "redirect"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collection_id",
+                      "description": "(Required) The unique identifier of the collection containing the product set."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "position",
+                      "description": "(Required) The position of the desired product within the results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"redirect_url\": \"https://images.example.com/products/PROD_001_main.jpg\",\n  \"resource_type\": \"image\",\n  \"product\": {\n    \"id\": \"PROD123\",\n    \"variation_id\": \"VAR456\",\n    \"url\": \"https://example.com/products/prod123\",\n    \"image_url\": \"https://example.com/images/prod123.jpg\"\n  },\n  \"status\": \"success\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1cc0e49c-0cf5-4ed2-838c-61a61a58b0ce",
+              "name": "Found - Redirects to the product detail page.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "browse",
+                    "collection_id",
+                    ":collection_id",
+                    "positions",
+                    ":position",
+                    "url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "descending"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "base_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "redirect"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collection_id",
+                      "description": "(Required) The unique identifier of the collection containing the product set."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "position",
+                      "description": "(Required) The position of the desired product within the results."
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Found",
+              "code": 302,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "The URL to redirect the client to.",
+                  "key": "Location",
+                  "value": "string"
+                },
+                {
+                  "disabled": false,
+                  "description": "Cache control directives.",
+                  "key": "Cache-Control",
+                  "value": "no-cache, no-store, must-revalidate, max-age=0"
+                },
+                {
+                  "disabled": false,
+                  "description": "HTTP/1.0 cache control.",
+                  "key": "Pragma",
+                  "value": "no-cache"
+                },
+                {
+                  "disabled": false,
+                  "description": "Cache expiration time.",
+                  "key": "Expires",
+                  "value": "0"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d35a5012-5d8e-4378-8ada-211bed655dc5",
+              "name": "Bad Request - Invalid syntax or missing required parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "browse",
+                    "collection_id",
+                    ":collection_id",
+                    "positions",
+                    ":position",
+                    "url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "descending"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "base_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "redirect"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collection_id",
+                      "description": "(Required) The unique identifier of the collection containing the product set."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "position",
+                      "description": "(Required) The position of the desired product within the results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Required parameter missing: key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "452a2314-f663-4e55-bf92-1c142c1dad5b",
+              "name": "Not Found - The requested resource could not be found based on the provided parameters, possibly due to expired recommendations or out-of-range position.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "browse",
+                    "collection_id",
+                    ":collection_id",
+                    "positions",
+                    ":position",
+                    "url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "descending"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "base_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "redirect"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collection_id",
+                      "description": "(Required) The unique identifier of the collection containing the product set."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "position",
+                      "description": "(Required) The position of the desired product within the results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Required parameter missing: key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eef6789a-d2b9-46e6-af90-b567dc965a31",
+              "name": "Internal Server Error - An unexpected error occurred on the server.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "browse",
+                    "collection_id",
+                    ":collection_id",
+                    "positions",
+                    ":position",
+                    "url"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "ZqXaOfXuBWD4s3XzCI1q"
+                    },
+                    {
+                      "key": "campaign_id",
+                      "value": "email_campaign_2024_01"
+                    },
+                    {
+                      "key": "filters[key_0]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_name",
+                      "value": "brand"
+                    },
+                    {
+                      "key": "filter_value",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "sort_order",
+                      "value": "descending"
+                    },
+                    {
+                      "key": "c",
+                      "value": "cio-dashboard"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "user_12345"
+                    },
+                    {
+                      "key": "base_url",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "format",
+                      "value": "redirect"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "collection_id",
+                      "description": "(Required) The unique identifier of the collection containing the product set."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "position",
+                      "description": "(Required) The position of the desired product within the results."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": \"Required parameter missing: key\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://offsite-discovery.cnstrc.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "1c05c46d-23aa-4a6c-b39c-9ba1083cb50c",
+    "name": "Offsite Discovery recommendations",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Contact Support:\n Name: Constructor.io Support\n Email: support@constructor.io",
+      "type": "text/plain"
+    }
+  }
+}

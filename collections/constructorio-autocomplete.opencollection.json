@@ -1,0 +1,131 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Autocomplete",
+    "version": "0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Autocomplete results",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve by prefix",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/autocomplete/:prefix",
+            "params": [
+              {
+                "name": "prefix",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_section_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset_per_section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page_per_section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter_match_types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pre_filter_expression",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "now",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "variations_map",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fmt_options",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "qs",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "origin_referrer",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "us",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ui",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "s",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "i",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve AI optimized autocomplete results for products and search suggestions (and/or optionally other sections). Prefix length is limited to 200 characters."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,174 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Catalog Batching Service",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Items",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Update catalog items",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://batching.catalog.cnstrc.com/v2/items",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "The key of the index to use."
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query",
+                "description": "The section of the index to use. Defaults to `Products`."
+              },
+              {
+                "name": "on_missing",
+                "value": "",
+                "type": "query",
+                "description": "Strategy for handling items that do not exist. Only CREATE is supported."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `catalog(w)`.\n\nUpdate items in the catalog. If an item does not exist, it will be created."
+        },
+        {
+          "info": {
+            "name": "Delete catalog items",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://batching.catalog.cnstrc.com/v2/items",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "The key of the index to use."
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query",
+                "description": "The section of the index to use. Defaults to `Products`."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `catalog(w)`.\n\nDelete items from the catalog. Deletions are processed asynchronously."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Variations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Update catalog variations",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://batching.catalog.cnstrc.com/v2/variations",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "The key of the index to use."
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query",
+                "description": "The section of the index to use. Defaults to `Products`."
+              },
+              {
+                "name": "on_missing",
+                "value": "",
+                "type": "query",
+                "description": "Strategy for handling variations that do not exist. Only CREATE is supported."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `catalog(w)`.\n\nUpdate variations in the catalog. If a variation does not exist, it will be created."
+        },
+        {
+          "info": {
+            "name": "Delete catalog variations",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://batching.catalog.cnstrc.com/v2/variations",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "The key of the index to use."
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query",
+                "description": "The section of the index to use. Defaults to `Products`."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `catalog(w)`.\n\nDelete variations from the catalog. Deletions are processed asynchronously."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

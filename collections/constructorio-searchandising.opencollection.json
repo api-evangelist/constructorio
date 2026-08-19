@@ -1,0 +1,1739 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Searchandising",
+    "version": "0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Searchandising for Browse",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve refined filters",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/refined_filters",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "response_section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter_names_to_exclude",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "segments",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets.refined_filters(r)`, `searchandising.refined_filters(r)`.\n\nRetrieve all refined filters."
+        },
+        {
+          "info": {
+            "name": "Retrieve refined filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/refined_filters/:filter_name/:filter_value",
+            "params": [
+              {
+                "name": "filter_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filter_value",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "response_section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter_names_to_exclude",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "segments",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets.refined_filters(r)`, `searchandising.refined_filters(r)`.\n\nRetrieve a refined filter."
+        },
+        {
+          "info": {
+            "name": "Create or replace refined filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://ac.cnstrc.com/v1/refined_filters/:filter_name/:filter_value",
+            "params": [
+              {
+                "name": "filter_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filter_value",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "response_section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchandising.refined_filters(w)`, `facets.refined_filters(w)`.\n\nCreate or replace a refined filter. It will replace all existing rule"
+        },
+        {
+          "info": {
+            "name": "Update refined filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ac.cnstrc.com/v1/refined_filters/:filter_name/:filter_value",
+            "params": [
+              {
+                "name": "filter_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filter_value",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "response_section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchandising.refined_filters(w)`.\n\nUpdate a refined filter. It will update only the fields that are present in the request."
+        },
+        {
+          "info": {
+            "name": "Delete refined filter",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ac.cnstrc.com/v1/refined_filters/:filter_name/:filter_value",
+            "params": [
+              {
+                "name": "filter_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filter_value",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchandising.refined_filters(w)`.\n\nDelete a refined filter."
+        },
+        {
+          "info": {
+            "name": "Retrieve refined filter rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/refined_filters/:filter_name/:filter_value/rules",
+            "params": [
+              {
+                "name": "filter_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filter_value",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "response_section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchandising.refined_filters(r)`.\n\nRetrieve all refined filter rules."
+        },
+        {
+          "info": {
+            "name": "Delete refined filter rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ac.cnstrc.com/v1/refined_filters/:filter_name/:filter_value/rules",
+            "params": [
+              {
+                "name": "filter_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filter_value",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "response_section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets.refined_filters(w)`, `searchandising.refined_filters(w)`.\n\nDelete all refined filter rules."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Searchandising for Collections",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve refined collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/refined_collections",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "response_section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter_names_to_exclude",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "segments",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchandising.refined_collections(r)`.\n\nRetrieve all refined collections."
+        },
+        {
+          "info": {
+            "name": "Retrieve refined collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/refined_collections/:collection_id",
+            "params": [
+              {
+                "name": "collection_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "response_section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter_names_to_exclude",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "segments",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchandising.refined_collections(r)`.\n\nRetrieve a refined collection."
+        },
+        {
+          "info": {
+            "name": "Create or replace refined collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://ac.cnstrc.com/v1/refined_collections/:collection_id",
+            "params": [
+              {
+                "name": "collection_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "response_section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchandising.refined_collections(w)`.\n\nCreate or replace a refined collection. It will replace all existing rules associated with the"
+        },
+        {
+          "info": {
+            "name": "Update refined collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ac.cnstrc.com/v1/refined_collections/:collection_id",
+            "params": [
+              {
+                "name": "collection_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "response_section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchandising.refined_collections(w)`.\n\nUpdate a refined collection. It will update only the fields that are present in the request."
+        },
+        {
+          "info": {
+            "name": "Delete refined collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ac.cnstrc.com/v1/refined_collections/:collection_id",
+            "params": [
+              {
+                "name": "collection_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchandising.refined_collections(w)`.\n\nDelete a refined collection."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Searchandising for Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve refined queries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/refined_queries",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "response_section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "phrase",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets.refined_queries(r)`, `searchandising.refined_queries(r)`.\n\nRetrieve all refined queries."
+        },
+        {
+          "info": {
+            "name": "Create refined query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ac.cnstrc.com/v1/refined_queries",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "response_section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchandising.refined_queries(w)`, `facets.refined_queries(w)`.\n\nCreate a new refined query."
+        },
+        {
+          "info": {
+            "name": "Retrieve refined query",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/refined_queries/:refined_query_id",
+            "params": [
+              {
+                "name": "refined_query_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "response_section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets.refined_queries(r)`, `searchandising.refined_queries(r)`.\n\nRetrieve a refined query."
+        },
+        {
+          "info": {
+            "name": "Replace refined query",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://ac.cnstrc.com/v1/refined_queries/:refined_query_id",
+            "params": [
+              {
+                "name": "refined_query_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "response_section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchandising.refined_queries(w)`, `facets.refined_queries(w)`.\n\nReplace a refined query. It will replace all existing rules associate"
+        },
+        {
+          "info": {
+            "name": "Update refined query",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ac.cnstrc.com/v1/refined_queries/:refined_query_id",
+            "params": [
+              {
+                "name": "refined_query_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchandising.refined_queries(w)`.\n\nUpdate a refined query. It will update only the fields that are present in the request."
+        },
+        {
+          "info": {
+            "name": "Delete refined query",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ac.cnstrc.com/v1/refined_queries/:refined_query_id",
+            "params": [
+              {
+                "name": "refined_query_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "force_delete",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchandising.refined_queries(w)`.\n\nDelete a refined query."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Searchandising by User Request Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve refined tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/refined_tags/:tag_name/:tag_value",
+            "params": [
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tag_value",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchandising.refined_tags(r)`.\n\nRetrieve a refined tag."
+        },
+        {
+          "info": {
+            "name": "Create or replace refined tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://ac.cnstrc.com/v1/refined_tags/:tag_name/:tag_value",
+            "params": [
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tag_value",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchandising.refined_tags(w)`.\n\nCreate or replace a refined tag. It will replace all existing rules associated with the specified `ta"
+        },
+        {
+          "info": {
+            "name": "Update refined tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ac.cnstrc.com/v1/refined_tags/:tag_name/:tag_value",
+            "params": [
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tag_value",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchandising.refined_tags(w)`.\n\nUpdate a refined tag. It will update only the fields that are present in the request."
+        },
+        {
+          "info": {
+            "name": "Delete refined tag",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ac.cnstrc.com/v1/refined_tags/:tag_name/:tag_value",
+            "params": [
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tag_value",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchandising.refined_tags(w)`.\n\nDelete a refined tag."
+        },
+        {
+          "info": {
+            "name": "Retrieve refined tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/refined_tags",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchandising.refined_tags(r)`.\n\nRetrieve all refined tags"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Searchandising campaigns",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve campaigns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/campaigns",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "refined_filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "refined_recommendation_contexts",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "refined_queries",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchandising.campaigns(r)`, `searchandising.recommendations(r)`.\n\nRetrieve campaigns."
+        },
+        {
+          "info": {
+            "name": "Create campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ac.cnstrc.com/v1/campaigns",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchandising.campaigns(w)`, `searchandising.recommendations(w)`.\n\nCreate a campaign."
+        },
+        {
+          "info": {
+            "name": "Retrieve campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/campaigns/:campaign_id",
+            "params": [
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchandising.campaigns(r)`, `searchandising.recommendations(r)`.\n\nRetrieve a campaign by id."
+        },
+        {
+          "info": {
+            "name": "Update campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ac.cnstrc.com/v1/campaigns/:campaign_id",
+            "params": [
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchandising.campaigns(w)`, `searchandising.recommendations(w)`.\n\nUpdate a campaign. It will update only the fields that are present "
+        },
+        {
+          "info": {
+            "name": "Delete campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ac.cnstrc.com/v1/campaigns/:campaign_id",
+            "params": [
+              {
+                "name": "campaign_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `searchandising.campaigns(w)`, `searchandising.recommendations(w)`.\n\nDelete a campaign by id."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Facet campaigns",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve facet campaigns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/facet_rule_campaigns",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "refined_filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "refined_queries",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets.refined_filters(r)`, `facets.refined_queries(r)`.\n\nRetrieve facet campaigns."
+        },
+        {
+          "info": {
+            "name": "Create facet campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ac.cnstrc.com/v1/facet_rule_campaigns",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets.refined_filters(w)`, `facets.refined_queries(w)`.\n\nCreate a facet campaign"
+        },
+        {
+          "info": {
+            "name": "Retrieve facet campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://ac.cnstrc.com/v1/facet_rule_campaigns/:facet_rule_campaign_id",
+            "params": [
+              {
+                "name": "facet_rule_campaign_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets.refined_filters(r)`, `facets.refined_queries(r)`.\n\nRetrieve a facet campaign by id."
+        },
+        {
+          "info": {
+            "name": "Update facet campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://ac.cnstrc.com/v1/facet_rule_campaigns/:facet_rule_campaign_id",
+            "params": [
+              {
+                "name": "facet_rule_campaign_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets.refined_filters(w)`, `facets.refined_queries(w)`.\n\nUpdate a facet campaign. It will update only the fields that are present in t"
+        },
+        {
+          "info": {
+            "name": "Delete facet campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ac.cnstrc.com/v1/facet_rule_campaigns/:facet_rule_campaign_id",
+            "params": [
+              {
+                "name": "facet_rule_campaign_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**\nFor authenticating with Bearer token, required scopes are: `facets.refined_filters(w)`, `facets.refined_queries(w)`.\n\nDelete a facet campaign by id."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

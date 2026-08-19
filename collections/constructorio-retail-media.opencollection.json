@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Retail Media",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Engagements",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Update Engagement",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://retail.media-cnstrc.com/v1/engagements/:engagement_id",
+            "params": [
+              {
+                "name": "engagement_id",
+                "value": "",
+                "type": "path",
+                "description": "The advertiser engagement ID."
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "The key of the index to use."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP Bearer authentication](https://docs.constructor.com/reference/main-authentication#bearer-authentication).**\nFor authenticating with Bearer token, required scopes are: `retail_media.engagements(w)`.\n\n**Beta:** This endpoint is in beta and may change. Updates the suspension status of an advertiser engagement. When suspended, the engagement's ads will stop serving. When unsuspended, the engagement's ads will resume serving."
+        },
+        {
+          "info": {
+            "name": "Retrieve Advertiser Spend",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://retail.media-cnstrc.com/v1/advertiser_spend",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "The key of the index to use."
+              },
+              {
+                "name": "next_page_cursor",
+                "value": "",
+                "type": "query",
+                "description": "Opaque cursor returned by a previous response. When omitted, the first page is returned."
+              },
+              {
+                "name": "num_results_per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of advertisers to return in a single page. Defaults to 100, with a maximum of 1000. Values above the maximum are clamped."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP Bearer authentication](https://docs.constructor.com/reference/main-authentication#bearer-authentication).**\nFor authenticating with Bearer token, required scopes are: `retail_media.ad_spend_tracking(r)`.\n\n**Beta:** This endpoint is in beta and may change. Returns the spend for every advertiser (engagement) that has accrued spend within the given index, broken down by day for the last 30 days."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

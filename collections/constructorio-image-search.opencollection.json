@@ -1,0 +1,149 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Image Search",
+    "version": "0.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Image Search results",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve by image (Deprecated)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://image-search.cnstrc.com/v1/image_search",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "variations_map",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fmt_options",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "us",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ui",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "s",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "i",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve AI optimized search results for products (or optionally other sections) by image"
+        },
+        {
+          "info": {
+            "name": "Retrieve by image",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://image-search.cnstrc.com/v2/image_search",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "search_crop_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "variations_map",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fmt_options",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "us",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "use_segmentation",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ui",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "return_segments",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "s",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "i",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve AI optimized search results for products (or optionally other sections) by image with optional multi-item detection (segmentation) support."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

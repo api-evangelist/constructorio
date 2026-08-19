@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "User profile",
+    "version": "0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User preferences",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create user preferences",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://user-profile.cnstrc.com/v1/user_preferences",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP Bearer authentication](https://docs.constructor.com/reference/main-authentication#bearer-authentication).**\nFor authenticating with Bearer token, required scopes are: `user_profile.user_preferences(w)`.\n\nSend user preferences for both individual and batch operations."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

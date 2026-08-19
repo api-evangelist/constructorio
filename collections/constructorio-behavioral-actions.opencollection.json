@@ -1,0 +1,52 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Behavioral actions",
+    "version": "0.1"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Behavioral actions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Post a list of offline behavioral actions",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ac.cnstrc.com/v1/offline_behavioral_actions",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "**🔐 This endpoint requires [HTTP Basic authentication](https://docs.constructor.com/reference/main-authentication#basic-authentication).**\n\nSend list of behavioral actions (purchase,return) performed by your users offline."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

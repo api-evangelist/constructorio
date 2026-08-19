@@ -1,0 +1,140 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Product details",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Product details",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve item product details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://product-details.cnstrc.com/v1/items",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "The key of the index to use."
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query",
+                "description": "The section of the index to use (e.g. 'Products')."
+              },
+              {
+                "name": "item_id",
+                "value": "",
+                "type": "query",
+                "description": "The unique identifier of an item in the product catalog."
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the client and version that the request is coming from, such as `cio-js-2.90`."
+              },
+              {
+                "name": "ui",
+                "value": "",
+                "type": "query",
+                "description": "A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps Constructor to tie multiple client and session IDs together to form a behavioral data profile across devices."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "One or more product detail fields to include in the response. This parameter may be repeated to specify multiple fields."
+              },
+              {
+                "name": "s",
+                "value": "",
+                "type": "query",
+                "description": "An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity."
+              },
+              {
+                "name": "i",
+                "value": "",
+                "type": "query",
+                "description": "A globally unique identifier for the user browser (or mobile application instance) making the request."
+              }
+            ]
+          },
+          "docs": "Retrieve product details for an item."
+        },
+        {
+          "info": {
+            "name": "Retrieve variation product details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://product-details.cnstrc.com/v1/variations",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query",
+                "description": "The key of the index to use."
+              },
+              {
+                "name": "section",
+                "value": "",
+                "type": "query",
+                "description": "The section of the index to use (e.g. 'Products')."
+              },
+              {
+                "name": "variation_id",
+                "value": "",
+                "type": "query",
+                "description": "One or more variation IDs to retrieve product details for. This parameter may be repeated to specify multiple IDs."
+              },
+              {
+                "name": "c",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the client and version that the request is coming from, such as `cio-js-2.90`."
+              },
+              {
+                "name": "ui",
+                "value": "",
+                "type": "query",
+                "description": "A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps Constructor to tie multiple client and session IDs together to form a behavioral data profile across devices."
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "One or more product detail fields to include in the response. This parameter may be repeated to specify multiple fields."
+              },
+              {
+                "name": "s",
+                "value": "",
+                "type": "query",
+                "description": "An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity."
+              },
+              {
+                "name": "i",
+                "value": "",
+                "type": "query",
+                "description": "A globally unique identifier for the user browser (or mobile application instance) making the request."
+              }
+            ]
+          },
+          "docs": "Retrieve product details for variations of an item."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

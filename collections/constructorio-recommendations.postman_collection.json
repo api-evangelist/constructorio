@@ -1,0 +1,1010 @@
+{
+  "item": [
+    {
+      "id": "3fe3e0a6-e44b-4727-9187-284ace4d1a65",
+      "name": "Search results",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "38433266-1620-4693-88ee-b723fb3c6ebc",
+      "name": "Natural language search results",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "49a85dd1-1c31-4335-a1af-4ed1f52ed477",
+      "name": "Autocomplete results",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "3451bbf4-849f-4069-a0c2-371c6b6cb176",
+      "name": "Browse results",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "3cd27fea-2691-4fda-a536-86e555618c23",
+      "name": "Browse groups",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "8db67cec-6f10-472a-9203-8a6a774e7c94",
+      "name": "Browse facets",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "ce8f7b89-572e-4b6b-a84d-0af1abc19d39",
+      "name": "Browse collections",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    },
+    {
+      "id": "9a3c52e4-3d75-4c56-b0f5-2db723e10492",
+      "name": "Recommendation results",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6843b1a9-18e7-4c03-b8f6-32c8ad4104ea",
+          "name": "Retrieve by pod",
+          "request": {
+            "name": "Retrieve by pod",
+            "description": {
+              "content": "Retrieve AI optimized recommendation results for products (or optionally other sections) by pod identifier. To learn more about pods, go [here](/docs/products-recommendations-learn-about-recommendations#pods).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "recommendations",
+                "v1",
+                "pods",
+                ":pod_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "key",
+                  "value": "<string>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "section",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "item_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "variation_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "term",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter_match_types[key_0]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "pre_filter_expression",
+                  "value": "<object>"
+                },
+                {
+                  "disabled": false,
+                  "key": "num_results",
+                  "value": "10"
+                },
+                {
+                  "disabled": false,
+                  "key": "now",
+                  "value": "<dateTime>"
+                },
+                {
+                  "disabled": false,
+                  "key": "value",
+                  "value": "<Error: Could not resolve allOf schema"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[fields][0]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[fields][1]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[show_hidden_fields]",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[hidden_fields][0]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[hidden_fields][1]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[variations_return_type]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[groups_max_depth]",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[groups_start]",
+                  "value": "current"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[groups_sort_by]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[groups_sort_order]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[show_hidden_facets]",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[hidden_facets][0]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[hidden_facets][1]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[show_hidden_facet_options]",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[show_protected_facets]",
+                  "value": ""
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[facet_options][key_0][0]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[facet_options][key_0][1]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[facet_options][key_1][0]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[facet_options][key_1][1]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[facet_groups_limit]",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[show_hidden_sort_options]",
+                  "value": "<boolean>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[hidden_sort_options][0]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fmt_options[hidden_sort_options][1]",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "origin_referrer",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "c",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "us",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "us",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "ui",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "s",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "key_0",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "key_1",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "i",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "pod_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3eaa28d4-0681-4a8a-b48e-fac0e3563ec5",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recommendations",
+                    "v1",
+                    "pods",
+                    ":pod_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "key_K2pX7vBnU0bgA5xp"
+                    },
+                    {
+                      "key": "section",
+                      "value": "Products"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "variation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "term",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_match_types[color]",
+                      "value": "any"
+                    },
+                    {
+                      "key": "filter_match_types[size]",
+                      "value": "all"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "now",
+                      "value": "2024-01-15T10:30:00Z"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<Error: Could not resolve allOf schema"
+                    },
+                    {
+                      "key": "fmt_options[fields][0]",
+                      "value": "image_url"
+                    },
+                    {
+                      "key": "fmt_options[fields][1]",
+                      "value": "image_url"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_fields]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[hidden_fields][0]",
+                      "value": "inventory_count"
+                    },
+                    {
+                      "key": "fmt_options[hidden_fields][1]",
+                      "value": "inventory_count"
+                    },
+                    {
+                      "key": "fmt_options[variations_return_type]",
+                      "value": "default"
+                    },
+                    {
+                      "key": "fmt_options[groups_max_depth]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "fmt_options[groups_start]",
+                      "value": "current"
+                    },
+                    {
+                      "key": "fmt_options[groups_sort_by]",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "fmt_options[groups_sort_order]",
+                      "value": "descending"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_facets]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[hidden_facets][0]",
+                      "value": "store_id"
+                    },
+                    {
+                      "key": "fmt_options[hidden_facets][1]",
+                      "value": "store_id"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_facet_options]",
+                      "value": "true"
+                    },
+                    {
+                      "key": "fmt_options[show_protected_facets]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[facet_options][brand][0]",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][brand][1]",
+                      "value": "adidas"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][color][0]",
+                      "value": "red"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][color][1]",
+                      "value": "blue"
+                    },
+                    {
+                      "key": "fmt_options[facet_groups_limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_sort_options]",
+                      "value": "true"
+                    },
+                    {
+                      "key": "fmt_options[hidden_sort_options][0]",
+                      "value": "price"
+                    },
+                    {
+                      "key": "fmt_options[hidden_sort_options][1]",
+                      "value": "price"
+                    },
+                    {
+                      "key": "origin_referrer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "c",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "s",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "key_0",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "i",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pod_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"request\": {},\n  \"response\": {\n    \"results\": [\n      {\n        \"data\": {\n          \"id\": \"string\",\n          \"variation_id\": \"string\"\n        },\n        \"value\": \"string\",\n        \"is_slotted\": false,\n        \"labels\": {},\n        \"strategy\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      },\n      {\n        \"data\": {\n          \"id\": \"string\",\n          \"variation_id\": \"string\"\n        },\n        \"value\": \"string\",\n        \"is_slotted\": false,\n        \"labels\": {},\n        \"strategy\": {\n          \"id\": \"string\",\n          \"type\": \"string\"\n        }\n      }\n    ],\n    \"total_num_results\": 8896,\n    \"pod\": {\n      \"id\": \"string\",\n      \"display_name\": \"string\",\n      \"channels\": [\n        \"string\",\n        \"string\"\n      ]\n    }\n  },\n  \"result_id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e6b89456-1565-4f2e-9952-c1db2e22c9d7",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recommendations",
+                    "v1",
+                    "pods",
+                    ":pod_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "key_K2pX7vBnU0bgA5xp"
+                    },
+                    {
+                      "key": "section",
+                      "value": "Products"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "variation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "term",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_match_types[color]",
+                      "value": "any"
+                    },
+                    {
+                      "key": "filter_match_types[size]",
+                      "value": "all"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "now",
+                      "value": "2024-01-15T10:30:00Z"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<Error: Could not resolve allOf schema"
+                    },
+                    {
+                      "key": "fmt_options[fields][0]",
+                      "value": "image_url"
+                    },
+                    {
+                      "key": "fmt_options[fields][1]",
+                      "value": "image_url"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_fields]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[hidden_fields][0]",
+                      "value": "inventory_count"
+                    },
+                    {
+                      "key": "fmt_options[hidden_fields][1]",
+                      "value": "inventory_count"
+                    },
+                    {
+                      "key": "fmt_options[variations_return_type]",
+                      "value": "default"
+                    },
+                    {
+                      "key": "fmt_options[groups_max_depth]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "fmt_options[groups_start]",
+                      "value": "current"
+                    },
+                    {
+                      "key": "fmt_options[groups_sort_by]",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "fmt_options[groups_sort_order]",
+                      "value": "descending"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_facets]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[hidden_facets][0]",
+                      "value": "store_id"
+                    },
+                    {
+                      "key": "fmt_options[hidden_facets][1]",
+                      "value": "store_id"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_facet_options]",
+                      "value": "true"
+                    },
+                    {
+                      "key": "fmt_options[show_protected_facets]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[facet_options][brand][0]",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][brand][1]",
+                      "value": "adidas"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][color][0]",
+                      "value": "red"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][color][1]",
+                      "value": "blue"
+                    },
+                    {
+                      "key": "fmt_options[facet_groups_limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_sort_options]",
+                      "value": "true"
+                    },
+                    {
+                      "key": "fmt_options[hidden_sort_options][0]",
+                      "value": "price"
+                    },
+                    {
+                      "key": "fmt_options[hidden_sort_options][1]",
+                      "value": "price"
+                    },
+                    {
+                      "key": "origin_referrer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "c",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "s",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "key_0",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "i",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pod_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c1d89368-33ca-4bfa-8bf0-3fe1107f8ca2",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "recommendations",
+                    "v1",
+                    "pods",
+                    ":pod_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "key",
+                      "value": "key_K2pX7vBnU0bgA5xp"
+                    },
+                    {
+                      "key": "section",
+                      "value": "Products"
+                    },
+                    {
+                      "key": "item_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "variation_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "term",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter_match_types[color]",
+                      "value": "any"
+                    },
+                    {
+                      "key": "filter_match_types[size]",
+                      "value": "all"
+                    },
+                    {
+                      "key": "num_results",
+                      "value": "10"
+                    },
+                    {
+                      "key": "now",
+                      "value": "2024-01-15T10:30:00Z"
+                    },
+                    {
+                      "key": "value",
+                      "value": "<Error: Could not resolve allOf schema"
+                    },
+                    {
+                      "key": "fmt_options[fields][0]",
+                      "value": "image_url"
+                    },
+                    {
+                      "key": "fmt_options[fields][1]",
+                      "value": "image_url"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_fields]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[hidden_fields][0]",
+                      "value": "inventory_count"
+                    },
+                    {
+                      "key": "fmt_options[hidden_fields][1]",
+                      "value": "inventory_count"
+                    },
+                    {
+                      "key": "fmt_options[variations_return_type]",
+                      "value": "default"
+                    },
+                    {
+                      "key": "fmt_options[groups_max_depth]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "fmt_options[groups_start]",
+                      "value": "current"
+                    },
+                    {
+                      "key": "fmt_options[groups_sort_by]",
+                      "value": "relevance"
+                    },
+                    {
+                      "key": "fmt_options[groups_sort_order]",
+                      "value": "descending"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_facets]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[hidden_facets][0]",
+                      "value": "store_id"
+                    },
+                    {
+                      "key": "fmt_options[hidden_facets][1]",
+                      "value": "store_id"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_facet_options]",
+                      "value": "true"
+                    },
+                    {
+                      "key": "fmt_options[show_protected_facets]",
+                      "value": ""
+                    },
+                    {
+                      "key": "fmt_options[facet_options][brand][0]",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][brand][1]",
+                      "value": "adidas"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][color][0]",
+                      "value": "red"
+                    },
+                    {
+                      "key": "fmt_options[facet_options][color][1]",
+                      "value": "blue"
+                    },
+                    {
+                      "key": "fmt_options[facet_groups_limit]",
+                      "value": "10"
+                    },
+                    {
+                      "key": "fmt_options[show_hidden_sort_options]",
+                      "value": "true"
+                    },
+                    {
+                      "key": "fmt_options[hidden_sort_options][0]",
+                      "value": "price"
+                    },
+                    {
+                      "key": "fmt_options[hidden_sort_options][1]",
+                      "value": "price"
+                    },
+                    {
+                      "key": "origin_referrer",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "c",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "us",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ui",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "s",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "key_0",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "i",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "q",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "pod_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://ac.cnstrc.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "32105d90-6182-4b98-b618-66b18478d2ac",
+    "name": "Recommendations",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Contact Support:\n Email: support@constructor.io",
+      "type": "text/plain"
+    }
+  }
+}
