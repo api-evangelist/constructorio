@@ -21,6 +21,19 @@ modified: '2026-08-01'
 tags:
 - Company
 - Search
+- E-Commerce
+- Product Discovery
+- Recommendations
+- Personalization
+- Retail
+- Retail Media
+- Artificial Intelligence
+- Merchandising
+- Catalog Management
+- Agentic Commerce
+tags_raw:
+- Company
+- Search
 - Ecommerce
 - Product Discovery
 - Recommendations
@@ -39,6 +52,10 @@ apis:
   humanURL: https://docs.constructor.com/reference/search-search-results
   baseURL: https://ac.cnstrc.com
   tags:
+  - Search
+  - natural-language-search
+  - E-Commerce
+  tags_raw:
   - search
   - natural-language-search
   - ecommerce
@@ -55,6 +72,10 @@ apis:
   humanURL: https://docs.constructor.com/reference/autocomplete-autocomplete-results
   baseURL: https://ac.cnstrc.com
   tags:
+  - Autocomplete
+  - Autosuggest
+  - Search
+  tags_raw:
   - autocomplete
   - autosuggest
   - search
@@ -72,6 +93,10 @@ apis:
   humanURL: https://docs.constructor.com/reference/browse-browse-results
   baseURL: https://ac.cnstrc.com
   tags:
+  - Browse
+  - Facets
+  - Collection
+  tags_raw:
   - browse
   - facets
   - collections
@@ -88,6 +113,9 @@ apis:
   humanURL: https://docs.constructor.com/reference/recommendations-recommendation-results
   baseURL: https://ac.cnstrc.com
   tags:
+  - Recommendations
+  - Personalization
+  tags_raw:
   - recommendations
   - personalization
   properties:
@@ -103,6 +131,9 @@ apis:
   humanURL: https://docs.constructor.com/reference/image-search-image-search-results
   baseURL: https://image-search.cnstrc.com
   tags:
+  - Image Search
+  - Visual Search
+  tags_raw:
   - image-search
   - visual-search
   properties:
@@ -118,6 +149,10 @@ apis:
   humanURL: https://docs.constructor.com/reference/v1-asa-retrieve-intent
   baseURL: https://agent.cnstrc.com
   tags:
+  - AI Agent
+  - Conversational Commerce
+  - Server-Sent Events
+  tags_raw:
   - ai-agent
   - conversational-commerce
   - server-sent-events
@@ -135,6 +170,10 @@ apis:
   humanURL: https://docs.constructor.com/reference/catalog-management-introduction
   baseURL: https://ac.cnstrc.com
   tags:
+  - Catalog
+  - Item
+  - Variations
+  tags_raw:
   - catalog
   - items
   - variations
@@ -151,6 +190,10 @@ apis:
   humanURL: https://docs.constructor.com/reference/v2-batching-items-update-items
   baseURL: https://batching.catalog.cnstrc.com
   tags:
+  - Catalog
+  - Batching
+  - Ingestion
+  tags_raw:
   - catalog
   - batching
   - ingestion
@@ -168,6 +211,11 @@ apis:
   humanURL: https://docs.constructor.com/reference/configuration-facets
   baseURL: https://ac.cnstrc.com
   tags:
+  - Configuration
+  - Facets
+  - Synonyms
+  - Redirects
+  tags_raw:
   - configuration
   - facets
   - synonyms
@@ -187,6 +235,10 @@ apis:
   baseURL: https://ac.cnstrc.com
   tags:
   - searchandising
+  - Merchandising
+  - Campaigns
+  tags_raw:
+  - searchandising
   - merchandising
   - campaigns
   properties:
@@ -202,6 +254,9 @@ apis:
   humanURL: https://docs.constructor.com/reference/v1-quizzes-get-next-question
   baseURL: https://quizzes.cnstrc.com
   tags:
+  - Quizzes
+  - Guided Selling
+  tags_raw:
   - quizzes
   - guided-selling
   properties:
@@ -220,6 +275,10 @@ apis:
   tags:
   - offsite-discovery
   - email-recommendations
+  - Cross-Channel
+  tags_raw:
+  - offsite-discovery
+  - email-recommendations
   - cross-channel
   properties:
   - type: OpenAPI
@@ -234,6 +293,10 @@ apis:
   humanURL: https://docs.constructor.com/reference/v1-engagements-update
   baseURL: https://retail.media-cnstrc.com
   tags:
+  - Retail Media
+  - sponsored-listings
+  - Advertising
+  tags_raw:
   - retail-media
   - sponsored-listings
   - advertising
@@ -250,6 +313,10 @@ apis:
   humanURL: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
   baseURL: https://display.media-cnstrc.com
   tags:
+  - Retail Media
+  - Display Ads
+  - Advertising
+  tags_raw:
   - retail-media
   - display-ads
   - advertising
@@ -266,6 +333,9 @@ apis:
   baseURL: https://product-details.cnstrc.com
   tags:
   - product-details
+  - Catalog
+  tags_raw:
+  - product-details
   - catalog
   properties:
   - type: OpenAPI
@@ -280,6 +350,10 @@ apis:
   humanURL: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
   baseURL: https://ac.cnstrc.com
   tags:
+  - Behavioral Data
+  - Analytics
+  - Event
+  tags_raw:
   - behavioral-data
   - analytics
   - events
@@ -296,6 +370,9 @@ apis:
   humanURL: https://docs.constructor.com/reference/v1-user-profile-create-preferences
   baseURL: https://user-profile.cnstrc.com
   tags:
+  - User Profile
+  - Personalization
+  tags_raw:
   - user-profile
   - personalization
   properties:
@@ -312,6 +389,10 @@ apis:
   humanURL: https://docs.constructor.com/docs/ai-tooling-mcp-server
   baseURL: https://docs.constructor.com/mcp
   tags:
+  - MCP
+  - agent-native
+  - Documentation
+  tags_raw:
   - mcp
   - agent-native
   - documentation
