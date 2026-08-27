@@ -45,347 +45,11 @@ tags_raw:
 - Catalog Management
 - Agentic Commerce
 apis:
-- name: Constructor Search API
-  description: AI-optimized keyword and natural-language search results for products
-    and other index sections, returned by search query with filtering, faceting, sorting,
-    pagination and variations mapping.
-  humanURL: https://docs.constructor.com/reference/search-search-results
-  baseURL: https://ac.cnstrc.com
-  tags:
-  - Search
-  - natural-language-search
-  - E-Commerce
-  tags_raw:
-  - search
-  - natural-language-search
-  - ecommerce
-  properties:
-  - type: OpenAPI
-    url: openapi/constructorio-search-openapi.yml
-  - type: APIReference
-    url: https://docs.constructor.com/reference/search-search-results
-  - type: Overlay
-    url: overlays/constructorio-search-overlay.yaml
-- name: Constructor Autocomplete API
-  description: AI-optimized autocomplete and autosuggest results for products and search
-    suggestions retrieved by query prefix, with multi-section responses.
-  humanURL: https://docs.constructor.com/reference/autocomplete-autocomplete-results
-  baseURL: https://ac.cnstrc.com
-  tags:
-  - Autocomplete
-  - Autosuggest
-  - Search
-  tags_raw:
-  - autocomplete
-  - autosuggest
-  - search
-  properties:
-  - type: OpenAPI
-    url: openapi/constructorio-autocomplete-openapi.yml
-  - type: APIReference
-    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
-  - type: Overlay
-    url: overlays/constructorio-autocomplete-overlay.yaml
-- name: Constructor Browse API
-  description: AI-optimized category browse results by facet name/value, item ID, collection
-    ID or group ID, plus endpoints for browse groups, countable facets, facet options
-    and collections.
-  humanURL: https://docs.constructor.com/reference/browse-browse-results
-  baseURL: https://ac.cnstrc.com
-  tags:
-  - Browse
-  - Facets
-  - Collection
-  tags_raw:
-  - browse
-  - facets
-  - collections
-  properties:
-  - type: OpenAPI
-    url: openapi/constructorio-browse-openapi.yml
-  - type: APIReference
-    url: https://docs.constructor.com/reference/browse-browse-results
-  - type: Overlay
-    url: overlays/constructorio-browse-overlay.yaml
-- name: Constructor Recommendations API
-  description: AI-optimized recommendation results retrieved by pod identifier for
-    onsite recommendation placements.
-  humanURL: https://docs.constructor.com/reference/recommendations-recommendation-results
-  baseURL: https://ac.cnstrc.com
-  tags:
-  - Recommendations
-  - Personalization
-  tags_raw:
-  - recommendations
-  - personalization
-  properties:
-  - type: OpenAPI
-    url: openapi/constructorio-recommendations-openapi.yml
-  - type: APIReference
-    url: https://docs.constructor.com/reference/recommendations-recommendation-results
-  - type: Overlay
-    url: overlays/constructorio-recommendations-overlay.yaml
-- name: Constructor Image Search API
-  description: AI-optimized search results retrieved by uploaded image, with optional
-    multi-item detection (segmentation) support.
-  humanURL: https://docs.constructor.com/reference/image-search-image-search-results
-  baseURL: https://image-search.cnstrc.com
-  tags:
-  - Image Search
-  - Visual Search
-  tags_raw:
-  - image-search
-  - visual-search
-  properties:
-  - type: OpenAPI
-    url: openapi/constructorio-image-search-openapi.yml
-  - type: APIReference
-    url: https://docs.constructor.com/reference/image-search-image-search-results
-  - type: Overlay
-    url: overlays/constructorio-image-search-overlay.yaml
-- name: Constructor AI Shopping Agent API
-  description: Conversational product-discovery API returning intent-based suggestions
-    over a Server-Sent Events stream, plus AI-generated item questions and answers.
-  humanURL: https://docs.constructor.com/reference/v1-asa-retrieve-intent
-  baseURL: https://agent.cnstrc.com
-  tags:
-  - AI Agent
-  - Conversational Commerce
-  - Server-Sent Events
-  tags_raw:
-  - ai-agent
-  - conversational-commerce
-  - server-sent-events
-  properties:
-  - type: OpenAPI
-    url: openapi/constructorio-ai-shopping-agent-openapi.yml
-  - type: APIReference
-    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
-  - type: Overlay
-    url: overlays/constructorio-ai-shopping-agent-overlay.yaml
-- name: Constructor Catalog Management API
-  description: Authenticated catalog surface for creating, replacing, updating and
-    deleting items, variations, item groups and full catalog files, plus item field
-    statistics and asynchronous task tracking.
-  humanURL: https://docs.constructor.com/reference/catalog-management-introduction
-  baseURL: https://ac.cnstrc.com
-  tags:
-  - Catalog
-  - Item
-  - Variations
-  tags_raw:
-  - catalog
-  - items
-  - variations
-  properties:
-  - type: OpenAPI
-    url: openapi/constructorio-catalog-management-openapi.yml
-  - type: APIReference
-    url: https://docs.constructor.com/reference/catalog-management-introduction
-  - type: Overlay
-    url: overlays/constructorio-catalog-management-overlay.yaml
-- name: Constructor Catalog Batching API
-  description: Batched catalog ingestion service for high-volume item and variation
-    update and delete operations.
-  humanURL: https://docs.constructor.com/reference/v2-batching-items-update-items
-  baseURL: https://batching.catalog.cnstrc.com
-  tags:
-  - Catalog
-  - Batching
-  - Ingestion
-  tags_raw:
-  - catalog
-  - batching
-  - ingestion
-  properties:
-  - type: OpenAPI
-    url: openapi/constructorio-catalog-batching-openapi.yml
-  - type: APIReference
-    url: https://docs.constructor.com/reference/v2-batching-items-update-items
-  - type: Overlay
-    url: overlays/constructorio-catalog-batching-overlay.yaml
-- name: Constructor Configuration API
-  description: Authenticated configuration surface for facets, facet options, searchabilities,
-    one-way synonyms, synonym groups, sort options, redirect rules, collections, quizzes
-    and metadata overrides.
-  humanURL: https://docs.constructor.com/reference/configuration-facets
-  baseURL: https://ac.cnstrc.com
-  tags:
-  - Configuration
-  - Facets
-  - Synonyms
-  - Redirects
-  tags_raw:
-  - configuration
-  - facets
-  - synonyms
-  - redirects
-  properties:
-  - type: OpenAPI
-    url: openapi/constructorio-configuration-openapi.yml
-  - type: APIReference
-    url: https://docs.constructor.com/reference/configuration-facets
-  - type: Overlay
-    url: overlays/constructorio-configuration-overlay.yaml
-- name: Constructor Searchandising API
-  description: Merchandising-rule surface for refined queries, refined filters, refined
-    collections, refined tags, campaigns and facet-rule campaigns across search, browse
-    and collections.
-  humanURL: https://docs.constructor.com/reference/searchandising-searchandising-for-search
-  baseURL: https://ac.cnstrc.com
-  tags:
-  - searchandising
-  - Merchandising
-  - Campaigns
-  tags_raw:
-  - searchandising
-  - merchandising
-  - campaigns
-  properties:
-  - type: OpenAPI
-    url: openapi/constructorio-searchandising-openapi.yml
-  - type: APIReference
-    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
-  - type: Overlay
-    url: overlays/constructorio-searchandising-overlay.yaml
-- name: Constructor Quizzes API
-  description: Guided-selling quiz surface returning the next question given prior
-    answers, quiz results and results-page configuration.
-  humanURL: https://docs.constructor.com/reference/v1-quizzes-get-next-question
-  baseURL: https://quizzes.cnstrc.com
-  tags:
-  - Quizzes
-  - Guided Selling
-  tags_raw:
-  - quizzes
-  - guided-selling
-  properties:
-  - type: OpenAPI
-    url: openapi/constructorio-quizzes-openapi.yml
-  - type: APIReference
-    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
-  - type: Overlay
-    url: overlays/constructorio-quizzes-overlay.yaml
-- name: Constructor Offsite Discovery Recommendations API
-  description: Recommendation and collection results for offsite channels (email, SMS,
-    push, social, paid media), including redirecting item image and item URL endpoints
-    addressable by pod/collection and position.
-  humanURL: https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
-  baseURL: https://offsite-discovery.cnstrc.com
-  tags:
-  - offsite-discovery
-  - email-recommendations
-  - Cross-Channel
-  tags_raw:
-  - offsite-discovery
-  - email-recommendations
-  - cross-channel
-  properties:
-  - type: OpenAPI
-    url: openapi/constructorio-offsite-discovery-recommendations-openapi.yml
-  - type: APIReference
-    url: https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
-  - type: Overlay
-    url: overlays/constructorio-offsite-discovery-recommendations-overlay.yaml
-- name: Constructor Retail Media API
-  description: Retail media surface for updating advertiser engagement suspension status
-    and retrieving per-advertiser ad spend accrued within an index.
-  humanURL: https://docs.constructor.com/reference/v1-engagements-update
-  baseURL: https://retail.media-cnstrc.com
-  tags:
-  - Retail Media
-  - sponsored-listings
-  - Advertising
-  tags_raw:
-  - retail-media
-  - sponsored-listings
-  - advertising
-  properties:
-  - type: OpenAPI
-    url: openapi/constructorio-retail-media-openapi.yml
-  - type: APIReference
-    url: https://docs.constructor.com/reference/v1-engagements-update
-  - type: Overlay
-    url: overlays/constructorio-retail-media-overlay.yaml
-- name: Constructor Retail Media Display Ads API
-  description: Display-ads surface returning ads for each requested placement, with
-    banner and multi-banner placement responses ordered by auction rank.
-  humanURL: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
-  baseURL: https://display.media-cnstrc.com
-  tags:
-  - Retail Media
-  - Display Ads
-  - Advertising
-  tags_raw:
-  - retail-media
-  - display-ads
-  - advertising
-  properties:
-  - type: OpenAPI
-    url: openapi/constructorio-retail-media-display-ads-openapi.yml
-  - type: APIReference
-    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
-  - type: Overlay
-    url: overlays/constructorio-retail-media-display-ads-overlay.yaml
-- name: Constructor Product Details API
-  description: Retrieval of item and variation product-detail records for a given index.
-  humanURL: https://docs.constructor.com/reference/v1-product-details-get-items
-  baseURL: https://product-details.cnstrc.com
-  tags:
-  - product-details
-  - Catalog
-  tags_raw:
-  - product-details
-  - catalog
-  properties:
-  - type: OpenAPI
-    url: openapi/constructorio-product-details-openapi.yml
-  - type: APIReference
-    url: https://docs.constructor.com/reference/v1-product-details-get-items
-  - type: Overlay
-    url: overlays/constructorio-product-details-overlay.yaml
-- name: Constructor Behavioral Actions API
-  description: Offline behavioral-action ingestion for submitting user events (such
-    as purchases and conversions) that feed Constructor's KPI-optimized ranking.
-  humanURL: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
-  baseURL: https://ac.cnstrc.com
-  tags:
-  - Behavioral Data
-  - Analytics
-  - Event
-  tags_raw:
-  - behavioral-data
-  - analytics
-  - events
-  properties:
-  - type: OpenAPI
-    url: openapi/constructorio-behavioral-actions-openapi.yml
-  - type: APIReference
-    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
-  - type: Overlay
-    url: overlays/constructorio-behavioral-actions-overlay.yaml
-- name: Constructor User Profile API
-  description: Creation of user preference records that personalize discovery results
-    for an identified shopper.
-  humanURL: https://docs.constructor.com/reference/v1-user-profile-create-preferences
-  baseURL: https://user-profile.cnstrc.com
-  tags:
-  - User Profile
-  - Personalization
-  tags_raw:
-  - user-profile
-  - personalization
-  properties:
-  - type: OpenAPI
-    url: openapi/constructorio-user-profile-openapi.yml
-  - type: APIReference
-    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
-  - type: Overlay
-    url: overlays/constructorio-user-profile-overlay.yaml
 - name: Constructor Documentation MCP Server
-  description: Remote, anonymously reachable Model Context Protocol server published
-    by Constructor that exposes documentation search/fetch and OpenAPI endpoint discovery
-    tools to AI coding tools such as Claude, Cursor and Windsurf.
+  description: >-
+    Remote, anonymously reachable Model Context Protocol server published by Constructor that exposes
+    documentation search/fetch and OpenAPI endpoint discovery tools to AI coding tools such as Claude,
+    Cursor and Windsurf.
   humanURL: https://docs.constructor.com/docs/ai-tooling-mcp-server
   baseURL: https://docs.constructor.com/mcp
   tags:
@@ -403,12 +67,1769 @@ apis:
     url: mcp/constructorio-tool-crosswalk.yml
   - type: Documentation
     url: https://docs.constructor.com/docs/ai-tooling-mcp-server
+- aid: constructorio:constructorio-autocomplete-results-api
+  name: Constructor.io Autocomplete results API
+  description: >-
+    The Autocomplete results API from Constructor.io — 1 operation(s) for autocomplete results.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Autocomplete results
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-autocomplete-results-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-behavioral-actions-api
+  name: Constructor.io Behavioral actions API
+  description: The Behavioral actions API from Constructor.io — 1 operation(s) for behavioral actions.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Behavioral actions
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-behavioral-actions-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-browse-collections-api
+  name: Constructor.io Browse collections API
+  description: The Browse collections API from Constructor.io — 1 operation(s) for browse collections.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Browse collections
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-browse-collections-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-browse-facets-api
+  name: Constructor.io Browse facets API
+  description: The Browse facets API from Constructor.io — 3 operation(s) for browse facets.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Browse facets
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-browse-facets-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-browse-groups-api
+  name: Constructor.io Browse groups API
+  description: The Browse groups API from Constructor.io — 1 operation(s) for browse groups.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Browse groups
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-browse-groups-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-browse-results-api
+  name: Constructor.io Browse results API
+  description: The Browse results API from Constructor.io — 4 operation(s) for browse results.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Browse results
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-browse-results-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-catalog-api
+  name: Constructor.io Catalog API
+  description: The Catalog API from Constructor.io — 1 operation(s) for catalog.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Catalog
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-catalog-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-collections-api
+  name: Constructor.io Collections API
+  description: The Collections API from Constructor.io — 4 operation(s) for collections.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Collections
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-collections-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-display-ads-api
+  name: Constructor.io Display Ads API
+  description: The Display Ads API from Constructor.io — 2 operation(s) for display ads.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Display Ads
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-display-ads-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-engagements-api
+  name: Constructor.io Engagements API
+  description: The Engagements API from Constructor.io — 2 operation(s) for engagements.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Engagements
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-engagements-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-facet-campaigns-api
+  name: Constructor.io Facet campaigns API
+  description: The Facet campaigns API from Constructor.io — 2 operation(s) for facet campaigns.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Facet campaigns
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-facet-campaigns-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-facets-api
+  name: Constructor.io Facets API
+  description: The Facets API from Constructor.io — 6 operation(s) for facets.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Facets
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-facets-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-image-search-results-api
+  name: Constructor.io Image Search results API
+  description: >-
+    The Image Search results API from Constructor.io — 2 operation(s) for image search results.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Image Search results
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-image-search-results-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-item-groups-api
+  name: Constructor.io Item groups API
+  description: The Item groups API from Constructor.io — 4 operation(s) for item groups.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Item groups
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-item-groups-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-item-statistics-api
+  name: Constructor.io Item statistics API
+  description: The Item statistics API from Constructor.io — 2 operation(s) for item statistics.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Item statistics
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-item-statistics-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-items-api
+  name: Constructor.io Items API
+  description: The Items API from Constructor.io — 2 operation(s) for items.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Items
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-items-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-metadata-overrides-api
+  name: Constructor.io Metadata overrides API
+  description: The Metadata overrides API from Constructor.io — 2 operation(s) for metadata overrides.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Metadata overrides
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-metadata-overrides-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-natural-language-search-results-api
+  name: Constructor.io Natural language search results API
+  description: >-
+    The Natural language search results API from Constructor.io — 1 operation(s) for natural language
+    search results.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Natural language search results
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-natural-language-search-results-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-offsite-discovery-results-api
+  name: Constructor.io Offsite Discovery results API
+  description: >-
+    Endpoints for retrieving AI-optimized recommendation results for products to use in Offsite Discovery.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Offsite Discovery results
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-offsite-discovery-results-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-product-details-api
+  name: Constructor.io Product details API
+  description: The Product details API from Constructor.io — 2 operation(s) for product details.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Product details
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-product-details-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-product-resources-api
+  name: Constructor.io Product resources API
+  description: Endpoints for retrieving individual product resources (e.g., images, URLs) by position.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Product resources
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-product-resources-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-quizzes-api
+  name: Constructor.io Quizzes API
+  description: The Quizzes API from Constructor.io — 1 operation(s) for quizzes.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Quizzes
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-quizzes-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-recommendation-results-api
+  name: Constructor.io Recommendation results API
+  description: >-
+    The Recommendation results API from Constructor.io — 1 operation(s) for recommendation results.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Recommendation results
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-recommendation-results-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-redirect-rules-api
+  name: Constructor.io Redirect rules API
+  description: The Redirect rules API from Constructor.io — 2 operation(s) for redirect rules.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Redirect rules
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-redirect-rules-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-results-api
+  name: Constructor.io Results API
+  description: The Results API from Constructor.io — 6 operation(s) for results.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Results
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-results-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-search-results-api
+  name: Constructor.io Search results API
+  description: The Search results API from Constructor.io — 1 operation(s) for search results.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Search results
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-search-results-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-searchabilities-api
+  name: Constructor.io Searchabilities API
+  description: The Searchabilities API from Constructor.io — 4 operation(s) for searchabilities.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Searchabilities
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-searchabilities-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-searchandising-by-user-request-data-api
+  name: Constructor.io Searchandising by User Request Data API
+  description: >-
+    The Searchandising by User Request Data API from Constructor.io — 2 operation(s) for searchandising
+    by user request data.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Searchandising by User Request Data
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-searchandising-by-user-request-data-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-searchandising-campaigns-api
+  name: Constructor.io Searchandising campaigns API
+  description: >-
+    The Searchandising campaigns API from Constructor.io — 2 operation(s) for searchandising campaigns.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Searchandising campaigns
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-searchandising-campaigns-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-searchandising-for-browse-api
+  name: Constructor.io Searchandising for Browse API
+  description: >-
+    The Searchandising for Browse API from Constructor.io — 3 operation(s) for searchandising for browse.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Searchandising for Browse
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-searchandising-for-browse-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-searchandising-for-collections-api
+  name: Constructor.io Searchandising for Collections API
+  description: >-
+    The Searchandising for Collections API from Constructor.io — 2 operation(s) for searchandising for
+    collections.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Searchandising for Collections
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-searchandising-for-collections-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-searchandising-for-search-api
+  name: Constructor.io Searchandising for Search API
+  description: >-
+    The Searchandising for Search API from Constructor.io — 2 operation(s) for searchandising for search.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Searchandising for Search
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-searchandising-for-search-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-sort-options-api
+  name: Constructor.io Sort options API
+  description: The Sort options API from Constructor.io — 3 operation(s) for sort options.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Sort options
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-sort-options-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-synonym-groups-api
+  name: Constructor.io Synonym groups API
+  description: The Synonym groups API from Constructor.io — 2 operation(s) for synonym groups.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Synonym groups
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-synonym-groups-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-synonyms-api
+  name: Constructor.io Synonyms API
+  description: The Synonyms API from Constructor.io — 2 operation(s) for synonyms.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Synonyms
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-synonyms-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-tasks-api
+  name: Constructor.io Tasks API
+  description: The Tasks API from Constructor.io — 2 operation(s) for tasks.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Tasks
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-tasks-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-user-preferences-api
+  name: Constructor.io User preferences API
+  description: The User preferences API from Constructor.io — 1 operation(s) for user preferences.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - User preferences
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-user-preferences-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
+- aid: constructorio:constructorio-variations-api
+  name: Constructor.io Variations API
+  description: The Variations API from Constructor.io — 2 operation(s) for variations.
+  humanURL: https://docs.constructor.com/reference/search-search-results
+  baseURL: https://ac.cnstrc.com
+  tags:
+  - Variations
+  properties:
+  - type: OpenAPI
+    url: openapi/constructorio-variations-api-openapi.yml
+  - type: APIReference
+    url: https://docs.constructor.com/reference/search-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/autocomplete-autocomplete-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/browse-browse-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/recommendations-recommendation-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/image-search-image-search-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-asa-retrieve-intent
+  - type: APIReference
+    url: https://docs.constructor.com/reference/catalog-management-introduction
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-batching-items-update-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/configuration-facets
+  - type: APIReference
+    url: https://docs.constructor.com/reference/searchandising-searchandising-for-search
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-quizzes-get-next-question
+  - type: APIReference
+    url: >-
+      https://docs.constructor.com/reference/offsite-discovery-recommendations-offsite-discovery-results
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-engagements-update
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v2-display-ads-retrieve-display-ads
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-product-details-get-items
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-offline-behavioral-actions-create-actions
+  - type: APIReference
+    url: https://docs.constructor.com/reference/v1-user-profile-create-preferences
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Overlay
+  url: overlays/constructorio-search-overlay.yaml
+- type: Overlay
+  url: overlays/constructorio-autocomplete-overlay.yaml
+- type: Overlay
+  url: overlays/constructorio-browse-overlay.yaml
+- type: Overlay
+  url: overlays/constructorio-recommendations-overlay.yaml
+- type: Overlay
+  url: overlays/constructorio-image-search-overlay.yaml
+- type: Overlay
+  url: overlays/constructorio-ai-shopping-agent-overlay.yaml
+- type: Overlay
+  url: overlays/constructorio-catalog-management-overlay.yaml
+- type: Overlay
+  url: overlays/constructorio-catalog-batching-overlay.yaml
+- type: Overlay
+  url: overlays/constructorio-configuration-overlay.yaml
+- type: Overlay
+  url: overlays/constructorio-searchandising-overlay.yaml
+- type: Overlay
+  url: overlays/constructorio-quizzes-overlay.yaml
+- type: Overlay
+  url: overlays/constructorio-offsite-discovery-recommendations-overlay.yaml
+- type: Overlay
+  url: overlays/constructorio-retail-media-overlay.yaml
+- type: Overlay
+  url: overlays/constructorio-retail-media-display-ads-overlay.yaml
+- type: Overlay
+  url: overlays/constructorio-product-details-overlay.yaml
+- type: Overlay
+  url: overlays/constructorio-behavioral-actions-overlay.yaml
+- type: Overlay
+  url: overlays/constructorio-user-profile-overlay.yaml
 - type: Website
   url: https://constructor.com/
 - type: DeveloperPortal
