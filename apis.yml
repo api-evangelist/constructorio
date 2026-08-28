@@ -11,6 +11,18 @@ description: Constructor (Constructor.io) is an AI-powered ecommerce search and 
   behavioral re-ranking and per-user personalization, and are delivered through a REST
   API served from the ac.cnstrc.com family of hosts with first-party client libraries
   for JavaScript, Node.js, Python, Java, .NET, Ruby, Swift and Kotlin.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://constructor.com/hubfs/constructor-featured-image-2026.png
 url: https://raw.githubusercontent.com/api-evangelist/constructorio/refs/heads/main/apis.yml
 x-type: company
