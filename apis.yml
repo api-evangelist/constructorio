@@ -1808,6 +1808,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/constructorio-capability-edges.yml
+  name: Constructor.io Business Capability Map
 - type: Overlay
   url: overlays/constructorio-search-overlay.yaml
 - type: Overlay
