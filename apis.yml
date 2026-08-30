@@ -401,6 +401,8 @@ apis:
   humanURL: https://docs.constructor.com/reference/search-search-results
   baseURL: https://ac.cnstrc.com
   tags:
+  - Collection
+  tags_raw:
   - Collections
   properties:
   - type: OpenAPI
@@ -762,6 +764,8 @@ apis:
   humanURL: https://docs.constructor.com/reference/search-search-results
   baseURL: https://ac.cnstrc.com
   tags:
+  - Item
+  tags_raw:
   - Items
   properties:
   - type: OpenAPI
@@ -1126,6 +1130,8 @@ apis:
   humanURL: https://docs.constructor.com/reference/search-search-results
   baseURL: https://ac.cnstrc.com
   tags:
+  - Redirect Rules
+  tags_raw:
   - Redirect rules
   properties:
   - type: OpenAPI
@@ -1673,6 +1679,8 @@ apis:
   humanURL: https://docs.constructor.com/reference/search-search-results
   baseURL: https://ac.cnstrc.com
   tags:
+  - Task
+  tags_raw:
   - Tasks
   properties:
   - type: OpenAPI
@@ -1718,6 +1726,8 @@ apis:
   humanURL: https://docs.constructor.com/reference/search-search-results
   baseURL: https://ac.cnstrc.com
   tags:
+  - User Preferences
+  tags_raw:
   - User preferences
   properties:
   - type: OpenAPI
