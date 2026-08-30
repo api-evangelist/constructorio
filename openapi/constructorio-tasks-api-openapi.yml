@@ -1,0 +1,1164 @@
+openapi: 3.2.0
+info:
+  contact:
+    email: support@constructor.io
+  title: Catalog management Tasks API
+  version: '0.1'
+servers:
+- url: https://ac.cnstrc.com
+security: []
+tags:
+- name: Tasks
+paths:
+  /v1/tasks:
+    get:
+      tags:
+      - Tasks
+      operationId: v1-tasks-retrieve-tasks
+      summary: Retrieve tasks
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(r)`.
+
+
+        Retrieve all tasks.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: num_results_per_page
+        in: query
+        schema:
+          title: Num Results Per Page
+          description: The number of results per page to return.
+          default: 20
+          minimum: 1
+          maximum: 100
+          examples:
+          - 20
+          - 50
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          title: Page
+          description: The page of results to return.
+          minimum: 1
+          examples:
+          - 1
+          - 2
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          title: Offset
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          minimum: 0
+          examples:
+          - 0
+          - 100
+          type: integer
+        required: false
+      - name: status
+        in: query
+        schema:
+          description: The status to filter tasks by
+          examples:
+          - QUEUED
+          - DONE
+          - FAILED
+          allOf:
+          - $ref: '#/components/schemas/TaskStatus'
+        required: false
+      - name: type
+        in: query
+        schema:
+          title: Type
+          description: The type to filter tasks by. Possible values are `ingestion`, `user_data_request`, `copy_data`, `catalog_export`.
+          default:
+          - ingestion
+          - user_data_request
+          - copy_data
+          - catalog_export
+          examples:
+          - ingestion
+          - copy_data
+          - catalog_export
+          anyOf:
+          - type: string
+            enum:
+            - ingestion
+            - user_data_request
+            - copy_data
+            - catalog_export
+          - type: array
+            items:
+              type: string
+              enum:
+              - ingestion
+              - user_data_request
+              - copy_data
+              - catalog_export
+        required: false
+      - name: end_date
+        in: query
+        schema:
+          title: End Date
+          description: The end date to filter tasks by. Date format should be `yyyy-mm-dd`
+          examples:
+          - '2024-12-31'
+          - '2024-06-30'
+          type: string
+        required: false
+      - name: start_date
+        in: query
+        schema:
+          title: Start Date
+          description: The start date to filter tasks by. Date format should be `yyyy-mm-dd`
+          examples:
+          - '2024-01-01'
+          - '2024-06-15'
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskListGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(r)
+    post:
+      tags:
+      - Tasks
+      operationId: v1-tasks-create-task
+      summary: Create task
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`.
+
+
+        Create a task.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskListPostRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskListPostResponse'
+        '303':
+          description: See Other
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskListPostAlreadyExistsResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+    patch:
+      tags:
+      - Tasks
+      operationId: v1-tasks-update-tasks
+      summary: Update tasks
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`.
+
+
+        Update the status of a list of tasks to queue or cancel them.'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskListPatchRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskListPatchResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+  /v1/tasks/{task_id}:
+    get:
+      tags:
+      - Tasks
+      operationId: v1-tasks-retrieve-task
+      summary: Retrieve task
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(r)`.
+
+
+        Retrieve a task.'
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(r)
+    patch:
+      tags:
+      - Tasks
+      operationId: v1-tasks-update-task
+      summary: Update task
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`.
+
+
+        Update the status of a single task to queue or cancel it.'
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskPatchRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskPatchResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+components:
+  schemas:
+    UserDataRequestResult:
+      title: UserDataRequestResult
+      type: object
+      properties:
+        data_url:
+          title: Data Url
+          description: Link to file with user's data.
+          type: string
+      additionalProperties: false
+    TaskListPostResponse:
+      title: TaskListPostResponse
+      oneOf:
+      - oneOf:
+        - $ref: '#/components/schemas/UserDataRequestTaskResponse'
+        - $ref: '#/components/schemas/UserDataRequestTaskErrorResponse'
+      - oneOf:
+        - $ref: '#/components/schemas/CatalogExportTaskResponse'
+        - $ref: '#/components/schemas/CatalogExportTaskErrorResponse'
+    TaskListPatchRequestBody:
+      title: TaskListPatchRequestBody
+      type: object
+      properties:
+        tasks:
+          title: Tasks
+          description: This will have the list of tasks that you want to update, each task is a JSON that have id and status fields, maximum length of tasks is 1000.
+          minItems: 1
+          maxItems: 1000
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskBatchItem'
+      required:
+      - tasks
+      additionalProperties: false
+    CatalogExportResult:
+      title: Catalog export result
+      description: Contains the export file URL and entity count for a catalog export task result.
+      type: object
+      properties:
+        url:
+          title: URL
+          description: An expiring download URL for the export file. The URL expires three days after the export file is generated. May be `null` when the export contains no entities.
+          type:
+          - string
+          - 'null'
+        count:
+          title: Count
+          description: Count of exported entities, such as items, variations, or item groups. For catalog export task results created before counts were returned, this key is omitted rather than returned as `null`.
+          type: integer
+      required:
+      - url
+    TaskListPostRequestBodyUserDataRequest:
+      title: User data request task
+      type: object
+      properties:
+        action:
+          title: Action
+          default: request_report
+          enum:
+          - request_report
+          type: string
+        user_id:
+          title: User Id
+          type: string
+        type:
+          title: Type
+          enum:
+          - user_data_request
+          type: string
+      required:
+      - user_id
+      - type
+      additionalProperties: false
+    TaskListPostAlreadyExistsResponse:
+      title: TaskListPostAlreadyExistsResponse
+      type: object
+      properties:
+        task_id:
+          title: Task Id
+          type: integer
+      required:
+      - task_id
+    DirectUploadChangelog:
+      title: DirectUploadChangelog
+      type: object
+      properties:
+        item_groups_updated:
+          title: Item Groups Updated
+          type: integer
+        item_groups_deleted:
+          title: Item Groups Deleted
+          type: integer
+        total_item_groups_changed:
+          title: Total Item Groups Changed
+          type: integer
+        sections:
+          title: Sections
+          type: object
+          additionalProperties:
+            type: object
+            additionalProperties:
+              type: integer
+    CopyDataTaskErrorResponse:
+      title: Copy data task error response
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the task.
+          type: integer
+        status:
+          title: Status
+          description: Current status of the task.
+          enum:
+          - FAILED
+          type: string
+        submission_time:
+          title: Submission Time
+          description: Time of task submission.
+          type: string
+          format: date-time
+        last_update:
+          title: Last Update
+          description: Last time the status of this task was updated. May be `null` if the task has never been run before.
+          type: string
+          format: date-time
+        start_time:
+          title: Start Time
+          description: Starting time of the task. May be `null` if the task has not been run yet.
+          type: string
+          format: date-time
+        type:
+          title: Type
+          enum:
+          - copy_data
+          type: string
+        error:
+          title: Error
+          description: Data about errors in case of task failure.
+          anyOf:
+          - type: string
+          - type: object
+      required:
+      - id
+      - status
+      - submission_time
+      - type
+      - args
+    TaskListPostRequestBodyCatalogExport:
+      title: Catalog export task
+      description: Creates an export of catalog data. Only one catalog export can be queued or in progress per key.
+      type: object
+      properties:
+        section:
+          title: Section
+          description: The catalog section to export. Required for `items`, `variations`, and `items_with_variations`; omit for `item_groups`. The API enforces this conditional requirement during request validation.
+          type: string
+        catalog_part:
+          title: Catalog Part
+          description: The part of the catalog to export. Supported values are `items`, `variations`, `item_groups`, and `items_with_variations`.
+          examples:
+          - items
+          - variations
+          - item_groups
+          - items_with_variations
+          enum:
+          - items
+          - variations
+          - item_groups
+          - items_with_variations
+          type: string
+        from_timestamp:
+          title: From Timestamp
+          description: Only export catalog entities updated at or after this timestamp.
+          examples:
+          - '2026-01-31T10:30:00Z'
+          type: string
+          format: date-time
+        type:
+          title: Type
+          description: The type of the task.
+          enum:
+          - catalog_export
+          type: string
+      oneOf:
+      - description: Use this shape when exporting items, variations, or items with variations.
+        properties:
+          catalog_part:
+            enum:
+            - items
+            - variations
+            - items_with_variations
+          section:
+            type: string
+        required:
+        - section
+      - description: Use this shape when exporting item groups. The `section` field must be omitted.
+        properties:
+          catalog_part:
+            enum:
+            - item_groups
+        not:
+          properties:
+            section:
+              type: string
+          required:
+          - section
+      required:
+      - catalog_part
+      - type
+      additionalProperties: false
+    TaskListPostRequestBody:
+      title: TaskListPostRequestBody
+      oneOf:
+      - $ref: '#/components/schemas/TaskListPostRequestBodyUserDataRequest'
+      - $ref: '#/components/schemas/TaskListPostRequestBodyCatalogExport'
+    IngestionTaskErrorResponse:
+      title: Ingestion task error response
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the task.
+          type: integer
+        status:
+          title: Status
+          description: Current status of the task.
+          enum:
+          - FAILED
+          type: string
+        submission_time:
+          title: Submission Time
+          description: Time of task submission.
+          type: string
+          format: date-time
+        last_update:
+          title: Last Update
+          description: Last time the status of this task was updated. May be `null` if the task has never been run before.
+          type: string
+          format: date-time
+        start_time:
+          title: Start Time
+          description: Starting time of the task. May be `null` if the task has not been run yet.
+          type: string
+          format: date-time
+        type:
+          title: Type
+          enum:
+          - ingestion
+          type: string
+        error:
+          title: Error
+          description: Data about errors in case of task failure.
+          anyOf:
+          - type: string
+          - type: object
+        filename:
+          title: Filename
+          description: The name of the file uploaded to Constructor.
+          type: string
+        protocol:
+          title: Protocol
+          description: Describes if the ingestion was created via FTP, HTTP API or other source (then null).
+          enum:
+          - ftp
+          - http
+          type: string
+      required:
+      - id
+      - status
+      - submission_time
+      - type
+    TaskPatchResponse:
+      title: TaskPatchResponse
+      oneOf:
+      - oneOf:
+        - $ref: '#/components/schemas/IngestionTaskResponse'
+        - $ref: '#/components/schemas/IngestionTaskErrorResponse'
+      - oneOf:
+        - $ref: '#/components/schemas/UserDataRequestTaskResponse'
+        - $ref: '#/components/schemas/UserDataRequestTaskErrorResponse'
+      - oneOf:
+        - $ref: '#/components/schemas/CatalogExportTaskResponse'
+        - $ref: '#/components/schemas/CatalogExportTaskErrorResponse'
+    TaskListPatchResponse:
+      title: TaskListPatchResponse
+      type: object
+      properties:
+        tasks:
+          title: Tasks
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskResponse'
+      required:
+      - tasks
+      additionalProperties: false
+    IngestionTaskResponse:
+      title: Ingestion task response
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the task.
+          type: integer
+        status:
+          title: Status
+          description: Current status of the task.
+          enum:
+          - QUEUED
+          - CANCELED
+          - IN_PROGRESS
+          - DONE
+          - FAILED
+          type: string
+        submission_time:
+          title: Submission Time
+          description: Time of task submission.
+          type: string
+          format: date-time
+        last_update:
+          title: Last Update
+          description: Last time the status of this task was updated. May be `null` if the task has never been run before.
+          type: string
+          format: date-time
+        start_time:
+          title: Start Time
+          description: Starting time of the task. May be `null` if the task has not been run yet.
+          type: string
+          format: date-time
+        type:
+          title: Type
+          enum:
+          - ingestion
+          type: string
+        filename:
+          title: Filename
+          description: The name of the file uploaded to Constructor.
+          type: string
+        protocol:
+          title: Protocol
+          description: Describes if the ingestion was created via FTP, HTTP API or other source (then null).
+          enum:
+          - ftp
+          - http
+          type: string
+        result:
+          $ref: '#/components/schemas/IngestionResult'
+      required:
+      - id
+      - status
+      - submission_time
+      - type
+    TaskResponse:
+      title: TaskResponse
+      oneOf:
+      - oneOf:
+        - $ref: '#/components/schemas/IngestionTaskResponse'
+        - $ref: '#/components/schemas/IngestionTaskErrorResponse'
+      - oneOf:
+        - $ref: '#/components/schemas/UserDataRequestTaskResponse'
+        - $ref: '#/components/schemas/UserDataRequestTaskErrorResponse'
+      - oneOf:
+        - $ref: '#/components/schemas/CopyDataTaskResponse'
+        - $ref: '#/components/schemas/CopyDataTaskErrorResponse'
+      - oneOf:
+        - $ref: '#/components/schemas/CatalogExportTaskResponse'
+        - $ref: '#/components/schemas/CatalogExportTaskErrorResponse'
+    CopyDataTaskResponse:
+      title: Copy data task response
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the task.
+          type: integer
+        status:
+          title: Status
+          description: Current status of the task.
+          enum:
+          - QUEUED
+          - CANCELED
+          - IN_PROGRESS
+          - DONE
+          - FAILED
+          type: string
+        submission_time:
+          title: Submission Time
+          description: Time of task submission.
+          type: string
+          format: date-time
+        last_update:
+          title: Last Update
+          description: Last time the status of this task was updated. May be `null` if the task has never been run before.
+          type: string
+          format: date-time
+        start_time:
+          title: Start Time
+          description: Starting time of the task. May be `null` if the task has not been run yet.
+          type: string
+          format: date-time
+        type:
+          title: Type
+          enum:
+          - copy_data
+          type: string
+        result:
+          $ref: '#/components/schemas/CopyDataResult'
+      required:
+      - id
+      - status
+      - submission_time
+      - type
+      - args
+    TaskListGetResponse:
+      title: TaskListGetResponse
+      type: object
+      properties:
+        tasks:
+          title: Tasks
+          default: []
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskResponse'
+        total_count:
+          title: Total Count
+          minimum: 0
+          type: integer
+        status_counts:
+          title: Status Counts
+          type: object
+          additionalProperties:
+            type: integer
+            minimum: 0
+      required:
+      - total_count
+      - status_counts
+      additionalProperties: false
+    TaskBatchItem:
+      title: TaskBatchItem
+      type: object
+      properties:
+        id:
+          title: Id
+          description: This contains the task id that you want to update, note that if one of the ids does not exists, the whole batch won't be updated.
+          examples:
+          - 1
+          - 42
+          type: integer
+        status:
+          title: Status
+          description: 'This contains the new status that you want to update the task with, the only allowed values are: [''QUEUED'', ''CANCELED''].'
+          examples:
+          - QUEUED
+          - CANCELED
+          enum:
+          - QUEUED
+          - CANCELED
+          type: string
+      required:
+      - id
+      - status
+      additionalProperties: false
+    TaskStatus:
+      title: TaskStatus
+      enum:
+      - QUEUED
+      - IN_PROGRESS
+      - DONE
+      - FAILED
+      - CANCELED
+      type: string
+    CopyDataResult:
+      title: CopyDataResult
+      description: Object of each section which has the succeeded and failed resources to copy.
+      type: object
+      additionalProperties: false
+    UserDataRequestTaskErrorResponse:
+      title: User data request task error response
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the task.
+          type: integer
+        status:
+          title: Status
+          description: Current status of the task.
+          enum:
+          - FAILED
+          type: string
+        submission_time:
+          title: Submission Time
+          description: Time of task submission.
+          type: string
+          format: date-time
+        last_update:
+          title: Last Update
+          description: Last time the status of this task was updated. May be `null` if the task has never been run before.
+          type: string
+          format: date-time
+        start_time:
+          title: Start Time
+          description: Starting time of the task. May be `null` if the task has not been run yet.
+          type: string
+          format: date-time
+        type:
+          title: Type
+          enum:
+          - user_data_request
+          type: string
+        error:
+          title: Error
+          description: Data about errors in case of task failure.
+          anyOf:
+          - type: string
+          - type: object
+        user_id:
+          title: User Id
+          type: string
+      required:
+      - id
+      - status
+      - submission_time
+      - type
+    IngestionResult:
+      title: Ingestion result
+      type: object
+      properties:
+        changelog:
+          title: Changelog
+          description: Changes in catalog made by the task.
+          examples:
+          - item_groups_updated: 10
+            item_groups_deleted: 0
+          allOf:
+          - $ref: '#/components/schemas/DirectUploadChangelog'
+        index_built:
+          title: Index Built
+          description: Shows if changes from the task have been indexed.
+          examples:
+          - true
+          - false
+          type: boolean
+        ingestion_warnings:
+          title: Ingestion Warnings
+          description: A list of the warnings produced during ingestion.
+          type: array
+          items:
+            $ref: '#/components/schemas/IngestionWarning'
+      required:
+      - changelog
+      - index_built
+    CatalogExportTaskErrorResponse:
+      title: Catalog export task error response
+      description: Error response for a catalog export task.
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the task.
+          type: integer
+        status:
+          title: Status
+          description: Current status of the task.
+          enum:
+          - FAILED
+          type: string
+        submission_time:
+          title: Submission Time
+          description: Time of task submission.
+          type: string
+          format: date-time
+        last_update:
+          title: Last Update
+          description: Last time the status of this task was updated. May be `null` if the task has never been run before.
+          type:
+          - string
+          - 'null'
+          format: date-time
+        start_time:
+          title: Start Time
+          description: Starting time of the task. May be `null` if the task has not been run yet.
+          type:
+          - string
+          - 'null'
+          format: date-time
+        type:
+          title: Type
+          description: The type of the task.
+          enum:
+          - catalog_export
+          type: string
+        error:
+          title: Error
+          description: Data about errors in case of task failure.
+          anyOf:
+          - type: string
+          - type: object
+        section:
+          title: Section
+          description: The catalog section used for the export. Valid values are the catalog section names configured for the index, such as `Products`; this mirrors the `section` request parameter.
+          type: string
+        catalog_part:
+          title: Catalog Part
+          description: The part of the catalog that was exported.
+          enum:
+          - items
+          - variations
+          - item_groups
+          - items_with_variations
+          type: string
+      required:
+      - id
+      - status
+      - submission_time
+      - type
+    UserDataRequestTaskResponse:
+      title: User data request task response
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the task.
+          type: integer
+        status:
+          title: Status
+          description: Current status of the task.
+          enum:
+          - QUEUED
+          - CANCELED
+          - IN_PROGRESS
+          - DONE
+          - FAILED
+          type: string
+        submission_time:
+          title: Submission Time
+          description: Time of task submission.
+          type: string
+          format: date-time
+        last_update:
+          title: Last Update
+          description: Last time the status of this task was updated. May be `null` if the task has never been run before.
+          type: string
+          format: date-time
+        start_time:
+          title: Start Time
+          description: Starting time of the task. May be `null` if the task has not been run yet.
+          type: string
+          format: date-time
+        type:
+          title: Type
+          enum:
+          - user_data_request
+          type: string
+        user_id:
+          title: User Id
+          type: string
+        result:
+          $ref: '#/components/schemas/UserDataRequestResult'
+      required:
+      - id
+      - status
+      - submission_time
+      - type
+    TaskGetResponse:
+      title: TaskGetResponse
+      oneOf:
+      - oneOf:
+        - $ref: '#/components/schemas/IngestionTaskResponse'
+        - $ref: '#/components/schemas/IngestionTaskErrorResponse'
+      - oneOf:
+        - $ref: '#/components/schemas/UserDataRequestTaskResponse'
+        - $ref: '#/components/schemas/UserDataRequestTaskErrorResponse'
+      - oneOf:
+        - $ref: '#/components/schemas/CopyDataTaskResponse'
+        - $ref: '#/components/schemas/CopyDataTaskErrorResponse'
+      - oneOf:
+        - $ref: '#/components/schemas/CatalogExportTaskResponse'
+        - $ref: '#/components/schemas/CatalogExportTaskErrorResponse'
+    TaskPatchRequestBody:
+      title: TaskPatchRequestBody
+      type: object
+      properties:
+        status:
+          title: Status
+          description: This contains the new status that you want to update the task with. It is only allowed to cancel queued tasks by setting their status to `CANCELED` or re-run tasks that are not in progress by setting their status to `QUEUED`.In-progress tasks cannot be modified.
+          examples:
+          - QUEUED
+          - CANCELED
+          enum:
+          - QUEUED
+          - CANCELED
+          type: string
+      required:
+      - status
+      additionalProperties: false
+    IngestionWarning:
+      title: IngestionWarning
+      type: object
+      properties:
+        code:
+          title: Code
+          description: Warning code
+          examples:
+          - MISSING_FIELD
+          - DUPLICATE_ITEM
+          type: string
+        message:
+          title: Message
+          description: Warning message
+          examples:
+          - Field 'price' is missing for item 'product-123'
+          type: string
+        data:
+          title: Data
+          description: Additional data related to warning
+          examples:
+          - item_id: product-123
+            field: price
+          type: object
+      required:
+      - code
+      - message
+      additionalProperties: false
+    CatalogExportTaskResponse:
+      title: Catalog export task response
+      description: Response for a catalog export task.
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the task.
+          type: integer
+        status:
+          title: Status
+          description: Current status of the task.
+          enum:
+          - QUEUED
+          - CANCELED
+          - IN_PROGRESS
+          - DONE
+          type: string
+        submission_time:
+          title: Submission Time
+          description: Time of task submission.
+          type: string
+          format: date-time
+        last_update:
+          title: Last Update
+          description: Last time the status of this task was updated. May be `null` if the task has never been run before.
+          type:
+          - string
+          - 'null'
+          format: date-time
+        start_time:
+          title: Start Time
+          description: Starting time of the task. May be `null` if the task has not been run yet.
+          type:
+          - string
+          - 'null'
+          format: date-time
+        type:
+          title: Type
+          description: The type of the task.
+          enum:
+          - catalog_export
+          type: string
+        section:
+          title: Section
+          description: The catalog section used for the export. Valid values are the catalog section names configured for the index, such as `Products`; this mirrors the `section` request parameter.
+          type: string
+        catalog_part:
+          title: Catalog Part
+          description: The part of the catalog that was exported.
+          enum:
+          - items
+          - variations
+          - item_groups
+          - items_with_variations
+          type: string
+        result:
+          description: The result of the catalog export task.
+          $ref: '#/components/schemas/CatalogExportResult'
+      required:
+      - id
+      - status
+      - submission_time
+      - type
+  securitySchemes:
+    http_basic_auth:
+      type: http
+      scheme: basic
+    http_bearer_auth:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: false

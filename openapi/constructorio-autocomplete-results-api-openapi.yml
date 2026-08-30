@@ -1,0 +1,785 @@
+openapi: 3.2.0
+info:
+  contact:
+    email: support@constructor.io
+  title: Autocomplete results API
+  version: '0.1'
+servers:
+- url: https://ac.cnstrc.com
+security: []
+tags:
+- name: Autocomplete results
+paths:
+  /v1/autocomplete/{prefix}:
+    get:
+      tags:
+      - Autocomplete results
+      operationId: v1-autocomplete-get-autocomplete-results
+      summary: Retrieve by prefix
+      description: Retrieve AI optimized autocomplete results for products and search suggestions (and/or optionally other sections). Prefix length is limited to 200 characters.
+      parameters:
+      - name: prefix
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+          examples:
+          - red shoes
+          - lipstick
+      - name: key
+        in: query
+        schema:
+          description: The key of the index to use.
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          title: Key
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: true
+      - name: num_section_results_per_page
+        in: query
+        schema:
+          default: {}
+          description: The number of section results per page to return.
+          examples:
+          - Products: 10
+            Search Suggestions: 5
+          title: Num Section Results Per Page
+          additionalProperties:
+            maximum: 50
+            minimum: 0
+            type: integer
+          type: object
+        required: false
+      - name: offset_per_section
+        in: query
+        schema:
+          default: {}
+          description: The offset of section results to return.
+          examples:
+          - Products: 0
+            Search Suggestions: 0
+          title: Offset Per Section
+          additionalProperties:
+            minimum: 0
+            type: integer
+          type: object
+        required: false
+      - name: page_per_section
+        in: query
+        schema:
+          default: {}
+          description: The page of section results to return.
+          examples:
+          - Products: 1
+            Search Suggestions: 1
+          title: Page Per Section
+          additionalProperties:
+            minimum: 1
+            type: integer
+          type: object
+        required: false
+      - name: filters
+        in: query
+        schema:
+          description: Any number of filtering criteria (accessible to end users) used to narrow the result set, such as `color=blue` or `group_id=sandals` or `price=100-200`. Facets and Item Groups and Collections can be used as filters. If `filter_value` has the form `<min>-<max>`, it is interpreted as a range. Filters with the same key are ORed together and filters with different keys are ANDed together by default. Only results that match the filters are returned. Boolean values are serialized with the first letter capitalized (e.g., `True` / `False`) as a convention. Supports per-section format using bracket notation (e.g., `filters[Products][color]=blue`) to apply filters to a specific section only.
+          examples:
+          - color:
+            - red
+            - blue
+            price:
+            - 100-200
+          - '[Products][color]=blue'
+          allOf:
+          - $ref: '#/components/schemas/Filters'
+          title: Filters
+        required: false
+        style: deepObject
+        explode: true
+      - name: filter_match_types
+        in: query
+        schema:
+          description: 'An object specifying whether results must match `all`, `any` or `none` of a given filter when multiple options of the same facet (e.g: color: yellow & blue) are selected.'
+          examples:
+          - color: any
+            size: all
+          title: Filter Match Types
+          additionalProperties:
+            $ref: '#/components/schemas/FilterMatchType'
+          type: object
+        required: false
+        style: deepObject
+        explode: true
+      - name: pre_filter_expression
+        in: query
+        schema:
+          description: A JSON-encoded [filter expression](/reference/shared-filter-expressions) containing any number of filters (inaccessible to end users) used to narrow the result set. Applied before user-selected `filters`. Only items that match this expression are considered in facet counts. Only results that match the filters are returned. [Read more](/reference/shared-pre-filter-expressions). Supports per-section format using bracket notation (e.g., `pre_filter_expression[Products]={...}`) to apply to specific sections only.
+          examples:
+          - '{"and":[{"name":"brand","value":"Nike"}]}'
+          - '[Products]={"and":[{"name":"brand","value":"Nike"}]}'
+          allOf:
+          - $ref: '#/components/schemas/PreFilterExpression'
+          title: Pre Filter Expression
+        required: false
+      - name: num_results
+        in: query
+        schema:
+          examples:
+          - 10
+          title: Num Results
+          maximum: 50
+          minimum: 0
+          type: integer
+        required: false
+      - name: now
+        in: query
+        schema:
+          description: A date time representing the current moment in time when applying filtering by product age. Used to emulate "past/future" requests. Requires authentication.
+          examples:
+          - '2024-01-15T10:30:00Z'
+          title: Now
+          format: date-time
+          type: string
+        required: false
+      - name: variations_map
+        in: query
+        schema:
+          description: A JSON string containing a instructions on how to map item variation data in the response (typically used for swatches). More details, including the exact schema for this value can be found [here](/reference/shared-variations-mapping)
+          examples:
+          - '{"group_by":[{"name":"color","field":"data.color"}],"values":{"price":{"aggregation":"min","field":"data.price"}},"dtype":"array"}'
+          format: json
+          title: Variations Map
+          type: string
+          allOf:
+          - $ref: '#/components/schemas/VariationsMap'
+        required: false
+      - name: fmt_options
+        in: query
+        schema:
+          description: An object containing options to format different aspect of the response.
+          allOf:
+          - $ref: '#/components/schemas/AutocompleteFmtOptions'
+          title: Fmt Options
+        required: false
+        style: deepObject
+        explode: true
+      - name: qs
+        in: query
+        schema:
+          description: A JSON-encoded query string. Any query parameters listed for this endpoint can be serialized into a JSON string and parsed thru the `qs` param.
+          format: json
+          title: Qs
+          type: string
+        required: false
+      - name: origin_referrer
+        in: query
+        schema:
+          description: The url or app location where the request originated.
+          examples:
+          - https://example.com/search
+          title: Origin Referrer
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          examples:
+          - cio-js-client-2.35.2
+          title: C
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: us
+        in: query
+        schema:
+          description: A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments.
+          title: us
+          items:
+            minLength: 1
+            type: string
+            examples:
+            - vip-member
+            - us-east-region
+          type: array
+        required: false
+      - name: ui
+        in: query
+        schema:
+          description: A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps Constructor to tie multiple client and session IDs together to form a behavioral data profile across devices.
+          examples:
+          - customer-user-id-456
+          title: Ui
+          type: string
+        required: false
+      - name: s
+        in: query
+        schema:
+          description: An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity.
+          examples:
+          - 1
+          title: S
+          type: integer
+        required: false
+      - name: i
+        in: query
+        schema:
+          description: A globally unique identifier for the user browser (or mobile application instance) making the request.
+          examples:
+          - user-device-id-123
+          title: I
+          type: string
+        required: false
+      - name: lang
+        in: query
+        schema:
+          description: 'A specification of the user query language. When provided, this parameter enables language-specific processing such as stemming to improve relevance and recall. '
+          examples:
+          - en
+          title: Lang
+          enum:
+          - ar
+          - ca
+          - cs
+          - da
+          - de
+          - el
+          - en
+          - es
+          - et
+          - eu
+          - fi
+          - fr
+          - ga
+          - he
+          - hi
+          - hu
+          - hy
+          - id
+          - it
+          - lt
+          - lv
+          - ne
+          - nl
+          - 'no'
+          - pl
+          - pt
+          - ro
+          - ru
+          - sk
+          - sr
+          - sv
+          - ta
+          - tr
+          - yi
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutocompleteGetResponse'
+        '400':
+          description: Validation Error
+      security: []
+components:
+  schemas:
+    VariationsMapNot:
+      additionalProperties: false
+      properties:
+        not_:
+          type: object
+          title: Not
+      required:
+      - not_
+      title: VariationsMapNot
+      type: object
+    ResultVariation:
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/ResultData'
+        value:
+          title: Value
+          type: string
+      required:
+      - data
+      - value
+      title: ResultVariation
+      type: object
+    VariationsMapSimpleAggregation:
+      properties:
+        aggregation:
+          enum:
+          - first
+          - all
+          - distinct
+          - min
+          - max
+          - field_count
+          title: Aggregation
+          type: string
+        field:
+          minLength: 1
+          title: Field
+          type: string
+      required:
+      - aggregation
+      - field
+      title: VariationsMapSimpleAggregation
+      type: object
+    SearchandizedResult:
+      additionalProperties: false
+      properties:
+        value:
+          description: Name of the matched item or variation (if variations are defined).
+          title: Value
+          type: string
+        matched_terms:
+          description: All terms within the item matching the user's query (regardless of whether misspelled).
+          items:
+            type: string
+          title: Matched Terms
+          type: array
+        data:
+          $ref: '#/components/schemas/ResultData'
+        variations:
+          description: An array of this item's variations matching user's query.
+          maxItems: 50
+          title: Variations
+          items:
+            $ref: '#/components/schemas/ResultVariation'
+          type: array
+        variations_map:
+          anyOf:
+          - items: {}
+            type: array
+          - additionalProperties: true
+            type: object
+          description: Variations data in the format requested by `variations_map` query parameter.
+          title: Variations Map
+        variation_slice:
+          description: If variation slicing is enabled, this represents the variation slice of the item.
+          title: Variation Slice
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          type: object
+        is_slotted:
+          description: '`true` if the current product is slotted as a result of searchandizing.'
+          title: Is Slotted
+          type: boolean
+        labels:
+          description: A set of miscellaneous properties of this result. For example, it can indicate whether a slotted result is advertised or promoted.
+          title: Labels
+          type: object
+      required:
+      - value
+      - matched_terms
+      - data
+      - is_slotted
+      - labels
+      title: SearchandizedResult
+      type: object
+    Path:
+      additionalProperties: false
+      properties:
+        id:
+          description: The ID of the group.
+          title: Id
+          type: string
+        display_name:
+          description: The name of the group as it is displayed to end users.
+          title: Display Name
+          type: string
+      required:
+      - id
+      title: Path
+      type: object
+    VariationsMapGrouping:
+      properties:
+        name:
+          pattern: ^\w+([ ]?[\w]+)*$
+          title: Name
+          type: string
+        field:
+          minLength: 1
+          title: Field
+          type: string
+      required:
+      - name
+      - field
+      title: VariationsMapGrouping
+      type: object
+    VariationsMapSingleFilter:
+      additionalProperties: false
+      properties:
+        field:
+          description: Path to a metadata field (dot-separated)
+          minLength: 1
+          title: Field
+          type: string
+        value:
+          anyOf:
+          - type: boolean
+          - type: integer
+          - type: number
+          - type: string
+          description: The value of this field to filter by
+          title: Value
+      required:
+      - field
+      - value
+      title: VariationsMapSingleFilter
+      type: object
+    PreFilterExpression:
+      anyOf:
+      - title: object
+        type: object
+      - format: json
+        title: Encoded JSON string
+        type: string
+      title: PreFilterExpression
+    ResultFacet:
+      additionalProperties: false
+      properties:
+        name:
+          title: Name
+          type: string
+        values:
+          items:
+            anyOf:
+            - type: number
+            - type: integer
+            - type: string
+            - type: boolean
+          title: Values
+          type: array
+      required:
+      - name
+      - values
+      title: ResultFacet
+      type: object
+    ResultGroup:
+      additionalProperties: false
+      properties:
+        group_id:
+          description: The ID of the group.
+          title: Group Id
+          type: string
+        display_name:
+          description: The name of the group as it is displayed to end users.
+          title: Display Name
+          type: string
+        path:
+          description: The path of `group_id`s above this group. `/great-grandparent/grandparent/parent/`
+          examples:
+          - /great-grandparent/grandparent/parent/
+          title: Path
+          type: string
+        path_list:
+          description: An array of groups constituting the path
+          items:
+            $ref: '#/components/schemas/Path'
+          title: Path List
+          type: array
+      required:
+      - group_id
+      - path
+      - path_list
+      title: ResultGroup
+      type: object
+    VariationsMapAnd:
+      additionalProperties: false
+      properties:
+        and_:
+          items:
+            type: array
+          title: And
+          type: array
+      required:
+      - and_
+      title: VariationsMapAnd
+      type: object
+    VariationsMapOr:
+      additionalProperties: false
+      properties:
+        or_:
+          items:
+            type: array
+          title: Or
+          type: array
+      required:
+      - or_
+      title: VariationsMapOr
+      type: object
+    FilterMatchType:
+      enum:
+      - any
+      - all
+      - none
+      title: FilterMatchType
+      type: string
+    AutocompleteFmtOptions:
+      additionalProperties: false
+      properties:
+        fields:
+          description: A list of specific item fields to return in the response. Allows the request to control which fields are returned.
+          title: Fields
+          items:
+            maxLength: 300
+            minLength: 1
+            type: string
+            examples:
+            - image_url
+            - price
+            - brand
+          maxItems: 20
+          type: array
+        show_hidden_fields:
+          default: false
+          description: A flag to return all `hidden` fields in the response.
+          examples:
+          - false
+          - true
+          title: Show Hidden Fields
+          type: boolean
+        hidden_fields:
+          description: A list of specific hidden fields to return in the response. Unlike `show_hidden_fields` this parameter allows the request to control which `hidden` fields are returned.  Used to return item fields for a particular store or user segment.
+          title: Hidden Fields
+          items:
+            maxLength: 300
+            minLength: 1
+            type: string
+            examples:
+            - inventory_count
+            - store_availability
+          maxItems: 30
+          type: array
+        variations_return_type:
+          description: A flag to return `default`, `all`, or `matched` variations.
+          examples:
+          - default
+          allOf:
+          - $ref: '#/components/schemas/VariationsReturnType'
+        show_protected_facets:
+          default: false
+          description: A flag to return all `protected` facets in the response. Requires authentication.
+          examples:
+          - false
+          - true
+          title: Show Protected Facets
+          type: boolean
+      title: AutocompleteFmtOptions
+      type: object
+    VariationsMapCountAggregation:
+      properties:
+        aggregation:
+          title: Aggregation
+          type: string
+          enum:
+          - count
+      required:
+      - aggregation
+      title: VariationsMapCountAggregation
+      type: object
+    VariationsMapFilterBy:
+      discriminator:
+        mapping:
+          and: '#/components/schemas/VariationsMapAnd'
+          not: '#/components/schemas/VariationsMapNot'
+          or: '#/components/schemas/VariationsMapOr'
+          range: '#/components/schemas/VariationsMapRange'
+          single: '#/components/schemas/VariationsMapSingleFilter'
+        propertyName: type
+      oneOf:
+      - $ref: '#/components/schemas/VariationsMapRange'
+      - $ref: '#/components/schemas/VariationsMapSingleFilter'
+      - $ref: '#/components/schemas/VariationsMapOr'
+      - $ref: '#/components/schemas/VariationsMapAnd'
+      - $ref: '#/components/schemas/VariationsMapNot'
+      title: VariationsMapFilterBy
+    VariationsReturnType:
+      enum:
+      - default
+      - all
+      - matched
+      title: VariationsReturnType
+      type: string
+    AutocompleteGetResponse:
+      additionalProperties: false
+      properties:
+        request:
+          description: The request arguments how they were interpreted by the API. This field is of arbitrary type, ie it doesn't have a guaranteed schema, and data from it shouldn't be used programmatically, it is for debugging purposes only.
+          title: Request
+          type: object
+        result_id:
+          title: Result Id
+          type: string
+        sections:
+          additionalProperties:
+            items:
+              $ref: '#/components/schemas/SearchandizedResult'
+            type: array
+          title: Sections
+          type: object
+        total_num_results_per_section:
+          title: Total Num Results Per Section
+          additionalProperties:
+            minimum: 0
+            type: integer
+          type: object
+      required:
+      - request
+      - sections
+      title: AutocompleteGetResponse
+      type: object
+    VariationsMapRange:
+      additionalProperties: false
+      properties:
+        field:
+          description: Path to a metadata field (dot-separated)
+          minLength: 1
+          title: Field
+          type: string
+        range:
+          description: This filter matches items where the specified field is within the specified range (min and max). The values are inclusive. Use "inf" for an unbounded upper limit or "-inf" for an unbounded lower limit.
+          items:
+            anyOf:
+            - enum:
+              - inf
+              - -inf
+              type: string
+            - type: integer
+            - type: number
+          maxItems: 2
+          minItems: 2
+          title: Range
+          type: array
+      required:
+      - field
+      - range
+      title: VariationsMapRange
+      type: object
+    VariationsMapValueCountAggregation:
+      properties:
+        aggregation:
+          title: Aggregation
+          type: string
+          enum:
+          - value_count
+        field:
+          minLength: 1
+          title: Field
+          type: string
+        value:
+          anyOf:
+          - type: boolean
+          - type: integer
+          - type: number
+          - type: string
+          title: Value
+      required:
+      - aggregation
+      - field
+      - value
+      title: VariationsMapValueCountAggregation
+      type: object
+    ResultData:
+      properties:
+        id:
+          description: The ID of this item as specified in the catalog.
+          title: Id
+          type: string
+        url:
+          description: The URL where the item can be viewed or purchased.
+          title: Url
+          type: string
+        image_url:
+          description: The item's image URL for display in results.
+          title: Image Url
+          type: string
+        variation_id:
+          description: ID of the selected (best matching) variation. All metadata of the best matching variation will also be merged into the item's `data` object.Returned when [item variation](#) data is defined.
+          title: Variation Id
+          type: string
+        facets:
+          description: The item's associated facets.
+          title: Facets
+          items:
+            $ref: '#/components/schemas/ResultFacet'
+          type: array
+        groups:
+          description: The item's associated categories.
+          title: Groups
+          items:
+            $ref: '#/components/schemas/ResultGroup'
+          type: array
+      title: Result data
+      type: object
+    VariationsMap:
+      properties:
+        filter_by:
+          description: A filtering expression that should be used to filter variations before doing any aggregations
+          allOf:
+          - $ref: '#/components/schemas/VariationsMapFilterBy'
+          title: Filter By
+        group_by:
+          description: An array of fields that should be used to group variations. Variations which share the value of all fields specified here will all fall under one group
+          title: Group By
+          items:
+            $ref: '#/components/schemas/VariationsMapGrouping'
+          maxItems: 5
+          type: array
+        values:
+          description: A set of aggregations that should be applied to each variation group. The object keys specify the name of the field under which each aggregated value will be returned in the response
+          title: Values
+          type: object
+          additionalProperties:
+            discriminator:
+              mapping:
+                all: '#/components/schemas/VariationsMapSimpleAggregation'
+                count: '#/components/schemas/VariationsMapCountAggregation'
+                distinct: '#/components/schemas/VariationsMapSimpleAggregation'
+                field_count: '#/components/schemas/VariationsMapSimpleAggregation'
+                first: '#/components/schemas/VariationsMapSimpleAggregation'
+                max: '#/components/schemas/VariationsMapSimpleAggregation'
+                min: '#/components/schemas/VariationsMapSimpleAggregation'
+                value_count: '#/components/schemas/VariationsMapValueCountAggregation'
+              propertyName: aggregation
+            oneOf:
+            - $ref: '#/components/schemas/VariationsMapSimpleAggregation'
+            - $ref: '#/components/schemas/VariationsMapCountAggregation'
+            - $ref: '#/components/schemas/VariationsMapValueCountAggregation'
+        dtype:
+          description: The expected data type of the variations_map objects in the response
+          enum:
+          - array
+          - object
+          title: Dtype
+          type: string
+      required:
+      - values
+      - dtype
+      title: VariationsMap
+      type: object
+    Filters:
+      propertyNames:
+        minLength: 1
+      title: Filters
+      type: object
+  securitySchemes:
+    http_basic_auth:
+      type: http
+      scheme: basic
+    http_bearer_auth:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: false

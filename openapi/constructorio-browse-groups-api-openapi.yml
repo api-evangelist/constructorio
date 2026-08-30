@@ -1,0 +1,322 @@
+openapi: 3.2.0
+info:
+  contact:
+    email: support@constructor.io
+  title: Browse groups API
+  version: '0.1'
+servers:
+- url: https://ac.cnstrc.com
+security: []
+tags:
+- name: Browse groups
+paths:
+  /browse/groups:
+    get:
+      tags:
+      - Browse groups
+      operationId: v1-browse-get-browse-groups
+      summary: Retrieve groups
+      description: Retrieve groups for end users.
+      parameters:
+      - name: key
+        in: query
+        schema:
+          description: The key of the index to use.
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          title: Key
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          description: The section of the index to use. Defaults to `Products`.
+          examples:
+          - Products
+          - Search Suggestions
+          title: Section
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: filters
+        in: query
+        schema:
+          description: A filter to apply to browse groups requests, so that only results that have that filter are returned.
+          examples:
+          - group_id:
+            - category-1
+            - category-2
+          allOf:
+          - $ref: '#/components/schemas/GroupFilters'
+          title: Filters
+        required: false
+        style: deepObject
+        explode: true
+      - name: now
+        in: query
+        schema:
+          description: A date time representing the current moment in time when applying filtering by product age. Used to emulate "past/future" requests. Requires authentication.
+          examples:
+          - '2024-01-15T10:30:00Z'
+          title: Now
+          format: date-time
+          type: string
+        required: false
+      - name: fmt_options
+        in: query
+        schema:
+          description: An object containing options to format different aspect of the response.
+          allOf:
+          - $ref: '#/components/schemas/GroupFmtOptions'
+          title: Fmt Options
+        required: false
+        style: deepObject
+        explode: true
+      - name: origin_referrer
+        in: query
+        schema:
+          description: The url or app location where the request originated.
+          examples:
+          - https://example.com/search
+          title: Origin Referrer
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          examples:
+          - cio-js-client-2.35.2
+          title: C
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: us
+        in: query
+        schema:
+          description: A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments.
+          title: us
+          items:
+            minLength: 1
+            type: string
+            examples:
+            - vip-member
+            - us-east-region
+          type: array
+        required: false
+      - name: ui
+        in: query
+        schema:
+          description: A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps Constructor to tie multiple client and session IDs together to form a behavioral data profile across devices.
+          examples:
+          - customer-user-id-456
+          title: Ui
+          type: string
+        required: false
+      - name: s
+        in: query
+        schema:
+          description: An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity.
+          examples:
+          - 1
+          title: S
+          type: integer
+        required: false
+      - name: i
+        in: query
+        schema:
+          description: A globally unique identifier for the user browser (or mobile application instance) making the request.
+          examples:
+          - user-device-id-123
+          title: I
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrowseGroupsGetResponse'
+        '400':
+          description: Validation Error
+      security: []
+components:
+  schemas:
+    GroupFilters:
+      additionalProperties: false
+      properties:
+        group_id:
+          items:
+            minLength: 1
+            type: string
+          title: Group Id
+          type: array
+      required:
+      - group_id
+      title: GroupFilters
+      type: object
+    ResultSourceValue:
+      additionalProperties: false
+      properties:
+        count:
+          description: Number of results returned from their respective sources
+          minimum: 0
+          title: Count
+          type: integer
+      required:
+      - count
+      title: ResultSourceValue
+      type: object
+    BrowseGroupsResponse:
+      additionalProperties: false
+      properties:
+        result_sources:
+          description: Summary of result sources.
+          allOf:
+          - $ref: '#/components/schemas/ResultSources'
+          title: Result Sources
+        groups:
+          description: An array of groups within the section.
+          title: Groups
+          items:
+            $ref: '#/components/schemas/Group'
+          type: array
+        refined_content:
+          description: Arbitrary content attached to the search query via [content rule](#). Constructor doesn't enforce any restrictions on the attached data except for a size limit of 200kB, and just returns it as-is when there is a query match. There can be several rules attached to the same query, so the `refined_content` itself is an array of objects.
+          items:
+            additionalProperties:
+              additionalProperties: true
+              type: object
+            type: object
+          title: Refined Content
+          type: array
+      required:
+      - result_sources
+      - refined_content
+      title: Browse groups response
+      type: object
+    GroupFmtOptions:
+      additionalProperties: false
+      properties:
+        groups_max_depth:
+          default: 1
+          description: The maximum depth of the group hierarchy in the response.
+          examples:
+          - 1
+          - 3
+          title: Groups Max Depth
+          type: integer
+        groups_start:
+          default: current
+          description: A flag to specify the start of the group hierarchy returned in the response. `current` returns groups starting from the currently selected one. `top` returns groups starting from the root category in the hierarchy. `group_id:{id}`, returns the whole tree starting from group with the provided ID.
+          examples:
+          - current
+          - top
+          - group_id:jeans
+          title: Groups Start
+          type: string
+      title: GroupFmtOptions
+      type: object
+    ResultSources:
+      additionalProperties: false
+      properties:
+        token_match:
+          description: The summary of results that came from matching a keyword
+          allOf:
+          - $ref: '#/components/schemas/ResultSourceValue'
+          title: Token Match
+        embeddings_match:
+          description: The summary of results that originated from cognitive embeddings
+          allOf:
+          - $ref: '#/components/schemas/ResultSourceValue'
+          title: Embeddings Match
+      required:
+      - token_match
+      - embeddings_match
+      title: ResultSources
+      type: object
+    Group:
+      additionalProperties: false
+      properties:
+        group_id:
+          description: The ID of the group.
+          title: Group Id
+          type: string
+        display_name:
+          description: The name of the group as it is displayed to end users.
+          title: Display Name
+          type: string
+        count:
+          description: The number of results within this group.
+          minimum: 0
+          title: Count
+          type: integer
+        data:
+          description: Object containing custom data associated with this group.
+          title: Data
+          type: object
+        children:
+          description: An array of groups that are 'children' of the group in question.
+          items:
+            type: object
+          title: Children
+          type: array
+        parents:
+          description: An array of groups that are 'parents' of the group in question.
+          items:
+            $ref: '#/components/schemas/GroupBase'
+          title: Parents
+          type: array
+      required:
+      - group_id
+      - count
+      - children
+      - parents
+      title: Group
+      type: object
+    GroupBase:
+      additionalProperties: false
+      properties:
+        group_id:
+          description: The ID of the group.
+          title: Group Id
+          type: string
+        display_name:
+          description: The name of the group as it is displayed to end users.
+          title: Display Name
+          type: string
+      required:
+      - group_id
+      title: GroupBase
+      type: object
+    BrowseGroupsGetResponse:
+      additionalProperties: false
+      properties:
+        request:
+          description: The request arguments how they were interpreted by the API. This field is of arbitrary type, ie it doesn't have a guaranteed schema, and data from it shouldn't be used programmatically, it is for debugging purposes only.
+          title: Request
+          type: object
+        result_id:
+          title: Result Id
+          type: string
+        response:
+          $ref: '#/components/schemas/BrowseGroupsResponse'
+      required:
+      - request
+      - response
+      title: BrowseGroupsGetResponse
+      type: object
+  securitySchemes:
+    http_basic_auth:
+      type: http
+      scheme: basic
+    http_bearer_auth:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: false

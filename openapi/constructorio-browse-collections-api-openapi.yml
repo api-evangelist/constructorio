@@ -1,0 +1,271 @@
+openapi: 3.2.0
+info:
+  contact:
+    email: support@constructor.io
+  title: Browse collections API
+  version: '0.1'
+servers:
+- url: https://ac.cnstrc.com
+security: []
+tags:
+- name: Browse collections
+paths:
+  /browse/collections:
+    get:
+      tags:
+      - Browse collections
+      operationId: v1-browse-get-browse-collections
+      summary: Retrieve collections
+      description: Retrieve collections for end users. To get specific collection items use the `/browse/collection_id/<collection_id>` endpoint.
+      parameters:
+      - name: key
+        in: query
+        schema:
+          description: The key of the index to use.
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          title: Key
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          description: The section of the index to use. Defaults to `Products`.
+          examples:
+          - Products
+          - Search Suggestions
+          title: Section
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: num_results_per_page
+        in: query
+        schema:
+          default: 20
+          description: The number of results per page to return.
+          examples:
+          - 20
+          - 24
+          title: Num Results Per Page
+          maximum: 200
+          minimum: 1
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          description: The page of results to return.
+          examples:
+          - 1
+          title: Page
+          minimum: 1
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          examples:
+          - 0
+          title: Offset
+          minimum: 0
+          type: integer
+        required: false
+      - name: sort_by
+        in: query
+        schema:
+          default: id
+          description: The method to sort collections by.
+          examples:
+          - id
+          - display_name
+          title: Sort By
+          enum:
+          - id
+          - display_name
+          type: string
+        required: false
+      - name: sort_order
+        in: query
+        schema:
+          default: descending
+          description: The order by which results should be sorted. Only valid in conjunction with `sort_by`.
+          examples:
+          - descending
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+        required: false
+      - name: now
+        in: query
+        schema:
+          description: A date time representing the current moment in time when applying filtering by product age. Used to emulate "past/future" requests. Requires authentication.
+          examples:
+          - '2024-01-15T10:30:00Z'
+          title: Now
+          format: date-time
+          type: string
+        required: false
+      - name: origin_referrer
+        in: query
+        schema:
+          description: The url or app location where the request originated.
+          examples:
+          - https://example.com/search
+          title: Origin Referrer
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          examples:
+          - cio-js-client-2.35.2
+          title: C
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: us
+        in: query
+        schema:
+          description: A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments.
+          title: us
+          items:
+            minLength: 1
+            type: string
+            examples:
+            - vip-member
+            - us-east-region
+          type: array
+        required: false
+      - name: ui
+        in: query
+        schema:
+          description: A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps Constructor to tie multiple client and session IDs together to form a behavioral data profile across devices.
+          examples:
+          - customer-user-id-456
+          title: Ui
+          type: string
+        required: false
+      - name: display_name
+        in: query
+        schema:
+          anyOf:
+          - type: string
+          - items:
+              type: string
+            type: array
+          description: Filter collections by display name.
+          examples:
+          - Summer Sale
+          title: Display Name
+        required: false
+      - name: s
+        in: query
+        schema:
+          description: An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity.
+          examples:
+          - 1
+          title: S
+          type: integer
+        required: false
+      - name: i
+        in: query
+        schema:
+          description: A globally unique identifier for the user browser (or mobile application instance) making the request.
+          examples:
+          - user-device-id-123
+          title: I
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrowseCollectionsGetResponse'
+        '400':
+          description: Validation Error
+      security: []
+components:
+  schemas:
+    Collection:
+      additionalProperties: false
+      properties:
+        id:
+          description: The ID of the browsed collection.
+          title: Id
+          type: string
+        display_name:
+          description: The name of the collection as you'd present it to users.
+          title: Display Name
+          type: string
+        data:
+          description: Object containing custom data associated with this collection.
+          title: Data
+          type: object
+        start_time:
+          description: The start time of the collection if it is time-bound.
+          title: Start Time
+          format: date-time
+          type: string
+        end_time:
+          description: The end time of the collection if it is time-bound.
+          title: End Time
+          format: date-time
+          type: string
+        active_overriding_collection:
+          description: The currently active overriding collection if part of content scheduling.
+          allOf:
+          - $ref: '#/components/schemas/Collection'
+          title: Active Overriding Collection
+      required:
+      - id
+      title: Collection
+      type: object
+    BrowseCollectionsGetResponse:
+      additionalProperties: false
+      properties:
+        response:
+          $ref: '#/components/schemas/BrowseCollectionsResponse'
+      required:
+      - response
+      title: BrowseCollectionsGetResponse
+      type: object
+    SortOrderType:
+      enum:
+      - ascending
+      - descending
+      title: SortOrderType
+      type: string
+    BrowseCollectionsResponse:
+      additionalProperties: false
+      properties:
+        collections:
+          description: Information on browsed collections.
+          items:
+            $ref: '#/components/schemas/Collection'
+          title: Collections
+          type: array
+        total_num_results:
+          description: Total count of collections.
+          title: Total Num Results
+          type: integer
+      required:
+      - collections
+      - total_num_results
+      title: BrowseCollectionsResponse
+      type: object
+  securitySchemes:
+    http_basic_auth:
+      type: http
+      scheme: basic
+    http_bearer_auth:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: false

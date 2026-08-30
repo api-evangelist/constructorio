@@ -1,0 +1,2781 @@
+openapi: 3.2.0
+info:
+  contact:
+    email: support@constructor.io
+  title: Searchandising for Collections API
+  version: '0.1'
+servers:
+- url: https://ac.cnstrc.com
+security: []
+tags:
+- name: Searchandising for Collections
+paths:
+  /v1/refined_collections:
+    get:
+      tags:
+      - Searchandising for Collections
+      operationId: v1-searchandising-retrieve-refined-collections
+      summary: Retrieve refined collections
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `searchandising.refined_collections(r)`.
+
+
+        Retrieve all refined collections.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: response_section
+        in: query
+        schema:
+          description: The section of the response to apply rules to, such as `results` or `facets`.
+          default: results
+          allOf:
+          - $ref: '#/components/schemas/RefinedObjectRuleResponseSection'
+        required: false
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: filter_names_to_exclude
+        in: query
+        schema:
+          title: Filter Names To Exclude
+          description: A list of filter names to exclude from results.
+          type: array
+          items:
+            type: string
+        required: false
+      - name: num_results_per_page
+        in: query
+        schema:
+          title: Num Results Per Page
+          description: The number of results per page to return.
+          default: 20
+          minimum: 1
+          maximum: 100
+          examples:
+          - 20
+          - 50
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          title: Page
+          description: The page of results to return.
+          minimum: 1
+          examples:
+          - 1
+          - 2
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          title: Offset
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          minimum: 0
+          examples:
+          - 0
+          - 100
+          type: integer
+        required: false
+      - name: sort_by
+        in: query
+        schema:
+          title: Sort By
+          description: The attribute to sort by.
+          default: id
+          examples:
+          - id
+          - created_at
+          enum:
+          - id
+          - created_at
+          - updated_at
+          - last_updated_internally
+          - last_updated_externally
+          type: string
+        required: false
+      - name: sort_order
+        in: query
+        schema:
+          description: The order by which results should be sorted. Only valid in conjunction with `sort_by`.
+          default: ascending
+          examples:
+          - ascending
+          - descending
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      - name: segments
+        in: query
+        schema:
+          title: Segments
+          description: Filtering conditions by segment type
+          allOf:
+          - $ref: '#/components/schemas/SegmentsFilter'
+        required: false
+      - name: filter
+        in: query
+        schema:
+          title: Filter
+          description: A list of filters to retrieve
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        required: false
+        style: deepObject
+        explode: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefinedCollectionListGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - searchandising.refined_collections(r)
+  /v1/refined_collections/{collection_id}:
+    get:
+      tags:
+      - Searchandising for Collections
+      operationId: v1-searchandising-retrieve-refined-collection
+      summary: Retrieve refined collection
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `searchandising.refined_collections(r)`.
+
+
+        Retrieve a refined collection.'
+      parameters:
+      - name: collection_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: response_section
+        in: query
+        schema:
+          description: The section of the response to apply rules to, such as `results` or `facets`.
+          default: results
+          allOf:
+          - $ref: '#/components/schemas/RefinedObjectRuleResponseSection'
+        required: false
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: filter_names_to_exclude
+        in: query
+        schema:
+          title: Filter Names To Exclude
+          description: A list of filter names to exclude from results.
+          type: array
+          items:
+            type: string
+        required: false
+      - name: num_results_per_page
+        in: query
+        schema:
+          title: Num Results Per Page
+          description: The number of results per page to return.
+          default: 20
+          minimum: 1
+          maximum: 100
+          examples:
+          - 20
+          - 50
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          title: Page
+          description: The page of results to return.
+          minimum: 1
+          examples:
+          - 1
+          - 2
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          title: Offset
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          minimum: 0
+          examples:
+          - 0
+          - 100
+          type: integer
+        required: false
+      - name: sort_by
+        in: query
+        schema:
+          title: Sort By
+          description: The attribute to sort by.
+          default: id
+          examples:
+          - id
+          - created_at
+          enum:
+          - id
+          - created_at
+          - updated_at
+          - last_updated_internally
+          - last_updated_externally
+          type: string
+        required: false
+      - name: sort_order
+        in: query
+        schema:
+          description: The order by which results should be sorted. Only valid in conjunction with `sort_by`.
+          default: ascending
+          examples:
+          - ascending
+          - descending
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      - name: segments
+        in: query
+        schema:
+          title: Segments
+          description: Filtering conditions by segment type
+          allOf:
+          - $ref: '#/components/schemas/SegmentsFilter'
+        required: false
+      - name: filter
+        in: query
+        schema:
+          title: Filter
+          description: A list of filters to retrieve
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        required: false
+        style: deepObject
+        explode: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefinedCollectionGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - searchandising.refined_collections(r)
+    put:
+      tags:
+      - Searchandising for Collections
+      operationId: v1-searchandising-create-or-replace-refined-collection
+      summary: Create or replace refined collection
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `searchandising.refined_collections(w)`.
+
+
+        Create or replace a refined collection. It will replace all existing rules associated with the collection if there are any. It will also flip `allow_automatic_rules` to `true` (which is default) if attribute''s value isn''t submitted in the request.'
+      parameters:
+      - name: collection_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: response_section
+        in: query
+        schema:
+          description: The section of the response to apply rules to, such as `results` or `facets`.
+          default: results
+          allOf:
+          - $ref: '#/components/schemas/RefinedObjectRuleResponseSection'
+        required: false
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefinedCollectionPutBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefinedCollectionPutResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - searchandising.refined_collections(w)
+    patch:
+      tags:
+      - Searchandising for Collections
+      operationId: v1-searchandising-update-refined-collection
+      summary: Update refined collection
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `searchandising.refined_collections(w)`.
+
+
+        Update a refined collection. It will update only the fields that are present in the request.'
+      parameters:
+      - name: collection_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: response_section
+        in: query
+        schema:
+          description: The section of the response to apply rules to, such as `results` or `facets`.
+          default: results
+          allOf:
+          - $ref: '#/components/schemas/RefinedObjectRuleResponseSection'
+        required: false
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefinedCollectionPatchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefinedCollectionPatchResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - searchandising.refined_collections(w)
+    delete:
+      tags:
+      - Searchandising for Collections
+      operationId: v1-searchandising-delete-refined-collection
+      summary: Delete refined collection
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `searchandising.refined_collections(w)`.
+
+
+        Delete a refined collection.'
+      parameters:
+      - name: collection_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefinedCollectionDeleteResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - searchandising.refined_collections(w)
+components:
+  schemas:
+    SlotFacetRuleParameters:
+      title: SlotFacetRuleParameters
+      type: object
+      properties:
+        name:
+          title: Name
+          description: The name of the facet to place in position.
+          examples:
+          - Brand
+          - Color
+          type: string
+        position:
+          title: Position
+          description: The position of facet to place in.
+          minimum: 1
+          examples:
+          - 1
+          - 5
+          type: integer
+      required:
+      - name
+      - position
+      additionalProperties: false
+    RefinedCollectionResponse:
+      title: RefinedCollectionResponse
+      anyOf:
+      - $ref: '#/components/schemas/RefinedCollectionResultsResponse'
+      - $ref: '#/components/schemas/RefinedFilterFacetsResponse'
+    RefinedCollectionResultsResponse:
+      title: RefinedCollectionResultsResponse
+      type: object
+      properties:
+        collection_id:
+          title: Filter Value
+          type: string
+        allow_automatic_rules:
+          title: Allow Automatic Rules
+          type: boolean
+        slot_rules:
+          title: Slot Rules
+          type: array
+          items:
+            $ref: '#/components/schemas/SlotRuleResponse'
+        whitelist_rule:
+          $ref: '#/components/schemas/WhitelistRuleResponse'
+        blacklist_rules:
+          title: Blacklist Rules
+          type: array
+          items:
+            $ref: '#/components/schemas/BlacklistRuleResponse'
+        boost_rules:
+          title: Boost Rules
+          type: array
+          items:
+            $ref: '#/components/schemas/BoostRuleResponse'
+        content_rules:
+          title: Content Rules
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentRuleResponse'
+        filters_slot_rules:
+          title: Filters Slot Rules
+          type: array
+          items:
+            $ref: '#/components/schemas/FiltersSlotRuleResponse'
+        variation_slicing_rule:
+          $ref: '#/components/schemas/VariationSlicingRuleResponse'
+        face_out_variation_rules:
+          title: Face Out Variation Rules
+          type: array
+          items:
+            $ref: '#/components/schemas/FaceOutVariationRuleResponse'
+      required:
+      - collection_id
+      - allow_automatic_rules
+      - slot_rules
+      - blacklist_rules
+      - boost_rules
+      - content_rules
+      - filters_slot_rules
+      additionalProperties: false
+    RefinedFilterFacetsResponse:
+      title: RefinedFilterFacetsResponse
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        filter_name:
+          title: Filter Name
+          type: string
+        filter_value:
+          title: Filter Value
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          type: string
+          format: date-time
+        last_updated_internally:
+          title: Last Updated Internally
+          type: string
+          format: date-time
+        last_updated_externally:
+          title: Last Updated Externally
+          type: string
+          format: date-time
+        last_reviewed_at:
+          title: Last Reviewed At
+          type: string
+          format: date-time
+        last_reviewed_by:
+          title: Last Reviewed By
+          type: string
+        next_review_at:
+          title: Next Review At
+          type: string
+          format: date-time
+        allow_automatic_rules:
+          title: Allow Automatic Rules
+          type: boolean
+        slot_rules:
+          title: Facet Slot Rules
+          type: array
+          items:
+            $ref: '#/components/schemas/SlotFacetRuleResponse'
+        blacklist_rules:
+          title: Facet Blacklist Rules
+          type: array
+          items:
+            $ref: '#/components/schemas/BlacklistFacetRuleResponse'
+      required:
+      - id
+      - filter_name
+      - filter_value
+      - created_at
+      - updated_at
+      - allow_automatic_rules
+      - slot_rules
+      - blacklist_rules
+      additionalProperties: false
+    PositionRange:
+      title: PositionRange
+      type: object
+      properties:
+        start:
+          title: Start
+          description: The start position of the slot.
+          minimum: 1
+          examples:
+          - 1
+          - 5
+          type: integer
+        end:
+          title: End
+          description: The end position of the slot.
+          minimum: 1
+          examples:
+          - 3
+          - 10
+          type: integer
+      required:
+      - start
+      - end
+      additionalProperties: false
+    FacetRuleTarget:
+      title: FacetRuleTarget
+      enum:
+      - facet_group
+      - facet_option
+      type: string
+    RefinedCollectionListGetResponse:
+      title: RefinedCollectionListGetResponse
+      type: object
+      properties:
+        refined_collections:
+          title: Refined Collections
+          type: array
+          items:
+            $ref: '#/components/schemas/RefinedCollectionResponse'
+        total_count:
+          title: Total Count
+          type: integer
+      required:
+      - refined_collections
+      - total_count
+      additionalProperties: false
+    FaceOutVariationRuleResponse:
+      title: FaceOutVariationRuleResponse
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the rule, must be unique.
+          type: integer
+        request_tag_name:
+          description: Request tag name to be used to activate this entity for, used only with `request_tag_value`.
+          examples:
+          - user_segment
+          - geo_country
+          allOf:
+          - $ref: '#/components/schemas/RequestTags'
+        request_tag_value:
+          title: Request Tag Value
+          description: Request tag value to be used to activate this entity for, used only with request_tag_name.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - premium
+          - US
+          type: string
+        active:
+          title: Active
+          description: Indicates whether this rule is active or not.
+          examples:
+          - true
+          - false
+          type: boolean
+        start_time:
+          title: Start Time
+          description: Date and time when the rule should be enabled.
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: Date and time when the rule should be disabled.
+          examples:
+          - '2024-03-06T17:05:19'
+          type: string
+          format: date-time
+        campaign_id:
+          title: Campaign Id
+          examples:
+          - 1
+          - 42
+          type: integer
+        automatically_generated:
+          title: Automatically Generated
+          description: Boolean to indicate if this rule is automatically generated or not.
+          examples:
+          - false
+          - true
+          type: boolean
+        rule:
+          title: Rule
+          description: Parameters of the face out variation rule.
+          allOf:
+          - $ref: '#/components/schemas/FaceOutVariationRuleParameters'
+        rule_type:
+          title: Rule Type
+          enum:
+          - face_out_variation
+          type: string
+        created_at:
+          title: Created At
+          description: Date & time in ISO 8601 format for the creation of this rule.
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Date & time in ISO 8601 format for last update for this rule.
+          type: string
+          format: date-time
+      required:
+      - id
+      - rule
+      - rule_type
+    ContentRuleResponse:
+      title: ContentRuleResponse
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the rule, must be unique.
+          type: integer
+        request_tag_name:
+          description: Request tag name to be used to activate this entity for, used only with `request_tag_value`.
+          examples:
+          - user_segment
+          - geo_country
+          allOf:
+          - $ref: '#/components/schemas/RequestTags'
+        request_tag_value:
+          title: Request Tag Value
+          description: Request tag value to be used to activate this entity for, used only with request_tag_name.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - premium
+          - US
+          type: string
+        active:
+          title: Active
+          description: Indicates whether this rule is active or not.
+          examples:
+          - true
+          - false
+          type: boolean
+        start_time:
+          title: Start Time
+          description: Date and time when the rule should be enabled.
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: Date and time when the rule should be disabled.
+          examples:
+          - '2024-03-06T17:05:19'
+          type: string
+          format: date-time
+        campaign_id:
+          title: Campaign Id
+          examples:
+          - 1
+          - 42
+          type: integer
+        automatically_generated:
+          title: Automatically Generated
+          description: Boolean to indicate if this rule is automatically generated or not.
+          examples:
+          - false
+          - true
+          type: boolean
+        rule:
+          title: Rule
+          description: Parameters of the content rule.
+          allOf:
+          - $ref: '#/components/schemas/ContentRuleParameters'
+        rule_type:
+          title: Rule Type
+          enum:
+          - content
+          type: string
+        created_at:
+          title: Created At
+          description: Date & time in ISO 8601 format for the creation of this rule.
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Date & time in ISO 8601 format for last update for this rule.
+          type: string
+          format: date-time
+      required:
+      - id
+      - rule
+      - rule_type
+    VariationSlicingRuleResponse:
+      title: VariationSlicingRuleResponse
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the rule, must be unique.
+          type: integer
+        request_tag_name:
+          description: Request tag name to be used to activate this entity for, used only with `request_tag_value`.
+          examples:
+          - user_segment
+          - geo_country
+          allOf:
+          - $ref: '#/components/schemas/RequestTags'
+        request_tag_value:
+          title: Request Tag Value
+          description: Request tag value to be used to activate this entity for, used only with request_tag_name.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - premium
+          - US
+          type: string
+        active:
+          title: Active
+          description: Indicates whether this rule is active or not.
+          examples:
+          - true
+          - false
+          type: boolean
+        start_time:
+          title: Start Time
+          description: Date and time when the rule should be enabled.
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: Date and time when the rule should be disabled.
+          examples:
+          - '2024-03-06T17:05:19'
+          type: string
+          format: date-time
+        campaign_id:
+          title: Campaign Id
+          examples:
+          - 1
+          - 42
+          type: integer
+        automatically_generated:
+          title: Automatically Generated
+          description: Boolean to indicate if this rule is automatically generated or not.
+          examples:
+          - false
+          - true
+          type: boolean
+        rule:
+          title: Rule
+          description: Parameters of the variation slicing rule.
+          allOf:
+          - $ref: '#/components/schemas/VariationSlicingRuleParameters'
+        rule_type:
+          title: Rule Type
+          enum:
+          - variation_slicing
+          type: string
+        created_at:
+          title: Created At
+          description: Date & time in ISO 8601 format for the creation of this rule.
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Date & time in ISO 8601 format for last update for this rule.
+          type: string
+          format: date-time
+      required:
+      - id
+      - rule
+      - rule_type
+    RefinedCollectionPatchBody:
+      title: RefinedCollectionPatchBody
+      type: object
+      properties:
+        slot_rules:
+          title: Slot Rules
+          description: The slotting rules attached to the refined filter
+          maxItems: 1000
+          type: array
+          items:
+            $ref: '#/components/schemas/SlotRuleBase'
+        whitelist_rule:
+          title: Whitelist Rule
+          description: The whitelist rule attached to the refined filter
+          oneOf:
+          - $ref: '#/components/schemas/WhitelistRuleBase'
+          - type: 'null'
+        blacklist_rules:
+          title: Blacklist Rules
+          description: The blacklist rules attached to the refined filter
+          maxItems: 50
+          type: array
+          items:
+            $ref: '#/components/schemas/BlacklistRuleBase'
+        boost_rules:
+          title: Boost Rules
+          description: The boost rules attached to the refined filter. It is allowed to create maximum 50 manual and 50 automatic rules. The number of rules for each of the types includes both active and inactive rules
+          type: array
+          items:
+            $ref: '#/components/schemas/BoostRuleBase'
+        content_rules:
+          title: Content Rules
+          description: The content rules attached to the refined filter
+          maxItems: 50
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentRuleBase'
+        variation_slicing_rule:
+          title: Variation Slicing Rule
+          description: The variation slicing rule attached to the refined filter
+          oneOf:
+          - $ref: '#/components/schemas/VariationSlicingRuleBase'
+          - type: 'null'
+        filters_slot_rules:
+          title: Filters Slot Rules
+          description: The filters slot rules attached to the refined filter
+          maxItems: 50
+          type: array
+          items:
+            $ref: '#/components/schemas/FiltersSlotRuleBase'
+        face_out_variation_rules:
+          title: Face Out Variation Rules
+          description: The face out variation rules attached to the refined filter
+          maxItems: 50
+          type: array
+          items:
+            $ref: '#/components/schemas/FaceOutVariationRuleBase'
+        allow_automatic_rules:
+          title: Allow Automatic Rules
+          description: Specifies whether to allow automatic creation of rules
+          examples:
+          - true
+          - false
+          type: boolean
+        last_reviewed_at:
+          title: Last Reviewed At
+          description: The date of the last review
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        last_reviewed_by:
+          title: Last Reviewed By
+          description: The user who last reviewed the refined filter
+          examples:
+          - user@example.com
+          type: string
+        next_review_at:
+          title: Next Review At
+          description: The date of the next review
+          examples:
+          - '2024-04-06T16:05:19'
+          type: string
+          format: date-time
+      additionalProperties: false
+    RequestTags:
+      title: RequestTags
+      enum:
+      - client_ip
+      - client_version
+      - geo_city
+      - geo_country
+      - geo_country_iso_code
+      - geo_region
+      - dt_weekday
+      - dt_timeofday
+      - user_segment
+      - autogenerated_user_segment
+      - dynamic_segment
+      type: string
+    FaceOutVariationRuleParameters:
+      title: FaceOutVariationRuleParameters
+      type: object
+      properties:
+        item_id:
+          title: Item Id
+          description: The ID of the item to face out.
+          examples:
+          - nike-shoes
+          - product-123
+          minLength: 1
+          maxLength: 250
+          type: string
+        variation_ids:
+          title: Variation Ids
+          description: The variation IDs to face out for this item.
+          minItems: 1
+          maxItems: 50
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 250
+            examples:
+            - - nike-shoes-red
+              - nike-shoes-blue
+      required:
+      - item_id
+      - variation_ids
+      additionalProperties: false
+    ContentRuleParameters:
+      title: ContentRuleParameters
+      type: object
+      properties:
+        data:
+          title: Data
+          description: The data inside the content rule.
+          examples:
+          - banner_url: https://example.com/banner.jpg
+          type: object
+      required:
+      - data
+      additionalProperties: false
+    WhitelistRuleResponse:
+      title: WhitelistRuleResponse
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the rule, must be unique.
+          type: integer
+        request_tag_name:
+          description: Request tag name to be used to activate this entity for, used only with `request_tag_value`.
+          examples:
+          - user_segment
+          - geo_country
+          allOf:
+          - $ref: '#/components/schemas/RequestTags'
+        request_tag_value:
+          title: Request Tag Value
+          description: Request tag value to be used to activate this entity for, used only with request_tag_name.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - premium
+          - US
+          type: string
+        active:
+          title: Active
+          description: Indicates whether this rule is active or not.
+          examples:
+          - true
+          - false
+          type: boolean
+        start_time:
+          title: Start Time
+          description: Date and time when the rule should be enabled.
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: Date and time when the rule should be disabled.
+          examples:
+          - '2024-03-06T17:05:19'
+          type: string
+          format: date-time
+        campaign_id:
+          title: Campaign Id
+          examples:
+          - 1
+          - 42
+          type: integer
+        automatically_generated:
+          title: Automatically Generated
+          description: Boolean to indicate if this rule is automatically generated or not.
+          examples:
+          - false
+          - true
+          type: boolean
+        rule:
+          title: Rule
+          description: Rule definition of the whitelist rule.
+          allOf:
+          - $ref: '#/components/schemas/WhitelistFiltersRuleParameters'
+        rule_type:
+          title: Rule Type
+          enum:
+          - whitelist
+          type: string
+        created_at:
+          title: Created At
+          description: Date & time in ISO 8601 format for the creation of this rule.
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Date & time in ISO 8601 format for last update for this rule.
+          type: string
+          format: date-time
+      required:
+      - id
+      - rule
+      - rule_type
+    ItemIdsOrFilters:
+      title: ItemIdsOrFilters
+      type: object
+      properties:
+        filters:
+          title: Filters
+          description: Any number of criteria by which you'd like to narrow the result set. This might be by color, size, or category (group) an item belongs to.
+          examples:
+          - brand:
+            - Nike
+            - Adidas
+          allOf:
+          - $ref: '#/components/schemas/FiltersDict'
+        item_ids:
+          title: Item Ids
+          description: The IDs of the items to be recalled.
+          minItems: 1
+          type: array
+          items:
+            type: string
+            examples:
+            - nike-shoes
+            - product-123
+      additionalProperties: false
+    BlacklistRuleBase:
+      title: BlacklistRuleBase
+      type: object
+      properties:
+        request_tag_name:
+          description: Request tag name to be used to activate this entity for, used only with `request_tag_value`.
+          examples:
+          - user_segment
+          - geo_country
+          allOf:
+          - $ref: '#/components/schemas/RequestTags'
+        request_tag_value:
+          title: Request Tag Value
+          description: Request tag value to be used to activate this entity for, used only with request_tag_name.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - premium
+          - US
+          type: string
+        active:
+          title: Active
+          description: Indicates whether this rule is active or not.
+          examples:
+          - true
+          - false
+          type: boolean
+        start_time:
+          title: Start Time
+          description: Date and time when the rule should be enabled.
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: Date and time when the rule should be disabled.
+          examples:
+          - '2024-03-06T17:05:19'
+          type: string
+          format: date-time
+        campaign_id:
+          title: Campaign Id
+          examples:
+          - 1
+          - 42
+          type: integer
+        automatically_generated:
+          title: Automatically Generated
+          description: Boolean to indicate if this rule is automatically generated or not.
+          examples:
+          - false
+          - true
+          type: boolean
+        rule:
+          title: Rule
+          description: Rule definition of the blacklist rule.
+          allOf:
+          - $ref: '#/components/schemas/ItemIdsOrFilters'
+        rule_type:
+          title: Rule Type
+          enum:
+          - blacklist
+          type: string
+      required:
+      - rule
+      additionalProperties: false
+    BoostRuleBase:
+      title: BoostRuleBase
+      type: object
+      properties:
+        request_tag_name:
+          description: Request tag name to be used to activate this entity for, used only with `request_tag_value`.
+          examples:
+          - user_segment
+          - geo_country
+          allOf:
+          - $ref: '#/components/schemas/RequestTags'
+        request_tag_value:
+          title: Request Tag Value
+          description: Request tag value to be used to activate this entity for, used only with request_tag_name.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - premium
+          - US
+          type: string
+        active:
+          title: Active
+          description: Indicates whether this rule is active or not.
+          examples:
+          - true
+          - false
+          type: boolean
+        start_time:
+          title: Start Time
+          description: Date and time when the rule should be enabled.
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: Date and time when the rule should be disabled.
+          examples:
+          - '2024-03-06T17:05:19'
+          type: string
+          format: date-time
+        campaign_id:
+          title: Campaign Id
+          examples:
+          - 1
+          - 42
+          type: integer
+        automatically_generated:
+          title: Automatically Generated
+          description: Boolean to indicate if this rule is automatically generated or not.
+          examples:
+          - false
+          - true
+          type: boolean
+        rule:
+          title: Rule
+          description: Rule definition of the boost rule.
+          allOf:
+          - $ref: '#/components/schemas/BoostRuleDict'
+        rule_type:
+          title: Rule Type
+          enum:
+          - boost
+          type: string
+      required:
+      - rule
+      additionalProperties: false
+    RefinedFilterResultsResponse:
+      title: RefinedFilterResultsResponse
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        filter_name:
+          title: Filter Name
+          type: string
+        filter_value:
+          title: Filter Value
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          type: string
+          format: date-time
+        last_updated_internally:
+          title: Last Updated Internally
+          type: string
+          format: date-time
+        last_updated_externally:
+          title: Last Updated Externally
+          type: string
+          format: date-time
+        last_reviewed_at:
+          title: Last Reviewed At
+          type: string
+          format: date-time
+        last_reviewed_by:
+          title: Last Reviewed By
+          type: string
+        next_review_at:
+          title: Next Review At
+          type: string
+          format: date-time
+        allow_automatic_rules:
+          title: Allow Automatic Rules
+          type: boolean
+        slot_rules:
+          title: Slot Rules
+          type: array
+          items:
+            $ref: '#/components/schemas/SlotRuleResponse'
+        variation_slicing_rule:
+          $ref: '#/components/schemas/VariationSlicingRuleResponse'
+        whitelist_rule:
+          $ref: '#/components/schemas/WhitelistRuleResponse'
+        blacklist_rules:
+          title: Blacklist Rules
+          type: array
+          items:
+            $ref: '#/components/schemas/BlacklistRuleResponse'
+        boost_rules:
+          title: Boost Rules
+          type: array
+          items:
+            $ref: '#/components/schemas/BoostRuleResponse'
+        content_rules:
+          title: Content Rules
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentRuleResponse'
+        filters_slot_rules:
+          title: Filters Slot Rules
+          type: array
+          items:
+            $ref: '#/components/schemas/FiltersSlotRuleResponse'
+        face_out_variation_rules:
+          title: Face Out Variation Rules
+          type: array
+          items:
+            $ref: '#/components/schemas/FaceOutVariationRuleResponse'
+      required:
+      - id
+      - filter_name
+      - filter_value
+      - created_at
+      - updated_at
+      - allow_automatic_rules
+      - slot_rules
+      - blacklist_rules
+      - boost_rules
+      - content_rules
+      - filters_slot_rules
+      additionalProperties: false
+    DictOrJsonStringWithDict:
+      title: DictOrJsonStringWithDict
+      anyOf:
+      - type: object
+        title: object
+      - type: string
+        format: json
+        title: Encoded JSON string
+    FiltersDict:
+      title: FiltersDict
+      default: JSON contains filters based on items attributes.
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+          minLength: 1
+    WhitelistRuleBase:
+      title: WhitelistRuleBase
+      type: object
+      properties:
+        request_tag_name:
+          description: Request tag name to be used to activate this entity for, used only with `request_tag_value`.
+          examples:
+          - user_segment
+          - geo_country
+          allOf:
+          - $ref: '#/components/schemas/RequestTags'
+        request_tag_value:
+          title: Request Tag Value
+          description: Request tag value to be used to activate this entity for, used only with request_tag_name.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - premium
+          - US
+          type: string
+        active:
+          title: Active
+          description: Indicates whether this rule is active or not.
+          examples:
+          - true
+          - false
+          type: boolean
+        start_time:
+          title: Start Time
+          description: Date and time when the rule should be enabled.
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: Date and time when the rule should be disabled.
+          examples:
+          - '2024-03-06T17:05:19'
+          type: string
+          format: date-time
+        campaign_id:
+          title: Campaign Id
+          examples:
+          - 1
+          - 42
+          type: integer
+        automatically_generated:
+          title: Automatically Generated
+          description: Boolean to indicate if this rule is automatically generated or not.
+          examples:
+          - false
+          - true
+          type: boolean
+        rule:
+          title: Rule
+          description: Rule definition of the whitelist rule.
+          allOf:
+          - $ref: '#/components/schemas/WhitelistFiltersRuleParameters'
+        rule_type:
+          title: Rule Type
+          enum:
+          - whitelist
+          type: string
+      required:
+      - rule
+      additionalProperties: false
+    RefinedCollectionGetResponse:
+      title: RefinedCollectionGetResponse
+      type: object
+      properties:
+        refined_collections:
+          title: Refined Collections
+          type: array
+          items:
+            $ref: '#/components/schemas/RefinedCollectionResponse'
+        total_count:
+          title: Total Count
+          type: integer
+      required:
+      - refined_collections
+      - total_count
+      additionalProperties: false
+    FiltersSlotRuleParameters:
+      title: FiltersSlotRuleParameters
+      type: object
+      properties:
+        filters:
+          title: Filters
+          description: '**Deprecated**. Use `filter_expression` instead. Any number of criteria by which you''d like to narrow the result set. This might be by color, size, or category (group) an item belongs to.'
+          deprecated: true
+          allOf:
+          - $ref: '#/components/schemas/FiltersDict'
+        filter_expression:
+          title: Filter expression
+          description: '[Filter expression](/reference/shared-filter-expressions) associated with this filters slot rule.'
+          allOf:
+          - $ref: '#/components/schemas/DictOrJsonStringWithDict'
+        position_ranges:
+          title: Position Ranges
+          description: A list of ranges of positions to place the items.
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/PositionRange'
+        labels:
+          title: Labels
+          description: Can be used to add other miscellaneous properties for the item.
+          type: object
+      required:
+      - position_ranges
+      additionalProperties: false
+    BlacklistFacetRuleResponse:
+      title: BlacklistFacetRuleResponse
+      type: object
+      properties:
+        target:
+          $ref: '#/components/schemas/FacetRuleTarget'
+        facet_group_name:
+          title: Facet Group Name
+          type: string
+        id:
+          title: Id
+          description: The ID of the rule, must be unique.
+          type: integer
+        request_tag_name:
+          description: Request tag name to be used to activate this entity for, used only with `request_tag_value`.
+          examples:
+          - user_segment
+          - geo_country
+          allOf:
+          - $ref: '#/components/schemas/RequestTags'
+        request_tag_value:
+          title: Request Tag Value
+          description: Request tag value to be used to activate this entity for, used only with request_tag_name.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - premium
+          - US
+          type: string
+        active:
+          title: Active
+          description: Indicates whether this rule is active or not.
+          examples:
+          - true
+          - false
+          type: boolean
+        start_time:
+          title: Start Time
+          description: Date and time when the rule should be enabled.
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: Date and time when the rule should be disabled.
+          examples:
+          - '2024-03-06T17:05:19'
+          type: string
+          format: date-time
+        campaign_id:
+          title: Campaign Id
+          examples:
+          - 1
+          - 42
+          type: integer
+        automatically_generated:
+          title: Automatically Generated
+          description: Boolean to indicate if this rule is automatically generated or not.
+          examples:
+          - false
+          - true
+          type: boolean
+        rule:
+          $ref: '#/components/schemas/BlacklistFacetRuleParameters'
+        rule_type:
+          title: Rule Type
+          enum:
+          - blacklist
+          type: string
+        created_at:
+          title: Created At
+          description: Date & time in ISO 8601 format for the creation of this rule.
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Date & time in ISO 8601 format for last update for this rule.
+          type: string
+          format: date-time
+      required:
+      - target
+      - id
+      - rule
+      - rule_type
+    BoostRuleResponse:
+      title: BoostRuleResponse
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the rule, must be unique.
+          type: integer
+        request_tag_name:
+          description: Request tag name to be used to activate this entity for, used only with `request_tag_value`.
+          examples:
+          - user_segment
+          - geo_country
+          allOf:
+          - $ref: '#/components/schemas/RequestTags'
+        request_tag_value:
+          title: Request Tag Value
+          description: Request tag value to be used to activate this entity for, used only with request_tag_name.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - premium
+          - US
+          type: string
+        active:
+          title: Active
+          description: Indicates whether this rule is active or not.
+          examples:
+          - true
+          - false
+          type: boolean
+        start_time:
+          title: Start Time
+          description: Date and time when the rule should be enabled.
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: Date and time when the rule should be disabled.
+          examples:
+          - '2024-03-06T17:05:19'
+          type: string
+          format: date-time
+        campaign_id:
+          title: Campaign Id
+          examples:
+          - 1
+          - 42
+          type: integer
+        automatically_generated:
+          title: Automatically Generated
+          description: Boolean to indicate if this rule is automatically generated or not.
+          examples:
+          - false
+          - true
+          type: boolean
+        rule:
+          title: Rule
+          description: Rule definition of the boost rule.
+          allOf:
+          - $ref: '#/components/schemas/BoostRuleDict'
+        rule_type:
+          title: Rule Type
+          enum:
+          - boost
+          type: string
+        created_at:
+          title: Created At
+          description: Date & time in ISO 8601 format for the creation of this rule.
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Date & time in ISO 8601 format for last update for this rule.
+          type: string
+          format: date-time
+      required:
+      - id
+      - rule
+      - rule_type
+    FaceOutVariationRuleBase:
+      title: FaceOutVariationRuleBase
+      type: object
+      properties:
+        request_tag_name:
+          description: Request tag name to be used to activate this entity for, used only with `request_tag_value`.
+          examples:
+          - user_segment
+          - geo_country
+          allOf:
+          - $ref: '#/components/schemas/RequestTags'
+        request_tag_value:
+          title: Request Tag Value
+          description: Request tag value to be used to activate this entity for, used only with request_tag_name.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - premium
+          - US
+          type: string
+        active:
+          title: Active
+          description: Indicates whether this rule is active or not.
+          examples:
+          - true
+          - false
+          type: boolean
+        start_time:
+          title: Start Time
+          description: Date and time when the rule should be enabled.
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: Date and time when the rule should be disabled.
+          examples:
+          - '2024-03-06T17:05:19'
+          type: string
+          format: date-time
+        campaign_id:
+          title: Campaign Id
+          examples:
+          - 1
+          - 42
+          type: integer
+        automatically_generated:
+          title: Automatically Generated
+          description: Boolean to indicate if this rule is automatically generated or not.
+          examples:
+          - false
+          - true
+          type: boolean
+        rule:
+          title: Rule
+          description: Parameters of the face out variation rule.
+          allOf:
+          - $ref: '#/components/schemas/FaceOutVariationRuleParameters'
+        rule_type:
+          title: Rule Type
+          enum:
+          - face_out_variation
+          type: string
+      required:
+      - rule
+      additionalProperties: false
+    WhitelistFiltersRuleParameters:
+      title: WhitelistFiltersRuleParameters
+      type: object
+      properties:
+        filters:
+          title: Filters
+          description: Any number of criteria by which you'd like to narrow the result set. This might be by color, size, or category (group) an item belongs to.
+          allOf:
+          - $ref: '#/components/schemas/FiltersDict'
+      required:
+      - filters
+      additionalProperties: false
+    SlotRuleParameters:
+      title: SlotRuleParameters
+      type: object
+      properties:
+        item_id:
+          title: Item Id
+          description: The ID of an item to place in position.
+          examples:
+          - nike-shoes
+          - product-123
+          type: string
+        variation_slice:
+          title: Variation Slice
+          description: The variation slice ID of that item to use for slotting.
+          examples:
+          - color:
+            - red
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        position:
+          title: Position
+          description: The position of item to place in.
+          minimum: 1
+          examples:
+          - 1
+          - 5
+          type: integer
+        fuzzy_match:
+          title: Fuzzy Match
+          description: 'The flag to determine if the rule should be applied only when there''s an exact query match. Warning: usage of this parameter has been deprecated - please contact Constructor support for assistance.'
+          deprecated: true
+          examples:
+          - false
+          - true
+          type: boolean
+        labels:
+          title: Labels
+          description: Can be used to add other miscellaneous properties for the item.
+          examples:
+          - promoted: true
+          type: object
+      required:
+      - item_id
+      - position
+      additionalProperties: false
+    BoostRuleDict:
+      title: BoostRuleDict
+      type: object
+      properties:
+        filters:
+          title: Filters
+          description: Any number of criteria by which you'd like to narrow the result set. This might be by color, size, or category (group) an item belongs to.
+          examples:
+          - brand:
+            - Nike
+            - Adidas
+          allOf:
+          - $ref: '#/components/schemas/FiltersDict'
+        item_ids:
+          title: Item Ids
+          description: The IDs of the items to be recalled.
+          minItems: 1
+          type: array
+          items:
+            type: string
+            examples:
+            - nike-shoes
+            - product-123
+        boost:
+          title: Boost
+          description: Boost factor for this rule.
+          minimum: -10
+          maximum: 10
+          examples:
+          - -5
+          - 5
+          type: number
+      required:
+      - boost
+      additionalProperties: false
+    ContentRuleBase:
+      title: ContentRuleBase
+      type: object
+      properties:
+        request_tag_name:
+          description: Request tag name to be used to activate this entity for, used only with `request_tag_value`.
+          examples:
+          - user_segment
+          - geo_country
+          allOf:
+          - $ref: '#/components/schemas/RequestTags'
+        request_tag_value:
+          title: Request Tag Value
+          description: Request tag value to be used to activate this entity for, used only with request_tag_name.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - premium
+          - US
+          type: string
+        active:
+          title: Active
+          description: Indicates whether this rule is active or not.
+          examples:
+          - true
+          - false
+          type: boolean
+        start_time:
+          title: Start Time
+          description: Date and time when the rule should be enabled.
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: Date and time when the rule should be disabled.
+          examples:
+          - '2024-03-06T17:05:19'
+          type: string
+          format: date-time
+        campaign_id:
+          title: Campaign Id
+          examples:
+          - 1
+          - 42
+          type: integer
+        automatically_generated:
+          title: Automatically Generated
+          description: Boolean to indicate if this rule is automatically generated or not.
+          examples:
+          - false
+          - true
+          type: boolean
+        rule:
+          title: Rule
+          description: Parameters of the content rule.
+          allOf:
+          - $ref: '#/components/schemas/ContentRuleParameters'
+        rule_type:
+          title: Rule Type
+          enum:
+          - content
+          type: string
+      required:
+      - rule
+      additionalProperties: false
+    SegmentsFilter:
+      title: SegmentsFilter
+      type: object
+      properties:
+        user_segment:
+          title: User
+          description: User segment values
+          type: array
+          items:
+            type: string
+        dynamic_segment:
+          title: Dynamic
+          description: Dynamic segment values
+          type: array
+          items:
+            type: string
+        autogenerated_user_segment:
+          title: Autogenerated User Segment
+          description: Autogenerated user segment values
+          type: array
+          items:
+            type: string
+        geo_country:
+          title: Geo Country
+          description: Geo country segment values
+          type: array
+          items:
+            type: string
+        geo_region:
+          title: Geo Region
+          description: Geo region segment values
+          type: array
+          items:
+            type: string
+        geo_city:
+          title: Geo City
+          description: Geo city segment values
+          type: array
+          items:
+            type: string
+      additionalProperties: false
+    SlotRuleBase:
+      title: SlotRuleBase
+      type: object
+      properties:
+        request_filters:
+          title: Request Filters
+          description: Facet conditions for the rule to be applied.
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+            minItems: 1
+        request_tag_name:
+          description: Request tag name to be used to activate this entity for, used only with `request_tag_value`.
+          examples:
+          - user_segment
+          - geo_country
+          allOf:
+          - $ref: '#/components/schemas/RequestTags'
+        request_tag_value:
+          title: Request Tag Value
+          description: Request tag value to be used to activate this entity for, used only with request_tag_name.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - premium
+          - US
+          type: string
+        active:
+          title: Active
+          description: Indicates whether this rule is active or not.
+          examples:
+          - true
+          - false
+          type: boolean
+        start_time:
+          title: Start Time
+          description: Date and time when the rule should be enabled.
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: Date and time when the rule should be disabled.
+          examples:
+          - '2024-03-06T17:05:19'
+          type: string
+          format: date-time
+        campaign_id:
+          title: Campaign Id
+          examples:
+          - 1
+          - 42
+          type: integer
+        automatically_generated:
+          title: Automatically Generated
+          description: Boolean to indicate if this rule is automatically generated or not.
+          examples:
+          - false
+          - true
+          type: boolean
+        rule:
+          title: Rule
+          description: Parameters of the slot rule.
+          allOf:
+          - $ref: '#/components/schemas/SlotRuleParameters'
+        rule_type:
+          title: Rule Type
+          enum:
+          - slot
+          type: string
+      required:
+      - rule
+      additionalProperties: false
+    RefinedCollectionPutBody:
+      title: RefinedCollectionPutBody
+      type: object
+      properties:
+        slot_rules:
+          title: Slot Rules
+          description: The slotting rules attached to the refined filter
+          maxItems: 1000
+          type: array
+          items:
+            $ref: '#/components/schemas/SlotRuleBase'
+        whitelist_rule:
+          title: Whitelist Rule
+          description: The whitelist rule attached to the refined filter
+          oneOf:
+          - $ref: '#/components/schemas/WhitelistRuleBase'
+          - type: 'null'
+        blacklist_rules:
+          title: Blacklist Rules
+          description: The blacklist rules attached to the refined filter
+          maxItems: 50
+          type: array
+          items:
+            $ref: '#/components/schemas/BlacklistRuleBase'
+        boost_rules:
+          title: Boost Rules
+          description: The boost rules attached to the refined filter. It is allowed to create maximum 50 manual and 50 automatic rules. The number of rules for each of the types includes both active and inactive rules
+          type: array
+          items:
+            $ref: '#/components/schemas/BoostRuleBase'
+        content_rules:
+          title: Content Rules
+          description: The content rules attached to the refined filter
+          maxItems: 50
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentRuleBase'
+        variation_slicing_rule:
+          title: Variation Slicing Rule
+          description: The variation slicing rule attached to the refined filter
+          oneOf:
+          - $ref: '#/components/schemas/VariationSlicingRuleBase'
+          - type: 'null'
+        filters_slot_rules:
+          title: Filters Slot Rules
+          description: The filters slot rules attached to the refined filter
+          maxItems: 50
+          type: array
+          items:
+            $ref: '#/components/schemas/FiltersSlotRuleBase'
+        face_out_variation_rules:
+          title: Face Out Variation Rules
+          description: The face out variation rules attached to the refined filter
+          maxItems: 50
+          type: array
+          items:
+            $ref: '#/components/schemas/FaceOutVariationRuleBase'
+        allow_automatic_rules:
+          title: Allow Automatic Rules
+          description: Specifies whether to allow automatic creation of rules
+          default: true
+          type: boolean
+        last_reviewed_at:
+          title: Last Reviewed At
+          description: The date of the last review
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        last_reviewed_by:
+          title: Last Reviewed By
+          description: The user who last reviewed the refined filter
+          examples:
+          - user@example.com
+          type: string
+        next_review_at:
+          title: Next Review At
+          description: The date of the next review
+          examples:
+          - '2024-04-06T16:05:19'
+          type: string
+          format: date-time
+      additionalProperties: false
+    FiltersSlotRuleResponse:
+      title: FiltersSlotRuleResponse
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the rule, must be unique.
+          type: integer
+        request_tag_name:
+          description: Request tag name to be used to activate this entity for, used only with `request_tag_value`.
+          examples:
+          - user_segment
+          - geo_country
+          allOf:
+          - $ref: '#/components/schemas/RequestTags'
+        request_tag_value:
+          title: Request Tag Value
+          description: Request tag value to be used to activate this entity for, used only with request_tag_name.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - premium
+          - US
+          type: string
+        active:
+          title: Active
+          description: Indicates whether this rule is active or not.
+          examples:
+          - true
+          - false
+          type: boolean
+        start_time:
+          title: Start Time
+          description: Date and time when the rule should be enabled.
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: Date and time when the rule should be disabled.
+          examples:
+          - '2024-03-06T17:05:19'
+          type: string
+          format: date-time
+        campaign_id:
+          title: Campaign Id
+          examples:
+          - 1
+          - 42
+          type: integer
+        automatically_generated:
+          title: Automatically Generated
+          description: Boolean to indicate if this rule is automatically generated or not.
+          examples:
+          - false
+          - true
+          type: boolean
+        rule:
+          title: Rule
+          description: Parameters of the filters slot rule.
+          allOf:
+          - $ref: '#/components/schemas/FiltersSlotRuleParameters'
+        rule_type:
+          title: Rule Type
+          enum:
+          - filters_slot
+          type: string
+        created_at:
+          title: Created At
+          description: Date & time in ISO 8601 format for the creation of this rule.
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Date & time in ISO 8601 format for last update for this rule.
+          type: string
+          format: date-time
+      required:
+      - id
+      - rule
+      - rule_type
+    SlotFacetRuleResponse:
+      title: SlotFacetRuleResponse
+      type: object
+      properties:
+        target:
+          $ref: '#/components/schemas/FacetRuleTarget'
+        facet_group_name:
+          title: Facet Group Name
+          type: string
+        id:
+          title: Id
+          description: The ID of the rule, must be unique.
+          type: integer
+        request_tag_name:
+          description: Request tag name to be used to activate this entity for, used only with `request_tag_value`.
+          examples:
+          - user_segment
+          - geo_country
+          allOf:
+          - $ref: '#/components/schemas/RequestTags'
+        request_tag_value:
+          title: Request Tag Value
+          description: Request tag value to be used to activate this entity for, used only with request_tag_name.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - premium
+          - US
+          type: string
+        active:
+          title: Active
+          description: Indicates whether this rule is active or not.
+          examples:
+          - true
+          - false
+          type: boolean
+        start_time:
+          title: Start Time
+          description: Date and time when the rule should be enabled.
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: Date and time when the rule should be disabled.
+          examples:
+          - '2024-03-06T17:05:19'
+          type: string
+          format: date-time
+        campaign_id:
+          title: Campaign Id
+          examples:
+          - 1
+          - 42
+          type: integer
+        automatically_generated:
+          title: Automatically Generated
+          description: Boolean to indicate if this rule is automatically generated or not.
+          examples:
+          - false
+          - true
+          type: boolean
+        rule:
+          $ref: '#/components/schemas/SlotFacetRuleParameters'
+        rule_type:
+          title: Rule Type
+          enum:
+          - slot
+          type: string
+        created_at:
+          title: Created At
+          description: Date & time in ISO 8601 format for the creation of this rule.
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Date & time in ISO 8601 format for last update for this rule.
+          type: string
+          format: date-time
+      required:
+      - target
+      - id
+      - rule
+      - rule_type
+    SlotRuleResponse:
+      title: SlotRuleResponse
+      type: object
+      properties:
+        request_filters:
+          title: Request Filters
+          description: Facet conditions for the rule to be applied.
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+            minItems: 1
+        id:
+          title: Id
+          description: The ID of the rule, must be unique.
+          type: integer
+        request_tag_name:
+          description: Request tag name to be used to activate this entity for, used only with `request_tag_value`.
+          examples:
+          - user_segment
+          - geo_country
+          allOf:
+          - $ref: '#/components/schemas/RequestTags'
+        request_tag_value:
+          title: Request Tag Value
+          description: Request tag value to be used to activate this entity for, used only with `request_tag_name`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - premium
+          - US
+          type: string
+        active:
+          title: Active
+          description: Indicates whether this rule is active or not.
+          examples:
+          - true
+          - false
+          type: boolean
+        start_time:
+          title: Start Time
+          description: Date and time when the rule should be enabled.
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: Date and time when the rule should be disabled.
+          examples:
+          - '2024-03-06T17:05:19'
+          type: string
+          format: date-time
+        campaign_id:
+          title: Campaign Id
+          examples:
+          - 1
+          - 42
+          type: integer
+        automatically_generated:
+          title: Automatically Generated
+          description: Boolean to indicate if this rule is automatically generated or not.
+          examples:
+          - false
+          - true
+          type: boolean
+        rule:
+          title: Rule
+          description: Parameters of the slot rule.
+          allOf:
+          - $ref: '#/components/schemas/SlotRuleParameters'
+        rule_type:
+          title: Rule Type
+          enum:
+          - slot
+          type: string
+        created_at:
+          title: Created At
+          description: Date & time in ISO 8601 format for the creation of this rule.
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Date & time in ISO 8601 format for last update for this rule.
+          type: string
+          format: date-time
+      required:
+      - id
+      - rule
+      - rule_type
+    RefinedCollectionDeleteResponse:
+      title: RefinedCollectionDeleteResponse
+      anyOf:
+      - $ref: '#/components/schemas/RefinedFilterResultsResponse'
+      - $ref: '#/components/schemas/RefinedFilterFacetsResponse'
+    RefinedObjectRuleResponseSection:
+      title: RefinedObjectRuleResponseSection
+      enum:
+      - results
+      - facets
+      type: string
+    SortOrderType:
+      title: SortOrderType
+      enum:
+      - ascending
+      - descending
+      type: string
+    VariationSlicingRuleBase:
+      title: VariationSlicingRuleBase
+      type: object
+      properties:
+        request_tag_name:
+          description: Request tag name to be used to activate this entity for, used only with `request_tag_value`.
+          examples:
+          - user_segment
+          - geo_country
+          allOf:
+          - $ref: '#/components/schemas/RequestTags'
+        request_tag_value:
+          title: Request Tag Value
+          description: Request tag value to be used to activate this entity for, used only with request_tag_name.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - premium
+          - US
+          type: string
+        active:
+          title: Active
+          description: Indicates whether this rule is active or not.
+          examples:
+          - true
+          - false
+          type: boolean
+        start_time:
+          title: Start Time
+          description: Date and time when the rule should be enabled.
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: Date and time when the rule should be disabled.
+          examples:
+          - '2024-03-06T17:05:19'
+          type: string
+          format: date-time
+        campaign_id:
+          title: Campaign Id
+          examples:
+          - 1
+          - 42
+          type: integer
+        automatically_generated:
+          title: Automatically Generated
+          description: Boolean to indicate if this rule is automatically generated or not.
+          examples:
+          - false
+          - true
+          type: boolean
+        rule:
+          title: Rule
+          description: Parameters of the variation slicing rule.
+          allOf:
+          - $ref: '#/components/schemas/VariationSlicingRuleParameters'
+        rule_type:
+          title: Rule Type
+          enum:
+          - variation_slicing
+          type: string
+      required:
+      - rule
+      additionalProperties: false
+    BlacklistRuleResponse:
+      title: BlacklistRuleResponse
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the rule, must be unique.
+          type: integer
+        request_tag_name:
+          description: Request tag name to be used to activate this entity for, used only with `request_tag_value`.
+          examples:
+          - user_segment
+          - geo_country
+          allOf:
+          - $ref: '#/components/schemas/RequestTags'
+        request_tag_value:
+          title: Request Tag Value
+          description: Request tag value to be used to activate this entity for, used only with request_tag_name.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - premium
+          - US
+          type: string
+        active:
+          title: Active
+          description: Indicates whether this rule is active or not.
+          examples:
+          - true
+          - false
+          type: boolean
+        start_time:
+          title: Start Time
+          description: Date and time when the rule should be enabled.
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: Date and time when the rule should be disabled.
+          examples:
+          - '2024-03-06T17:05:19'
+          type: string
+          format: date-time
+        campaign_id:
+          title: Campaign Id
+          examples:
+          - 1
+          - 42
+          type: integer
+        automatically_generated:
+          title: Automatically Generated
+          description: Boolean to indicate if this rule is automatically generated or not.
+          examples:
+          - false
+          - true
+          type: boolean
+        rule:
+          title: Rule
+          description: Rule definition of the blacklist rule.
+          allOf:
+          - $ref: '#/components/schemas/ItemIdsOrFilters'
+        rule_type:
+          title: Rule Type
+          enum:
+          - blacklist
+          type: string
+        created_at:
+          title: Created At
+          description: Date & time in ISO 8601 format for the creation of this rule.
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Date & time in ISO 8601 format for last update for this rule.
+          type: string
+          format: date-time
+      required:
+      - id
+      - rule
+      - rule_type
+    RefinedCollectionPatchResponse:
+      title: RefinedCollectionPatchResponse
+      anyOf:
+      - $ref: '#/components/schemas/RefinedCollectionResultsResponse'
+      - $ref: '#/components/schemas/RefinedFilterFacetsResponse'
+    RefinedCollectionPutResponse:
+      title: RefinedCollectionPutResponse
+      anyOf:
+      - $ref: '#/components/schemas/RefinedCollectionResultsResponse'
+      - $ref: '#/components/schemas/RefinedFilterFacetsResponse'
+    FiltersSlotRuleBase:
+      title: FiltersSlotRuleBase
+      type: object
+      properties:
+        request_tag_name:
+          description: Request tag name to be used to activate this entity for, used only with `request_tag_value`.
+          examples:
+          - user_segment
+          - geo_country
+          allOf:
+          - $ref: '#/components/schemas/RequestTags'
+        request_tag_value:
+          title: Request Tag Value
+          description: Request tag value to be used to activate this entity for, used only with request_tag_name.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - premium
+          - US
+          type: string
+        active:
+          title: Active
+          description: Indicates whether this rule is active or not.
+          examples:
+          - true
+          - false
+          type: boolean
+        start_time:
+          title: Start Time
+          description: Date and time when the rule should be enabled.
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: Date and time when the rule should be disabled.
+          examples:
+          - '2024-03-06T17:05:19'
+          type: string
+          format: date-time
+        campaign_id:
+          title: Campaign Id
+          examples:
+          - 1
+          - 42
+          type: integer
+        automatically_generated:
+          title: Automatically Generated
+          description: Boolean to indicate if this rule is automatically generated or not.
+          examples:
+          - false
+          - true
+          type: boolean
+        rule:
+          title: Rule
+          description: Parameters of the filters slot rule.
+          allOf:
+          - $ref: '#/components/schemas/FiltersSlotRuleParameters'
+        rule_type:
+          title: Rule Type
+          enum:
+          - filters_slot
+          type: string
+      required:
+      - rule
+      additionalProperties: false
+    VariationSlicingRuleParameters:
+      title: VariationSlicingRuleParameters
+      type: object
+      properties:
+        facet_names:
+          title: Facet Names
+          description: The facet which we will slice based on.
+          minItems: 1
+          maxItems: 1
+          type: array
+          items:
+            type: string
+            examples:
+            - color
+            - brand
+        filter_expression:
+          title: Filter expression
+          description: '[Filter expression](/reference/shared-filter-expressions) associated with this variation slicing rule.'
+          allOf:
+          - $ref: '#/components/schemas/DictOrJsonStringWithDict'
+      required:
+      - facet_names
+      additionalProperties: false
+    BlacklistFacetRuleParameters:
+      title: BlacklistFacetRuleParameters
+      type: object
+      properties:
+        name:
+          title: Name
+          description: The name of the facet to block.
+          examples:
+          - Brand
+          - Size
+          type: string
+      required:
+      - name
+      additionalProperties: false
+  securitySchemes:
+    http_basic_auth:
+      type: http
+      scheme: basic
+    http_bearer_auth:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: false

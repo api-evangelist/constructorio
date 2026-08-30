@@ -1,0 +1,589 @@
+openapi: 3.2.0
+info:
+  contact:
+    email: support@constructor.io
+  title: Configuration Metadata overrides API
+  version: '0.1'
+servers:
+- url: https://ac.cnstrc.com
+security: []
+tags:
+- name: Metadata overrides
+paths:
+  /v1/metadata_overrides:
+    get:
+      tags:
+      - Metadata overrides
+      operationId: metadata-overrides-get-metadata-overrides
+      summary: Get metadata overrides for the specified autocomplete ID and
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `metadata_overrides(r)`.
+
+
+        optionally query via field name and/or active.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      - name: field_name
+        in: query
+        schema:
+          title: Field Name
+          description: Field name to filter metadata override configurations by.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - price
+          - description
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetadataOverridesListGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - metadata_overrides(r)
+    post:
+      tags:
+      - Metadata overrides
+      operationId: metadata-overrides-post-metadata-override
+      summary: Create a new metadata override rule for the specified field name.
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `metadata_overrides(w)`.
+
+
+        '
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MetadataOverridesListPostBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetadataOverridesListPostResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - metadata_overrides(w)
+  /v1/metadata_overrides/{field_name}:
+    patch:
+      tags:
+      - Metadata overrides
+      operationId: metadata-overrides-patch-metadata-override
+      summary: Patch an existing metadata override rule for the specified field name.
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `metadata_overrides(w)`.
+
+
+        '
+      parameters:
+      - name: field_name
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MetadataOverridesPatchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetadataOverridesPatchResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - metadata_overrides(w)
+    delete:
+      tags:
+      - Metadata overrides
+      operationId: metadata-overrides-delete-metadata-override
+      summary: Delete an existing metadata override rule for the specified field name.
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `metadata_overrides(w)`.
+
+
+        '
+      parameters:
+      - name: field_name
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MetadataOverridesDeleteResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - metadata_overrides(w)
+components:
+  schemas:
+    MetadataOverridesListPostResponse:
+      title: MetadataOverridesListPostResponse
+      type: object
+      properties:
+        field_name:
+          title: Field Name
+          description: Field name associated with the metadata override configuration.
+          maxLength: 100
+          minLength: 1
+          type: string
+        field_path_in_metadata:
+          title: Field Path In Metadata
+          description: Path to the field in metadata where the metadata override configuration is applied.
+          maxLength: 300
+          minLength: 1
+          type: string
+        rules:
+          title: Rules
+          description: List of rules associated with metadata override configuration.
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/MetadataOverridesRuleResponseBase'
+      required:
+      - field_name
+      - rules
+    MetadataOverridesPatchBody:
+      title: MetadataOverridesPatchBody
+      type: object
+      properties:
+        field_path_in_metadata:
+          title: Field Path In Metadata
+          description: Path to the field in metadata where the metadata override configuration is applied.
+          maxLength: 300
+          minLength: 1
+          type: string
+        rules:
+          title: Rules
+          description: List of rules associated with the metadata override configuration. In total, there can be a maximum of 5 rules per key.
+          minItems: 1
+          maxItems: 5
+          type: array
+          items:
+            $ref: '#/components/schemas/MetadataOverridesRuleBase'
+      additionalProperties: false
+    MetadataOverridesListPostBody:
+      title: MetadataOverridesListPostBody
+      type: object
+      properties:
+        field_name:
+          title: Field Name
+          description: Field name associated with the metadata override configuration.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - price
+          - description
+          type: string
+        field_path_in_metadata:
+          title: Field Path In Metadata
+          description: Path to the field in metadata where the metadata override configuration is applied.
+          maxLength: 300
+          minLength: 1
+          examples:
+          - data.price
+          - data.description
+          type: string
+        rules:
+          title: Rules
+          description: List of rules associated with the metadata override configuration. In total, there can be a maximum of 5 rules per key.
+          minItems: 1
+          maxItems: 5
+          type: array
+          items:
+            $ref: '#/components/schemas/MetadataOverridesRuleBase'
+      required:
+      - field_name
+      - field_path_in_metadata
+      - rules
+      additionalProperties: false
+    MetadataOverridesResponseBase:
+      title: MetadataOverridesResponseBase
+      type: object
+      properties:
+        field_name:
+          title: Field Name
+          description: Field name associated with the metadata override configuration.
+          maxLength: 100
+          minLength: 1
+          type: string
+        field_path_in_metadata:
+          title: Field Path In Metadata
+          description: Path to the field in metadata where the metadata override configuration is applied.
+          maxLength: 300
+          minLength: 1
+          type: string
+        rules:
+          title: Rules
+          description: List of rules associated with metadata override configuration.
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/MetadataOverridesRuleResponseBase'
+      required:
+      - field_name
+      - rules
+    MetadataOverridesListGetResponse:
+      title: MetadataOverridesListGetResponse
+      type: object
+      properties:
+        metadata_overrides:
+          title: Metadata Overrides
+          description: List of metadata override configurations.
+          default: []
+          type: array
+          items:
+            $ref: '#/components/schemas/MetadataOverridesResponseBase'
+        total_count:
+          title: Total Count
+          description: Total number of metadata override configurations.
+          minimum: 0
+          type: integer
+      required:
+      - total_count
+      additionalProperties: false
+    MetadataOverridesDeleteResponse:
+      title: MetadataOverridesDeleteResponse
+      type: object
+      properties:
+        field_name:
+          title: Field Name
+          description: Field name associated with the metadata override configuration.
+          maxLength: 100
+          minLength: 1
+          type: string
+        field_path_in_metadata:
+          title: Field Path In Metadata
+          description: Path to the field in metadata where the metadata override configuration is applied.
+          maxLength: 300
+          minLength: 1
+          type: string
+        rules:
+          title: Rules
+          description: List of rules associated with metadata override configuration.
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/MetadataOverridesRuleResponseBase'
+      required:
+      - field_name
+      - rules
+    MetadataOverridesRuleResponseBase:
+      title: MetadataOverridesRuleResponseBase
+      type: object
+      properties:
+        start_time:
+          title: Start Time
+          description: Datetime (In UTC) when the rule should be enabled. Overlapping rules are not allowed.
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: Datetime (In UTC) when the rule should be disabled. Overlapping rules are not allowed.
+          examples:
+          - '2024-03-07T16:05:19'
+          type: string
+          format: date-time
+        replaced_field_name:
+          title: Replaced Field Name
+          description: Field name that the rule is replacing.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - price
+          - description
+          type: string
+        replaced_field_path_in_metadata:
+          title: Replaced Field Path In Metadata
+          description: Path to the replacement field in metadata.
+          maxLength: 300
+          minLength: 1
+          examples:
+          - data.sale_price
+          - data.promo_description
+          type: string
+      required:
+      - start_time
+      - end_time
+      - replaced_field_name
+      - replaced_field_path_in_metadata
+    MetadataOverridesRuleBase:
+      title: MetadataOverridesRuleBase
+      type: object
+      properties:
+        start_time:
+          title: Start Time
+          description: Datetime (In UTC) when the rule should be enabled. Overlapping rules are not allowed.
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: Datetime (In UTC) when the rule should be disabled. Overlapping rules are not allowed.
+          examples:
+          - '2024-03-07T16:05:19'
+          type: string
+          format: date-time
+        replaced_field_name:
+          title: Replaced Field Name
+          description: Field name that the rule is replacing.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - price
+          - description
+          type: string
+        replaced_field_path_in_metadata:
+          title: Replaced Field Path In Metadata
+          description: Path to the replacement field in metadata.
+          maxLength: 300
+          minLength: 1
+          examples:
+          - data.sale_price
+          - data.promo_description
+          type: string
+      required:
+      - start_time
+      - end_time
+      - replaced_field_name
+      - replaced_field_path_in_metadata
+      additionalProperties: false
+    MetadataOverridesPatchResponse:
+      title: MetadataOverridesPatchResponse
+      type: object
+      properties:
+        field_name:
+          title: Field Name
+          description: Field name associated with the metadata override configuration.
+          maxLength: 100
+          minLength: 1
+          type: string
+        field_path_in_metadata:
+          title: Field Path In Metadata
+          description: Path to the field in metadata where the metadata override configuration is applied.
+          maxLength: 300
+          minLength: 1
+          type: string
+        rules:
+          title: Rules
+          description: List of rules associated with metadata override configuration.
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/MetadataOverridesRuleResponseBase'
+      required:
+      - field_name
+      - rules
+  securitySchemes:
+    http_basic_auth:
+      type: http
+      scheme: basic
+    http_bearer_auth:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: false

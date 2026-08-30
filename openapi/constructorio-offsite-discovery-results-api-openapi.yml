@@ -1,0 +1,563 @@
+openapi: 3.2.0
+info:
+  title: Offsite Discovery recommendations Offsite Discovery results API
+  contact:
+    name: Constructor.io Support
+    email: support@constructor.io
+  version: '1.0'
+  description: Endpoints for retrieving AI-optimized recommendation results for products to use in Offsite Discovery.
+servers:
+- url: https://offsite-discovery.cnstrc.com
+security: []
+tags:
+- name: Offsite Discovery results
+  description: Endpoints for retrieving AI-optimized recommendation results for products to use in Offsite Discovery.
+paths:
+  /v1/recommendations/pods/{pod_id}:
+    get:
+      tags:
+      - Offsite Discovery results
+      summary: Retrieve recommendations by pod
+      description: Retrieve AI-optimized recommendation results for products by pod identifier.
+      operationId: v1-offsite-discovery-recommendations-by-pod-get
+      parameters:
+      - description: The unique identifier of the recommendation pod containing the product set.
+        required: true
+        schema:
+          type: string
+          title: Pod ID
+          description: The unique identifier of the recommendation pod containing the product set.
+          examples:
+          - homepage_products
+          - related_items
+          - trending_now
+        name: pod_id
+        in: path
+      - description: The key of the index to use.
+        required: true
+        schema:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Key
+          description: The key of the index to use.
+          examples:
+          - ZqXaOfXuBWD4s3XzCI1q
+        name: key
+        in: query
+      - description: Email campaign identifier for tracking and analytics.
+        required: true
+        schema:
+          type: string
+          title: Campaign ID
+          description: Email campaign identifier for tracking and analytics.
+          examples:
+          - email_campaign_2024_01
+        name: campaign_id
+        in: query
+      - description: Seed item ID used for item-based recommendations (e.g., complementary).
+        required: false
+        schema:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: string
+          title: Item ID
+          description: Seed item ID used for item-based recommendations (e.g., complementary).
+          examples:
+          - '2000'
+        name: item_id
+        in: query
+        style: form
+        explode: true
+      - description: Any number of filtering criteria used to narrow the result set, such as `color=blue` or `group_id=sandals` or `price=100-200`. Facets, item groups and collection IDs can be used as filters. If `filter_value` has the form `<min>-<max>`, it is interpreted as a range. Filters with the same key are ORed together and filters with different keys are ANDed together by default. Only results that match the filters are returned. Boolean values are serialized with the first letter capitalized (e.g., `True` / `False`) as a convention.
+        required: false
+        schema:
+          title: Filters
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+          description: Any number of filtering criteria used to narrow the result set, such as `color=blue` or `group_id=sandals` or `price=100-200`. Facets, item groups and collection IDs can be used as filters. If `filter_value` has the form `<min>-<max>`, it is interpreted as a range. Filters with the same key are ORed together and filters with different keys are ANDed together by default. Only results that match the filters are returned. Boolean values are serialized with the first letter capitalized (e.g., `True` / `False`) as a convention.
+          examples:
+          - color:
+            - red
+            - blue
+            price:
+            - 100-200
+        name: filters
+        in: query
+        style: deepObject
+        explode: true
+      - description: '**DEPRECATED. Please, use ''filters'' instead**. Name of the product attribute to filter by (e.g., brand, category, color). Must be provided together with `filter_value`.'
+        required: false
+        deprecated: true
+        schema:
+          type: string
+          title: Filter name
+          description: '**DEPRECATED. Please, use ''filters'' instead**. Name of the product attribute to filter by (e.g., brand, category, color). Must be provided together with `filter_value`.'
+          examples:
+          - brand
+          - category
+          - color
+          - size
+        name: filter_name
+        in: query
+      - description: '**DEPRECATED. Please, use ''filters'' instead**. Value to filter the specified attribute by. Must be provided together with `filter_name`.'
+        required: false
+        deprecated: true
+        schema:
+          type: string
+          title: Filter value
+          description: '**DEPRECATED. Please, use ''filters'' instead**. Value to filter the specified attribute by. Must be provided together with `filter_name`.'
+          examples:
+          - nike
+          - shoes
+          - blue
+          - large
+        name: filter_value
+        in: query
+      - description: The maximum number of recommended items to retrieve.
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          title: Number of results
+          description: The maximum number of recommended items to retrieve.
+          default: 10
+          examples:
+          - 10
+        name: num_results
+        in: query
+      - description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+        required: false
+        schema:
+          type: string
+          title: Client ID
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          examples:
+          - cio-dashboard
+          - anonymous_abc123
+        name: c
+        in: query
+      - description: User segment is a client context value (such as platform, location, etc.) that is used to evaluate redirect or refined tag rules. You can supply multiple segments by passing multiple `us` arguments.
+        required: false
+        schema:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: string
+          title: User Segment(s)
+          description: User segment is a client context value (such as platform, location, etc.) that is used to evaluate redirect or refined tag rules. You can supply multiple segments by passing multiple `us` arguments.
+        name: us
+        in: query
+        style: form
+        explode: true
+      - description: Unique identifier for the user to personalize recommendation results.
+        required: false
+        schema:
+          type: string
+          title: User ID
+          description: Unique identifier for the user to personalize recommendation results.
+          examples:
+          - user_12345
+          - anonymous_abc123
+        name: ui
+        in: query
+      - description: Base URL used to construct the product detail page redirect URL (e.g., 'https://example.com').
+        required: false
+        schema:
+          type: string
+          title: Base URL
+          description: Base URL used to construct the product detail page redirect URL (e.g., 'https://example.com').
+        name: base_url
+        in: query
+      responses:
+        '200':
+          description: OK. A list of recommended products.
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ResultSchema'
+                type: array
+                title: RecommendationsByPodResponseV1
+              example:
+              - data:
+                  id: PROD_001
+                  variation_id: VAR_001_BLUE
+                  url: https://shop.example.com/products/premium-sneakers
+                  image_url: https://images.example.com/products/PROD_001_main.jpg
+                value: Premium Running Sneakers - Blue
+              - data:
+                  id: PROD_002
+                  url: https://shop.example.com/products/casual-shirt
+                  image_url: https://images.example.com/products/PROD_002_main.jpg
+                value: Casual Cotton Shirt
+        '400':
+          description: Bad Request - Invalid syntax or missing required parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not Found - The requested pod ID could not be found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error - An unexpected error occurred on the server.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /v1/browse/collection_id/{collection_id}:
+    get:
+      tags:
+      - Offsite Discovery results
+      summary: Retrieve recommendations by collection
+      description: Retrieve AI-optimized products from a specified collection
+      operationId: v1-offsite-discovery-browse-results-by-collection-get
+      parameters:
+      - description: The unique identifier of the collection containing the product set.
+        required: true
+        schema:
+          type: string
+          title: Collection ID
+          description: The unique identifier of the collection containing the product set.
+          examples:
+          - summer_collection
+          - christmas_sale
+        name: collection_id
+        in: path
+      - description: The key of the index to use.
+        required: true
+        schema:
+          type: string
+          maxLength: 100
+          minLength: 1
+          title: Key
+          description: The key of the index to use.
+          examples:
+          - ZqXaOfXuBWD4s3XzCI1q
+        name: key
+        in: query
+      - description: Email campaign identifier for tracking and analytics.
+        required: true
+        schema:
+          type: string
+          title: Campaign ID
+          description: Email campaign identifier for tracking and analytics.
+          examples:
+          - email_campaign_2024_01
+        name: campaign_id
+        in: query
+      - description: Any number of filtering criteria used to narrow the result set, such as `color=blue` or `group_id=sandals` or `price=100-200`. Facets, item groups and collection IDs can be used as filters. If `filter_value` has the form `<min>-<max>`, it is interpreted as a range. Filters with the same key are ORed together and filters with different keys are ANDed together by default. Only results that match the filters are returned. Boolean values are serialized with the first letter capitalized (e.g., `True` / `False`) as a convention.
+        required: false
+        schema:
+          title: Filters
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - additionalProperties:
+              items:
+                type: string
+              type: array
+            type: object
+          description: Any number of filtering criteria used to narrow the result set, such as `color=blue` or `group_id=sandals` or `price=100-200`. Facets, item groups and collection IDs can be used as filters. If `filter_value` has the form `<min>-<max>`, it is interpreted as a range. Filters with the same key are ORed together and filters with different keys are ANDed together by default. Only results that match the filters are returned. Boolean values are serialized with the first letter capitalized (e.g., `True` / `False`) as a convention.
+          examples:
+          - color:
+            - red
+            - blue
+            price:
+            - 100-200
+        name: filters
+        in: query
+        style: deepObject
+        explode: true
+      - description: '**DEPRECATED. Please, use ''filters'' instead**. Name of the product attribute to filter by (e.g., brand, category, color). Must be provided together with `filter_value`.'
+        required: false
+        deprecated: true
+        schema:
+          type: string
+          title: Filter name
+          description: '**DEPRECATED. Please, use ''filters'' instead**. Name of the product attribute to filter by (e.g., brand, category, color). Must be provided together with `filter_value`.'
+          examples:
+          - brand
+          - category
+          - color
+          - size
+        name: filter_name
+        in: query
+      - description: '**DEPRECATED. Please, use ''filters'' instead**. Value to filter the specified attribute by. Must be provided together with `filter_name`.'
+        required: false
+        deprecated: true
+        schema:
+          type: string
+          title: Filter value
+          description: '**DEPRECATED. Please, use ''filters'' instead**. Value to filter the specified attribute by. Must be provided together with `filter_name`.'
+          examples:
+          - nike
+          - shoes
+          - blue
+          - large
+        name: filter_value
+        in: query
+      - description: The maximum number of collection items to retrieve.
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          title: Number of results
+          description: The maximum number of collection items to retrieve.
+          default: 10
+          examples:
+          - 10
+        name: num_results
+        in: query
+      - description: The method to sort results by. The default value `relevance` sorts by Constructor's attractiveness & personalization algorithms and is reserved. Alternative sort criteria can be configured using the [sort options](https://docs.constructor.com/reference/v1-sort-options-create-or-replace-sort-options)
+        required: false
+        schema:
+          type: string
+          title: Sort By
+          description: The method to sort results by. The default value `relevance` sorts by Constructor's attractiveness & personalization algorithms and is reserved. Alternative sort criteria can be configured using the [sort options](https://docs.constructor.com/reference/v1-sort-options-create-or-replace-sort-options)
+          examples:
+          - relevance
+          default: relevance
+        name: sort_by
+        in: query
+      - description: The order by which results should be sorted. Only valid in conjunction with `sort_by`.
+        required: false
+        schema:
+          allOf:
+          - $ref: '#/components/schemas/SortOrder'
+          title: Sort Order
+          description: The order by which results should be sorted. Only valid in conjunction with `sort_by`.
+          default: descending
+          examples:
+          - descending
+        name: sort_order
+        in: query
+      - description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+        required: false
+        schema:
+          type: string
+          title: Client ID
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          examples:
+          - cio-dashboard
+          - anonymous_abc123
+        name: c
+        in: query
+      - description: User segment is a client context value (such as platform, location, etc.) that is used to evaluate redirect or refined tag rules. You can supply multiple segments by passing multiple `us` arguments.
+        required: false
+        schema:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: string
+          title: User Segment(s)
+          description: User segment is a client context value (such as platform, location, etc.) that is used to evaluate redirect or refined tag rules. You can supply multiple segments by passing multiple `us` arguments.
+        name: us
+        in: query
+        style: form
+        explode: true
+      - description: Unique identifier for the user to personalize recommendation results.
+        required: false
+        schema:
+          type: string
+          title: User ID
+          description: Unique identifier for the user to personalize recommendation results.
+          examples:
+          - user_12345
+          - anonymous_abc123
+        name: ui
+        in: query
+      - description: Base URL used to construct the product detail page redirect URL (e.g., 'https://example.com').
+        required: false
+        schema:
+          type: string
+          title: Base URL
+          description: Base URL used to construct the product detail page redirect URL (e.g., 'https://example.com').
+        name: base_url
+        in: query
+      responses:
+        '200':
+          description: OK. A list of products from a specified collection.
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ResultSchema'
+                type: array
+                title: RecommendationsByCollectionResponseV1
+              example:
+              - data:
+                  id: PROD_001
+                  variation_id: VAR_001_BLUE
+                  url: https://shop.example.com/products/premium-sneakers
+                  image_url: https://images.example.com/products/PROD_001_main.jpg
+                value: Premium Running Sneakers - Blue
+              - data:
+                  id: PROD_002
+                  url: https://shop.example.com/products/casual-shirt
+                  image_url: https://images.example.com/products/PROD_002_main.jpg
+                value: Casual Cotton Shirt
+        '400':
+          description: Bad Request - Invalid syntax or missing required parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not Found - The requested collection ID could not be found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error - An unexpected error occurred on the server.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ErrorResponse:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          description: A human-readable error message describing the issue.
+          examples:
+          - 'Required parameter missing: key'
+          - 'Invalid pod_id: POD_123'
+          - 'Position out of range: 15'
+          - Resource not found
+      type: object
+      required:
+      - detail
+      title: ErrorResponse
+      description: Standardized error response format for the API.
+    Data:
+      properties:
+        id:
+          type: string
+          title: ID
+          description: The unique identifier for the product (maps to item_id in some contexts).
+          examples:
+          - PROD123
+        variation_id:
+          type: string
+          title: Variation ID
+          description: The unique identifier for the product variation, if applicable.
+          examples:
+          - VAR456
+        url:
+          type: string
+          format: url
+          title: URL
+          description: URL for the product detail page.
+          examples:
+          - https://example.com/products/prod123
+          - /products?skuId=123
+        image_url:
+          type: string
+          format: url
+          title: Image URL
+          description: URL for the product's primary image.
+          examples:
+          - https://example.com/images/prod123.jpg
+      type: object
+      required:
+      - id
+      title: Data
+      description: Core product data containing essential fields. Additional customer-specific fields may be present in actual API responses based on configuration, but are not documented here for privacy and simplicity.
+    RecommendationStrategy:
+      properties:
+        id:
+          type: string
+          title: Recommendation Strategy ID
+          description: The unique identifier for the recommendation strategy.
+          examples:
+          - bestsellers
+          - user_featured_items
+      type: object
+      required:
+      - id
+      title: RecommendationStrategy
+    SortOrder:
+      type: string
+      enum:
+      - ascending
+      - descending
+      title: SortOrder
+      description: 'The sort order for results: ascending (low to high) or descending (high to low).'
+    ResultSchema:
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/Data'
+          title: Data
+          description: Detailed information about the recommended product.
+        value:
+          type: string
+          title: Value
+          description: The name or title of the product (corresponds to item_name from OpenAPI example).
+          examples:
+          - Classic Blue T-Shirt
+        strategy:
+          allOf:
+          - $ref: '#/components/schemas/RecommendationStrategy'
+          title: Recommendation Strategy
+          description: Details about the recommendation strategy used.
+        labels:
+          allOf:
+          - $ref: '#/components/schemas/ProductLabels'
+          title: Product Labels
+          description: Labels associated with the product, such as retail media information.
+      type: object
+      required:
+      - data
+      title: Result
+      description: Schema for results in API responses.
+    ProductLabels:
+      properties:
+        is_retail_media:
+          type: boolean
+          title: Is Retail Media
+          description: Indicates whether the product is a sponsored item.
+          examples:
+          - true
+          - false
+        sl_campaign_id:
+          type: string
+          title: Sponsored Listing Campaign ID
+          description: The unique identifier for the sponsored listing campaign.
+          examples:
+          - campaign_123
+          - sl_abc_456
+        sl_campaign_owner:
+          type: string
+          title: Sponsored Listing Campaign Owner
+          description: The owner or advertiser of the sponsored listing campaign.
+          examples:
+          - brand_abc
+          - advertiser_xyz
+      type: object
+      title: ProductLabels
+      description: Product labels for sponsored listing and retail media information.
+x-readme:
+  explorer-enabled: false

@@ -1,0 +1,676 @@
+openapi: 3.2.0
+info:
+  contact:
+    email: support@constructor.io
+  title: Configuration Synonyms API
+  version: '0.1'
+servers:
+- url: https://ac.cnstrc.com
+security: []
+tags:
+- name: Synonyms
+paths:
+  /v2/one_way_synonyms/{parent_phrase}:
+    get:
+      tags:
+      - Synonyms
+      operationId: v2-one-way-synonyms-retrieve-one-way-synonym
+      summary: Retrieve one-way synonym
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `synonyms(r)`.
+
+
+        Retrieve one-way synonym with specified `parent_phrase`.'
+      parameters:
+      - name: parent_phrase
+        in: path
+        required: true
+        schema:
+          type: string
+          examples:
+          - shoes
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: phrase
+        in: query
+        schema:
+          title: Phrase
+          examples:
+          - shoes
+          - flower
+          minLength: 1
+          type: string
+        required: false
+      - name: num_results_per_page
+        in: query
+        schema:
+          title: Num Results Per Page
+          description: The number of results per page to return.
+          default: 20
+          minimum: 1
+          maximum: 1000
+          examples:
+          - 20
+          - 100
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          title: Page
+          description: The page of results to return.
+          minimum: 1
+          examples:
+          - 1
+          - 2
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          title: Offset
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          minimum: 0
+          examples:
+          - 0
+          - 100
+          type: integer
+        required: false
+      - name: sort_by
+        in: query
+        schema:
+          description: Fields that you can sort the results by
+          examples:
+          - parent_phrase
+          - created_at
+          allOf:
+          - $ref: '#/components/schemas/NgramRelationSortByType'
+        required: false
+      - name: sort_order
+        in: query
+        schema:
+          description: In which order results are returned
+          examples:
+          - ascending
+          - descending
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OneWaySynonymV2GetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - synonyms(r)
+    post:
+      tags:
+      - Synonyms
+      operationId: v2-one-way-synonyms-create-one-way-synonym
+      summary: Create one-way synonym
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `synonyms(w)`.
+
+
+        Create one-way synonym with specified `parent_phrase`.'
+      parameters:
+      - name: parent_phrase
+        in: path
+        required: true
+        schema:
+          type: string
+          examples:
+          - shoes
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OneWaySynonymV2PostRequestBody'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - synonyms(w)
+    put:
+      tags:
+      - Synonyms
+      operationId: v2-one-way-synonyms-replace-one-way-synonym
+      summary: Replace one-way synonym
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `synonyms(w)`.
+
+
+        Replace one-way synonym with specified `parent_phrase`. This will overwrite all child phrases with those provided in the `child_phrases` array.'
+      parameters:
+      - name: parent_phrase
+        in: path
+        required: true
+        schema:
+          type: string
+          examples:
+          - shoes
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OneWaySynonymV2PutRequestBody'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - synonyms(w)
+    delete:
+      tags:
+      - Synonyms
+      operationId: v2-one-way-synonyms-delete-one-way-synonym
+      summary: Delete one-way synonym
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `synonyms(w)`.
+
+
+        Delete one-way synonyms with specified `parent_phrase`.'
+      parameters:
+      - name: parent_phrase
+        in: path
+        required: true
+        schema:
+          type: string
+          examples:
+          - shoes
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - synonyms(w)
+  /v2/one_way_synonyms:
+    get:
+      tags:
+      - Synonyms
+      operationId: v2-one-way-synonyms-retrieve-one-way-synonyms
+      summary: Retrieve one-way synonyms
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `synonyms(r)`.
+
+
+        Retrieve all one-way synonyms.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: parent_phrase
+        in: query
+        schema:
+          title: Parent Phrase
+          description: A list of parent phrases to filter by
+          minItems: 1
+          type: array
+          items:
+            type: string
+            minLength: 1
+            examples:
+            - shoes
+            - flower
+        required: false
+      - name: phrase
+        in: query
+        schema:
+          title: Phrase
+          examples:
+          - shoes
+          - flower
+          minLength: 1
+          type: string
+        required: false
+      - name: num_results_per_page
+        in: query
+        schema:
+          title: Num Results Per Page
+          description: The number of results per page to return.
+          default: 20
+          minimum: 1
+          maximum: 1000
+          examples:
+          - 20
+          - 100
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          title: Page
+          description: The page of results to return.
+          minimum: 1
+          examples:
+          - 1
+          - 2
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          title: Offset
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          minimum: 0
+          examples:
+          - 0
+          - 100
+          type: integer
+        required: false
+      - name: sort_by
+        in: query
+        schema:
+          description: Fields that you can sort the results by
+          examples:
+          - parent_phrase
+          - created_at
+          allOf:
+          - $ref: '#/components/schemas/NgramRelationSortByType'
+        required: false
+      - name: sort_order
+        in: query
+        schema:
+          description: In which order results are returned
+          examples:
+          - ascending
+          - descending
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OneWaySynonymV2ListGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - synonyms(r)
+    delete:
+      tags:
+      - Synonyms
+      operationId: v2-one-way-synonyms-delete-one-way-synonyms
+      summary: Delete one-way synonyms
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `synonyms(w)`.
+
+
+        Delete one-way synonyms. It is done asynchronously in a background task.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OneWaySynonymV2ListDeleteResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - synonyms(w)
+components:
+  schemas:
+    OneWaySynonymRelationV2:
+      title: OneWaySynonymRelationV2
+      type: object
+      properties:
+        parent_phrase:
+          title: Parent Phrase
+          minLength: 1
+          maxLength: 200
+          type: string
+        child_phrases:
+          title: Child Phrases
+          type: array
+          items:
+            $ref: '#/components/schemas/PhraseResponse'
+      required:
+      - parent_phrase
+      - child_phrases
+      additionalProperties: false
+    OneWaySynonymV2GetResponse:
+      title: OneWaySynonymV2GetResponse
+      type: object
+      properties:
+        one_way_synonym_relations:
+          title: One Way Synonym Relations
+          description: A list of one way synonyms
+          type: array
+          items:
+            $ref: '#/components/schemas/OneWaySynonymRelationV2'
+        total_count:
+          title: Total Count
+          description: Total count of one way synonyms returned
+          type: integer
+      required:
+      - one_way_synonym_relations
+      - total_count
+      additionalProperties: false
+    OneWaySynonymV2ListDeleteResponse:
+      title: OneWaySynonymV2ListDeleteResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          description: Descriptive message of the deletion status
+          type: string
+      required:
+      - message
+      additionalProperties: false
+    Phrase:
+      title: Phrase
+      type: object
+      properties:
+        phrase:
+          title: Phrase
+          examples:
+          - sneakers
+          - running shoes
+          minLength: 1
+          maxLength: 200
+          type: string
+      required:
+      - phrase
+      additionalProperties: false
+    SortOrderType:
+      title: SortOrderType
+      enum:
+      - ascending
+      - descending
+      type: string
+    OneWaySynonymV2PutRequestBody:
+      title: OneWaySynonymV2PutRequestBody
+      type: object
+      properties:
+        child_phrases:
+          title: Child Phrases
+          minItems: 1
+          maxItems: 50
+          type: array
+          items:
+            $ref: '#/components/schemas/Phrase'
+      required:
+      - child_phrases
+      additionalProperties: false
+    PhraseResponse:
+      title: PhraseResponse
+      type: object
+      properties:
+        phrase:
+          title: Related Ngram
+          minLength: 1
+          maxLength: 200
+          type: string
+        automatically_generated:
+          title: Automatically Generated
+          type: boolean
+        created_at:
+          title: Created At
+          description: One way synonym creation date and time in ISO 8601 format
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Last one way synonym update date and time in ISO 8601 format.
+          type: string
+          format: date-time
+        activated_at:
+          title: Activated At
+          description: Last one way synonym update date and time in ISO 8601 format.
+          type: string
+          format: date-time
+      required:
+      - phrase
+      additionalProperties: false
+    OneWaySynonymV2PostRequestBody:
+      title: OneWaySynonymV2PostRequestBody
+      type: object
+      properties:
+        child_phrases:
+          title: Child Phrases
+          minItems: 1
+          maxItems: 50
+          type: array
+          items:
+            $ref: '#/components/schemas/Phrase'
+      required:
+      - child_phrases
+      additionalProperties: false
+    NgramRelationSortByType:
+      title: NgramRelationSortByType
+      enum:
+      - created_at
+      - updated_at
+      - activated_at
+      type: string
+    OneWaySynonymV2ListGetResponse:
+      title: OneWaySynonymV2ListGetResponse
+      type: object
+      properties:
+        one_way_synonym_relations:
+          title: One Way Synonym Relations
+          description: A list of one way synonyms
+          type: array
+          items:
+            $ref: '#/components/schemas/OneWaySynonymRelationV2'
+        total_count:
+          title: Total Count
+          description: Total count of one way synonyms returned
+          type: integer
+      required:
+      - one_way_synonym_relations
+      - total_count
+      additionalProperties: false
+  securitySchemes:
+    http_basic_auth:
+      type: http
+      scheme: basic
+    http_bearer_auth:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: false

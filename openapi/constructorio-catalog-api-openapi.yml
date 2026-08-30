@@ -1,0 +1,386 @@
+openapi: 3.2.0
+info:
+  contact:
+    email: support@constructor.io
+  title: management Catalog API
+  version: '0.1'
+servers:
+- url: https://ac.cnstrc.com
+security: []
+tags:
+- name: Catalog
+paths:
+  /v1/catalog:
+    put:
+      tags:
+      - Catalog
+      operationId: v1-catalog-create-or-replace-catalog
+      summary: Create or replace catalog
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`, `search_suggestions(w)`.
+
+
+        Replace the current catalog using one of two modes: **Full mode** (`mode=full`, default): Send full catalog files to replace the current catalog. You may upload up to three [files](https://docs.constructor.com/docs/integrating-with-constructor-product-catalog-catalog-files-via-http-or-ftps-catalog-file-upload-step-by-step-guide) in the form data under the following keys: `items`, `variations`, `item_groups`. If you do not wish to replace one of these types of resources then omit it from the request. Any records that already exist will be deleted and replaced with the records you provide in the files. **IDs mode** (`mode=ids`): Send files containing only the IDs of records to keep. Files should contain only an `id` column (CSV) or `id` field (JSONL). All records whose IDs are not present in the uploaded files will be deleted from the catalog. Returns an identifier for a background [task](https://docs.constructor.com/reference/v1-tasks-retrieve-task).'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      - name: force
+        in: query
+        schema:
+          title: Force
+          description: A flag to process the catalog even if it will invalidate a large part of existing data. By default, operations that would invalidate more than 50% of existing data are blocked unless `force=true` is used. Defaults to `False`.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        required: false
+      - name: notification_email
+        in: query
+        schema:
+          title: Notification Email
+          description: The email address(es) to send a notification to if the task fails. Multiple addresses may be specified for multiple recipients.
+          type: array
+          items:
+            type: string
+            format: email
+            examples:
+            - user@example.com
+        required: false
+      - name: format
+        in: query
+        schema:
+          description: File format of the uploaded items and variations files. Can be either `csv` or `jsonl`.
+          default: csv
+          examples:
+          - csv
+          - jsonl
+          allOf:
+          - $ref: '#/components/schemas/FileFormat'
+        required: false
+      - name: mode
+        in: query
+        schema:
+          description: 'Mode for catalog upload: `full` (default, send complete catalog files) or `ids` (send ID-only files to keep specific records, others will be removed).'
+          default: full
+          examples:
+          - full
+          - ids
+          allOf:
+          - $ref: '#/components/schemas/CatalogMode'
+        required: false
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CatalogPutRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogPutResponse'
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogPutAcceptedResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+        - search_suggestions(w)
+    patch:
+      tags:
+      - Catalog
+      operationId: v1-catalog-update-catalog
+      summary: Update catalog
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`, `search_suggestions(w)`.
+
+
+        Send delta catalog files to replace the current catalog. You may upload up to three [files](https://docs.constructor.com/docs/integrating-with-constructor-product-catalog-catalog-files-via-http-or-ftps-catalog-file-upload-step-by-step-guide) in the form data under the following keys: `items`, `variations`, `item_groups`. If you do not wish to replace one of these types of resources then omit it from the request. Any records that already exist will be deleted and replaced with the records you provide in the files. Returns an identifier for a background [task](https://docs.constructor.com/reference/v1-tasks-retrieve-task).'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      - name: force
+        in: query
+        schema:
+          title: Force
+          description: A flag to process the catalog even if it will invalidate a large part of existing data. By default, operations that would invalidate more than 50% of existing data are blocked unless `force=true` is used. Defaults to `False`.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        required: false
+      - name: notification_email
+        in: query
+        schema:
+          title: Notification Email
+          description: The email address(es) to send a notification to if the task fails. Multiple addresses may be specified for multiple recipients.
+          type: array
+          items:
+            type: string
+            format: email
+            examples:
+            - user@example.com
+        required: false
+      - name: patch_delta
+        in: query
+        schema:
+          title: Patch Delta
+          description: A flag to process updates as partial updates, meaning only provided fields will be updated in database. Fields not included in the upload or which are blank for a particular item will be ignored.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        required: false
+      - name: on_missing
+        in: query
+        schema:
+          description: The strategy used to handle items that exist in the file and do not exist in the index. `IGNORE` silently ignores them and does not add them to the index, `CREATE` creates them, `FAIL` fails the ingestion. Can be set only when `patch_delta` is `true`. Default is `FAIL`.
+          examples:
+          - IGNORE
+          - CREATE
+          - FAIL
+          allOf:
+          - $ref: '#/components/schemas/MissingRecordsStrategy'
+        required: false
+      - name: format
+        in: query
+        schema:
+          description: File format of the uploaded items and variations files. Can be either `csv` or `jsonl`.
+          default: csv
+          examples:
+          - csv
+          - jsonl
+          allOf:
+          - $ref: '#/components/schemas/FileFormat'
+        required: false
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CatalogPatchRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogPatchResponse'
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogPatchAcceptedResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+        - search_suggestions(w)
+components:
+  schemas:
+    MissingRecordsStrategy:
+      title: MissingRecordsStrategy
+      enum:
+      - CREATE
+      - IGNORE
+      - FAIL
+    CatalogPatchAcceptedResponse:
+      title: CatalogPatchAcceptedResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          description: Info message
+          type: string
+      required:
+      - message
+    CatalogPutResponse:
+      title: CatalogPutResponse
+      type: object
+      properties:
+        task_id:
+          title: Task Id
+          description: Task ID for the ingestion job
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          description: Path to check the status of the ingestion job
+          type: string
+      required:
+      - task_id
+      - task_status_path
+    CatalogPatchRequestBody:
+      title: CatalogPatchRequestBody
+      type: object
+      properties:
+        items:
+          title: Items
+          description: File with items in CSV or JSONL format
+          type: string
+          format: binary
+        variations:
+          title: Variations
+          description: File with variations in CSV or JSONL format
+          type: string
+          format: binary
+        item_groups:
+          title: Item Groups
+          description: File with item groups in CSV or JSONL format
+          type: string
+          format: binary
+    CatalogPatchResponse:
+      title: CatalogPatchResponse
+      type: object
+      properties:
+        task_id:
+          title: Task Id
+          description: Task ID for the ingestion job
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          description: Path to check the status of the ingestion job
+          type: string
+      required:
+      - task_id
+      - task_status_path
+    CatalogPutAcceptedResponse:
+      title: CatalogPutAcceptedResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          description: Info message
+          type: string
+      required:
+      - message
+    CatalogPutRequestBody:
+      title: CatalogPutRequestBody
+      type: object
+      properties:
+        items:
+          title: Items
+          description: File with items in CSV or JSONL format
+          type: string
+          format: binary
+        variations:
+          title: Variations
+          description: File with variations in CSV or JSONL format
+          type: string
+          format: binary
+        item_groups:
+          title: Item Groups
+          description: File with item groups in CSV or JSONL format
+          type: string
+          format: binary
+    FileFormat:
+      title: FileFormat
+      enum:
+      - csv
+      - jsonl
+    CatalogMode:
+      title: CatalogMode
+      enum:
+      - full
+      - ids
+      type: string
+  securitySchemes:
+    http_basic_auth:
+      type: http
+      scheme: basic
+    http_bearer_auth:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: false

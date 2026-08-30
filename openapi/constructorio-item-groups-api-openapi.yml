@@ -1,0 +1,1433 @@
+openapi: 3.2.0
+info:
+  contact:
+    email: support@constructor.io
+  title: Catalog management Item groups API
+  version: '0.1'
+servers:
+- url: https://ac.cnstrc.com
+security: []
+tags:
+- name: Item groups
+paths:
+  /v2/item_groups:
+    get:
+      tags:
+      - Item groups
+      operationId: v2-item-groups-retrieve-item-groups
+      summary: Retrieve item groups
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(r)`.
+
+
+        Retrieve all items groups, optionally filtered by ids.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: id
+        in: query
+        schema:
+          title: Id
+          description: Array of item group ID(s) to filter by.
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 250
+          maxItems: 1000
+        required: false
+      - name: num_results_per_page
+        in: query
+        schema:
+          title: Num Results Per Page
+          description: The number of results per page to return.
+          default: 20
+          minimum: 1
+          maximum: 100
+          examples:
+          - 20
+          - 50
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          title: Page
+          description: The page of results to return.
+          minimum: 1
+          examples:
+          - 1
+          - 2
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          title: Offset
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          minimum: 0
+          examples:
+          - 0
+          - 100
+          type: integer
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupsListGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(r)
+    put:
+      tags:
+      - Item groups
+      operationId: v2-item-groups-create-or-replace-item-groups
+      summary: Create or replace item groups
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`.
+
+
+        Create item groups or replace the data of existing item groups. Returns an identifier for a background [task](/reference/v1-tasks-retrieve-task).'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      - name: force
+        in: query
+        schema:
+          title: Force
+          description: A flag to process the catalog even if it will invalidate a large part of existing data. Defaults to `False`.
+          examples:
+          - false
+          - true
+          type: boolean
+        required: false
+      - name: notification_email
+        in: query
+        schema:
+          title: Notification Email
+          description: The email address(es) to send a notification to if the task fails. Multiple addresses may be specified for multiple recipients.
+          type: array
+          items:
+            type: string
+            format: email
+            examples:
+            - user@example.com
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemGroupsListPutRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupsListPutResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+    patch:
+      tags:
+      - Item groups
+      operationId: v2-item-groups-update-item-groups
+      summary: Update item groups
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`.
+
+
+        Update existing item groups data. Data included in the request will be merged with data of the existing items groups. Returns an identifier for a background [task](/reference/v1-tasks-retrieve-task).'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      - name: force
+        in: query
+        schema:
+          title: Force
+          description: A flag to process the catalog even if it will invalidate a large part of existing data. Defaults to `False`.
+          examples:
+          - false
+          - true
+          type: boolean
+        required: false
+      - name: notification_email
+        in: query
+        schema:
+          title: Notification Email
+          description: The email address(es) to send a notification to if the task fails. Multiple addresses may be specified for multiple recipients.
+          type: array
+          items:
+            type: string
+            format: email
+            examples:
+            - user@example.com
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemGroupsListPatchRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupsListPatchResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+    delete:
+      tags:
+      - Item groups
+      operationId: v2-item-groups-delete-item-groups
+      summary: Delete item groups
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`.
+
+
+        Delete item groups. Returns an identifier for a background [task](/reference/v1-tasks-retrieve-task).'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      - name: force
+        in: query
+        schema:
+          title: Force
+          description: A flag to process the catalog even if it will invalidate a large part of existing data. Defaults to `False`.
+          examples:
+          - false
+          - true
+          type: boolean
+        required: false
+      - name: notification_email
+        in: query
+        schema:
+          title: Notification Email
+          description: The email address(es) to send a notification to if the task fails. Multiple addresses may be specified for multiple recipients.
+          type: array
+          items:
+            type: string
+            format: email
+            examples:
+            - user@example.com
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemGroupsListDeleteRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupsListDeleteResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+  /v2/item_groups/{item_group_id}:
+    get:
+      tags:
+      - Item groups
+      operationId: v2-item-groups-retrieve-item-group
+      summary: Retrieve item group
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(r)`.
+
+
+        Retrieve an item group.'
+      parameters:
+      - name: item_group_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupsGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(r)
+  /v1/item_groups:
+    get:
+      deprecated: true
+      tags:
+      - Item groups
+      operationId: v1-item-groups-retrieve-item-groups
+      summary: Retrieve item groups (Deprecated)
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(r)`.
+
+
+        Retrieve all item groups.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupListGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(r)
+    post:
+      deprecated: true
+      tags:
+      - Item groups
+      operationId: v1-item-groups-create-item-groups
+      summary: Create new item groups (Deprecated)
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`.
+
+
+        Create new item groups. If the item groups already exist, they will be skipped..'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemGroupListPostRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupListPostResponse'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupListPostResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+    put:
+      deprecated: true
+      tags:
+      - Item groups
+      operationId: v1-item-groups-create-or-replace-item-groups
+      summary: Create or replace item groups (Deprecated)
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`.
+
+
+        Update item groups. If the item groups already exist, they will be updated. If not, they will be created. Existing item groups not sent in the request will be deleted.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemGroupListPutRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupListPutResponse'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupListPutResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+    patch:
+      deprecated: true
+      tags:
+      - Item groups
+      operationId: v1-item-groups-create-or-update-item-groups
+      summary: Create or update item groups (Deprecated)
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`.
+
+
+        Update item groups. If the item groups already exist, they will be updated. If not, they will be created.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemGroupListPatchRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupListPatchResponse'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupListPatchResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+    delete:
+      deprecated: true
+      tags:
+      - Item groups
+      operationId: v1-item-groups-delete-item-groups
+      summary: Delete item groups (Deprecated)
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`.
+
+
+        Delete all item groups.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupListDeleteResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+  /v1/item_groups/{group_id}:
+    get:
+      deprecated: true
+      tags:
+      - Item groups
+      operationId: v1-item-groups-retrieve-item-group
+      summary: Retrieve item group (Deprecated)
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(r)`.
+
+
+        Retrieve an item group.'
+      parameters:
+      - name: group_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(r)
+    put:
+      deprecated: true
+      tags:
+      - Item groups
+      operationId: v1-item-groups-create-or-update-item-group
+      summary: Create or update item group (Deprecated)
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`.
+
+
+        Create or update an item group.'
+      parameters:
+      - name: group_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemGroupPutRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupPutResponse'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemGroupPutResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+components:
+  schemas:
+    ItemGroupListPutRequestBody:
+      title: ItemGroupListPutRequestBody
+      type: object
+      properties:
+        item_groups:
+          title: Item Groups
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/V1ItemGroup'
+      required:
+      - item_groups
+      additionalProperties: false
+    ItemGroupGetResponse:
+      title: ItemGroupGetResponse
+      type: object
+      properties:
+        item_groups:
+          title: Item Groups
+          description: A list of item groups.
+          type: array
+          items:
+            $ref: '#/components/schemas/V1ItemGroup'
+        total_count:
+          title: Total Count
+          description: Total number of item groups.
+          minimum: 0
+          type: integer
+      required:
+      - item_groups
+      - total_count
+      additionalProperties: false
+    ItemGroupListPatchResponse:
+      title: ItemGroupListPatchResponse
+      type: object
+      properties:
+        item_groups:
+          $ref: '#/components/schemas/ItemGroupCountModel'
+      required:
+      - item_groups
+      additionalProperties: false
+    ItemGroupListPostResponse:
+      title: ItemGroupListPostResponse
+      type: object
+      properties:
+        item_groups:
+          $ref: '#/components/schemas/ItemGroupCountModel'
+      required:
+      - item_groups
+      additionalProperties: false
+    ItemGroupPatch:
+      title: ItemGroupPatch
+      type: object
+      properties:
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this item group. The maximum size of data object is limited to 5kB. The average size of data objects for all ingested item groups should not exceed 1kB.
+          type: object
+        id:
+          title: Id
+          description: ID of the item group.
+          examples:
+          - category-electronics
+          - group-123
+          minLength: 1
+          maxLength: 200
+          type: string
+        name:
+          title: Name
+          description: Item group display name.
+          minLength: 1
+          maxLength: 500
+          type: string
+        parent_ids:
+          title: Parent Ids
+          description: List of parent item group IDs
+          type: array
+          items:
+            type: string
+            examples:
+            - parent-1
+            - root
+      required:
+      - id
+    ItemGroupsListPutResponse:
+      title: ItemGroupsListPutResponse
+      type: object
+      properties:
+        task_id:
+          title: Task ID
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          type: string
+      required:
+      - task_id
+      - task_status_path
+    ItemGroupListDeleteResponse:
+      title: ItemGroupListDeleteResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          description: Item group list delete message.
+          type: string
+      required:
+      - message
+      additionalProperties: false
+    ItemGroupBase:
+      title: ItemGroupBase
+      type: object
+      properties:
+        id:
+          title: Id
+          description: ID of the item group.
+          examples:
+          - category-electronics
+          - group-123
+          minLength: 1
+          maxLength: 200
+          type: string
+      required:
+      - id
+    ItemGroupPutResponse:
+      title: ItemGroupPutResponse
+      type: object
+      properties:
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this item group. The maximum size of data object is limited to 5kb. The average size of data objects for all ingested item groups should not exceed 1kb.
+          type: object
+        id:
+          title: Id
+          description: ID of the item group.
+          examples:
+          - category-electronics
+          - group-123
+          minLength: 1
+          maxLength: 200
+          type: string
+        name:
+          title: Name
+          description: Item group display name.
+          examples:
+          - Electronics
+          - Men's Clothing
+          minLength: 1
+          maxLength: 500
+          type: string
+        parent_id:
+          title: Parent Id
+          description: Parent item group ID or null for root item groups.
+          type: string
+        path_list:
+          title: Path List
+          description: A list of item group IDs in the hierarchy.
+          type: array
+          items:
+            type: string
+        path:
+          title: Path
+          description: Path to a item group IDs in the hierarchy (forward slash-separated).
+          type: string
+      required:
+      - id
+      - name
+      - path_list
+      - path
+      additionalProperties: false
+    ItemGroupsListDeleteResponse:
+      title: ItemGroupsListDeleteResponse
+      type: object
+      properties:
+        task_id:
+          title: Task ID
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          type: string
+      required:
+      - task_id
+      - task_status_path
+    V1ItemGroup:
+      title: V1ItemGroup
+      type: object
+      properties:
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this item group. The maximum size of data object is limited to 5kb. The average size of data objects for all ingested item groups should not exceed 1kb.
+          type: object
+        id:
+          title: Id
+          description: ID of the item group.
+          examples:
+          - category-electronics
+          - group-123
+          minLength: 1
+          maxLength: 200
+          type: string
+        name:
+          title: Name
+          description: Item group display name.
+          examples:
+          - Electronics
+          - Men's Clothing
+          minLength: 1
+          maxLength: 500
+          type: string
+        children:
+          title: Children
+          description: A list of item groups categorized under the current item group.
+          type: array
+          items:
+            type: object
+      required:
+      - id
+      - name
+      additionalProperties: false
+    ItemGroupsListDeleteRequestBody:
+      title: ItemGroupsListDeleteRequestBody
+      type: object
+      properties:
+        item_groups:
+          title: Item Groups
+          description: Array of item group IDs you want to delete.
+          minItems: 1
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemGroupBase'
+      required:
+      - item_groups
+    ItemGroupCountModel:
+      title: ItemGroupCountModel
+      type: object
+      properties:
+        processed:
+          title: Processed
+          description: Number of item groups processed.
+          minimum: 0
+          type: integer
+        inserted:
+          title: Inserted
+          description: Number of item groups inserted.
+          minimum: 0
+          type: integer
+        updated:
+          title: Updated
+          description: Number of item groups updated.
+          minimum: 0
+          type: integer
+        deleted:
+          title: Deleted
+          description: Number of item groups deleted.
+          minimum: 0
+          type: integer
+      required:
+      - processed
+      - inserted
+      - updated
+      - deleted
+      additionalProperties: false
+    ItemGroupListPatchRequestBody:
+      title: ItemGroupListPatchRequestBody
+      type: object
+      properties:
+        item_groups:
+          title: Item Groups
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/V1ItemGroup'
+      required:
+      - item_groups
+      additionalProperties: false
+    ItemGroup:
+      title: ItemGroup
+      type: object
+      properties:
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this item group. The maximum size of data object is limited to 5kB. The average size of data objects for all ingested item groups should not exceed 1kB.
+          type: object
+        id:
+          title: Id
+          description: ID of the item group.
+          examples:
+          - category-electronics
+          - group-123
+          minLength: 1
+          maxLength: 200
+          type: string
+        name:
+          title: Name
+          description: Item group display name.
+          examples:
+          - Electronics
+          - Men's Clothing
+          minLength: 1
+          maxLength: 500
+          type: string
+        parent_ids:
+          title: Parent Ids
+          description: List of parent item group IDs
+          type: array
+          items:
+            type: string
+            examples:
+            - parent-1
+            - root
+      required:
+      - id
+      - name
+    ItemGroupListGetResponse:
+      title: ItemGroupListGetResponse
+      type: object
+      properties:
+        item_groups:
+          title: Item Groups
+          description: A list of item groups.
+          type: array
+          items:
+            $ref: '#/components/schemas/V1ItemGroup'
+        total_count:
+          title: Total Count
+          description: Total number of item groups.
+          minimum: 0
+          type: integer
+      required:
+      - item_groups
+      - total_count
+      additionalProperties: false
+    ItemGroupListPostRequestBody:
+      title: ItemGroupListPostRequestBody
+      type: object
+      properties:
+        item_groups:
+          title: Item Groups
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/V1ItemGroup'
+      required:
+      - item_groups
+      additionalProperties: false
+    ItemGroupPutRequestBody:
+      title: ItemGroupPutRequestBody
+      type: object
+      properties:
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this item group. The maximum size of data object is limited to 5kb. The average size of data objects for all ingested item groups should not exceed 1kb.
+          type: object
+        name:
+          title: Name
+          description: Item group display name.
+          examples:
+          - Electronics
+          - Men's Clothing
+          minLength: 1
+          maxLength: 500
+          type: string
+        parent_id:
+          title: Parent Id
+          description: Parent item group ID or null for root item groups.
+          examples:
+          - parent-group-1
+          - root-category
+          type: string
+      additionalProperties: false
+    ItemGroupListPutResponse:
+      title: ItemGroupListPutResponse
+      type: object
+      properties:
+        item_groups:
+          $ref: '#/components/schemas/ItemGroupCountModel'
+      required:
+      - item_groups
+      additionalProperties: false
+    ItemGroupsListPatchResponse:
+      title: ItemGroupsListPatchResponse
+      type: object
+      properties:
+        task_id:
+          title: Task ID
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          type: string
+      required:
+      - task_id
+      - task_status_path
+    ItemGroupsListGetResponse:
+      title: ItemGroupsListGetResponse
+      type: object
+      properties:
+        item_groups:
+          title: Item Groups
+          minItems: 0
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemGroupsGetResponse'
+        total_count:
+          title: Total Count
+          description: Total number of item groups.
+          minimum: 0
+          type: integer
+      required:
+      - item_groups
+      - total_count
+    ItemGroupsListPatchRequestBody:
+      title: ItemGroupsListPatchRequestBody
+      type: object
+      properties:
+        item_groups:
+          title: Item Groups
+          description: Array of item groups you want to update.
+          minItems: 1
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemGroupPatch'
+      required:
+      - item_groups
+    ItemGroupsListPutRequestBody:
+      title: ItemGroupsListPutRequestBody
+      type: object
+      properties:
+        item_groups:
+          title: Item Groups
+          description: Array of item groups you want to create or replace.
+          minItems: 1
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemGroup'
+      required:
+      - item_groups
+    ItemGroupsGetResponse:
+      title: ItemGroupsGetResponse
+      type: object
+      properties:
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this item group. The maximum size of data object is limited to 5kB. The average size of data objects for all ingested item groups should not exceed 1kB.
+          type: object
+        id:
+          title: ID
+          description: The ID of the item group
+          minLength: 1
+          maxLength: 200
+          type: string
+        name:
+          title: Display Name
+          description: Item group display name.
+          minLength: 1
+          maxLength: 500
+          type: string
+        parent_ids:
+          title: Parent Ids
+          description: List of parent item group IDs
+          type: array
+          items:
+            type: string
+            examples:
+            - parent-1
+            - root
+      required:
+      - id
+      - name
+  securitySchemes:
+    http_basic_auth:
+      type: http
+      scheme: basic
+    http_bearer_auth:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: false

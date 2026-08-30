@@ -1,0 +1,1382 @@
+openapi: 3.2.0
+info:
+  contact:
+    email: support@constructor.io
+  title: Searchandising Facet campaigns API
+  version: '0.1'
+servers:
+- url: https://ac.cnstrc.com
+security: []
+tags:
+- name: Facet campaigns
+paths:
+  /v1/facet_rule_campaigns:
+    get:
+      tags:
+      - Facet campaigns
+      operationId: v1-searchandising-retrieve-facet-rule-campaigns
+      summary: Retrieve facet campaigns
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `facets.refined_filters(r)`, `facets.refined_queries(r)`.
+
+
+        Retrieve facet campaigns.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: refined_filters
+        in: query
+        schema:
+          title: Refined Filters
+          description: A list of refined filters.
+          type: object
+          additionalProperties:
+            anyOf:
+            - type: string
+            - type: array
+              items:
+                type: string
+              minItems: 1
+        required: false
+        style: deepObject
+        explode: true
+      - name: num_results_per_page
+        in: query
+        schema:
+          title: Num Results Per Page
+          description: The number of results per page to return.
+          default: 20
+          minimum: 1
+          maximum: 100
+          examples:
+          - 20
+          - 50
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          title: Page
+          description: The page of results to return.
+          minimum: 1
+          examples:
+          - 1
+          - 2
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          title: Offset
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          minimum: 0
+          examples:
+          - 0
+          - 100
+          type: integer
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      - name: refined_queries
+        in: query
+        schema:
+          title: Refined Queries
+          description: A list of refined queries.
+          minItems: 1
+          type: array
+          items:
+            type: string
+            minLength: 1
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FacetRuleCampaignListGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - facets.refined_filters(r)
+        - facets.refined_queries(r)
+    post:
+      tags:
+      - Facet campaigns
+      operationId: v1-searchandising-create-facet-rule-campaign
+      summary: Create facet campaign
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `facets.refined_filters(w)`, `facets.refined_queries(w)`.
+
+
+        Create a facet campaign'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FacetRuleCampaignListPostBody'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FacetRuleCampaignListPostResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - facets.refined_filters(w)
+        - facets.refined_queries(w)
+  /v1/facet_rule_campaigns/{facet_rule_campaign_id}:
+    get:
+      tags:
+      - Facet campaigns
+      operationId: v1-searchandising-get-facet-rule-campaign
+      summary: Retrieve facet campaign
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `facets.refined_filters(r)`, `facets.refined_queries(r)`.
+
+
+        Retrieve a facet campaign by id.'
+      parameters:
+      - name: facet_rule_campaign_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FacetRuleCampaignGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - facets.refined_filters(r)
+        - facets.refined_queries(r)
+    patch:
+      tags:
+      - Facet campaigns
+      operationId: v1-searchandising-update-facet-rule-campaign
+      summary: Update facet campaign
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `facets.refined_filters(w)`, `facets.refined_queries(w)`.
+
+
+        Update a facet campaign. It will update only the fields that are present in the request.'
+      parameters:
+      - name: facet_rule_campaign_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FacetRuleCampaignPatchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FacetRuleCampaignPatchResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - facets.refined_filters(w)
+        - facets.refined_queries(w)
+    delete:
+      tags:
+      - Facet campaigns
+      operationId: v1-searchandising-delete-facet-rule-campaign
+      summary: Delete facet campaign
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `facets.refined_filters(w)`, `facets.refined_queries(w)`.
+
+
+        Delete a facet campaign by id.'
+      parameters:
+      - name: facet_rule_campaign_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - facets.refined_filters(w)
+        - facets.refined_queries(w)
+components:
+  schemas:
+    RefinedQuery:
+      title: RefinedQuery
+      type: object
+      properties:
+        query:
+          title: Query
+          description: A refined query string
+          examples:
+          - shoes
+          - running sneakers
+          minLength: 1
+          maxLength: 100
+          type: string
+      required:
+      - query
+      additionalProperties: false
+    FacetRuleCampaignPatchResponse:
+      title: FacetRuleCampaignPatchResponse
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the facet rule campaign.
+          type: integer
+        name:
+          title: Name
+          description: The name of the facet rule campaign.
+          type: string
+        description:
+          title: Description
+          description: The description of the facet rule campaign.
+          type: string
+        created_at:
+          title: Created At
+          description: The creation time of the facet rule campaign.
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: The last updated time of the facet rule campaign.
+          type: string
+          format: date-time
+        slot_rules:
+          title: Slot Rules
+          description: A list of slot rules.
+          type: array
+          items:
+            $ref: '#/components/schemas/SlotFacetRuleResponse'
+        blacklist_rules:
+          title: Blacklist Rules
+          description: A list of blacklist rules.
+          type: array
+          items:
+            $ref: '#/components/schemas/BlacklistFacetRuleResponse'
+        refined_queries:
+          title: Sorted Refined Queries
+          description: A list of refined queries.
+          maxItems: 100
+          type: array
+          items:
+            $ref: '#/components/schemas/RefinedQuery'
+        refined_filters:
+          title: Sorted Refined Filters
+          description: A list of refined filters.
+          maxItems: 100
+          type: array
+          items:
+            $ref: '#/components/schemas/RefinedFilter'
+      required:
+      - id
+      - name
+      - created_at
+      - updated_at
+      - slot_rules
+      - blacklist_rules
+      additionalProperties: false
+    SlotFacetRuleParameters:
+      title: SlotFacetRuleParameters
+      type: object
+      properties:
+        name:
+          title: Name
+          description: The name of the facet to place in position.
+          examples:
+          - Brand
+          - Color
+          type: string
+        position:
+          title: Position
+          description: The position of facet to place in.
+          minimum: 1
+          examples:
+          - 1
+          - 5
+          type: integer
+      required:
+      - name
+      - position
+      additionalProperties: false
+    FacetRuleTarget:
+      title: FacetRuleTarget
+      enum:
+      - facet_group
+      - facet_option
+      type: string
+    FacetRuleCampaignPatchBody:
+      title: FacetRuleCampaignPatchBody
+      type: object
+      properties:
+        slot_rules:
+          title: Slot Rules
+          type: array
+          items:
+            discriminator:
+              propertyName: target
+              mapping:
+                facet_group: '#/components/schemas/SlotFacetRuleBase'
+                facet_option: '#/components/schemas/SlotFacetOptionRuleBase'
+            oneOf:
+            - $ref: '#/components/schemas/SlotFacetRuleBase'
+            - $ref: '#/components/schemas/SlotFacetOptionRuleBase'
+        blacklist_rules:
+          title: Blacklist Rules
+          type: array
+          items:
+            discriminator:
+              propertyName: target
+              mapping:
+                facet_group: '#/components/schemas/BlacklistFacetRuleBase'
+                facet_option: '#/components/schemas/BlacklistFacetOptionRuleBase'
+            oneOf:
+            - $ref: '#/components/schemas/BlacklistFacetRuleBase'
+            - $ref: '#/components/schemas/BlacklistFacetOptionRuleBase'
+        name:
+          title: Name
+          description: The name of the facet campaign.
+          examples:
+          - Holiday Promo
+          - Summer Sale
+          type: string
+        description:
+          title: Description
+          description: The description of the facet campaign.
+          examples:
+          - Campaign for holiday season
+          - Summer promotion campaign
+          type: string
+        refined_queries:
+          title: Refined Queries
+          description: A list of refined queries.
+          maxItems: 100
+          type: array
+          items:
+            $ref: '#/components/schemas/RefinedQuery'
+        refined_filters:
+          title: Refined Filters
+          description: A list of refined filters.
+          maxItems: 100
+          type: array
+          items:
+            $ref: '#/components/schemas/RefinedFilter'
+      additionalProperties: false
+    SlotFacetOptionRuleBase:
+      title: SlotFacetOptionRuleBase
+      type: object
+      properties:
+        target:
+          title: Target
+          enum:
+          - facet_option
+          type: string
+        facet_group_name:
+          title: Facet Group Name
+          type: string
+        request_tag_name:
+          description: Request tag name to be used to activate this entity for, used only with `request_tag_value`.
+          examples:
+          - user_segment
+          - geo_country
+          allOf:
+          - $ref: '#/components/schemas/RequestTags'
+        request_tag_value:
+          title: Request Tag Value
+          description: Request tag value to be used to activate this entity for, used only with request_tag_name.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - premium
+          - US
+          type: string
+        active:
+          title: Active
+          description: Indicates whether this rule is active or not.
+          examples:
+          - true
+          - false
+          type: boolean
+        start_time:
+          title: Start Time
+          description: Date and time when the rule should be enabled.
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: Date and time when the rule should be disabled.
+          examples:
+          - '2024-03-06T17:05:19'
+          type: string
+          format: date-time
+        campaign_id:
+          title: Campaign Id
+          examples:
+          - 1
+          - 42
+          type: integer
+        automatically_generated:
+          title: Automatically Generated
+          description: Boolean to indicate if this rule is automatically generated or not.
+          examples:
+          - false
+          - true
+          type: boolean
+        rule:
+          title: Rule
+          description: Parameters of the slot facet rule.
+          allOf:
+          - $ref: '#/components/schemas/SlotFacetRuleParameters'
+        rule_type:
+          title: Rule Type
+          description: Type of the rule.
+          enum:
+          - slot
+          type: string
+      required:
+      - target
+      - facet_group_name
+      - rule
+      additionalProperties: false
+    FacetRuleCampaignBaseResponse:
+      title: FacetRuleCampaignBaseResponse
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the facet rule campaign.
+          type: integer
+        name:
+          title: Name
+          description: The name of the facet rule campaign.
+          type: string
+        description:
+          title: Description
+          description: The description of the facet rule campaign.
+          type: string
+        created_at:
+          title: Created At
+          description: The creation time of the facet rule campaign.
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: The last updated time of the facet rule campaign.
+          type: string
+          format: date-time
+        slot_rules:
+          title: Slot Rules
+          description: A list of slot rules.
+          type: array
+          items:
+            $ref: '#/components/schemas/SlotFacetRuleResponse'
+        blacklist_rules:
+          title: Blacklist Rules
+          description: A list of blacklist rules.
+          type: array
+          items:
+            $ref: '#/components/schemas/BlacklistFacetRuleResponse'
+        refined_queries:
+          title: Sorted Refined Queries
+          description: A list of refined queries.
+          maxItems: 100
+          type: array
+          items:
+            $ref: '#/components/schemas/RefinedQuery'
+        refined_filters:
+          title: Sorted Refined Filters
+          description: A list of refined filters.
+          maxItems: 100
+          type: array
+          items:
+            $ref: '#/components/schemas/RefinedFilter'
+      required:
+      - id
+      - name
+      - created_at
+      - updated_at
+      - slot_rules
+      - blacklist_rules
+      additionalProperties: false
+    RequestTags:
+      title: RequestTags
+      enum:
+      - client_ip
+      - client_version
+      - geo_city
+      - geo_country
+      - geo_country_iso_code
+      - geo_region
+      - dt_weekday
+      - dt_timeofday
+      - user_segment
+      - autogenerated_user_segment
+      - dynamic_segment
+      type: string
+    FacetRuleCampaignListPostResponse:
+      title: FacetRuleCampaignListPostResponse
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the facet rule campaign.
+          type: integer
+        name:
+          title: Name
+          description: The name of the facet rule campaign.
+          type: string
+        description:
+          title: Description
+          description: The description of the facet rule campaign.
+          type: string
+        created_at:
+          title: Created At
+          description: The creation time of the facet rule campaign.
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: The last updated time of the facet rule campaign.
+          type: string
+          format: date-time
+        slot_rules:
+          title: Slot Rules
+          description: A list of slot rules.
+          type: array
+          items:
+            $ref: '#/components/schemas/SlotFacetRuleResponse'
+        blacklist_rules:
+          title: Blacklist Rules
+          description: A list of blacklist rules.
+          type: array
+          items:
+            $ref: '#/components/schemas/BlacklistFacetRuleResponse'
+        refined_queries:
+          title: Sorted Refined Queries
+          description: A list of refined queries.
+          maxItems: 100
+          type: array
+          items:
+            $ref: '#/components/schemas/RefinedQuery'
+        refined_filters:
+          title: Sorted Refined Filters
+          description: A list of refined filters.
+          maxItems: 100
+          type: array
+          items:
+            $ref: '#/components/schemas/RefinedFilter'
+      required:
+      - id
+      - name
+      - created_at
+      - updated_at
+      - slot_rules
+      - blacklist_rules
+      additionalProperties: false
+    SlotFacetRuleBase:
+      title: SlotFacetRuleBase
+      type: object
+      properties:
+        target:
+          title: Target
+          enum:
+          - facet_group
+          type: string
+        request_tag_name:
+          description: Request tag name to be used to activate this entity for, used only with `request_tag_value`.
+          examples:
+          - user_segment
+          - geo_country
+          allOf:
+          - $ref: '#/components/schemas/RequestTags'
+        request_tag_value:
+          title: Request Tag Value
+          description: Request tag value to be used to activate this entity for, used only with request_tag_name.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - premium
+          - US
+          type: string
+        active:
+          title: Active
+          description: Indicates whether this rule is active or not.
+          examples:
+          - true
+          - false
+          type: boolean
+        start_time:
+          title: Start Time
+          description: Date and time when the rule should be enabled.
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: Date and time when the rule should be disabled.
+          examples:
+          - '2024-03-06T17:05:19'
+          type: string
+          format: date-time
+        campaign_id:
+          title: Campaign Id
+          examples:
+          - 1
+          - 42
+          type: integer
+        automatically_generated:
+          title: Automatically Generated
+          description: Boolean to indicate if this rule is automatically generated or not.
+          examples:
+          - false
+          - true
+          type: boolean
+        rule:
+          title: Rule
+          description: Parameters of the slot facet rule.
+          allOf:
+          - $ref: '#/components/schemas/SlotFacetRuleParameters'
+        rule_type:
+          title: Rule Type
+          description: Type of the rule.
+          enum:
+          - slot
+          type: string
+      required:
+      - target
+      - rule
+      additionalProperties: false
+    FacetRuleCampaignListPostBody:
+      title: FacetRuleCampaignListPostBody
+      type: object
+      properties:
+        slot_rules:
+          title: Slot Rules
+          type: array
+          items:
+            discriminator:
+              propertyName: target
+              mapping:
+                facet_group: '#/components/schemas/SlotFacetRuleBase'
+                facet_option: '#/components/schemas/SlotFacetOptionRuleBase'
+            oneOf:
+            - $ref: '#/components/schemas/SlotFacetRuleBase'
+            - $ref: '#/components/schemas/SlotFacetOptionRuleBase'
+        blacklist_rules:
+          title: Blacklist Rules
+          type: array
+          items:
+            discriminator:
+              propertyName: target
+              mapping:
+                facet_group: '#/components/schemas/BlacklistFacetRuleBase'
+                facet_option: '#/components/schemas/BlacklistFacetOptionRuleBase'
+            oneOf:
+            - $ref: '#/components/schemas/BlacklistFacetRuleBase'
+            - $ref: '#/components/schemas/BlacklistFacetOptionRuleBase'
+        name:
+          title: Name
+          type: string
+        description:
+          title: Description
+          description: The description of the facet campaign.
+          type: string
+        refined_queries:
+          title: Refined Queries
+          description: A list of refined queries.
+          maxItems: 100
+          type: array
+          items:
+            $ref: '#/components/schemas/RefinedQuery'
+        refined_filters:
+          title: Refined Filters
+          description: A list of refined filters.
+          maxItems: 100
+          type: array
+          items:
+            $ref: '#/components/schemas/RefinedFilter'
+      required:
+      - name
+      additionalProperties: false
+    BlacklistFacetRuleResponse:
+      title: BlacklistFacetRuleResponse
+      type: object
+      properties:
+        target:
+          $ref: '#/components/schemas/FacetRuleTarget'
+        facet_group_name:
+          title: Facet Group Name
+          type: string
+        id:
+          title: Id
+          description: The ID of the rule, must be unique.
+          type: integer
+        request_tag_name:
+          description: Request tag name to be used to activate this entity for, used only with `request_tag_value`.
+          examples:
+          - user_segment
+          - geo_country
+          allOf:
+          - $ref: '#/components/schemas/RequestTags'
+        request_tag_value:
+          title: Request Tag Value
+          description: Request tag value to be used to activate this entity for, used only with request_tag_name.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - premium
+          - US
+          type: string
+        active:
+          title: Active
+          description: Indicates whether this rule is active or not.
+          examples:
+          - true
+          - false
+          type: boolean
+        start_time:
+          title: Start Time
+          description: Date and time when the rule should be enabled.
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: Date and time when the rule should be disabled.
+          examples:
+          - '2024-03-06T17:05:19'
+          type: string
+          format: date-time
+        campaign_id:
+          title: Campaign Id
+          examples:
+          - 1
+          - 42
+          type: integer
+        automatically_generated:
+          title: Automatically Generated
+          description: Boolean to indicate if this rule is automatically generated or not.
+          examples:
+          - false
+          - true
+          type: boolean
+        rule:
+          $ref: '#/components/schemas/BlacklistFacetRuleParameters'
+        rule_type:
+          title: Rule Type
+          enum:
+          - blacklist
+          type: string
+        created_at:
+          title: Created At
+          description: Date & time in ISO 8601 format for the creation of this rule.
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Date & time in ISO 8601 format for last update for this rule.
+          type: string
+          format: date-time
+      required:
+      - target
+      - id
+      - rule
+      - rule_type
+    BlacklistFacetOptionRuleBase:
+      title: BlacklistFacetOptionRuleBase
+      type: object
+      properties:
+        target:
+          title: Target
+          enum:
+          - facet_option
+          type: string
+        facet_group_name:
+          title: Facet Group Name
+          type: string
+        request_tag_name:
+          description: Request tag name to be used to activate this entity for, used only with `request_tag_value`.
+          examples:
+          - user_segment
+          - geo_country
+          allOf:
+          - $ref: '#/components/schemas/RequestTags'
+        request_tag_value:
+          title: Request Tag Value
+          description: Request tag value to be used to activate this entity for, used only with request_tag_name.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - premium
+          - US
+          type: string
+        active:
+          title: Active
+          description: Indicates whether this rule is active or not.
+          examples:
+          - true
+          - false
+          type: boolean
+        start_time:
+          title: Start Time
+          description: Date and time when the rule should be enabled.
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: Date and time when the rule should be disabled.
+          examples:
+          - '2024-03-06T17:05:19'
+          type: string
+          format: date-time
+        campaign_id:
+          title: Campaign Id
+          examples:
+          - 1
+          - 42
+          type: integer
+        automatically_generated:
+          title: Automatically Generated
+          description: Boolean to indicate if this rule is automatically generated or not.
+          examples:
+          - false
+          - true
+          type: boolean
+        rule:
+          title: Rule
+          description: Parameters of the blacklist rule.
+          allOf:
+          - $ref: '#/components/schemas/BlacklistFacetRuleParameters'
+        rule_type:
+          title: Rule Type
+          description: Type of the rule.
+          enum:
+          - blacklist
+          type: string
+      required:
+      - target
+      - facet_group_name
+      - rule
+      additionalProperties: false
+    FacetRuleCampaignListGetResponse:
+      title: FacetRuleCampaignListGetResponse
+      type: object
+      properties:
+        facet_rule_campaigns:
+          title: Facet Rule Campaigns
+          description: A list of facet rule campaigns.
+          type: array
+          items:
+            $ref: '#/components/schemas/FacetRuleCampaignBaseResponse'
+        total_count:
+          title: Total Count
+          description: The total count of facet rule campaigns.
+          type: integer
+      required:
+      - facet_rule_campaigns
+      - total_count
+    FacetRuleCampaignGetResponse:
+      title: FacetRuleCampaignGetResponse
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the facet rule campaign.
+          type: integer
+        name:
+          title: Name
+          description: The name of the facet rule campaign.
+          type: string
+        description:
+          title: Description
+          description: The description of the facet rule campaign.
+          type: string
+        created_at:
+          title: Created At
+          description: The creation time of the facet rule campaign.
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: The last updated time of the facet rule campaign.
+          type: string
+          format: date-time
+        slot_rules:
+          title: Slot Rules
+          description: A list of slot rules.
+          type: array
+          items:
+            $ref: '#/components/schemas/SlotFacetRuleResponse'
+        blacklist_rules:
+          title: Blacklist Rules
+          description: A list of blacklist rules.
+          type: array
+          items:
+            $ref: '#/components/schemas/BlacklistFacetRuleResponse'
+        refined_queries:
+          title: Sorted Refined Queries
+          description: A list of refined queries.
+          maxItems: 100
+          type: array
+          items:
+            $ref: '#/components/schemas/RefinedQuery'
+        refined_filters:
+          title: Sorted Refined Filters
+          description: A list of refined filters.
+          maxItems: 100
+          type: array
+          items:
+            $ref: '#/components/schemas/RefinedFilter'
+      required:
+      - id
+      - name
+      - created_at
+      - updated_at
+      - slot_rules
+      - blacklist_rules
+      additionalProperties: false
+    BlacklistFacetRuleBase:
+      title: BlacklistFacetRuleBase
+      type: object
+      properties:
+        target:
+          title: Target
+          enum:
+          - facet_group
+          type: string
+        request_tag_name:
+          description: Request tag name to be used to activate this entity for, used only with `request_tag_value`.
+          examples:
+          - user_segment
+          - geo_country
+          allOf:
+          - $ref: '#/components/schemas/RequestTags'
+        request_tag_value:
+          title: Request Tag Value
+          description: Request tag value to be used to activate this entity for, used only with request_tag_name.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - premium
+          - US
+          type: string
+        active:
+          title: Active
+          description: Indicates whether this rule is active or not.
+          examples:
+          - true
+          - false
+          type: boolean
+        start_time:
+          title: Start Time
+          description: Date and time when the rule should be enabled.
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: Date and time when the rule should be disabled.
+          examples:
+          - '2024-03-06T17:05:19'
+          type: string
+          format: date-time
+        campaign_id:
+          title: Campaign Id
+          examples:
+          - 1
+          - 42
+          type: integer
+        automatically_generated:
+          title: Automatically Generated
+          description: Boolean to indicate if this rule is automatically generated or not.
+          examples:
+          - false
+          - true
+          type: boolean
+        rule:
+          title: Rule
+          description: Parameters of the blacklist rule.
+          allOf:
+          - $ref: '#/components/schemas/BlacklistFacetRuleParameters'
+        rule_type:
+          title: Rule Type
+          description: Type of the rule.
+          enum:
+          - blacklist
+          type: string
+      required:
+      - target
+      - rule
+      additionalProperties: false
+    SlotFacetRuleResponse:
+      title: SlotFacetRuleResponse
+      type: object
+      properties:
+        target:
+          $ref: '#/components/schemas/FacetRuleTarget'
+        facet_group_name:
+          title: Facet Group Name
+          type: string
+        id:
+          title: Id
+          description: The ID of the rule, must be unique.
+          type: integer
+        request_tag_name:
+          description: Request tag name to be used to activate this entity for, used only with `request_tag_value`.
+          examples:
+          - user_segment
+          - geo_country
+          allOf:
+          - $ref: '#/components/schemas/RequestTags'
+        request_tag_value:
+          title: Request Tag Value
+          description: Request tag value to be used to activate this entity for, used only with request_tag_name.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - premium
+          - US
+          type: string
+        active:
+          title: Active
+          description: Indicates whether this rule is active or not.
+          examples:
+          - true
+          - false
+          type: boolean
+        start_time:
+          title: Start Time
+          description: Date and time when the rule should be enabled.
+          examples:
+          - '2024-03-06T16:05:19'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: Date and time when the rule should be disabled.
+          examples:
+          - '2024-03-06T17:05:19'
+          type: string
+          format: date-time
+        campaign_id:
+          title: Campaign Id
+          examples:
+          - 1
+          - 42
+          type: integer
+        automatically_generated:
+          title: Automatically Generated
+          description: Boolean to indicate if this rule is automatically generated or not.
+          examples:
+          - false
+          - true
+          type: boolean
+        rule:
+          $ref: '#/components/schemas/SlotFacetRuleParameters'
+        rule_type:
+          title: Rule Type
+          enum:
+          - slot
+          type: string
+        created_at:
+          title: Created At
+          description: Date & time in ISO 8601 format for the creation of this rule.
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Date & time in ISO 8601 format for last update for this rule.
+          type: string
+          format: date-time
+      required:
+      - target
+      - id
+      - rule
+      - rule_type
+    BlacklistFacetRuleParameters:
+      title: BlacklistFacetRuleParameters
+      type: object
+      properties:
+        name:
+          title: Name
+          description: The name of the facet to block.
+          examples:
+          - Brand
+          - Size
+          type: string
+      required:
+      - name
+      additionalProperties: false
+    RefinedFilter:
+      title: RefinedFilter
+      type: object
+      properties:
+        filter_name:
+          title: Filter Name
+          description: The name of the refined filter.
+          examples:
+          - brand
+          - category
+          minLength: 1
+          maxLength: 250
+          type: string
+        filter_value:
+          title: Filter Value
+          description: The value of the refined filter.
+          examples:
+          - Nike
+          - Electronics
+          minLength: 1
+          maxLength: 250
+          type: string
+      required:
+      - filter_name
+      - filter_value
+      additionalProperties: false
+  securitySchemes:
+    http_basic_auth:
+      type: http
+      scheme: basic
+    http_bearer_auth:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: false

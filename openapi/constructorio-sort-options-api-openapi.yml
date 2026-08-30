@@ -1,0 +1,1028 @@
+openapi: 3.2.0
+info:
+  contact:
+    email: support@constructor.io
+  title: Configuration Sort options API
+  version: '0.1'
+servers:
+- url: https://ac.cnstrc.com
+security: []
+tags:
+- name: Sort options
+paths:
+  /v1/sort_options:
+    get:
+      tags:
+      - Sort options
+      operationId: v1-sort-options-retrieve-sort-options
+      summary: Retrieve sort options
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `sort_options(r)`.
+
+
+        Retrieve all sort options, optionally filtered by `sort_by`.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: num_results_per_page
+        in: query
+        schema:
+          title: Num Results Per Page
+          description: The number of results per page to return.
+          default: 200
+          minimum: 1
+          maximum: 200
+          examples:
+          - 50
+          - 200
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          title: Page
+          description: The page of results to return.
+          minimum: 1
+          examples:
+          - 1
+          - 2
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          title: Offset
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          minimum: 0
+          examples:
+          - 0
+          - 100
+          type: integer
+        required: false
+      - name: sort_by
+        in: query
+        schema:
+          title: Sort By
+          description: '`sort_by` field of the sort options that you''d like to retrieve'
+          examples:
+          - price
+          - relevance
+          minLength: 1
+          maxLength: 200
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SortOptionListGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - sort_options(r)
+    put:
+      tags:
+      - Sort options
+      operationId: v1-sort-options-create-or-replace-sort-options
+      summary: Create or replace sort options
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `sort_options(w)`.
+
+
+        Create or replace existing sort options. When providing sort options, every combination of `sort_by` and `sort_order` must be unique. For instance, there can only be one sort option that has a `sort_by` with value `price` and a `sort_order` with value `ascending`.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SortOptionListPutBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SortOptionListPutResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - sort_options(w)
+    delete:
+      tags:
+      - Sort options
+      operationId: v1-sort-options-delete-sort-options
+      summary: Delete sort options
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `sort_options(w)`.
+
+
+        Delete sort option with specified `sort_by` and `sort_order`.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SortOptionListDeleteRequestBody'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - sort_options(w)
+  /v1/sort_option:
+    post:
+      tags:
+      - Sort options
+      operationId: v1-sort-options-create-sort-option
+      summary: Create a sort option
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `sort_options(w)`.
+
+
+        Create a new sort option. Note that total number of sort options is limited, and every combination of `sort_by` and `sort_order` fields among the sort options must be unique.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SortOptionPostBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SortOptionPostResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - sort_options(w)
+  /v1/sort_option/{sort_by}/{sort_order}:
+    put:
+      tags:
+      - Sort options
+      operationId: v1-sort-options-create-or-replace-sort-option
+      summary: Replace a sort option
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `sort_options(w)`.
+
+
+        Replace a sort option. If the sort option already exists, it will be updated, if not it will be created. Note that total number of sort options is limited, and every combination of `sort_by` and `sort_order` fields among the sort options must be unique.'
+      parameters:
+      - name: sort_by
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: sort_order
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SortOptionPutBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SortOptionPutResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - sort_options(w)
+    patch:
+      tags:
+      - Sort options
+      operationId: v1-sort-options-update-sort-option
+      summary: Update a sort option
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `sort_options(w)`.
+
+
+        Update existing sort option. Note that total number of sort options is limited, and every combination of `sort_by` and `sort_order` fields among the sort options must be unique.'
+      parameters:
+      - name: sort_by
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: sort_order
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SortOptionPatchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SortOptionPatchResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - sort_options(w)
+components:
+  schemas:
+    SortOptionBase:
+      title: SortOptionBase
+      type: object
+      properties:
+        sort_by:
+          title: Sort By
+          description: The name of the sort option.
+          examples:
+          - price
+          - relevance
+          - rating
+          minLength: 1
+          maxLength: 200
+          type: string
+        sort_order:
+          description: The order the results will be sorted in
+          examples:
+          - ascending
+          - descending
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+      required:
+      - sort_by
+      - sort_order
+      additionalProperties: false
+    SortOptionPatchBody:
+      title: SortOptionPatchBody
+      type: object
+      properties:
+        display_name:
+          title: Display Name
+          description: The name of the sort option as it is displayed to end users.
+          examples:
+          - 'Price: Low to High'
+          - Best Rating
+          minLength: 1
+          maxLength: 200
+          type: string
+        path_in_metadata:
+          title: Path In Metadata
+          description: The path in the item's metadata to the field that results will be sorted according to.
+          examples:
+          - data.price
+          - data.rating
+          maxLength: 200
+          type: string
+        position:
+          title: Position
+          description: The position of the sort option, used to provide sort options in a specific order.
+          examples:
+          - 1
+          - 5
+          type: integer
+        hidden:
+          title: Hidden
+          description: Indicates if a sort option is hidden. This can be marked at `sort_by` level. A hidden sort option will be ignored in response by default.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+      additionalProperties: false
+    SortOptionListPutBody:
+      title: SortOptionListPutBody
+      type: object
+      properties:
+        sort_options:
+          title: Sort Options
+          description: Array of sort options you want to create or replace.
+          minItems: 1
+          maxItems: 50
+          type: array
+          items:
+            $ref: '#/components/schemas/SortOption'
+      required:
+      - sort_options
+      additionalProperties: false
+    SortOptionPutResponse:
+      title: SortOptionPutResponse
+      type: object
+      properties:
+        display_name:
+          title: Display Name
+          description: The name of the sort option as it is displayed to end users.
+          examples:
+          - 'Price: Low to High'
+          - Best Rating
+          minLength: 1
+          maxLength: 200
+          type: string
+        path_in_metadata:
+          title: Path In Metadata
+          description: The path in the item's metadata to the field that results will be sorted according to.
+          examples:
+          - data.price
+          - data.rating
+          maxLength: 200
+          type: string
+        position:
+          title: Position
+          description: The position of the sort option, used to provide sort options in a specific order.
+          examples:
+          - 1
+          - 5
+          type: integer
+        hidden:
+          title: Hidden
+          description: Indicates if a sort option is hidden. This can be marked at `sort_by` level. A hidden sort option will be ignored in response by default.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        sort_by:
+          title: Sort By
+          description: The name of the sort option.
+          examples:
+          - price
+          - relevance
+          - rating
+          minLength: 1
+          maxLength: 200
+          type: string
+        sort_order:
+          description: The order the results will be sorted in
+          examples:
+          - ascending
+          - descending
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+      required:
+      - display_name
+      - path_in_metadata
+      - sort_by
+      - sort_order
+    SortOptionListPutResponse:
+      title: SortOptionListPutResponse
+      type: object
+      properties:
+        sort_options:
+          title: Sort Options
+          type: array
+          items:
+            $ref: '#/components/schemas/SortOptionResponse'
+      required:
+      - sort_options
+      additionalProperties: false
+    SortOrderType:
+      title: SortOrderType
+      enum:
+      - ascending
+      - descending
+      type: string
+    SortOptionPostBody:
+      title: SortOptionPostBody
+      type: object
+      properties:
+        display_name:
+          title: Display Name
+          description: The name of the sort option as it is displayed to end users.
+          examples:
+          - 'Price: Low to High'
+          - Best Rating
+          minLength: 1
+          maxLength: 200
+          type: string
+        path_in_metadata:
+          title: Path In Metadata
+          description: The path in the item's metadata to the field that results will be sorted according to.
+          examples:
+          - data.price
+          - data.rating
+          maxLength: 200
+          type: string
+        position:
+          title: Position
+          description: The position of the sort option, used to provide sort options in a specific order.
+          examples:
+          - 1
+          - 5
+          type: integer
+        hidden:
+          title: Hidden
+          description: Indicates if a sort option is hidden. This can be marked at `sort_by` level. A hidden sort option will be ignored in response by default.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        sort_by:
+          title: Sort By
+          description: The name of the sort option.
+          examples:
+          - price
+          - relevance
+          - rating
+          minLength: 1
+          maxLength: 200
+          type: string
+        sort_order:
+          description: The order the results will be sorted in
+          examples:
+          - ascending
+          - descending
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+      required:
+      - path_in_metadata
+      - sort_by
+      - sort_order
+      additionalProperties: false
+    SortOptionListDeleteRequestBody:
+      title: SortOptionListDeleteRequestBody
+      type: object
+      properties:
+        sort_options:
+          title: Sort Options
+          description: The list of sort options to delete, specified by `sort_order` and `sort_by`.
+          minItems: 1
+          maxItems: 200
+          type: array
+          items:
+            $ref: '#/components/schemas/SortOptionBase'
+      required:
+      - sort_options
+      additionalProperties: false
+    SortOptionPutBody:
+      title: SortOptionPutBody
+      type: object
+      properties:
+        display_name:
+          title: Display Name
+          description: The name of the sort option as it is displayed to end users.
+          examples:
+          - 'Price: Low to High'
+          - Best Rating
+          minLength: 1
+          maxLength: 200
+          type: string
+        path_in_metadata:
+          title: Path In Metadata
+          description: The path in the item's metadata to the field that results will be sorted according to.
+          examples:
+          - data.price
+          - data.rating
+          maxLength: 200
+          type: string
+        position:
+          title: Position
+          description: The position of the sort option, used to provide sort options in a specific order.
+          examples:
+          - 1
+          - 5
+          type: integer
+        hidden:
+          title: Hidden
+          description: Indicates if a sort option is hidden. This can be marked at `sort_by` level. A hidden sort option will be ignored in response by default.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+      additionalProperties: false
+    SortOption:
+      title: SortOption
+      type: object
+      properties:
+        display_name:
+          title: Display Name
+          description: The name of the sort option as it is displayed to end users.
+          examples:
+          - 'Price: Low to High'
+          - Best Rating
+          minLength: 1
+          maxLength: 200
+          type: string
+        path_in_metadata:
+          title: Path In Metadata
+          description: The path in the item's metadata to the field that results will be sorted according to.
+          examples:
+          - data.price
+          - data.rating
+          maxLength: 200
+          type: string
+        position:
+          title: Position
+          description: The position of the sort option, used to provide sort options in a specific order.
+          examples:
+          - 1
+          - 5
+          type: integer
+        hidden:
+          title: Hidden
+          description: Indicates if a sort option is hidden. This can be marked at `sort_by` level. A hidden sort option will be ignored in response by default.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        sort_by:
+          title: Sort By
+          description: The name of the sort option.
+          examples:
+          - price
+          - relevance
+          - rating
+          minLength: 1
+          maxLength: 200
+          type: string
+        sort_order:
+          description: The order the results will be sorted in
+          examples:
+          - ascending
+          - descending
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+      required:
+      - path_in_metadata
+      - sort_by
+      - sort_order
+      additionalProperties: false
+    SortOptionPatchResponse:
+      title: SortOptionPatchResponse
+      type: object
+      properties:
+        display_name:
+          title: Display Name
+          description: The name of the sort option as it is displayed to end users.
+          examples:
+          - 'Price: Low to High'
+          - Best Rating
+          minLength: 1
+          maxLength: 200
+          type: string
+        path_in_metadata:
+          title: Path In Metadata
+          description: The path in the item's metadata to the field that results will be sorted according to.
+          examples:
+          - data.price
+          - data.rating
+          maxLength: 200
+          type: string
+        position:
+          title: Position
+          description: The position of the sort option, used to provide sort options in a specific order.
+          examples:
+          - 1
+          - 5
+          type: integer
+        hidden:
+          title: Hidden
+          description: Indicates if a sort option is hidden. This can be marked at `sort_by` level. A hidden sort option will be ignored in response by default.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        sort_by:
+          title: Sort By
+          description: The name of the sort option.
+          examples:
+          - price
+          - relevance
+          - rating
+          minLength: 1
+          maxLength: 200
+          type: string
+        sort_order:
+          description: The order the results will be sorted in
+          examples:
+          - ascending
+          - descending
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+      required:
+      - display_name
+      - path_in_metadata
+      - sort_by
+      - sort_order
+    SortOptionResponse:
+      title: SortOptionResponse
+      type: object
+      properties:
+        display_name:
+          title: Display Name
+          description: The name of the sort option as it is displayed to end users.
+          examples:
+          - 'Price: Low to High'
+          - Best Rating
+          minLength: 1
+          maxLength: 200
+          type: string
+        path_in_metadata:
+          title: Path In Metadata
+          description: The path in the item's metadata to the field that results will be sorted according to.
+          examples:
+          - data.price
+          - data.rating
+          maxLength: 200
+          type: string
+        position:
+          title: Position
+          description: The position of the sort option, used to provide sort options in a specific order.
+          examples:
+          - 1
+          - 5
+          type: integer
+        hidden:
+          title: Hidden
+          description: Indicates if a sort option is hidden. This can be marked at `sort_by` level. A hidden sort option will be ignored in response by default.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        sort_by:
+          title: Sort By
+          description: The name of the sort option.
+          examples:
+          - price
+          - relevance
+          - rating
+          minLength: 1
+          maxLength: 200
+          type: string
+        sort_order:
+          description: The order the results will be sorted in
+          examples:
+          - ascending
+          - descending
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+      required:
+      - display_name
+      - path_in_metadata
+      - sort_by
+      - sort_order
+    SortOptionPostResponse:
+      title: SortOptionPostResponse
+      type: object
+      properties:
+        display_name:
+          title: Display Name
+          description: The name of the sort option as it is displayed to end users.
+          examples:
+          - 'Price: Low to High'
+          - Best Rating
+          minLength: 1
+          maxLength: 200
+          type: string
+        path_in_metadata:
+          title: Path In Metadata
+          description: The path in the item's metadata to the field that results will be sorted according to.
+          examples:
+          - data.price
+          - data.rating
+          maxLength: 200
+          type: string
+        position:
+          title: Position
+          description: The position of the sort option, used to provide sort options in a specific order.
+          examples:
+          - 1
+          - 5
+          type: integer
+        hidden:
+          title: Hidden
+          description: Indicates if a sort option is hidden. This can be marked at `sort_by` level. A hidden sort option will be ignored in response by default.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        sort_by:
+          title: Sort By
+          description: The name of the sort option.
+          examples:
+          - price
+          - relevance
+          - rating
+          minLength: 1
+          maxLength: 200
+          type: string
+        sort_order:
+          description: The order the results will be sorted in
+          examples:
+          - ascending
+          - descending
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+      required:
+      - display_name
+      - path_in_metadata
+      - sort_by
+      - sort_order
+    SortOptionListGetResponse:
+      title: SortOptionListGetResponse
+      type: object
+      properties:
+        total_count:
+          title: Total Count
+          minimum: 0
+          type: integer
+        sort_options:
+          title: Sort Options
+          type: array
+          items:
+            $ref: '#/components/schemas/SortOptionResponse'
+      required:
+      - total_count
+      - sort_options
+      additionalProperties: false
+  securitySchemes:
+    http_basic_auth:
+      type: http
+      scheme: basic
+    http_bearer_auth:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: false

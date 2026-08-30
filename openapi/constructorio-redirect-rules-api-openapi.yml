@@ -1,0 +1,1016 @@
+openapi: 3.2.0
+info:
+  contact:
+    email: support@constructor.io
+  title: Configuration Redirect rules API
+  version: '0.1'
+servers:
+- url: https://ac.cnstrc.com
+security: []
+tags:
+- name: Redirect rules
+paths:
+  /v1/redirect_rules/{redirect_rule_id}:
+    get:
+      tags:
+      - Redirect rules
+      operationId: v1-redirects-retrieve-redirect-rule
+      summary: Retrieve redirect rule
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `redirects(r)`.
+
+
+        Retrieve a redirect rule'
+      parameters:
+      - name: redirect_rule_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RedirectRuleGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - redirects(r)
+    put:
+      tags:
+      - Redirect rules
+      operationId: v1-redirects-replace-redirect-rule
+      summary: Replace redirect rule
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `redirects(w)`.
+
+
+        Replace a redirect rule'
+      parameters:
+      - name: redirect_rule_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RedirectRulePutBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RedirectRulePutResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - redirects(w)
+    patch:
+      tags:
+      - Redirect rules
+      operationId: v1-redirects-update-redirect-rule
+      summary: Update redirect rule
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `redirects(w)`.
+
+
+        Update a redirect rule'
+      parameters:
+      - name: redirect_rule_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RedirectRulePatchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RedirectRulePatchResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - redirects(w)
+    delete:
+      tags:
+      - Redirect rules
+      operationId: v1-redirects-delete-redirect-rule
+      summary: Delete redirect rule
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `redirects(w)`.
+
+
+        Delete a redirect rule'
+      parameters:
+      - name: redirect_rule_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RedirectRuleDeleteResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - redirects(w)
+  /v1/redirect_rules:
+    get:
+      tags:
+      - Redirect rules
+      operationId: v1-redirects-retrieve-redirect-rules
+      summary: Retrieve redirect rules
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `redirects(r)`.
+
+
+        Retrieve all redirect rules'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: id
+        in: query
+        schema:
+          title: Id
+          description: The ID(s) of redirect rules to filter by.
+          examples:
+          - 1
+          - 9
+          anyOf:
+          - type: integer
+          - type: array
+            items:
+              type: integer
+        required: false
+      - name: query
+        in: query
+        schema:
+          title: Query
+          description: A search query for redirect rules.
+          examples:
+          - take me here
+          - sale
+          type: string
+        required: false
+      - name: num_results_per_page
+        in: query
+        schema:
+          title: Num Results Per Page
+          description: The number of results per page to return.
+          default: 20
+          minimum: 1
+          maximum: 100
+          examples:
+          - 20
+          - 50
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          title: Page
+          description: The page of results to return.
+          minimum: 1
+          examples:
+          - 1
+          - 2
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          title: Offset
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          minimum: 0
+          examples:
+          - 0
+          - 100
+          type: integer
+        required: false
+      - name: sort_order
+        in: query
+        schema:
+          description: The sort order for redirect rules.
+          examples:
+          - ascending
+          - descending
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+        required: false
+      - name: status
+        in: query
+        schema:
+          title: Status
+          description: A filter by status of redirect rules.
+          examples:
+          - current
+          - pending
+          enum:
+          - current
+          - pending
+          - expired
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RedirectRuleListGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - redirects(r)
+    post:
+      tags:
+      - Redirect rules
+      operationId: v1-redirects-create-redirect-rule
+      summary: Create redirect rule
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `redirects(w)`.
+
+
+        Create a redirect rule'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RedirectRuleListPostBody'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RedirectRuleListPostResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - redirects(w)
+components:
+  schemas:
+    RedirectRulePutResponse:
+      title: RedirectRulePutResponse
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The identifier for the redirect rule match.
+          type: integer
+        start_time:
+          title: Start Time
+          description: The start time for the redirect rule.
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: The end time for the redirect rule.
+          type: string
+          format: date-time
+        url:
+          title: Target Url
+          description: The target URL for redirect the rule.
+          type: string
+        metadata:
+          title: Metadata Json
+          description: The metadata for the redirect rule.
+          type: object
+        last_updated:
+          title: Last Updated
+          description: The last updated time for the redirect rule.
+          type: string
+          format: date-time
+        user_segments:
+          title: User Segments
+          description: A list of user segments for the redirect rule.
+          type: array
+          items:
+            type: string
+        matches:
+          title: Matches Dicts
+          description: A list of redirect rule matches.
+          type: array
+          items:
+            $ref: '#/components/schemas/RedirectRuleMatchResponse'
+      required:
+      - id
+      - url
+      - matches
+      additionalProperties: false
+    RedirectRulePatchResponse:
+      title: RedirectRulePatchResponse
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The identifier for the redirect rule match.
+          type: integer
+        start_time:
+          title: Start Time
+          description: The start time for the redirect rule.
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: The end time for the redirect rule.
+          type: string
+          format: date-time
+        url:
+          title: Target Url
+          description: The target URL for redirect the rule.
+          type: string
+        metadata:
+          title: Metadata Json
+          description: The metadata for the redirect rule.
+          type: object
+        last_updated:
+          title: Last Updated
+          description: The last updated time for the redirect rule.
+          type: string
+          format: date-time
+        user_segments:
+          title: User Segments
+          description: A list of user segments for the redirect rule.
+          type: array
+          items:
+            type: string
+        matches:
+          title: Matches Dicts
+          description: A list of redirect rule matches.
+          type: array
+          items:
+            $ref: '#/components/schemas/RedirectRuleMatchResponse'
+      required:
+      - id
+      - url
+      - matches
+      additionalProperties: false
+    RedirectRuleListPostBody:
+      title: RedirectRuleListPostBody
+      type: object
+      properties:
+        url:
+          title: Url
+          description: The target URL for the redirect rule.
+          examples:
+          - /landing-page
+          - /promotions/summer-sale
+          minLength: 1
+          maxLength: 1000
+          type: string
+        matches:
+          title: Matches
+          description: A list of redirect rule matches.
+          minItems: 1
+          maxItems: 300
+          type: array
+          items:
+            $ref: '#/components/schemas/RedirectRuleMatchRequest'
+        start_time:
+          title: Start Time
+          description: The start time for the redirect rule.
+          examples:
+          - '2025-01-01T00:00:00'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: The end time for redirect rule.
+          examples:
+          - '2025-12-31T23:59:59'
+          type: string
+          format: date-time
+        user_segments:
+          title: User Segments
+          description: A list of user segments for the redirect rule.
+          minItems: 1
+          type: array
+          items:
+            type: string
+            examples:
+            - premium
+            - vip
+        metadata:
+          title: Metadata
+          description: The metadata for the redirect rule.
+          examples:
+          - campaign: summer
+          type: object
+      required:
+      - url
+      - matches
+      additionalProperties: false
+    SortOrderType:
+      title: SortOrderType
+      enum:
+      - ascending
+      - descending
+      type: string
+    RedirectRuleMatchRequest:
+      title: RedirectRuleMatchRequest
+      type: object
+      properties:
+        pattern:
+          title: Pattern
+          description: The pattern for the redirect rule match.
+          examples:
+          - take me here
+          - summer sale
+          minLength: 1
+          maxLength: 255
+          type: string
+        match_type:
+          title: Match Type
+          description: The match type for the redirect rule.
+          examples:
+          - EXACT
+          - PHRASE
+          - UNORDERED
+          enum:
+          - EXACT
+          - PHRASE
+          - UNORDERED
+          type: string
+      required:
+      - pattern
+      - match_type
+      additionalProperties: false
+    RedirectRuleMatchResponse:
+      title: RedirectRuleMatchResponse
+      type: object
+      properties:
+        pattern:
+          title: Pattern
+          description: The pattern for the redirect rule match.
+          examples:
+          - take me here
+          - summer sale
+          minLength: 1
+          maxLength: 255
+          type: string
+        match_type:
+          title: Match Type
+          description: The match type for the redirect rule.
+          examples:
+          - EXACT
+          - PHRASE
+          - UNORDERED
+          enum:
+          - EXACT
+          - PHRASE
+          - UNORDERED
+          type: string
+        id:
+          title: Id
+          description: The identifier for the redirect rule match.
+          type: integer
+      required:
+      - pattern
+      - match_type
+      - id
+      additionalProperties: false
+    RedirectRuleListGetResponse:
+      title: RedirectRuleListGetResponse
+      type: object
+      properties:
+        redirect_rules:
+          title: Redirect Rules
+          description: A list of redirect rules.
+          type: array
+          items:
+            $ref: '#/components/schemas/RedirectRule'
+        total_count:
+          title: Total Count
+          description: The total count of redirect rules.
+          type: integer
+      required:
+      - redirect_rules
+      - total_count
+      additionalProperties: false
+    RedirectRulePatchBody:
+      title: RedirectRulePatchBody
+      type: object
+      properties:
+        url:
+          title: Url
+          description: The target URL for the redirect rule.
+          examples:
+          - /landing-page
+          - /promotions/summer-sale
+          minLength: 1
+          maxLength: 1000
+          type: string
+        matches:
+          title: Matches
+          description: A list of redirect rule matches.
+          minItems: 1
+          maxItems: 300
+          type: array
+          items:
+            $ref: '#/components/schemas/RedirectRuleMatchRequest'
+        start_time:
+          title: Start Time
+          description: The start time for the redirect rule.
+          examples:
+          - '2025-01-01T00:00:00'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: The end time for redirect rule.
+          examples:
+          - '2025-12-31T23:59:59'
+          type: string
+          format: date-time
+        user_segments:
+          title: User Segments
+          description: A list of user segments for the redirect rule.
+          minItems: 1
+          type: array
+          items:
+            type: string
+            examples:
+            - premium
+            - vip
+        metadata:
+          title: Metadata
+          description: The metadata for the redirect rule.
+          examples:
+          - campaign: summer
+          type: object
+      additionalProperties: false
+    RedirectRuleListPostResponse:
+      title: RedirectRuleListPostResponse
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The identifier for the redirect rule match.
+          type: integer
+        start_time:
+          title: Start Time
+          description: The start time for the redirect rule.
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: The end time for the redirect rule.
+          type: string
+          format: date-time
+        url:
+          title: Target Url
+          description: The target URL for redirect the rule.
+          type: string
+        metadata:
+          title: Metadata Json
+          description: The metadata for the redirect rule.
+          type: object
+        last_updated:
+          title: Last Updated
+          description: The last updated time for the redirect rule.
+          type: string
+          format: date-time
+        user_segments:
+          title: User Segments
+          description: A list of user segments for the redirect rule.
+          type: array
+          items:
+            type: string
+        matches:
+          title: Matches Dicts
+          description: A list of redirect rule matches.
+          type: array
+          items:
+            $ref: '#/components/schemas/RedirectRuleMatchResponse'
+      required:
+      - id
+      - url
+      - matches
+      additionalProperties: false
+    RedirectRule:
+      title: RedirectRule
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The identifier for the redirect rule match.
+          type: integer
+        start_time:
+          title: Start Time
+          description: The start time for the redirect rule.
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: The end time for the redirect rule.
+          type: string
+          format: date-time
+        url:
+          title: Target Url
+          description: The target URL for redirect the rule.
+          type: string
+        metadata:
+          title: Metadata Json
+          description: The metadata for the redirect rule.
+          type: object
+        last_updated:
+          title: Last Updated
+          description: The last updated time for the redirect rule.
+          type: string
+          format: date-time
+        user_segments:
+          title: User Segments
+          description: A list of user segments for the redirect rule.
+          type: array
+          items:
+            type: string
+        matches:
+          title: Matches Dicts
+          description: A list of redirect rule matches.
+          type: array
+          items:
+            $ref: '#/components/schemas/RedirectRuleMatchResponse'
+      required:
+      - id
+      - url
+      - matches
+      additionalProperties: false
+    RedirectRuleGetResponse:
+      title: RedirectRuleGetResponse
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The identifier for the redirect rule match.
+          type: integer
+        start_time:
+          title: Start Time
+          description: The start time for the redirect rule.
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: The end time for the redirect rule.
+          type: string
+          format: date-time
+        url:
+          title: Target Url
+          description: The target URL for redirect the rule.
+          type: string
+        metadata:
+          title: Metadata Json
+          description: The metadata for the redirect rule.
+          type: object
+        last_updated:
+          title: Last Updated
+          description: The last updated time for the redirect rule.
+          type: string
+          format: date-time
+        user_segments:
+          title: User Segments
+          description: A list of user segments for the redirect rule.
+          type: array
+          items:
+            type: string
+        matches:
+          title: Matches Dicts
+          description: A list of redirect rule matches.
+          type: array
+          items:
+            $ref: '#/components/schemas/RedirectRuleMatchResponse'
+      required:
+      - id
+      - url
+      - matches
+      additionalProperties: false
+    RedirectRuleDeleteResponse:
+      title: RedirectRuleDeleteResponse
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The identifier for the redirect rule match.
+          type: integer
+        start_time:
+          title: Start Time
+          description: The start time for the redirect rule.
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: The end time for the redirect rule.
+          type: string
+          format: date-time
+        url:
+          title: Target Url
+          description: The target URL for redirect the rule.
+          type: string
+        metadata:
+          title: Metadata Json
+          description: The metadata for the redirect rule.
+          type: object
+        last_updated:
+          title: Last Updated
+          description: The last updated time for the redirect rule.
+          type: string
+          format: date-time
+        user_segments:
+          title: User Segments
+          description: A list of user segments for the redirect rule.
+          type: array
+          items:
+            type: string
+        matches:
+          title: Matches Dicts
+          description: A list of redirect rule matches.
+          type: array
+          items:
+            $ref: '#/components/schemas/RedirectRuleMatchResponse'
+      required:
+      - id
+      - url
+      - matches
+      additionalProperties: false
+    RedirectRulePutBody:
+      title: RedirectRulePutBody
+      type: object
+      properties:
+        url:
+          title: Url
+          description: The target URL for the redirect rule.
+          examples:
+          - /landing-page
+          - /promotions/summer-sale
+          minLength: 1
+          maxLength: 1000
+          type: string
+        matches:
+          title: Matches
+          description: A list of redirect rule matches.
+          minItems: 1
+          maxItems: 300
+          type: array
+          items:
+            $ref: '#/components/schemas/RedirectRuleMatchRequest'
+        start_time:
+          title: Start Time
+          description: The start time for the redirect rule.
+          examples:
+          - '2025-01-01T00:00:00'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: The end time for redirect rule.
+          examples:
+          - '2025-12-31T23:59:59'
+          type: string
+          format: date-time
+        user_segments:
+          title: User Segments
+          description: A list of user segments for the redirect rule.
+          minItems: 1
+          type: array
+          items:
+            type: string
+            examples:
+            - premium
+            - vip
+        metadata:
+          title: Metadata
+          description: The metadata for the redirect rule.
+          examples:
+          - campaign: summer
+          type: object
+      required:
+      - url
+      - matches
+      additionalProperties: false
+  securitySchemes:
+    http_basic_auth:
+      type: http
+      scheme: basic
+    http_bearer_auth:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: false

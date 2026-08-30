@@ -1,0 +1,96 @@
+openapi: 3.2.0
+info:
+  contact:
+    email: support@constructor.io
+  title: User profile User preferences API
+  version: '0.1'
+servers:
+- url: https://user-profile.cnstrc.com
+security:
+- http_bearer_auth:
+  - user_profile.user_preferences(w)
+tags:
+- name: User preferences
+paths:
+  /v1/user_preferences:
+    put:
+      tags:
+      - User preferences
+      operationId: v1-user-profile-create-preferences
+      summary: Create user preferences
+      description: '**🔐 This endpoint requires [HTTP Bearer authentication](https://docs.constructor.com/reference/main-authentication#bearer-authentication).**
+
+        For authenticating with Bearer token, required scopes are: `user_profile.user_preferences(w)`.
+
+
+        Send user preferences for both individual and batch operations.'
+      parameters:
+      - name: key
+        in: query
+        required: true
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserPreferencesBody'
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: Gzipped or plaintext line-delimited JSON.
+              required:
+              - file
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Invalid Request
+        '401':
+          description: Authentication Error
+        '403':
+          description: Permission Denied
+components:
+  schemas:
+    UserPreferencesBody:
+      type: object
+      required:
+      - user_preferences
+      properties:
+        user_preferences:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserPreferenceItem'
+          minItems: 1
+          maxItems: 100
+    UserPreferenceItem:
+      type: object
+      required:
+      - preference_key
+      - preference_values
+      - ui
+      properties:
+        preference_key:
+          type: string
+        preference_values:
+          type: array
+          items:
+            type: string
+          minItems: 1
+        ui:
+          type: string
+  securitySchemes:
+    http_bearer_auth:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: false

@@ -1,0 +1,673 @@
+openapi: 3.2.0
+info:
+  contact:
+    email: support@constructor.io
+  title: Configuration Synonym groups API
+  version: '0.1'
+servers:
+- url: https://ac.cnstrc.com
+security: []
+tags:
+- name: Synonym groups
+paths:
+  /v1/synonym_groups/{group_id}:
+    get:
+      tags:
+      - Synonym groups
+      operationId: v1-synonyms-retrieve-synonym
+      summary: Retrieve synonym group
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `synonyms(r)`.
+
+
+        Retrieve synonym group by identifier.'
+      parameters:
+      - name: group_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SynonymGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - synonyms(r)
+    put:
+      tags:
+      - Synonym groups
+      operationId: v1-synonyms-update-synonym
+      summary: Update synonym group
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `synonyms(w)`.
+
+
+        Update existing synonym group by identifier. Synonyms list inside the group will be replaced with a newly provided synonyms list.'
+      parameters:
+      - name: group_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SynonymPutRequestBody'
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - synonyms(w)
+    delete:
+      tags:
+      - Synonym groups
+      operationId: v1-synonyms-delete-synonym
+      summary: Delete synonym group
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `synonyms(w)`.
+
+
+        Delete synonyms group by identifier.'
+      parameters:
+      - name: group_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - synonyms(w)
+  /v1/synonym_groups:
+    get:
+      tags:
+      - Synonym groups
+      operationId: v1-synonyms-list-synonyms
+      summary: Retrieve synonym groups
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `synonyms(r)`.
+
+
+        Retrieve all synonyms, optionally filtered by phrase.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: synonym_group_id
+        in: query
+        schema:
+          title: Synonym Group Id
+          description: A list of synonym group IDs for filter by
+          minItems: 1
+          type: array
+          items:
+            type: integer
+            examples:
+            - 1
+            - 20
+        required: false
+      - name: phrase
+        in: query
+        schema:
+          title: Phrase
+          description: Phrase to search by
+          minLength: 1
+          examples:
+          - milk
+          - sneakers
+          type: string
+        required: false
+      - name: num_results_per_page
+        in: query
+        schema:
+          title: Num Results Per Page
+          description: The number of results per page to return.
+          default: 20
+          minimum: 1
+          maximum: 1000
+          examples:
+          - 20
+          - 100
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          title: Page
+          description: The page of results to return.
+          minimum: 1
+          examples:
+          - 1
+          - 2
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          title: Offset
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          minimum: 0
+          examples:
+          - 0
+          - 100
+          type: integer
+        required: false
+      - name: sort_by
+        in: query
+        schema:
+          title: Sort By
+          description: Fields that you can sort the results by
+          default: id
+          examples:
+          - id
+          - created_at
+          enum:
+          - id
+          - created_at
+          - updated_at
+          type: string
+        required: false
+      - name: sort_order
+        in: query
+        schema:
+          description: In which order results are returned
+          default: ascending
+          examples:
+          - ascending
+          - descending
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SynonymListGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - synonyms(r)
+    post:
+      tags:
+      - Synonym groups
+      operationId: v1-synonyms-create-synonym
+      summary: Create synonym group
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `synonyms(w)`.
+
+
+        Create synonym groups by providing list of the names for the synonyms.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SynonymListPostRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SynonymListPostResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - synonyms(w)
+    delete:
+      tags:
+      - Synonym groups
+      operationId: v1-synonyms-delete-synonyms
+      summary: Delete synonym groups
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `synonyms(w)`.
+
+
+        Delete all synonyms groups for the provided `key`. Starts a background [task](/reference/v1-tasks-retrieve-task). Returns message.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SynonymListDeleteResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - synonyms(w)
+components:
+  schemas:
+    SynonymListGetResponse:
+      title: SynonymListGetResponse
+      type: object
+      properties:
+        total_count:
+          title: Total Count
+          minimum: 0
+          type: integer
+        synonym_groups:
+          title: Synonym Groups
+          type: array
+          items:
+            $ref: '#/components/schemas/SynonymGroupGetResponse'
+      required:
+      - total_count
+      - synonym_groups
+      additionalProperties: false
+    SynonymListDeleteResponse:
+      title: SynonymListDeleteResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          examples:
+          - Successfully deleted all synonyms
+          type: string
+      required:
+      - message
+      additionalProperties: false
+    SynonymGroupGetResponse:
+      title: SynonymGroupGetResponse
+      type: object
+      properties:
+        synonyms:
+          title: Synonym Phrases
+          minItems: 1
+          maxItems: 20
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 200
+        synonym_group_id:
+          title: ID
+          description: The ID of the synonym group, must be unique.
+          type: integer
+        created_at:
+          title: Created At
+          description: Synonym group creation date in ISO 8601 format
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Last synonym group update date in ISO 8601 format.
+          type: string
+          format: date-time
+      required:
+      - synonyms
+      - synonym_group_id
+      - created_at
+      - updated_at
+      additionalProperties: false
+    SynonymGetResponse:
+      title: SynonymGetResponse
+      type: object
+      properties:
+        total_count:
+          title: Total Count
+          minimum: 0
+          type: integer
+        synonym_groups:
+          title: Synonym Groups
+          type: array
+          items:
+            $ref: '#/components/schemas/SynonymGroupGetResponse'
+      required:
+      - total_count
+      - synonym_groups
+      additionalProperties: false
+    SortOrderType:
+      title: SortOrderType
+      enum:
+      - ascending
+      - descending
+      type: string
+    SynonymPutRequestBody:
+      title: SynonymPutRequestBody
+      type: object
+      properties:
+        synonyms:
+          title: Synonyms
+          description: Array of synonyms you want to set
+          minItems: 1
+          maxItems: 20
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 200
+            examples:
+            - tea
+            - tisane
+            - herbal tea
+      required:
+      - synonyms
+      additionalProperties: false
+    SynonymListPostResponse:
+      title: SynonymListPostResponse
+      type: object
+      properties:
+        group_id:
+          title: Group Id
+          type: integer
+      required:
+      - group_id
+      additionalProperties: false
+    SynonymListPostRequestBody:
+      title: SynonymListPostRequestBody
+      type: object
+      properties:
+        synonyms:
+          title: Synonyms
+          description: Array of synonyms you want to set
+          minItems: 1
+          maxItems: 20
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 200
+            examples:
+            - tea
+            - tisane
+            - herbal tea
+      required:
+      - synonyms
+      additionalProperties: false
+  securitySchemes:
+    http_basic_auth:
+      type: http
+      scheme: basic
+    http_bearer_auth:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: false

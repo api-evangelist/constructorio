@@ -1,0 +1,2343 @@
+openapi: 3.2.0
+info:
+  contact:
+    email: support@constructor.io
+  title: Configuration Quizzes API
+  version: '0.1'
+servers:
+- url: https://ac.cnstrc.com
+security: []
+tags:
+- name: Quizzes
+paths:
+  /v1/quizzes/{quiz_id}:
+    get:
+      tags:
+      - Quizzes
+      operationId: v1-quizzes-retrieve-quiz
+      summary: Retrieve quiz
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `quizzes(r)`.
+
+
+        Retrieve a quiz.'
+      parameters:
+      - name: quiz_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuizGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - quizzes(r)
+    put:
+      tags:
+      - Quizzes
+      operationId: v1-quizzes-create-or-replace-quiz
+      summary: Create or replace quiz
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `quizzes(w)`.
+
+
+        Create or replace an existing quiz.'
+      parameters:
+      - name: quiz_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuizPutRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuizPutResponse'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuizPutResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - quizzes(w)
+    patch:
+      tags:
+      - Quizzes
+      operationId: v1-quizzes-update-quiz
+      summary: Update quiz
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `quizzes(w)`.
+
+
+        Update a quiz. Data sent through the request body will be merged with existing quiz. Full validation (e.g. logic) will be performed over the merged quiz.'
+      parameters:
+      - name: quiz_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuizPatchRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuizPatchResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - quizzes(w)
+    delete:
+      tags:
+      - Quizzes
+      operationId: v1-quizzes-delete-quiz
+      summary: Delete quiz
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `quizzes(w)`.
+
+
+        Delete a quiz.'
+      parameters:
+      - name: quiz_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuizDeleteResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - quizzes(w)
+components:
+  schemas:
+    ResultsConfig:
+      title: ResultsConfig
+      type: object
+      properties:
+        desktop:
+          $ref: '#/components/schemas/DeviceConfig'
+      required:
+      - desktop
+    QuizPatchResponse:
+      title: QuizPatchResponse
+      type: object
+      properties:
+        display_name:
+          title: Display Name
+          description: Name of the quiz to be displayed to end users
+          examples:
+          - Product Finder Quiz
+          - Size Selector
+          minLength: 1
+          maxLength: 200
+          type: string
+        active:
+          title: Active
+          description: Identifies whether quiz should be displayed or not
+          default: true
+          examples:
+          - true
+          - false
+          type: boolean
+        id:
+          title: ID
+          description: ID of the quiz.
+          minLength: 1
+          maxLength: 255
+          type: string
+        questions:
+          title: Questions
+          description: A list of questions of the quiz
+          type: array
+          items:
+            discriminator:
+              propertyName: question_type
+              mapping:
+                single: '#/components/schemas/SingleQuestionResponse'
+                multiple: '#/components/schemas/MultipleQuestionResponse'
+                single_filter_value: '#/components/schemas/SingleFilterValueQuestionResponse'
+                multiple_filter_values: '#/components/schemas/MultipleFilterValuesQuestionResponse'
+                open: '#/components/schemas/OpenQuestionResponse'
+                cover: '#/components/schemas/CoverQuestionResponse'
+                free_form: '#/components/schemas/FreeFormQuestionResponse'
+            oneOf:
+            - $ref: '#/components/schemas/SingleQuestionResponse'
+            - $ref: '#/components/schemas/MultipleQuestionResponse'
+            - $ref: '#/components/schemas/SingleFilterValueQuestionResponse'
+            - $ref: '#/components/schemas/MultipleFilterValuesQuestionResponse'
+            - $ref: '#/components/schemas/OpenQuestionResponse'
+            - $ref: '#/components/schemas/CoverQuestionResponse'
+            - $ref: '#/components/schemas/FreeFormQuestionResponse'
+        logic:
+          title: Logic
+          description: Logic that is used when going through quiz
+          type: object
+          additionalProperties:
+            type: array
+            items: {}
+        created_at:
+          title: Created At
+          description: Quiz creation date in ISO 8601 format
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Last quiz update date in ISO 8601 format.
+          type: string
+          format: date-time
+        results_config:
+          title: Results Config
+          description: Results configuration for the quiz
+          allOf:
+          - $ref: '#/components/schemas/ResultsConfig'
+        metadata_json:
+          title: Metadata Json
+          description: Metadata related to the quiz and its questions.
+          type: object
+        pre_filter_expression:
+          title: Pre Filter Expression
+          description: Pre-filter expression to be applied to all questions.
+          type: object
+      required:
+      - display_name
+      - id
+      - created_at
+      - updated_at
+      additionalProperties: false
+    ResponseSummaryConfig:
+      title: ResponseSummaryConfig
+      type: object
+      properties:
+        text:
+          title: Text
+          minLength: 1
+          maxLength: 2000
+          type: string
+        is_active:
+          title: Is Active
+          type: boolean
+        items_separator:
+          title: Items Separator
+          minLength: 1
+          maxLength: 2000
+          type: string
+        last_separator:
+          title: Last Separator
+          minLength: 1
+          maxLength: 2000
+          type: string
+      required:
+      - text
+      - is_active
+      - items_separator
+      - last_separator
+    QuizQuestionAttributeCondition:
+      title: QuizQuestionAttributeCondition
+      enum:
+      - and
+      - or
+      type: string
+    OpenQuestion:
+      title: OpenQuestion
+      type: object
+      properties:
+        title:
+          title: Title
+          description: Title of the question.
+          maxLength: 255
+          minLength: 1
+          examples:
+          - What is your favorite color?
+          - What size do you need?
+          type: string
+        question_type:
+          title: Question Type
+          enum:
+          - open
+          type: string
+        description:
+          title: Description
+          description: Description of the question.
+          maxLength: 2047
+          minLength: 1
+          examples:
+          - Choose your preferred color
+          type: string
+        is_skippable:
+          title: Is Skippable
+          description: Identifies whether the question can be skipped or not
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        cta_text:
+          title: Cta Text
+          description: The name of the call-to-action button (e.g. next).
+          examples:
+          - Next
+          - Continue
+          type: string
+        images:
+          title: Images
+          description: Images attached to the question.
+          allOf:
+          - $ref: '#/components/schemas/Images'
+        internal_name:
+          title: Internal Name
+          description: Internal name of a question, this is for internal use only.
+          examples:
+          - q1_color
+          - q2_size
+          type: string
+        bucket_id:
+          title: Bucket Id
+          description: Identifier for the bucket this question belongs to. Questions with the same bucket_id are combined using OR.
+          examples:
+          - 1
+          - 2
+          type: integer
+        question_key:
+          title: Key
+          description: Unique ID of the question
+          type: string
+          format: uuid
+        options:
+          title: Options
+          minItems: 0
+          maxItems: 0
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+        input_placeholder:
+          title: Input Placeholder
+          description: Placeholder for open-text question input.
+          maxLength: 255
+          minLength: 1
+          type: string
+      required:
+      - title
+      - question_type
+      additionalProperties: false
+    FreeFormQuestionResponse:
+      title: FreeFormQuestionResponse
+      type: object
+      properties:
+        title:
+          title: Title
+          description: Title of the question.
+          maxLength: 255
+          minLength: 1
+          examples:
+          - What is your favorite color?
+          - What size do you need?
+          type: string
+        question_type:
+          title: Question Type
+          enum:
+          - free_form
+          type: string
+        description:
+          title: Description
+          description: Description of the question.
+          maxLength: 2047
+          minLength: 1
+          examples:
+          - Choose your preferred color
+          type: string
+        is_skippable:
+          title: Is Skippable
+          description: Identifies whether the question can be skipped or not
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        cta_text:
+          title: Cta Text
+          description: The name of the call-to-action button (e.g. next).
+          examples:
+          - Next
+          - Continue
+          type: string
+        images:
+          title: Images
+          description: Images attached to the question.
+          allOf:
+          - $ref: '#/components/schemas/Images'
+        internal_name:
+          title: Internal Name
+          description: Internal name of a question, this is for internal use only.
+          examples:
+          - q1_color
+          - q2_size
+          type: string
+        bucket_id:
+          title: Bucket Id
+          description: Identifier for the bucket this question belongs to. Questions with the same bucket_id are combined using OR.
+          examples:
+          - 1
+          - 2
+          type: integer
+        key:
+          title: Question Key
+          description: Unique ID of the question
+          type: string
+          format: uuid
+        options:
+          title: Options
+          minItems: 0
+          maxItems: 0
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionResponse'
+        attribute_condition:
+          title: Attribute Condition
+          description: Always `null`
+          type:
+          - string
+          - 'null'
+          default: 'null'
+        input_placeholder:
+          title: Input Placeholder
+          description: Placeholder for free-form question input.
+          maxLength: 255
+          minLength: 1
+          type: string
+        priority:
+          title: Priority
+          description: Always `null`
+          type:
+          - string
+          - 'null'
+          default: 'null'
+        filter_name:
+          title: Filter Name
+          description: Always `null`
+          type:
+          - string
+          - 'null'
+          default: 'null'
+        filter_sort_option:
+          title: Filter Sort Option
+          description: Filter sort option. Always `null` for free form type questions
+          type:
+          - string
+          - 'null'
+          default: 'null'
+      required:
+      - title
+      - question_type
+    QuizDeleteResponse:
+      title: QuizDeleteResponse
+      type: object
+      properties:
+        display_name:
+          title: Display Name
+          description: Name of the quiz to be displayed to end users
+          examples:
+          - Product Finder Quiz
+          - Size Selector
+          minLength: 1
+          maxLength: 200
+          type: string
+        active:
+          title: Active
+          description: Identifies whether quiz should be displayed or not
+          default: true
+          examples:
+          - true
+          - false
+          type: boolean
+        id:
+          title: ID
+          description: ID of the quiz.
+          minLength: 1
+          maxLength: 255
+          type: string
+        questions:
+          title: Questions
+          description: A list of questions of the quiz
+          type: array
+          items:
+            discriminator:
+              propertyName: question_type
+              mapping:
+                single: '#/components/schemas/SingleQuestionResponse'
+                multiple: '#/components/schemas/MultipleQuestionResponse'
+                single_filter_value: '#/components/schemas/SingleFilterValueQuestionResponse'
+                multiple_filter_values: '#/components/schemas/MultipleFilterValuesQuestionResponse'
+                open: '#/components/schemas/OpenQuestionResponse'
+                cover: '#/components/schemas/CoverQuestionResponse'
+                free_form: '#/components/schemas/FreeFormQuestionResponse'
+            oneOf:
+            - $ref: '#/components/schemas/SingleQuestionResponse'
+            - $ref: '#/components/schemas/MultipleQuestionResponse'
+            - $ref: '#/components/schemas/SingleFilterValueQuestionResponse'
+            - $ref: '#/components/schemas/MultipleFilterValuesQuestionResponse'
+            - $ref: '#/components/schemas/OpenQuestionResponse'
+            - $ref: '#/components/schemas/CoverQuestionResponse'
+            - $ref: '#/components/schemas/FreeFormQuestionResponse'
+        logic:
+          title: Logic
+          description: Logic that is used when going through quiz
+          type: object
+          additionalProperties:
+            type: array
+            items: {}
+        created_at:
+          title: Created At
+          description: Quiz creation date in ISO 8601 format
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Last quiz update date in ISO 8601 format.
+          type: string
+          format: date-time
+        results_config:
+          title: Results Config
+          description: Results configuration for the quiz
+          allOf:
+          - $ref: '#/components/schemas/ResultsConfig'
+        metadata_json:
+          title: Metadata Json
+          description: Metadata related to the quiz and its questions.
+          type: object
+        pre_filter_expression:
+          title: Pre Filter Expression
+          description: Pre-filter expression to be applied to all questions.
+          type: object
+      required:
+      - display_name
+      - id
+      - created_at
+      - updated_at
+      additionalProperties: false
+    Option:
+      title: Option
+      type: object
+      properties:
+        value:
+          title: Value
+          description: Value of the option.
+          minLength: 1
+          examples:
+          - Red
+          - Blue
+          type: string
+        attribute:
+          title: Attribute
+          description: Attribute expression of the option.
+          examples:
+          - color: red
+          type: object
+        images:
+          title: Images
+          description: Images attached to the option.
+          allOf:
+          - $ref: '#/components/schemas/Images'
+        option_key:
+          title: Key
+          description: Unique ID of the option
+          type: string
+          format: uuid
+      required:
+      - value
+      additionalProperties: false
+    CoverQuestion:
+      title: CoverQuestion
+      type: object
+      properties:
+        title:
+          title: Title
+          description: Title of the question.
+          maxLength: 255
+          minLength: 1
+          examples:
+          - What is your favorite color?
+          - What size do you need?
+          type: string
+        question_type:
+          title: Question Type
+          enum:
+          - cover
+          type: string
+        description:
+          title: Description
+          description: Description of the question.
+          maxLength: 2047
+          minLength: 1
+          examples:
+          - Choose your preferred color
+          type: string
+        is_skippable:
+          title: Is Skippable
+          description: Identifies whether the question can be skipped or not
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        cta_text:
+          title: Cta Text
+          description: The name of the call-to-action button (e.g. next).
+          examples:
+          - Next
+          - Continue
+          type: string
+        images:
+          title: Images
+          description: Images attached to the question.
+          allOf:
+          - $ref: '#/components/schemas/Images'
+        internal_name:
+          title: Internal Name
+          description: Internal name of a question, this is for internal use only.
+          examples:
+          - q1_color
+          - q2_size
+          type: string
+        bucket_id:
+          title: Bucket Id
+          description: Identifier for the bucket this question belongs to. Questions with the same bucket_id are combined using OR.
+          examples:
+          - 1
+          - 2
+          type: integer
+        question_key:
+          title: Key
+          description: Unique ID of the question
+          type: string
+          format: uuid
+        options:
+          title: Options
+          minItems: 0
+          maxItems: 0
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+      required:
+      - title
+      - question_type
+      additionalProperties: false
+    SingleQuestionResponse:
+      title: SingleQuestionResponse
+      type: object
+      properties:
+        title:
+          title: Title
+          description: Title of the question.
+          maxLength: 255
+          minLength: 1
+          examples:
+          - What is your favorite color?
+          - What size do you need?
+          type: string
+        question_type:
+          title: Question Type
+          enum:
+          - single
+          type: string
+        description:
+          title: Description
+          description: Description of the question.
+          maxLength: 2047
+          minLength: 1
+          examples:
+          - Choose your preferred color
+          type: string
+        is_skippable:
+          title: Is Skippable
+          description: Identifies whether the question can be skipped or not
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        cta_text:
+          title: Cta Text
+          description: The name of the call-to-action button (e.g. next).
+          examples:
+          - Next
+          - Continue
+          type: string
+        images:
+          title: Images
+          description: Images attached to the question.
+          allOf:
+          - $ref: '#/components/schemas/Images'
+        internal_name:
+          title: Internal Name
+          description: Internal name of a question, this is for internal use only.
+          examples:
+          - q1_color
+          - q2_size
+          type: string
+        bucket_id:
+          title: Bucket Id
+          description: Identifier for the bucket this question belongs to. Questions with the same bucket_id are combined using OR.
+          examples:
+          - 1
+          - 2
+          type: integer
+        key:
+          title: Question Key
+          description: Unique ID of the question
+          type: string
+          format: uuid
+        attribute_condition:
+          title: Attribute Condition
+          description: Always `null`
+          type:
+          - string
+          - 'null'
+          default: 'null'
+        options:
+          title: Options
+          description: A list of options of the quiz.
+          minItems: 1
+          maxItems: 30
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionResponse'
+        priority:
+          title: Priority
+          description: Defines which question's attributes should be dropped first in case of 0 results. The lower the number, the higher priority it has. E.g. if 0 results received, question's attributes with priority 10(lowest) will be dropped first hence question's attributes with priority 1(highest) will be dropped last.
+          minimum: 1
+          maximum: 10
+          type: integer
+        input_placeholder:
+          title: Input Placeholder
+          description: Always `null`
+          type:
+          - string
+          - 'null'
+          default: 'null'
+        filter_name:
+          title: Filter Name
+          description: Always `null`
+          type:
+          - string
+          - 'null'
+          default: 'null'
+        filter_sort_option:
+          title: Filter Sort Option
+          description: Filter sort option. Always `null` for single type questions
+          type:
+          - string
+          - 'null'
+          default: 'null'
+      required:
+      - title
+      - question_type
+      - options
+      - priority
+    QuizPutRequestBody:
+      title: QuizPutRequestBody
+      type: object
+      properties:
+        display_name:
+          title: Display Name
+          description: Name of the quiz to be displayed to end users
+          examples:
+          - Product Finder Quiz
+          - Size Selector
+          minLength: 1
+          maxLength: 200
+          type: string
+        active:
+          title: Active
+          description: Identifies whether quiz should be displayed or not
+          default: true
+          type: boolean
+        logic:
+          title: Logic
+          description: Logic that is used when going through quiz
+          type: object
+          additionalProperties:
+            type: array
+            items: {}
+        questions:
+          title: Questions
+          description: A list of questions of the quiz
+          default: []
+          type: array
+          items:
+            discriminator:
+              propertyName: question_type
+              mapping:
+                single: '#/components/schemas/SingleQuestion'
+                multiple: '#/components/schemas/MultipleQuestion'
+                single_filter_value: '#/components/schemas/SingleFilterValueQuestion'
+                multiple_filter_values: '#/components/schemas/MultipleFilterValuesQuestion'
+                open: '#/components/schemas/OpenQuestion'
+                cover: '#/components/schemas/CoverQuestion'
+                free_form: '#/components/schemas/FreeFormQuestion'
+            oneOf:
+            - $ref: '#/components/schemas/SingleQuestion'
+            - $ref: '#/components/schemas/MultipleQuestion'
+            - $ref: '#/components/schemas/SingleFilterValueQuestion'
+            - $ref: '#/components/schemas/MultipleFilterValuesQuestion'
+            - $ref: '#/components/schemas/OpenQuestion'
+            - $ref: '#/components/schemas/CoverQuestion'
+            - $ref: '#/components/schemas/FreeFormQuestion'
+        results_config:
+          title: Results Config
+          description: Results configuration for the quiz
+          allOf:
+          - $ref: '#/components/schemas/ResultsConfig'
+        metadata_json:
+          title: Metadata Json
+          description: Metadata related to the quiz and its questions.
+          type: object
+        pre_filter_expression:
+          title: Pre Filter Expression
+          description: Pre-filter expression to be applied to all questions.
+          type: object
+      required:
+      - display_name
+      additionalProperties: false
+    SingleFilterValueQuestionResponse:
+      title: SingleFilterValueQuestionResponse
+      type: object
+      properties:
+        title:
+          title: Title
+          description: Title of the question.
+          maxLength: 255
+          minLength: 1
+          examples:
+          - What is your favorite color?
+          - What size do you need?
+          type: string
+        question_type:
+          title: Question Type
+          enum:
+          - single_filter_value
+          type: string
+        description:
+          title: Description
+          description: Description of the question.
+          maxLength: 2047
+          minLength: 1
+          examples:
+          - Choose your preferred color
+          type: string
+        is_skippable:
+          title: Is Skippable
+          description: Identifies whether the question can be skipped or not
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        cta_text:
+          title: Cta Text
+          description: The name of the call-to-action button (e.g. next).
+          examples:
+          - Next
+          - Continue
+          type: string
+        images:
+          title: Images
+          description: Images attached to the question.
+          allOf:
+          - $ref: '#/components/schemas/Images'
+        internal_name:
+          title: Internal Name
+          description: Internal name of a question, this is for internal use only.
+          examples:
+          - q1_color
+          - q2_size
+          type: string
+        bucket_id:
+          title: Bucket Id
+          description: Identifier for the bucket this question belongs to. Questions with the same bucket_id are combined using OR.
+          examples:
+          - 1
+          - 2
+          type: integer
+        key:
+          title: Question Key
+          description: Unique ID of the question
+          type: string
+          format: uuid
+        attribute_condition:
+          title: Attribute Condition
+          description: Always `null`
+          type:
+          - string
+          - 'null'
+          default: 'null'
+        options:
+          title: Options
+          minItems: 0
+          maxItems: 0
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionResponse'
+        filter_name:
+          title: Filter Name
+          description: Name of the filter to use for this question.
+          maxLength: 100
+          minLength: 1
+          type: string
+        priority:
+          title: Priority
+          description: Defines which question's attributes should be dropped first in case of 0 results. The lower the number, the higher priority it has. E.g. if 0 results received, question's attributes with priority 10(lowest) will be dropped first hence question's attributes with priority 1(highest) will be dropped last.
+          minimum: 1
+          maximum: 10
+          type: integer
+        input_placeholder:
+          title: Input Placeholder
+          description: Always `null`
+          type:
+          - string
+          - 'null'
+          default: 'null'
+        filter_sort_option:
+          description: Determines how filter options should be sorted in quiz question. Defaults to `most_matching_products` if unspecified
+          allOf:
+          - $ref: '#/components/schemas/QuizFilterSortOption'
+        excluded_filter_values:
+          title: Excluded Filter Values
+          description: List of filter values to exclude from being displayed to users
+          maxItems: 100
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 255
+      required:
+      - title
+      - question_type
+      - filter_name
+      - priority
+    SingleFilterValueQuestion:
+      title: SingleFilterValueQuestion
+      type: object
+      properties:
+        title:
+          title: Title
+          description: Title of the question.
+          maxLength: 255
+          minLength: 1
+          examples:
+          - What is your favorite color?
+          - What size do you need?
+          type: string
+        question_type:
+          title: Question Type
+          enum:
+          - single_filter_value
+          type: string
+        description:
+          title: Description
+          description: Description of the question.
+          maxLength: 2047
+          minLength: 1
+          examples:
+          - Choose your preferred color
+          type: string
+        is_skippable:
+          title: Is Skippable
+          description: Identifies whether the question can be skipped or not
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        cta_text:
+          title: Cta Text
+          description: The name of the call-to-action button (e.g. next).
+          examples:
+          - Next
+          - Continue
+          type: string
+        images:
+          title: Images
+          description: Images attached to the question.
+          allOf:
+          - $ref: '#/components/schemas/Images'
+        internal_name:
+          title: Internal Name
+          description: Internal name of a question, this is for internal use only.
+          examples:
+          - q1_color
+          - q2_size
+          type: string
+        bucket_id:
+          title: Bucket Id
+          description: Identifier for the bucket this question belongs to. Questions with the same bucket_id are combined using OR.
+          examples:
+          - 1
+          - 2
+          type: integer
+        question_key:
+          title: Key
+          description: Unique ID of the question
+          type: string
+          format: uuid
+        options:
+          title: Options
+          minItems: 0
+          maxItems: 0
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+        filter_name:
+          title: Filter Name
+          description: Name of the filter to use for this question.
+          maxLength: 100
+          minLength: 1
+          type: string
+        priority:
+          title: Priority
+          description: Defines which question's attributes should be dropped first in case of 0 results. The lower the number, the higher priority it has. E.g. if 0 results received, question's attributes with priority 10(lowest) will be dropped first hence question's attributes with priority 1(highest) will be dropped last.
+          minimum: 1
+          maximum: 10
+          type: integer
+        filter_sort_option:
+          description: Determines how filter options should be sorted in quiz question
+          default: most_matching_products
+          allOf:
+          - $ref: '#/components/schemas/QuizFilterSortOption'
+        excluded_filter_values:
+          title: Excluded Filter Values
+          description: List of filter values to exclude from being displayed to users
+          maxItems: 100
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 255
+      required:
+      - title
+      - question_type
+      - filter_name
+      - priority
+      additionalProperties: false
+    MultipleFilterValuesQuestion:
+      title: MultipleFilterValuesQuestion
+      type: object
+      properties:
+        title:
+          title: Title
+          description: Title of the question.
+          maxLength: 255
+          minLength: 1
+          examples:
+          - What is your favorite color?
+          - What size do you need?
+          type: string
+        question_type:
+          title: Question Type
+          enum:
+          - multiple_filter_values
+          type: string
+        description:
+          title: Description
+          description: Description of the question.
+          maxLength: 2047
+          minLength: 1
+          examples:
+          - Choose your preferred color
+          type: string
+        is_skippable:
+          title: Is Skippable
+          description: Identifies whether the question can be skipped or not
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        cta_text:
+          title: Cta Text
+          description: The name of the call-to-action button (e.g. next).
+          examples:
+          - Next
+          - Continue
+          type: string
+        images:
+          title: Images
+          description: Images attached to the question.
+          allOf:
+          - $ref: '#/components/schemas/Images'
+        internal_name:
+          title: Internal Name
+          description: Internal name of a question, this is for internal use only.
+          examples:
+          - q1_color
+          - q2_size
+          type: string
+        bucket_id:
+          title: Bucket Id
+          description: Identifier for the bucket this question belongs to. Questions with the same bucket_id are combined using OR.
+          examples:
+          - 1
+          - 2
+          type: integer
+        question_key:
+          title: Key
+          description: Unique ID of the question
+          type: string
+          format: uuid
+        attribute_condition:
+          description: Defines how the results associated to this question will be joined to the previous ones, either with a union (`or`) or an intersection (`and`).
+          allOf:
+          - $ref: '#/components/schemas/QuizQuestionAttributeCondition'
+        options:
+          title: Options
+          minItems: 0
+          maxItems: 0
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+        filter_name:
+          title: Filter Name
+          description: Name of the filter to use for this question.
+          maxLength: 100
+          minLength: 1
+          type: string
+        priority:
+          title: Priority
+          description: Defines which question's attributes should be dropped first in case of 0 results. The lower the number, the higher priority it has. E.g. if 0 results received, question's attributes with priority 10(lowest) will be dropped first hence question's attributes with priority 1(highest) will be dropped last.
+          minimum: 1
+          maximum: 10
+          type: integer
+        filter_sort_option:
+          description: Determines how filter options should be sorted in quiz question
+          default: most_matching_products
+          allOf:
+          - $ref: '#/components/schemas/QuizFilterSortOption'
+        excluded_filter_values:
+          title: Excluded Filter Values
+          description: List of filter values to exclude from being displayed to users
+          maxItems: 100
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 255
+      required:
+      - title
+      - question_type
+      - attribute_condition
+      - filter_name
+      - priority
+      additionalProperties: false
+    QuizFilterSortOption:
+      title: QuizFilterSortOption
+      enum:
+      - most_matching_products
+      - alphanumeric_asc
+      - alphanumeric_desc
+      type: string
+    OptionResponse:
+      title: OptionResponse
+      type: object
+      properties:
+        value:
+          title: Value
+          description: Value of the option.
+          minLength: 1
+          examples:
+          - Red
+          - Blue
+          type: string
+        attribute:
+          title: Attribute
+          description: Attribute expression of the option.
+          examples:
+          - color: red
+          type: object
+        images:
+          title: Images
+          description: Images attached to the option.
+          allOf:
+          - $ref: '#/components/schemas/Images'
+        key:
+          title: Option Key
+          description: Unique ID of the option
+          type: string
+          format: uuid
+      required:
+      - value
+    Images:
+      title: Images
+      type: object
+      properties:
+        primary_url:
+          title: Primary Url
+          description: Primary source of the image.
+          maxLength: 255
+          minLength: 1
+          examples:
+          - https://example.com/image.jpg
+          type: string
+        primary_alt:
+          title: Primary Alt
+          description: Alt text of the primary image.
+          maxLength: 511
+          minLength: 1
+          examples:
+          - Product image
+          type: string
+        secondary_url:
+          title: Secondary Url
+          description: Secondary source of the image.
+          maxLength: 255
+          minLength: 1
+          examples:
+          - https://example.com/image2.jpg
+          type: string
+        secondary_alt:
+          title: Secondary Alt
+          description: Alt text of the secondary image.
+          maxLength: 511
+          minLength: 1
+          examples:
+          - Alternative product view
+          type: string
+      additionalProperties: false
+    DescriptionConfig:
+      title: DescriptionConfig
+      type: object
+      properties:
+        text:
+          title: Text
+          minLength: 1
+          maxLength: 2000
+          type: string
+        is_active:
+          title: Is Active
+          type: boolean
+      required:
+      - text
+      - is_active
+    TitleConfig:
+      title: TitleConfig
+      type: object
+      properties:
+        text:
+          title: Text
+          minLength: 1
+          maxLength: 255
+          type: string
+        is_active:
+          title: Is Active
+          type: boolean
+      required:
+      - text
+      - is_active
+    MultipleQuestion:
+      title: MultipleQuestion
+      type: object
+      properties:
+        title:
+          title: Title
+          description: Title of the question.
+          maxLength: 255
+          minLength: 1
+          examples:
+          - What is your favorite color?
+          - What size do you need?
+          type: string
+        question_type:
+          title: Question Type
+          enum:
+          - multiple
+          type: string
+        description:
+          title: Description
+          description: Description of the question.
+          maxLength: 2047
+          minLength: 1
+          examples:
+          - Choose your preferred color
+          type: string
+        is_skippable:
+          title: Is Skippable
+          description: Identifies whether the question can be skipped or not
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        cta_text:
+          title: Cta Text
+          description: The name of the call-to-action button (e.g. next).
+          examples:
+          - Next
+          - Continue
+          type: string
+        images:
+          title: Images
+          description: Images attached to the question.
+          allOf:
+          - $ref: '#/components/schemas/Images'
+        internal_name:
+          title: Internal Name
+          description: Internal name of a question, this is for internal use only.
+          examples:
+          - q1_color
+          - q2_size
+          type: string
+        bucket_id:
+          title: Bucket Id
+          description: Identifier for the bucket this question belongs to. Questions with the same bucket_id are combined using OR.
+          examples:
+          - 1
+          - 2
+          type: integer
+        question_key:
+          title: Key
+          description: Unique ID of the question
+          type: string
+          format: uuid
+        attribute_condition:
+          description: Defines how the results associated to this question will be joined to the previous ones, either with a union (`or`) or an intersection (`and`).
+          allOf:
+          - $ref: '#/components/schemas/QuizQuestionAttributeCondition'
+        options:
+          title: Options
+          description: A list of options of the quiz.
+          minItems: 1
+          maxItems: 30
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+        priority:
+          title: Priority
+          description: Defines which question's attributes should be dropped first in case of 0 results. The lower the number, the higher priority it has. E.g. if 0 results received, question's attributes with priority 10(lowest) will be dropped first hence question's attributes with priority 1(highest) will be dropped last.
+          minimum: 1
+          maximum: 10
+          type: integer
+      required:
+      - title
+      - question_type
+      - attribute_condition
+      - options
+      - priority
+      additionalProperties: false
+    SingleQuestion:
+      title: SingleQuestion
+      type: object
+      properties:
+        title:
+          title: Title
+          description: Title of the question.
+          maxLength: 255
+          minLength: 1
+          examples:
+          - What is your favorite color?
+          - What size do you need?
+          type: string
+        question_type:
+          title: Question Type
+          enum:
+          - single
+          type: string
+        description:
+          title: Description
+          description: Description of the question.
+          maxLength: 2047
+          minLength: 1
+          examples:
+          - Choose your preferred color
+          type: string
+        is_skippable:
+          title: Is Skippable
+          description: Identifies whether the question can be skipped or not
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        cta_text:
+          title: Cta Text
+          description: The name of the call-to-action button (e.g. next).
+          examples:
+          - Next
+          - Continue
+          type: string
+        images:
+          title: Images
+          description: Images attached to the question.
+          allOf:
+          - $ref: '#/components/schemas/Images'
+        internal_name:
+          title: Internal Name
+          description: Internal name of a question, this is for internal use only.
+          examples:
+          - q1_color
+          - q2_size
+          type: string
+        bucket_id:
+          title: Bucket Id
+          description: Identifier for the bucket this question belongs to. Questions with the same bucket_id are combined using OR.
+          examples:
+          - 1
+          - 2
+          type: integer
+        question_key:
+          title: Key
+          description: Unique ID of the question
+          type: string
+          format: uuid
+        options:
+          title: Options
+          description: A list of options of the quiz.
+          minItems: 1
+          maxItems: 30
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+        priority:
+          title: Priority
+          description: Defines which question's attributes should be dropped first in case of 0 results. The lower the number, the higher priority it has. E.g. if 0 results received, question's attributes with priority 10(lowest) will be dropped first hence question's attributes with priority 1(highest) will be dropped last.
+          minimum: 1
+          maximum: 10
+          type: integer
+      required:
+      - title
+      - question_type
+      - options
+      - priority
+      additionalProperties: false
+    DeviceConfig:
+      title: DeviceConfig
+      type: object
+      properties:
+        title:
+          $ref: '#/components/schemas/TitleConfig'
+        description:
+          $ref: '#/components/schemas/DescriptionConfig'
+        response_summary:
+          $ref: '#/components/schemas/ResponseSummaryConfig'
+    MultipleQuestionResponse:
+      title: MultipleQuestionResponse
+      type: object
+      properties:
+        title:
+          title: Title
+          description: Title of the question.
+          maxLength: 255
+          minLength: 1
+          examples:
+          - What is your favorite color?
+          - What size do you need?
+          type: string
+        question_type:
+          title: Question Type
+          enum:
+          - multiple
+          type: string
+        description:
+          title: Description
+          description: Description of the question.
+          maxLength: 2047
+          minLength: 1
+          examples:
+          - Choose your preferred color
+          type: string
+        is_skippable:
+          title: Is Skippable
+          description: Identifies whether the question can be skipped or not
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        cta_text:
+          title: Cta Text
+          description: The name of the call-to-action button (e.g. next).
+          examples:
+          - Next
+          - Continue
+          type: string
+        images:
+          title: Images
+          description: Images attached to the question.
+          allOf:
+          - $ref: '#/components/schemas/Images'
+        internal_name:
+          title: Internal Name
+          description: Internal name of a question, this is for internal use only.
+          examples:
+          - q1_color
+          - q2_size
+          type: string
+        bucket_id:
+          title: Bucket Id
+          description: Identifier for the bucket this question belongs to. Questions with the same bucket_id are combined using OR.
+          examples:
+          - 1
+          - 2
+          type: integer
+        key:
+          title: Question Key
+          description: Unique ID of the question
+          type: string
+          format: uuid
+        attribute_condition:
+          description: Defines how the results associated to this question will be joined to the previous ones, either with a union (`or`) or an intersection (`and`).
+          allOf:
+          - $ref: '#/components/schemas/QuizQuestionAttributeCondition'
+        options:
+          title: Options
+          description: A list of options of the quiz.
+          minItems: 1
+          maxItems: 30
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionResponse'
+        priority:
+          title: Priority
+          description: Defines which question's attributes should be dropped first in case of 0 results. The lower the number, the higher priority it has. E.g. if 0 results received, question's attributes with priority 10(lowest) will be dropped first hence question's attributes with priority 1(highest) will be dropped last.
+          minimum: 1
+          maximum: 10
+          type: integer
+        input_placeholder:
+          title: Input Placeholder
+          description: Always `null`
+          type:
+          - string
+          - 'null'
+          default: 'null'
+        filter_name:
+          title: Filter Name
+          description: Always `null`
+          type:
+          - string
+          - 'null'
+          default: 'null'
+        filter_sort_option:
+          title: Filter Sort Option
+          description: Filter sort option. Always `null` for multiple type questions
+          type:
+          - string
+          - 'null'
+          default: 'null'
+      required:
+      - title
+      - question_type
+      - attribute_condition
+      - options
+      - priority
+    OpenQuestionResponse:
+      title: OpenQuestionResponse
+      type: object
+      properties:
+        title:
+          title: Title
+          description: Title of the question.
+          maxLength: 255
+          minLength: 1
+          examples:
+          - What is your favorite color?
+          - What size do you need?
+          type: string
+        question_type:
+          title: Question Type
+          enum:
+          - open
+          type: string
+        description:
+          title: Description
+          description: Description of the question.
+          maxLength: 2047
+          minLength: 1
+          examples:
+          - Choose your preferred color
+          type: string
+        is_skippable:
+          title: Is Skippable
+          description: Identifies whether the question can be skipped or not
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        cta_text:
+          title: Cta Text
+          description: The name of the call-to-action button (e.g. next).
+          examples:
+          - Next
+          - Continue
+          type: string
+        images:
+          title: Images
+          description: Images attached to the question.
+          allOf:
+          - $ref: '#/components/schemas/Images'
+        internal_name:
+          title: Internal Name
+          description: Internal name of a question, this is for internal use only.
+          examples:
+          - q1_color
+          - q2_size
+          type: string
+        bucket_id:
+          title: Bucket Id
+          description: Identifier for the bucket this question belongs to. Questions with the same bucket_id are combined using OR.
+          examples:
+          - 1
+          - 2
+          type: integer
+        key:
+          title: Question Key
+          description: Unique ID of the question
+          type: string
+          format: uuid
+        options:
+          title: Options
+          minItems: 0
+          maxItems: 0
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionResponse'
+        attribute_condition:
+          title: Attribute Condition
+          description: Always `null`
+          type:
+          - string
+          - 'null'
+          default: 'null'
+        input_placeholder:
+          title: Input Placeholder
+          description: Placeholder for open-text question input.
+          maxLength: 255
+          minLength: 1
+          type: string
+        priority:
+          title: Priority
+          description: Always `null`
+          type:
+          - string
+          - 'null'
+          default: 'null'
+        filter_name:
+          title: Filter Name
+          description: Always `null`
+          type:
+          - string
+          - 'null'
+          default: 'null'
+        filter_sort_option:
+          title: Filter Sort Option
+          description: Filter sort option. Always `null` for open type questions
+          type:
+          - string
+          - 'null'
+          default: 'null'
+      required:
+      - title
+      - question_type
+    FreeFormQuestion:
+      title: FreeFormQuestion
+      type: object
+      properties:
+        title:
+          title: Title
+          description: Title of the question.
+          maxLength: 255
+          minLength: 1
+          examples:
+          - What is your favorite color?
+          - What size do you need?
+          type: string
+        question_type:
+          title: Question Type
+          enum:
+          - free_form
+          type: string
+        description:
+          title: Description
+          description: Description of the question.
+          maxLength: 2047
+          minLength: 1
+          examples:
+          - Choose your preferred color
+          type: string
+        is_skippable:
+          title: Is Skippable
+          description: Identifies whether the question can be skipped or not
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        cta_text:
+          title: Cta Text
+          description: The name of the call-to-action button (e.g. next).
+          examples:
+          - Next
+          - Continue
+          type: string
+        images:
+          title: Images
+          description: Images attached to the question.
+          allOf:
+          - $ref: '#/components/schemas/Images'
+        internal_name:
+          title: Internal Name
+          description: Internal name of a question, this is for internal use only.
+          examples:
+          - q1_color
+          - q2_size
+          type: string
+        bucket_id:
+          title: Bucket Id
+          description: Identifier for the bucket this question belongs to. Questions with the same bucket_id are combined using OR.
+          examples:
+          - 1
+          - 2
+          type: integer
+        question_key:
+          title: Key
+          description: Unique ID of the question
+          type: string
+          format: uuid
+        options:
+          title: Options
+          minItems: 0
+          maxItems: 0
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+        input_placeholder:
+          title: Input Placeholder
+          description: Placeholder for free-form question input.
+          maxLength: 255
+          minLength: 1
+          type: string
+      required:
+      - title
+      - question_type
+      additionalProperties: false
+    MultipleFilterValuesQuestionResponse:
+      title: MultipleFilterValuesQuestionResponse
+      type: object
+      properties:
+        title:
+          title: Title
+          description: Title of the question.
+          maxLength: 255
+          minLength: 1
+          examples:
+          - What is your favorite color?
+          - What size do you need?
+          type: string
+        question_type:
+          title: Question Type
+          enum:
+          - multiple_filter_values
+          type: string
+        description:
+          title: Description
+          description: Description of the question.
+          maxLength: 2047
+          minLength: 1
+          examples:
+          - Choose your preferred color
+          type: string
+        is_skippable:
+          title: Is Skippable
+          description: Identifies whether the question can be skipped or not
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        cta_text:
+          title: Cta Text
+          description: The name of the call-to-action button (e.g. next).
+          examples:
+          - Next
+          - Continue
+          type: string
+        images:
+          title: Images
+          description: Images attached to the question.
+          allOf:
+          - $ref: '#/components/schemas/Images'
+        internal_name:
+          title: Internal Name
+          description: Internal name of a question, this is for internal use only.
+          examples:
+          - q1_color
+          - q2_size
+          type: string
+        bucket_id:
+          title: Bucket Id
+          description: Identifier for the bucket this question belongs to. Questions with the same bucket_id are combined using OR.
+          examples:
+          - 1
+          - 2
+          type: integer
+        key:
+          title: Question Key
+          description: Unique ID of the question
+          type: string
+          format: uuid
+        attribute_condition:
+          description: Defines how the results associated to this question will be joined to the previous ones, either with a union (`or`) or an intersection (`and`).
+          allOf:
+          - $ref: '#/components/schemas/QuizQuestionAttributeCondition'
+        options:
+          title: Options
+          minItems: 0
+          maxItems: 0
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionResponse'
+        filter_name:
+          title: Filter Name
+          description: Name of the filter to use for this question.
+          maxLength: 100
+          minLength: 1
+          type: string
+        priority:
+          title: Priority
+          description: Defines which question's attributes should be dropped first in case of 0 results. The lower the number, the higher priority it has. E.g. if 0 results received, question's attributes with priority 10(lowest) will be dropped first hence question's attributes with priority 1(highest) will be dropped last.
+          minimum: 1
+          maximum: 10
+          type: integer
+        input_placeholder:
+          title: Input Placeholder
+          description: Always `null`
+          type:
+          - string
+          - 'null'
+          default: 'null'
+        filter_sort_option:
+          description: Determines how filter options should be sorted in quiz question. Defaults to `most_matching_products` if unspecified
+          default: most_matching_products
+          allOf:
+          - $ref: '#/components/schemas/QuizFilterSortOption'
+        excluded_filter_values:
+          title: Excluded Filter Values
+          description: List of filter values to exclude from being displayed to users
+          maxItems: 100
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 255
+      required:
+      - title
+      - question_type
+      - attribute_condition
+      - filter_name
+      - priority
+    QuizGetResponse:
+      title: QuizGetResponse
+      type: object
+      properties:
+        display_name:
+          title: Display Name
+          description: Name of the quiz to be displayed to end users
+          examples:
+          - Product Finder Quiz
+          - Size Selector
+          minLength: 1
+          maxLength: 200
+          type: string
+        active:
+          title: Active
+          description: Identifies whether quiz should be displayed or not
+          default: true
+          examples:
+          - true
+          - false
+          type: boolean
+        id:
+          title: ID
+          description: ID of the quiz.
+          minLength: 1
+          maxLength: 255
+          type: string
+        questions:
+          title: Questions
+          description: A list of questions of the quiz
+          type: array
+          items:
+            discriminator:
+              propertyName: question_type
+              mapping:
+                single: '#/components/schemas/SingleQuestionResponse'
+                multiple: '#/components/schemas/MultipleQuestionResponse'
+                single_filter_value: '#/components/schemas/SingleFilterValueQuestionResponse'
+                multiple_filter_values: '#/components/schemas/MultipleFilterValuesQuestionResponse'
+                open: '#/components/schemas/OpenQuestionResponse'
+                cover: '#/components/schemas/CoverQuestionResponse'
+                free_form: '#/components/schemas/FreeFormQuestionResponse'
+            oneOf:
+            - $ref: '#/components/schemas/SingleQuestionResponse'
+            - $ref: '#/components/schemas/MultipleQuestionResponse'
+            - $ref: '#/components/schemas/SingleFilterValueQuestionResponse'
+            - $ref: '#/components/schemas/MultipleFilterValuesQuestionResponse'
+            - $ref: '#/components/schemas/OpenQuestionResponse'
+            - $ref: '#/components/schemas/CoverQuestionResponse'
+            - $ref: '#/components/schemas/FreeFormQuestionResponse'
+        logic:
+          title: Logic
+          description: Logic that is used when going through quiz
+          type: object
+          additionalProperties:
+            type: array
+            items: {}
+        created_at:
+          title: Created At
+          description: Quiz creation date in ISO 8601 format
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Last quiz update date in ISO 8601 format.
+          type: string
+          format: date-time
+        results_config:
+          title: Results Config
+          description: Results configuration for the quiz
+          allOf:
+          - $ref: '#/components/schemas/ResultsConfig'
+        metadata_json:
+          title: Metadata Json
+          description: Metadata related to the quiz and its questions.
+          type: object
+        pre_filter_expression:
+          title: Pre Filter Expression
+          description: Pre-filter expression to be applied to all questions.
+          type: object
+      required:
+      - display_name
+      - id
+      - created_at
+      - updated_at
+      additionalProperties: false
+    QuizPatchRequestBody:
+      title: QuizPatchRequestBody
+      type: object
+      properties:
+        display_name:
+          title: Display Name
+          description: Name of the quiz to be displayed to end users
+          minLength: 1
+          maxLength: 200
+          type: string
+        active:
+          title: Active
+          description: Identifies whether quiz should be displayed or not
+          type: boolean
+        logic:
+          title: Logic
+          description: Logic that is used when going through quiz
+          type: object
+          additionalProperties:
+            type: array
+            items: {}
+        questions:
+          title: Questions
+          description: A list of questions of the quiz
+          default: []
+          type: array
+          items:
+            discriminator:
+              propertyName: question_type
+              mapping:
+                single: '#/components/schemas/SingleQuestion'
+                multiple: '#/components/schemas/MultipleQuestion'
+                single_filter_value: '#/components/schemas/SingleFilterValueQuestion'
+                multiple_filter_values: '#/components/schemas/MultipleFilterValuesQuestion'
+                open: '#/components/schemas/OpenQuestion'
+                cover: '#/components/schemas/CoverQuestion'
+                free_form: '#/components/schemas/FreeFormQuestion'
+            oneOf:
+            - $ref: '#/components/schemas/SingleQuestion'
+            - $ref: '#/components/schemas/MultipleQuestion'
+            - $ref: '#/components/schemas/SingleFilterValueQuestion'
+            - $ref: '#/components/schemas/MultipleFilterValuesQuestion'
+            - $ref: '#/components/schemas/OpenQuestion'
+            - $ref: '#/components/schemas/CoverQuestion'
+            - $ref: '#/components/schemas/FreeFormQuestion'
+        results_config:
+          title: Results Config
+          description: Results configuration for the quiz
+          allOf:
+          - $ref: '#/components/schemas/ResultsConfig'
+        metadata_json:
+          title: Metadata Json
+          description: Metadata related to the quiz and its questions.
+          type: object
+        pre_filter_expression:
+          title: Pre Filter Expression
+          description: Pre-filter expression to be applied to all questions.
+          type: object
+      additionalProperties: false
+    CoverQuestionResponse:
+      title: CoverQuestionResponse
+      type: object
+      properties:
+        title:
+          title: Title
+          description: Title of the question.
+          maxLength: 255
+          minLength: 1
+          examples:
+          - What is your favorite color?
+          - What size do you need?
+          type: string
+        question_type:
+          title: Question Type
+          enum:
+          - cover
+          type: string
+        description:
+          title: Description
+          description: Description of the question.
+          maxLength: 2047
+          minLength: 1
+          examples:
+          - Choose your preferred color
+          type: string
+        is_skippable:
+          title: Is Skippable
+          enum:
+          - false
+          type: boolean
+        cta_text:
+          title: Cta Text
+          description: The name of the call-to-action button (e.g. next).
+          examples:
+          - Next
+          - Continue
+          type: string
+        images:
+          title: Images
+          description: Images attached to the question.
+          allOf:
+          - $ref: '#/components/schemas/Images'
+        internal_name:
+          title: Internal Name
+          description: Internal name of a question, this is for internal use only.
+          examples:
+          - q1_color
+          - q2_size
+          type: string
+        bucket_id:
+          title: Bucket Id
+          description: Identifier for the bucket this question belongs to. Questions with the same bucket_id are combined using OR.
+          examples:
+          - 1
+          - 2
+          type: integer
+        key:
+          title: Question Key
+          description: Unique ID of the question
+          type: string
+          format: uuid
+        options:
+          title: Options
+          minItems: 0
+          maxItems: 0
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionResponse'
+        input_placeholder:
+          title: Input Placeholder
+          description: Always `null`
+          type:
+          - string
+          - 'null'
+          default: 'null'
+        attribute_condition:
+          title: Attribute Condition
+          description: Always `null`
+          type:
+          - string
+          - 'null'
+          default: 'null'
+        priority:
+          title: Priority
+          description: Always `null`
+          type:
+          - string
+          - 'null'
+          default: 'null'
+        filter_name:
+          title: Filter Name
+          description: Always `null`
+          type:
+          - string
+          - 'null'
+          default: 'null'
+        filter_sort_option:
+          title: Filter Sort Option
+          description: Filter sort option. Always `null` for cover type questions
+          type:
+          - string
+          - 'null'
+          default: 'null'
+      required:
+      - title
+      - question_type
+      - is_skippable
+    QuizPutResponse:
+      title: QuizPutResponse
+      type: object
+      properties:
+        display_name:
+          title: Display Name
+          description: Name of the quiz to be displayed to end users
+          examples:
+          - Product Finder Quiz
+          - Size Selector
+          minLength: 1
+          maxLength: 200
+          type: string
+        active:
+          title: Active
+          description: Identifies whether quiz should be displayed or not
+          default: true
+          examples:
+          - true
+          - false
+          type: boolean
+        id:
+          title: ID
+          description: ID of the quiz.
+          minLength: 1
+          maxLength: 255
+          type: string
+        questions:
+          title: Questions
+          description: A list of questions of the quiz
+          type: array
+          items:
+            discriminator:
+              propertyName: question_type
+              mapping:
+                single: '#/components/schemas/SingleQuestionResponse'
+                multiple: '#/components/schemas/MultipleQuestionResponse'
+                single_filter_value: '#/components/schemas/SingleFilterValueQuestionResponse'
+                multiple_filter_values: '#/components/schemas/MultipleFilterValuesQuestionResponse'
+                open: '#/components/schemas/OpenQuestionResponse'
+                cover: '#/components/schemas/CoverQuestionResponse'
+                free_form: '#/components/schemas/FreeFormQuestionResponse'
+            oneOf:
+            - $ref: '#/components/schemas/SingleQuestionResponse'
+            - $ref: '#/components/schemas/MultipleQuestionResponse'
+            - $ref: '#/components/schemas/SingleFilterValueQuestionResponse'
+            - $ref: '#/components/schemas/MultipleFilterValuesQuestionResponse'
+            - $ref: '#/components/schemas/OpenQuestionResponse'
+            - $ref: '#/components/schemas/CoverQuestionResponse'
+            - $ref: '#/components/schemas/FreeFormQuestionResponse'
+        logic:
+          title: Logic
+          description: Logic that is used when going through quiz
+          type: object
+          additionalProperties:
+            type: array
+            items: {}
+        created_at:
+          title: Created At
+          description: Quiz creation date in ISO 8601 format
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Last quiz update date in ISO 8601 format.
+          type: string
+          format: date-time
+        results_config:
+          title: Results Config
+          description: Results configuration for the quiz
+          allOf:
+          - $ref: '#/components/schemas/ResultsConfig'
+        metadata_json:
+          title: Metadata Json
+          description: Metadata related to the quiz and its questions.
+          type: object
+        pre_filter_expression:
+          title: Pre Filter Expression
+          description: Pre-filter expression to be applied to all questions.
+          type: object
+      required:
+      - display_name
+      - id
+      - created_at
+      - updated_at
+      additionalProperties: false
+  securitySchemes:
+    http_basic_auth:
+      type: http
+      scheme: basic
+    http_bearer_auth:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: false

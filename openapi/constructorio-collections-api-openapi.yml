@@ -1,0 +1,2059 @@
+openapi: 3.2.0
+info:
+  contact:
+    email: support@constructor.io
+  title: Configuration Collections API
+  version: '0.1'
+servers:
+- url: https://ac.cnstrc.com
+security: []
+tags:
+- name: Collections
+paths:
+  /v1/collections/{collection_id}:
+    get:
+      tags:
+      - Collections
+      operationId: v1-collections-retrieve-collection
+      summary: Retrieve collection
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `collections(r)`.
+
+
+        Retrieve a collection.'
+      parameters:
+      - name: collection_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - collections(r)
+    put:
+      tags:
+      - Collections
+      operationId: v1-collections-replace-collection
+      summary: Replace collection
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `collections(w)`.
+
+
+        Replace collection.'
+      parameters:
+      - name: collection_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionPutBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionPutResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - collections(w)
+    patch:
+      tags:
+      - Collections
+      operationId: v1-collections-update-collection
+      summary: Update collection
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `collections(w)`.
+
+
+        Update a collection. Data sent through the request body will be merged with existing collection. Validation will be performed over the merged collection.'
+      parameters:
+      - name: collection_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionPatchBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionPatchResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - collections(w)
+    delete:
+      tags:
+      - Collections
+      operationId: v1-collections-delete-collection
+      summary: Delete collection
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `collections(w)`.
+
+
+        Delete a collection.'
+      parameters:
+      - name: collection_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionDeleteResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - collections(w)
+  /v1/collections:
+    get:
+      tags:
+      - Collections
+      operationId: v1-collections-retrieve-collections
+      summary: Retrieve collections
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `collections(r)`.
+
+
+        Retrieve all collections. By default, only base collections (collections with no `overridden_collection_id`) are returned. Use the `overridden_collection_id` query parameter to retrieve overriding collections for a specific base collection.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: id
+        in: query
+        schema:
+          title: Id
+          description: The ID(s) of collections to filter by.
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 100
+            examples:
+            - summer-sale
+            - halloween-baking-mixes
+          maxItems: 100
+        required: false
+      - name: overridden_collection_id
+        in: query
+        schema:
+          title: Overridden Collection ID
+          description: When provided, returns only collections that override the specified collection ID.
+          examples:
+          - summer-sale
+          - daily-deals
+          minLength: 1
+          maxLength: 100
+          type: string
+        required: false
+      - name: query
+        in: query
+        schema:
+          title: Query
+          description: A query to narrow the result set when listing collections. Matches on `id` or `display_name`.
+          examples:
+          - sneakers
+          - sale
+          type: string
+        required: false
+      - name: num_results_per_page
+        in: query
+        schema:
+          title: Num Results Per Page
+          description: The number of results per page to return.
+          default: 20
+          minimum: 1
+          maximum: 100
+          examples:
+          - 20
+          - 50
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          title: Page
+          description: The page of results to return.
+          minimum: 1
+          examples:
+          - 1
+          - 2
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          title: Offset
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          minimum: 0
+          examples:
+          - 0
+          - 100
+          type: integer
+        required: false
+      - name: sort_by
+        in: query
+        schema:
+          title: Sort By
+          description: The attribute to sort by. Accepted values are 'created_at', 'updated_at', 'display_name', 'start_time', 'end_time'
+          default: id
+          examples:
+          - created_at
+          - display_name
+          enum:
+          - created_at
+          - updated_at
+          - display_name
+          - start_time
+          - end_time
+          type: string
+        required: false
+      - name: sort_order
+        in: query
+        schema:
+          description: The order by which results should be sorted. Only valid in conjunction with `sort_by`. Accepted values are 'ascending' and 'descending'.
+          default: ascending
+          examples:
+          - ascending
+          - descending
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      - name: has_future_items
+        in: query
+        schema:
+          title: Has Future Items
+          description: When true, only collections that have future items (items not yet in the catalog) will be returned. When false, only collections that do not have future items will be returned.
+          examples:
+          - false
+          - true
+          type: boolean
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionListGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - collections(r)
+    post:
+      tags:
+      - Collections
+      operationId: v1-collections-create-collection
+      summary: Create collection
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `collections(w)`.
+
+
+        Create a collection.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionListPostBody'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionListPostResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - collections(w)
+  /v1/collections/{collection_id}/items/{item_id}:
+    delete:
+      tags:
+      - Collections
+      operationId: v1-collections-delete-collection-item
+      summary: Delete item from a collection
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `collections(w)`.
+
+
+        Delete an item from a collection.'
+      parameters:
+      - name: collection_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: item_id
+        in: path
+        required: true
+        schema:
+          type: string
+          examples:
+          - nike-shoes
+          - product-123
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionItemDeleteResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - collections(w)
+  /v1/collections/{collection_id}/items:
+    get:
+      tags:
+      - Collections
+      operationId: v1-collections-retrieve-collection-items
+      summary: Retrieve collection items
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `collections(r)`.
+
+
+        Retrieve all items of a collection, optionally filtered by `type`, i.e. method  of addition to the collection.'
+      parameters:
+      - name: collection_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: filters
+        in: query
+        schema:
+          title: Filters
+          description: Criteria to narrow the result set by. Different filters from this parameter are `ANDed` together.
+          default:
+            manual_items: true
+            dynamic_items: false
+            unindexed_items: false
+          allOf:
+          - $ref: '#/components/schemas/CollectionItemFilters'
+        required: false
+        style: deepObject
+        explode: true
+      - name: num_results_per_page
+        in: query
+        schema:
+          title: Num Results Per Page
+          description: The number of results per page to return.
+          default: 100
+          minimum: 1
+          maximum: 1000
+          examples:
+          - 20
+          - 100
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          title: Page
+          description: The page of results to return.
+          minimum: 1
+          examples:
+          - 1
+          - 2
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          title: Offset
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          minimum: 0
+          examples:
+          - 0
+          - 100
+          type: integer
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionItemListGetResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - collections(r)
+    put:
+      tags:
+      - Collections
+      operationId: v1-collections-create-or-ignore-collection-items
+      summary: Add or update items in a collection
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `collections(w)`.
+
+
+        Add items to a collection, or update existing items. Items already in the collection are updated, others are added. Note that the total number of items per collection is limited, and the request will fail if adding items would exceed this limit.'
+      parameters:
+      - name: collection_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      - name: on_missing
+        in: query
+        schema:
+          description: The strategy for handling items or variations that do not exist in the catalog. `FAIL` (default) returns an error if any items or variations are missing. `IGNORE` silently skips missing items and missing variations from the request. `CREATE` adds items to the collection even if they or their variations don't exist in the catalog yet (allows future item/variation IDs).
+          default: FAIL
+          allOf:
+          - $ref: '#/components/schemas/CollectionItemListPutOnMissingParam'
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionItemListPutBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionItemListPutResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - collections(w)
+    delete:
+      tags:
+      - Collections
+      operationId: v1-collections-delete-collection-items
+      summary: Delete items from a collection
+      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+
+        For authenticating with Bearer token, required scopes are: `collections(w)`.
+
+
+        Delete items from a collection. If no items are provided, all items in the given collection will be deleted. Invalid items and items that are not part of the given collection will be ignored.'
+      parameters:
+      - name: collection_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionItemListDeleteBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionItemListDeleteResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '404':
+          description: Not Found
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - collections(w)
+components:
+  schemas:
+    CollectionItemDeleteResponse:
+      title: CollectionItemDeleteResponse
+      type: object
+      properties:
+        id:
+          title: ID
+          description: The ID of the item, added to the collection.
+          minLength: 1
+          maxLength: 250
+          type: string
+        source:
+          title: Source
+          description: Arbitrary identifier of the source of the item manually added to the collection.
+          examples:
+          - manual_upload
+          - api_sync
+          minLength: 1
+          maxLength: 250
+          type: string
+        variation_ids:
+          title: Variation IDs
+          description: List of variation IDs to include in this collection for the item. If not provided, all variations of the item are included.
+          maxItems: 20
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 250
+            examples:
+            - var-red
+            - var-blue
+        created_at:
+          title: Created At
+          description: Collection Item creation date in ISO 8601 format. Present only for manually added items.
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Collection Item update date in ISO 8601 format. Present only for manually added items.
+          type: string
+          format: date-time
+        type:
+          description: Describes the method of addition for the item - `manual` if it was manually added to the collection, dynamic if it matches collection's filter expression.
+          default: manual
+          allOf:
+          - $ref: '#/components/schemas/CollectionItemType'
+      required:
+      - id
+      additionalProperties: false
+    CollectionItemBase:
+      title: CollectionItemBase
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the item, must be unique.
+          examples:
+          - nike-shoes
+          - product-123
+          minLength: 1
+          maxLength: 250
+          type: string
+        source:
+          title: Source
+          description: Arbitrary identifier of the source of the item manually added to the collection.
+          examples:
+          - manual_upload
+          - api_sync
+          minLength: 1
+          maxLength: 250
+          type: string
+        variation_ids:
+          title: Variation IDs
+          description: List of variation IDs to include in this collection for the item. If not provided, all variations of the item are included.
+          maxItems: 20
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 250
+            examples:
+            - var-red
+            - var-blue
+      required:
+      - id
+      additionalProperties: false
+    CollectionItemFilters:
+      title: CollectionItemFilters
+      type: object
+      properties:
+        manual_items:
+          title: Manual Items
+          description: Specifies whether to include manually added items in the response.
+          default: true
+          examples:
+          - true
+          - false
+          type: boolean
+        dynamic_items:
+          title: Dynamic Items
+          description: Specifies whether to include dynamic items (matching collection.filter_expression) in the response.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        unindexed_items:
+          title: Unindexed Items
+          description: Specifies whether to include unindexed collection items. Supported only for manual items, hence mutually exclusive with `dynamic_items` filter
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+      additionalProperties: false
+    CollectionListPostResponse:
+      title: CollectionListPostResponse
+      type: object
+      properties:
+        id:
+          title: ID
+          description: ID of the collection.
+          minLength: 1
+          maxLength: 100
+          type: string
+        display_name:
+          title: Display Name
+          description: Name of the collection to be displayed to end users.
+          examples:
+          - Summer Sale
+          - Halloween Baking Mixes
+          minLength: 1
+          maxLength: 100
+          type: string
+        filter_expression:
+          title: Filter expression
+          description: '[Filter expression](/reference/shared-filter-expressions) associated with this collection.'
+          examples:
+          - name: brand
+            value: Nike
+          - and:
+            - name: price
+              range:
+              - 10
+              - 100
+            - name: color
+              value: red
+          allOf:
+          - $ref: '#/components/schemas/DictOrJsonStringWithDict'
+        data:
+          title: Data
+          description: 'Object containing additional data, that should be attached to this collection. The maximum size of data object is limited to 200kb. '
+          examples:
+          - key: value
+          - promo_code: SUMMER20
+          type: object
+        discoverable:
+          title: Discoverable
+          description: When true, the collection is discoverable in autocomplete and search.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        matches:
+          title: Matches
+          description: A list of terms associated with this collection for matching purposes.
+          maxItems: 50
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionMatchResponse'
+        start_time:
+          title: Start Time
+          description: ISO-8601 string in UTC defining start time when the collection becomes active. Any specified timezone will be omitted.
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: ISO-8601 string in UTC defining start time when the collection becomes inactive. Any specified timezone will be omitted.
+          type: string
+          format: date-time
+        overridden_collection_id:
+          title: Overridden Collection ID
+          description: The ID of the base collection that this collection overrides. An overriding collection temporarily replaces the content of a base collection during a scheduled time window. Only base collections (collections with `overridden_collection_id` set to `null`) can be overridden.
+          minLength: 1
+          maxLength: 100
+          type: string
+        created_at:
+          title: Created At
+          description: Collection creation date in ISO 8601 format. Present only for manually added collections.
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Last collection update date in ISO 8601 format. Present only for manually added collections.
+          type: string
+          format: date-time
+      required:
+      - id
+      - display_name
+      - created_at
+      additionalProperties: false
+    CollectionListPostBody:
+      title: CollectionListPostBody
+      type: object
+      properties:
+        id:
+          title: Id
+          description: ID of the collection, must be unique.
+          examples:
+          - summer-sale
+          - halloween-baking-mixes
+          minLength: 1
+          maxLength: 100
+          type: string
+        display_name:
+          title: Display Name
+          description: Name of the collection to be displayed to end users.
+          examples:
+          - Summer Sale
+          - Halloween Baking Mixes
+          minLength: 1
+          maxLength: 100
+          type: string
+        filter_expression:
+          title: Filter expression
+          description: '[Filter expression](/reference/shared-filter-expressions) associated with this collection.'
+          examples:
+          - name: brand
+            value: Nike
+          - and:
+            - name: price
+              range:
+              - 10
+              - 100
+            - name: color
+              value: red
+          allOf:
+          - $ref: '#/components/schemas/DictOrJsonStringWithDict'
+        data:
+          title: Data
+          description: 'Object containing additional data, that should be attached to this collection. The maximum size of data object is limited to 200kb. '
+          examples:
+          - key: value
+          - promo_code: SUMMER20
+          type: object
+        discoverable:
+          title: Discoverable
+          description: When true, the collection is discoverable in autocomplete and search.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        matches:
+          title: Matches
+          description: A list of terms associated with this collection for matching purposes.
+          maxItems: 50
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionMatch'
+        start_time:
+          title: Start Time
+          description: ISO-8601 string in UTC defining start time when the collection becomes active. Any specified timezone will be omitted.
+          examples:
+          - '2025-12-10T10:00:00'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: ISO-8601 string in UTC defining start time when the collection becomes inactive. Any specified timezone will be omitted.
+          examples:
+          - '2025-12-31T23:59:59'
+          type: string
+          format: date-time
+        overridden_collection_id:
+          title: Overridden Collection ID
+          description: The ID of the base collection that this collection overrides. An overriding collection temporarily replaces the content of a base collection during a scheduled time window. Only base collections (collections with `overridden_collection_id` set to `null`) can be overridden.
+          examples:
+          - overridden-collection
+          - sales
+          minLength: 1
+          maxLength: 100
+          type: string
+      required:
+      - id
+      - display_name
+      additionalProperties: false
+    CollectionMatch:
+      title: CollectionMatch
+      type: object
+      properties:
+        pattern:
+          title: Pattern
+          description: A term to associate with this collection for matching purposes.
+          examples:
+          - summer sale
+          - black friday deals
+          minLength: 1
+          maxLength: 255
+          type: string
+        match_type:
+          description: The type of match to perform.
+          default: PHRASE
+          examples:
+          - PHRASE
+          - EXACT
+          allOf:
+          - $ref: '#/components/schemas/CollectionMatchType'
+      required:
+      - pattern
+      additionalProperties: false
+    CollectionPatchResponse:
+      title: CollectionPatchResponse
+      type: object
+      properties:
+        id:
+          title: ID
+          description: ID of the collection.
+          minLength: 1
+          maxLength: 100
+          type: string
+        display_name:
+          title: Display Name
+          description: Name of the collection to be displayed to end users.
+          examples:
+          - Summer Sale
+          - Halloween Baking Mixes
+          minLength: 1
+          maxLength: 100
+          type: string
+        filter_expression:
+          title: Filter expression
+          description: '[Filter expression](/reference/shared-filter-expressions) associated with this collection.'
+          examples:
+          - name: brand
+            value: Nike
+          - and:
+            - name: price
+              range:
+              - 10
+              - 100
+            - name: color
+              value: red
+          allOf:
+          - $ref: '#/components/schemas/DictOrJsonStringWithDict'
+        data:
+          title: Data
+          description: 'Object containing additional data, that should be attached to this collection. The maximum size of data object is limited to 200kb. '
+          examples:
+          - key: value
+          - promo_code: SUMMER20
+          type: object
+        discoverable:
+          title: Discoverable
+          description: When true, the collection is discoverable in autocomplete and search.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        matches:
+          title: Matches
+          description: A list of terms associated with this collection for matching purposes.
+          maxItems: 50
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionMatchResponse'
+        start_time:
+          title: Start Time
+          description: ISO-8601 string in UTC defining start time when the collection becomes active. Any specified timezone will be omitted.
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: ISO-8601 string in UTC defining start time when the collection becomes inactive. Any specified timezone will be omitted.
+          type: string
+          format: date-time
+        overridden_collection_id:
+          title: Overridden Collection ID
+          description: The ID of the base collection that this collection overrides. An overriding collection temporarily replaces the content of a base collection during a scheduled time window. Only base collections (collections with `overridden_collection_id` set to `null`) can be overridden.
+          minLength: 1
+          maxLength: 100
+          type: string
+        created_at:
+          title: Created At
+          description: Collection creation date in ISO 8601 format. Present only for manually added collections.
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Last collection update date in ISO 8601 format. Present only for manually added collections.
+          type: string
+          format: date-time
+      required:
+      - id
+      - display_name
+      - created_at
+      additionalProperties: false
+    CollectionItemResponse:
+      title: CollectionItemResponse
+      type: object
+      properties:
+        id:
+          title: ID
+          description: The ID of the item, added to the collection.
+          minLength: 1
+          maxLength: 250
+          type: string
+        source:
+          title: Source
+          description: Arbitrary identifier of the source of the item manually added to the collection.
+          examples:
+          - manual_upload
+          - api_sync
+          minLength: 1
+          maxLength: 250
+          type: string
+        variation_ids:
+          title: Variation IDs
+          description: List of variation IDs to include in this collection for the item. If not provided, all variations of the item are included.
+          maxItems: 20
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 250
+            examples:
+            - var-red
+            - var-blue
+        created_at:
+          title: Created At
+          description: Collection Item creation date in ISO 8601 format. Present only for manually added items.
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Collection Item update date in ISO 8601 format. Present only for manually added items.
+          type: string
+          format: date-time
+        type:
+          description: Describes the method of addition for the item - `manual` if it was manually added to the collection, dynamic if it matches collection's filter expression.
+          default: manual
+          allOf:
+          - $ref: '#/components/schemas/CollectionItemType'
+      required:
+      - id
+    CollectionMatchType:
+      title: CollectionMatchType
+      enum:
+      - EXACT
+      - UNORDERED
+      - PHRASE
+      type: string
+    CollectionItemListPutOnMissingParam:
+      title: CollectionItemListPutOnMissingParam
+      enum:
+      - IGNORE
+      - FAIL
+      - CREATE
+      type: string
+    CollectionResponse:
+      title: CollectionResponse
+      type: object
+      properties:
+        id:
+          title: ID
+          description: ID of the collection.
+          minLength: 1
+          maxLength: 100
+          type: string
+        display_name:
+          title: Display Name
+          description: Name of the collection to be displayed to end users.
+          examples:
+          - Summer Sale
+          - Halloween Baking Mixes
+          minLength: 1
+          maxLength: 100
+          type: string
+        filter_expression:
+          title: Filter expression
+          description: '[Filter expression](/reference/shared-filter-expressions) associated with this collection.'
+          examples:
+          - name: brand
+            value: Nike
+          - and:
+            - name: price
+              range:
+              - 10
+              - 100
+            - name: color
+              value: red
+          allOf:
+          - $ref: '#/components/schemas/DictOrJsonStringWithDict'
+        data:
+          title: Data
+          description: 'Object containing additional data, that should be attached to this collection. The maximum size of data object is limited to 200kb. '
+          examples:
+          - key: value
+          - promo_code: SUMMER20
+          type: object
+        discoverable:
+          title: Discoverable
+          description: When true, the collection is discoverable in autocomplete and search.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        matches:
+          title: Matches
+          description: A list of terms associated with this collection for matching purposes.
+          maxItems: 50
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionMatchResponse'
+        start_time:
+          title: Start Time
+          description: ISO-8601 string in UTC defining start time when the collection becomes active. Any specified timezone will be omitted.
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: ISO-8601 string in UTC defining start time when the collection becomes inactive. Any specified timezone will be omitted.
+          type: string
+          format: date-time
+        overridden_collection_id:
+          title: Overridden Collection ID
+          description: The ID of the base collection that this collection overrides. An overriding collection temporarily replaces the content of a base collection during a scheduled time window. Only base collections (collections with `overridden_collection_id` set to `null`) can be overridden.
+          minLength: 1
+          maxLength: 100
+          type: string
+        created_at:
+          title: Created At
+          description: Collection creation date in ISO 8601 format. Present only for manually added collections.
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Last collection update date in ISO 8601 format. Present only for manually added collections.
+          type: string
+          format: date-time
+      required:
+      - id
+      - display_name
+      - created_at
+      additionalProperties: false
+    DictOrJsonStringWithDict:
+      title: DictOrJsonStringWithDict
+      anyOf:
+      - type: object
+        title: object
+      - type: string
+        format: json
+        title: Encoded JSON string
+    CollectionItemType:
+      title: CollectionItemType
+      enum:
+      - manual
+      - dynamic
+      type: string
+    CollectionItemListDeleteBody:
+      title: CollectionItemListDeleteBody
+      type: object
+      properties:
+        items:
+          title: Items
+          description: 'A list of item ids to delete from the collection. Warning: If no body or an empty body is provided, all items in the collection will be deleted.'
+          minItems: 1
+          maxItems: 100
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionItemBase'
+      required:
+      - items
+      additionalProperties: false
+    CollectionPutBody:
+      title: CollectionPutBody
+      type: object
+      properties:
+        id:
+          title: Id
+          description: ID of the collection, must be unique.
+          examples:
+          - summer-sale
+          - halloween-baking-mixes
+          minLength: 1
+          maxLength: 100
+          type: string
+        display_name:
+          title: Display Name
+          description: Name of the collection to be displayed to end users.
+          examples:
+          - Summer Sale
+          - Halloween Baking Mixes
+          minLength: 1
+          maxLength: 100
+          type: string
+        filter_expression:
+          title: Filter expression
+          description: '[Filter expression](/reference/shared-filter-expressions) associated with this collection.'
+          examples:
+          - name: brand
+            value: Nike
+          - and:
+            - name: price
+              range:
+              - 10
+              - 100
+            - name: color
+              value: red
+          allOf:
+          - $ref: '#/components/schemas/DictOrJsonStringWithDict'
+        data:
+          title: Data
+          description: 'Object containing additional data, that should be attached to this collection. The maximum size of data object is limited to 200kb. '
+          examples:
+          - key: value
+          - promo_code: SUMMER20
+          type: object
+        discoverable:
+          title: Discoverable
+          description: When true, the collection is discoverable in autocomplete and search.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        matches:
+          title: Matches
+          description: A list of terms associated with this collection for matching purposes.
+          maxItems: 50
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionMatch'
+        start_time:
+          title: Start Time
+          description: ISO-8601 string in UTC defining start time when the collection becomes active. Any specified timezone will be omitted.
+          examples:
+          - '2025-12-10T10:00:00'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: ISO-8601 string in UTC defining start time when the collection becomes inactive. Any specified timezone will be omitted.
+          examples:
+          - '2025-12-31T23:59:59'
+          type: string
+          format: date-time
+        overridden_collection_id:
+          title: Overridden Collection ID
+          description: The ID of the base collection that this collection overrides. An overriding collection temporarily replaces the content of a base collection during a scheduled time window. Only base collections (collections with `overridden_collection_id` set to `null`) can be overridden.
+          examples:
+          - overridden-collection
+          - sales
+          minLength: 1
+          maxLength: 100
+          type: string
+      required:
+      - id
+      - display_name
+      additionalProperties: false
+    CollectionListGetResponse:
+      title: CollectionListGetResponse
+      type: object
+      properties:
+        collections:
+          title: Collections
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionResponse'
+        total_count:
+          title: Total Count
+          minimum: 0
+          type: integer
+      required:
+      - collections
+      - total_count
+      additionalProperties: false
+    CollectionItemListPutResponse:
+      title: CollectionItemListPutResponse
+      type: object
+      properties:
+        items:
+          title: Items
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionItemResponse'
+      required:
+      - items
+      additionalProperties: false
+    CollectionPatchBody:
+      title: CollectionPatchBody
+      type: object
+      properties:
+        id:
+          title: Id
+          description: ID of the collection, must be unique.
+          examples:
+          - summer-sale
+          - halloween-baking-mixes
+          minLength: 1
+          maxLength: 100
+          type: string
+        display_name:
+          title: Display Name
+          description: Name of the collection to be displayed to end users.
+          examples:
+          - Summer Sale
+          - Halloween Baking Mixes
+          minLength: 1
+          maxLength: 100
+          type: string
+        filter_expression:
+          title: Filter expression
+          description: '[Filter expression](/reference/shared-filter-expressions) associated with this collection.'
+          examples:
+          - name: brand
+            value: Nike
+          - and:
+            - name: price
+              range:
+              - 10
+              - 100
+            - name: color
+              value: red
+          allOf:
+          - $ref: '#/components/schemas/DictOrJsonStringWithDict'
+        data:
+          title: Data
+          description: 'Object containing additional data, that should be attached to this collection. The maximum size of data object is limited to 200kb. '
+          examples:
+          - key: value
+          - promo_code: SUMMER20
+          type: object
+        discoverable:
+          title: Discoverable
+          description: When true, the collection is discoverable in autocomplete and search.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        matches:
+          title: Matches
+          description: A list of terms associated with this collection for matching purposes.
+          maxItems: 50
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionMatch'
+        start_time:
+          title: Start Time
+          description: ISO-8601 string in UTC defining start time when the collection becomes active. Any specified timezone will be omitted.
+          examples:
+          - '2025-12-10T10:00:00'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: ISO-8601 string in UTC defining start time when the collection becomes inactive. Any specified timezone will be omitted.
+          examples:
+          - '2025-12-31T23:59:59'
+          type: string
+          format: date-time
+        overridden_collection_id:
+          title: Overridden Collection ID
+          description: The ID of the base collection that this collection overrides. An overriding collection temporarily replaces the content of a base collection during a scheduled time window. Only base collections (collections with `overridden_collection_id` set to `null`) can be overridden.
+          examples:
+          - overridden-collection
+          - sales
+          minLength: 1
+          maxLength: 100
+          type: string
+      additionalProperties: false
+    CollectionGetResponse:
+      title: CollectionGetResponse
+      type: object
+      properties:
+        id:
+          title: ID
+          description: ID of the collection.
+          minLength: 1
+          maxLength: 100
+          type: string
+        display_name:
+          title: Display Name
+          description: Name of the collection to be displayed to end users.
+          examples:
+          - Summer Sale
+          - Halloween Baking Mixes
+          minLength: 1
+          maxLength: 100
+          type: string
+        filter_expression:
+          title: Filter expression
+          description: '[Filter expression](/reference/shared-filter-expressions) associated with this collection.'
+          examples:
+          - name: brand
+            value: Nike
+          - and:
+            - name: price
+              range:
+              - 10
+              - 100
+            - name: color
+              value: red
+          allOf:
+          - $ref: '#/components/schemas/DictOrJsonStringWithDict'
+        data:
+          title: Data
+          description: 'Object containing additional data, that should be attached to this collection. The maximum size of data object is limited to 200kb. '
+          examples:
+          - key: value
+          - promo_code: SUMMER20
+          type: object
+        discoverable:
+          title: Discoverable
+          description: When true, the collection is discoverable in autocomplete and search.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        matches:
+          title: Matches
+          description: A list of terms associated with this collection for matching purposes.
+          maxItems: 50
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionMatchResponse'
+        start_time:
+          title: Start Time
+          description: ISO-8601 string in UTC defining start time when the collection becomes active. Any specified timezone will be omitted.
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: ISO-8601 string in UTC defining start time when the collection becomes inactive. Any specified timezone will be omitted.
+          type: string
+          format: date-time
+        overridden_collection_id:
+          title: Overridden Collection ID
+          description: The ID of the base collection that this collection overrides. An overriding collection temporarily replaces the content of a base collection during a scheduled time window. Only base collections (collections with `overridden_collection_id` set to `null`) can be overridden.
+          minLength: 1
+          maxLength: 100
+          type: string
+        created_at:
+          title: Created At
+          description: Collection creation date in ISO 8601 format. Present only for manually added collections.
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Last collection update date in ISO 8601 format. Present only for manually added collections.
+          type: string
+          format: date-time
+      required:
+      - id
+      - display_name
+      - created_at
+      additionalProperties: false
+    CollectionMatchResponse:
+      title: CollectionMatchResponse
+      type: object
+      properties:
+        pattern:
+          title: Pattern
+          description: A term to associate with this collection for matching purposes.
+          examples:
+          - summer sale
+          - black friday deals
+          minLength: 1
+          maxLength: 255
+          type: string
+        match_type:
+          description: The type of match to perform.
+          default: PHRASE
+          examples:
+          - PHRASE
+          - EXACT
+          allOf:
+          - $ref: '#/components/schemas/CollectionMatchType'
+      required:
+      - pattern
+      additionalProperties: false
+    CollectionPutResponse:
+      title: CollectionPutResponse
+      type: object
+      properties:
+        id:
+          title: ID
+          description: ID of the collection.
+          minLength: 1
+          maxLength: 100
+          type: string
+        display_name:
+          title: Display Name
+          description: Name of the collection to be displayed to end users.
+          examples:
+          - Summer Sale
+          - Halloween Baking Mixes
+          minLength: 1
+          maxLength: 100
+          type: string
+        filter_expression:
+          title: Filter expression
+          description: '[Filter expression](/reference/shared-filter-expressions) associated with this collection.'
+          examples:
+          - name: brand
+            value: Nike
+          - and:
+            - name: price
+              range:
+              - 10
+              - 100
+            - name: color
+              value: red
+          allOf:
+          - $ref: '#/components/schemas/DictOrJsonStringWithDict'
+        data:
+          title: Data
+          description: 'Object containing additional data, that should be attached to this collection. The maximum size of data object is limited to 200kb. '
+          examples:
+          - key: value
+          - promo_code: SUMMER20
+          type: object
+        discoverable:
+          title: Discoverable
+          description: When true, the collection is discoverable in autocomplete and search.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        matches:
+          title: Matches
+          description: A list of terms associated with this collection for matching purposes.
+          maxItems: 50
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionMatchResponse'
+        start_time:
+          title: Start Time
+          description: ISO-8601 string in UTC defining start time when the collection becomes active. Any specified timezone will be omitted.
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: ISO-8601 string in UTC defining start time when the collection becomes inactive. Any specified timezone will be omitted.
+          type: string
+          format: date-time
+        overridden_collection_id:
+          title: Overridden Collection ID
+          description: The ID of the base collection that this collection overrides. An overriding collection temporarily replaces the content of a base collection during a scheduled time window. Only base collections (collections with `overridden_collection_id` set to `null`) can be overridden.
+          minLength: 1
+          maxLength: 100
+          type: string
+        created_at:
+          title: Created At
+          description: Collection creation date in ISO 8601 format. Present only for manually added collections.
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Last collection update date in ISO 8601 format. Present only for manually added collections.
+          type: string
+          format: date-time
+      required:
+      - id
+      - display_name
+      - created_at
+      additionalProperties: false
+    CollectionItemListDeleteResponse:
+      title: CollectionItemListDeleteResponse
+      type: object
+      properties:
+        items:
+          title: Items
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionItemResponse'
+      required:
+      - items
+      additionalProperties: false
+    CollectionDeleteResponse:
+      title: CollectionDeleteResponse
+      type: object
+      properties:
+        id:
+          title: ID
+          description: ID of the collection.
+          minLength: 1
+          maxLength: 100
+          type: string
+        display_name:
+          title: Display Name
+          description: Name of the collection to be displayed to end users.
+          examples:
+          - Summer Sale
+          - Halloween Baking Mixes
+          minLength: 1
+          maxLength: 100
+          type: string
+        filter_expression:
+          title: Filter expression
+          description: '[Filter expression](/reference/shared-filter-expressions) associated with this collection.'
+          examples:
+          - name: brand
+            value: Nike
+          - and:
+            - name: price
+              range:
+              - 10
+              - 100
+            - name: color
+              value: red
+          allOf:
+          - $ref: '#/components/schemas/DictOrJsonStringWithDict'
+        data:
+          title: Data
+          description: 'Object containing additional data, that should be attached to this collection. The maximum size of data object is limited to 200kb. '
+          examples:
+          - key: value
+          - promo_code: SUMMER20
+          type: object
+        discoverable:
+          title: Discoverable
+          description: When true, the collection is discoverable in autocomplete and search.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        matches:
+          title: Matches
+          description: A list of terms associated with this collection for matching purposes.
+          maxItems: 50
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionMatchResponse'
+        start_time:
+          title: Start Time
+          description: ISO-8601 string in UTC defining start time when the collection becomes active. Any specified timezone will be omitted.
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: ISO-8601 string in UTC defining start time when the collection becomes inactive. Any specified timezone will be omitted.
+          type: string
+          format: date-time
+        overridden_collection_id:
+          title: Overridden Collection ID
+          description: The ID of the base collection that this collection overrides. An overriding collection temporarily replaces the content of a base collection during a scheduled time window. Only base collections (collections with `overridden_collection_id` set to `null`) can be overridden.
+          minLength: 1
+          maxLength: 100
+          type: string
+        created_at:
+          title: Created At
+          description: Collection creation date in ISO 8601 format. Present only for manually added collections.
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Last collection update date in ISO 8601 format. Present only for manually added collections.
+          type: string
+          format: date-time
+      required:
+      - id
+      - display_name
+      - created_at
+      additionalProperties: false
+    SortOrderType:
+      title: SortOrderType
+      enum:
+      - ascending
+      - descending
+      type: string
+    CollectionItemListGetResponse:
+      title: CollectionItemListGetResponse
+      type: object
+      properties:
+        items:
+          title: Items
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionItemResponse'
+        total_count:
+          title: Total Count
+          type: integer
+      required:
+      - items
+      - total_count
+      additionalProperties: false
+    CollectionItemListPutBody:
+      title: CollectionItemListPutBody
+      type: object
+      properties:
+        items:
+          title: Items
+          description: A list of item IDs to add to the collection.
+          maxItems: 100
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionItemBase'
+      required:
+      - items
+      additionalProperties: false
+  securitySchemes:
+    http_basic_auth:
+      type: http
+      scheme: basic
+    http_bearer_auth:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: false

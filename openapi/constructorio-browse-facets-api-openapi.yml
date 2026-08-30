@@ -1,0 +1,907 @@
+openapi: 3.2.0
+info:
+  contact:
+    email: support@constructor.io
+  title: Browse facets API
+  version: '0.1'
+servers:
+- url: https://ac.cnstrc.com
+security: []
+tags:
+- name: Browse facets
+paths:
+  /browse/facets:
+    get:
+      tags:
+      - Browse facets
+      operationId: v1-browse-get-browse-facets
+      summary: Retrieve countable facets
+      description: Retrieve countable facets for end users.
+      parameters:
+      - name: key
+        in: query
+        schema:
+          description: The key of the index to use.
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          title: Key
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          description: The section of the index to use. Defaults to `Products`.
+          examples:
+          - Products
+          - Search Suggestions
+          title: Section
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: num_results_per_page
+        in: query
+        schema:
+          default: 20
+          description: The number of results per page to return.
+          examples:
+          - 20
+          - 24
+          title: Num Results Per Page
+          maximum: 1000
+          minimum: 1
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          description: The page of results to return.
+          examples:
+          - 1
+          title: Page
+          minimum: 1
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          examples:
+          - 0
+          title: Offset
+          minimum: 0
+          type: integer
+        required: false
+      - name: now
+        in: query
+        schema:
+          description: A date time representing the current moment in time when applying filtering by product age. Used to emulate "past/future" requests. Requires authentication.
+          examples:
+          - '2024-01-15T10:30:00Z'
+          title: Now
+          format: date-time
+          type: string
+        required: false
+      - name: fmt_options
+        in: query
+        schema:
+          description: An object containing options to format different aspect of the response.
+          allOf:
+          - $ref: '#/components/schemas/FacetFmtOptions'
+          title: Fmt Options
+        required: false
+        style: deepObject
+        explode: true
+      - name: origin_referrer
+        in: query
+        schema:
+          description: The url or app location where the request originated.
+          examples:
+          - https://example.com/search
+          title: Origin Referrer
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          examples:
+          - cio-js-client-2.35.2
+          title: C
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: us
+        in: query
+        schema:
+          description: A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments.
+          title: us
+          items:
+            minLength: 1
+            type: string
+            examples:
+            - vip-member
+            - us-east-region
+          type: array
+        required: false
+      - name: ui
+        in: query
+        schema:
+          description: A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps Constructor to tie multiple client and session IDs together to form a behavioral data profile across devices.
+          examples:
+          - customer-user-id-456
+          title: Ui
+          type: string
+        required: false
+      - name: s
+        in: query
+        schema:
+          description: An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity.
+          examples:
+          - 1
+          title: S
+          type: integer
+        required: false
+      - name: i
+        in: query
+        schema:
+          description: A globally unique identifier for the user browser (or mobile application instance) making the request.
+          examples:
+          - user-device-id-123
+          title: I
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrowseFacetsGetResponse'
+        '400':
+          description: Validation Error
+      security: []
+  /browse/facet_options:
+    get:
+      tags:
+      - Browse facets
+      operationId: v1-browse-get-browse-facet-options
+      summary: Retrieve facet options (values) by facet name
+      description: Retrieve facet options for end users.
+      parameters:
+      - name: key
+        in: query
+        schema:
+          description: The key of the index to use.
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          title: Key
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          description: The section of the index to use. Defaults to `Products`.
+          examples:
+          - Products
+          - Search Suggestions
+          title: Section
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: num_results_per_page
+        in: query
+        schema:
+          default: 100000
+          description: The number of results per page to return.
+          examples:
+          - 100000
+          - 100
+          title: Num Results Per Page
+          maximum: 250000
+          minimum: 1
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          description: The page of results to return.
+          examples:
+          - 1
+          title: Page
+          minimum: 1
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          examples:
+          - 0
+          title: Offset
+          minimum: 0
+          type: integer
+        required: false
+      - name: now
+        in: query
+        schema:
+          description: A date time representing the current moment in time when applying filtering by product age. Used to emulate "past/future" requests. Requires authentication.
+          examples:
+          - '2024-01-15T10:30:00Z'
+          title: Now
+          format: date-time
+          type: string
+        required: false
+      - name: fmt_options
+        in: query
+        schema:
+          description: An object containing options to format different aspect of the response.
+          allOf:
+          - $ref: '#/components/schemas/FacetFmtOptions'
+          title: Fmt Options
+        required: false
+        style: deepObject
+        explode: true
+      - name: origin_referrer
+        in: query
+        schema:
+          description: The url or app location where the request originated.
+          examples:
+          - https://example.com/search
+          title: Origin Referrer
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          examples:
+          - cio-js-client-2.35.2
+          title: C
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: facet_name
+        in: query
+        schema:
+          description: The name of the facet.
+          examples:
+          - color
+          title: Facet Name
+          type: string
+        required: true
+      - name: us
+        in: query
+        schema:
+          description: A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments.
+          title: us
+          items:
+            minLength: 1
+            type: string
+            examples:
+            - vip-member
+            - us-east-region
+          type: array
+        required: false
+      - name: ui
+        in: query
+        schema:
+          description: A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps Constructor to tie multiple client and session IDs together to form a behavioral data profile across devices.
+          examples:
+          - customer-user-id-456
+          title: Ui
+          type: string
+        required: false
+      - name: s
+        in: query
+        schema:
+          description: An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity.
+          examples:
+          - 1
+          title: S
+          type: integer
+        required: false
+      - name: i
+        in: query
+        schema:
+          description: A globally unique identifier for the user browser (or mobile application instance) making the request.
+          examples:
+          - user-device-id-123
+          title: I
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrowseFacetOptionsGetResponse'
+        '400':
+          description: Validation Error
+      security: []
+  /browse/facets_with_options:
+    get:
+      tags:
+      - Browse facets
+      operationId: v1-browse-get-browse-facets-with-options
+      summary: Retrieve facets with their options (values)
+      description: Retrieve facets with options for end users.
+      parameters:
+      - name: key
+        in: query
+        schema:
+          description: The key of the index to use.
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          title: Key
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          description: The section of the index to use. Defaults to `Products`.
+          examples:
+          - Products
+          - Search Suggestions
+          title: Section
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: num_results_per_page
+        in: query
+        schema:
+          default: 10
+          description: The number of results per page to return.
+          examples:
+          - 10
+          - 5
+          title: Num Results Per Page
+          maximum: 10
+          minimum: 1
+          type: integer
+        required: false
+      - name: page
+        in: query
+        schema:
+          description: The page of results to return.
+          examples:
+          - 1
+          title: Page
+          minimum: 1
+          type: integer
+        required: false
+      - name: offset
+        in: query
+        schema:
+          description: The number of results to skip from the beginning. Cannot be used together with `page`.
+          examples:
+          - 0
+          title: Offset
+          minimum: 0
+          type: integer
+        required: false
+      - name: now
+        in: query
+        schema:
+          description: A date time representing the current moment in time when applying filtering by product age. Used to emulate "past/future" requests. Requires authentication.
+          examples:
+          - '2024-01-15T10:30:00Z'
+          title: Now
+          format: date-time
+          type: string
+        required: false
+      - name: fmt_options
+        in: query
+        schema:
+          description: An object containing options to format different aspect of the response.
+          allOf:
+          - $ref: '#/components/schemas/FacetFmtOptions'
+          title: Fmt Options
+        required: false
+        style: deepObject
+        explode: true
+      - name: origin_referrer
+        in: query
+        schema:
+          description: The url or app location where the request originated.
+          examples:
+          - https://example.com/search
+          title: Origin Referrer
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          examples:
+          - cio-js-client-2.35.2
+          title: C
+          maxLength: 100
+          minLength: 1
+          type: string
+        required: false
+      - name: us
+        in: query
+        schema:
+          description: A customer defined context (such as `vip-club-member`) used to evaluate redirect or refined tag rules. Pass multiple segments by passing multiple `us` arguments.
+          title: us
+          items:
+            minLength: 1
+            type: string
+            examples:
+            - vip-member
+            - us-east-region
+          type: array
+        required: false
+      - name: ui
+        in: query
+        schema:
+          description: A customer generated anonymized identifier for a user on a customer website. It should only be sent for logged in customers and helps Constructor to tie multiple client and session IDs together to form a behavioral data profile across devices.
+          examples:
+          - customer-user-id-456
+          title: Ui
+          type: string
+        required: false
+      - name: s
+        in: query
+        schema:
+          description: An integer representing the users session number (starting with `1`), incremented after a 30 minute period of inactivity.
+          examples:
+          - 1
+          title: S
+          type: integer
+        required: false
+      - name: i
+        in: query
+        schema:
+          description: A globally unique identifier for the user browser (or mobile application instance) making the request.
+          examples:
+          - user-device-id-123
+          title: I
+          type: string
+        required: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrowseFacetsWithOptionsGetResponse'
+        '400':
+          description: Validation Error
+      security: []
+components:
+  schemas:
+    BrowseFacetOptionsResponse:
+      additionalProperties: false
+      properties:
+        facets:
+          description: An array with the single requested facet.
+          items:
+            discriminator:
+              mapping:
+                hierarchical: '#/components/schemas/HierarchicalFacet'
+                multiple: '#/components/schemas/SingleOrMultipleFacet'
+                range: '#/components/schemas/RangeFacet'
+                single: '#/components/schemas/SingleOrMultipleFacet'
+              propertyName: type
+            oneOf:
+            - $ref: '#/components/schemas/RangeFacet'
+            - $ref: '#/components/schemas/SingleOrMultipleFacet'
+            - $ref: '#/components/schemas/HierarchicalFacet'
+          title: Facets
+          type: array
+        total_num_results:
+          description: Total count of facet options for the requested facet.
+          title: Total Num Results
+          type: integer
+      required:
+      - facets
+      - total_num_results
+      title: Browse facet options response
+      type: object
+    SingleOrMultipleFacet:
+      additionalProperties: false
+      properties:
+        type:
+          description: 'If a facet is of type `single`, then only one of the options may be selected (e.g: display as radio button). If the type is `multiple`, then multiple options may be selected (e.g: display as checkboxes).'
+          enum:
+          - single
+          - multiple
+          title: Type
+          type: string
+        name:
+          description: The name of the facet. This should be passed in the filters parameter when a facet of this type is selected. `filters[name]=value`
+          title: Name
+          type: string
+        display_name:
+          description: The name of the facet as it is displayed to end users. Note that in `filters` parameter you need to use not `display_name` but `name`.
+          title: Display Name
+          type: string
+        hidden:
+          description: The boolean value saying whether facet is available for interaction.
+          title: Hidden
+          type: boolean
+        data:
+          description: Object containing custom data associated with this facet. An empty object (`{}`) if no data is currently associated with this facet.
+          title: Data
+          type: object
+        options:
+          description: An array of possible facet values matching this search. By default, facet options are sorted by relevance. Number of options is limited, by default, to 500. But the limit can be configured per [facet](/reference/v1-facets-create-facet) key.
+          title: Options
+          items:
+            $ref: '#/components/schemas/FacetOption'
+          type: array
+      required:
+      - type
+      - name
+      - display_name
+      - hidden
+      - data
+      title: Single or Multiple facet
+      type: object
+    RangeFacet:
+      additionalProperties: false
+      properties:
+        type:
+          description: If a facet is of type `range`, then no facet options are provided. Instead a `min` and `max` value is provided to specify the range of values that can be sent in `filters`.
+          title: Type
+          type: string
+          enum:
+          - range
+        name:
+          description: The name of the facet. This should be passed in the filters parameter when a facet of this type is selected. `filters[name]=value`
+          title: Name
+          type: string
+        display_name:
+          description: The name of the facet as it is displayed to end users. Note that in `filters` parameter you need to use not `display_name` but `name`.
+          title: Display Name
+          type: string
+        hidden:
+          description: The boolean value saying whether facet is available for interaction.
+          title: Hidden
+          type: boolean
+        data:
+          description: Object containing custom data associated with this facet. An empty object (`{}`) if no data is currently associated with this facet.
+          title: Data
+          type: object
+        status:
+          description: Specifies the selected facet value range. If no range is selected the field will be omitted.
+          allOf:
+          - $ref: '#/components/schemas/RangeFacetStatus'
+          title: Status
+        min:
+          anyOf:
+          - type: number
+          - type: integer
+          - enum:
+            - -inf
+            - +inf
+            - inf
+            type: string
+          description: Minimum facet value of the result items.
+          title: Min
+        max:
+          anyOf:
+          - type: number
+          - type: integer
+          - enum:
+            - -inf
+            - +inf
+            - inf
+            type: string
+          description: Maximum facet value of the result items.
+          title: Max
+      required:
+      - type
+      - name
+      - display_name
+      - hidden
+      - data
+      title: Range facet
+      type: object
+    BrowseFacetsGetResponse:
+      additionalProperties: false
+      properties:
+        request:
+          description: The request arguments how they were interpreted by the API. This field is of arbitrary type, ie it doesn't have a guaranteed schema, and data from it shouldn't be used programmatically, it is for debugging purposes only.
+          title: Request
+          type: object
+        result_id:
+          title: Result Id
+          type: string
+        response:
+          $ref: '#/components/schemas/BrowseFacetsResponse'
+      required:
+      - request
+      - response
+      title: BrowseFacetsGetResponse
+      type: object
+    BrowseFacetsResponse:
+      additionalProperties: false
+      properties:
+        facets:
+          description: An array of facets within the section.
+          items:
+            discriminator:
+              mapping:
+                hierarchical: '#/components/schemas/HierarchicalFacet'
+                multiple: '#/components/schemas/SingleOrMultipleFacet'
+                range: '#/components/schemas/RangeFacet'
+                single: '#/components/schemas/SingleOrMultipleFacet'
+              propertyName: type
+            oneOf:
+            - $ref: '#/components/schemas/RangeFacet'
+            - $ref: '#/components/schemas/SingleOrMultipleFacet'
+            - $ref: '#/components/schemas/HierarchicalFacet'
+          title: Facets
+          type: array
+        total_num_results:
+          description: Total count of facets within the section.
+          minimum: 0
+          title: Total Num Results
+          type: integer
+      required:
+      - facets
+      - total_num_results
+      title: Browse facets response
+      type: object
+    HierarchicalFacet:
+      additionalProperties: false
+      properties:
+        type:
+          title: Type
+          type: string
+          enum:
+          - hierarchical
+        name:
+          description: The name of the facet. This should be passed in the filters parameter when a facet of this type is selected. `filters[name]=value`
+          title: Name
+          type: string
+        display_name:
+          description: The name of the facet as it is displayed to end users. Note that in `filters` parameter you need to use not `display_name` but `name`.
+          title: Display Name
+          type: string
+        hidden:
+          description: The boolean value saying whether facet is available for interaction.
+          title: Hidden
+          type: boolean
+        data:
+          description: Object containing custom data associated with this facet. An empty object (`{}`) if no data is currently associated with this facet.
+          title: Data
+          type: object
+        options:
+          description: An array of possible facet values matching this search. By default, facet options are sorted by relevance.
+          title: Options
+          items:
+            $ref: '#/components/schemas/HierarchicalFacetOption'
+          type: array
+      required:
+      - type
+      - name
+      - display_name
+      - hidden
+      - data
+      title: Hierarchical facet
+      type: object
+    FacetOption:
+      additionalProperties: false
+      properties:
+        display_name:
+          description: The name of the facet option as it is displayed to end users. Note that in `filters` parameter you need to use not `display_name` but `name`.
+          title: Display Name
+          type: string
+        status:
+          description: '`selected` if this option is selected in the current search request, empty string otherwise.'
+          enum:
+          - selected
+          - ''
+          title: Status
+          type: string
+        value:
+          description: 'The value that should be passed in `filters` to select this option: `filters[name]=value`'
+          title: Value
+          type: string
+        count:
+          description: Number of items in the current search that match this option.
+          minimum: 0
+          title: Count
+          type: integer
+        data:
+          description: Object containing custom data associated with this facet option. An empty object (`{}`) if no data is currently associated with this option.
+          title: Data
+          type: object
+        range:
+          description: 'Array containing 2 values: the parsed `min` & `max` values that are represented by this facet option. The field exists only for options of a facet with type `range` or `single` if it is configured specially.'
+          title: Range
+          items:
+            anyOf:
+            - type: number
+            - type: integer
+            - enum:
+              - -inf
+              - +inf
+              - inf
+              type: string
+          type: array
+      required:
+      - display_name
+      - status
+      - value
+      - count
+      title: FacetOption
+      type: object
+    BrowseFacetOptionsGetResponse:
+      additionalProperties: false
+      properties:
+        request:
+          description: The request arguments how they were interpreted by the API. This field is of arbitrary type, ie it doesn't have a guaranteed schema, and data from it shouldn't be used programmatically, it is for debugging purposes only.
+          title: Request
+          type: object
+        result_id:
+          title: Result Id
+          type: string
+        response:
+          $ref: '#/components/schemas/BrowseFacetOptionsResponse'
+      required:
+      - request
+      - response
+      title: BrowseFacetOptionsGetResponse
+      type: object
+    RangeFacetStatus:
+      additionalProperties: false
+      properties:
+        min:
+          anyOf:
+          - type: number
+          - type: integer
+          - enum:
+            - -inf
+            - +inf
+            - inf
+            type: string
+          - type: string
+          description: Selected minimum value of the range facet.
+          title: Min
+        max:
+          anyOf:
+          - type: number
+          - type: integer
+          - enum:
+            - -inf
+            - +inf
+            - inf
+            type: string
+          - type: string
+          description: Selected maximum value of the range facet.
+          title: Max
+      title: RangeFacetStatus
+      type: object
+    BrowseFacetsWithOptionsGetResponse:
+      additionalProperties: false
+      properties:
+        response:
+          $ref: '#/components/schemas/BrowseFacetsResponse'
+        result_id:
+          title: Result Id
+          type: string
+      required:
+      - response
+      title: BrowseFacetsWithOptionsGetResponse
+      type: object
+    FacetFmtOptions:
+      additionalProperties: false
+      properties:
+        show_hidden_facets:
+          default: false
+          description: A flag to return all facets configured as `hidden` in `response.facets`.
+          examples:
+          - false
+          - true
+          title: Show Hidden Facets
+          type: boolean
+        hidden_facets:
+          description: A list of specific hidden facets to return in the response. Unlike `show_hidden_facets` this parameter allows the request to control which hidden facets are returned.  Used to return facets for a particular store or user segment.
+          title: Hidden Facets
+          items:
+            maxLength: 100
+            minLength: 1
+            type: string
+            examples:
+            - store_id
+            - region
+          maxItems: 20
+          type: array
+        show_hidden_facet_options:
+          description: A flag to return all `hidden` facets options in the response.
+          examples:
+          - false
+          - true
+          title: Show Hidden Facet Options
+          type: boolean
+        show_protected_facets:
+          default: false
+          description: A flag to return all `protected` facets in the response. Requires authentication.
+          examples:
+          - false
+          - true
+          title: Show Protected Facets
+          type: boolean
+        show_internal_facets:
+          title: Show Internal Facets
+          type: boolean
+      title: FacetFmtOptions
+      type: object
+    HierarchicalFacetOption:
+      additionalProperties: false
+      properties:
+        display_name:
+          description: The name of the facet option as it is displayed to end users. Note that in `filters` parameter you need to use not `display_name` but `name`.
+          title: Display Name
+          type: string
+        status:
+          description: '`selected` if this option is selected in the current search request, empty string otherwise.'
+          enum:
+          - selected
+          - ''
+          title: Status
+          type: string
+        value:
+          description: 'The value that should be passed in `filters` to select this option: `filters[name]=value`'
+          title: Value
+          type: string
+        count:
+          description: Number of items in the current search that match this option.
+          minimum: 0
+          title: Count
+          type: integer
+        data:
+          description: Object containing custom data associated with this facet option. An empty object (`{}`) if no data is currently associated with this option.
+          title: Data
+          type: object
+        range:
+          description: 'Array containing 2 values: the parsed `min` & `max` values that are represented by this facet option. The field exists only for options of a facet with type `range` or `single` if it is configured specially.'
+          title: Range
+          items:
+            anyOf:
+            - type: number
+            - type: integer
+            - enum:
+              - -inf
+              - +inf
+              - inf
+              type: string
+          type: array
+        options:
+          description: An array of possible facet values matching this search. By default, facet options are sorted by relevance. The field exists only for options of a facet with type `hierarchical`.
+          title: Options
+          items:
+            type: object
+          type: array
+      required:
+      - display_name
+      - status
+      - value
+      - count
+      title: HierarchicalFacetOption
+      type: object
+  securitySchemes:
+    http_basic_auth:
+      type: http
+      scheme: basic
+    http_bearer_auth:
+      type: http
+      scheme: bearer
+x-readme:
+  explorer-enabled: false
