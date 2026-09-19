@@ -1236,6 +1236,8 @@ apis:
   humanURL: https://docs.constructor.com/reference/search-search-results
   baseURL: https://ac.cnstrc.com
   tags:
+  - Search Results
+  tags_raw:
   - Search results
   properties:
   - type: OpenAPI
