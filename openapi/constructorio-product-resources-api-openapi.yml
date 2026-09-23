@@ -1036,6 +1036,36 @@ components:
           variation_id: VAR_001_BLUE
           url: https://shop.example.com/products/premium-sneakers
           image_url: https://images.example.com/products/PROD_001_main.jpg
+    ErrorResponse:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          description: A human-readable error message describing the issue.
+          examples:
+          - 'Required parameter missing: key'
+          - 'Invalid pod_id: POD_123'
+          - 'Position out of range: 15'
+          - Resource not found
+      type: object
+      required:
+      - detail
+      title: ErrorResponse
+      description: Standardized error response format for the API.
+    ResponseFormat:
+      type: string
+      enum:
+      - redirect
+      - json
+      title: ResponseFormat
+      description: Enumeration of possible response formats for snippet requests.
+    SortOrder:
+      type: string
+      enum:
+      - ascending
+      - descending
+      title: SortOrder
+      description: 'The sort order for results: ascending (low to high) or descending (high to low).'
     Data:
       properties:
         id:
@@ -1070,35 +1100,5 @@ components:
       - id
       title: Data
       description: Core product data containing essential fields. Additional customer-specific fields may be present in actual API responses based on configuration, but are not documented here for privacy and simplicity.
-    ErrorResponse:
-      properties:
-        detail:
-          type: string
-          title: Detail
-          description: A human-readable error message describing the issue.
-          examples:
-          - 'Required parameter missing: key'
-          - 'Invalid pod_id: POD_123'
-          - 'Position out of range: 15'
-          - Resource not found
-      type: object
-      required:
-      - detail
-      title: ErrorResponse
-      description: Standardized error response format for the API.
-    ResponseFormat:
-      type: string
-      enum:
-      - redirect
-      - json
-      title: ResponseFormat
-      description: Enumeration of possible response formats for snippet requests.
-    SortOrder:
-      type: string
-      enum:
-      - ascending
-      - descending
-      title: SortOrder
-      description: 'The sort order for results: ascending (low to high) or descending (high to low).'
 x-readme:
   explorer-enabled: false

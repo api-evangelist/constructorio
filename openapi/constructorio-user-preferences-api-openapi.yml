@@ -10,15 +10,15 @@ security:
 - http_bearer_auth:
   - user_profile.user_preferences(w)
 tags:
-- name: User preferences
+- name: User Preferences
 paths:
   /v1/user_preferences:
     put:
       tags:
-      - User preferences
+      - User Preferences
       operationId: v1-user-profile-create-preferences
       summary: Create user preferences
-      description: '**🔐 This endpoint requires [HTTP Bearer authentication](https://docs.constructor.com/reference/main-authentication#bearer-authentication).**
+      description: '**🔐 This endpoint requires HTTP Bearer authentication.**
 
         For authenticating with Bearer token, required scopes are: `user_profile.user_preferences(w)`.
 
@@ -61,17 +61,6 @@ paths:
           description: Permission Denied
 components:
   schemas:
-    UserPreferencesBody:
-      type: object
-      required:
-      - user_preferences
-      properties:
-        user_preferences:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserPreferenceItem'
-          minItems: 1
-          maxItems: 100
     UserPreferenceItem:
       type: object
       required:
@@ -88,6 +77,17 @@ components:
           minItems: 1
         ui:
           type: string
+    UserPreferencesBody:
+      type: object
+      required:
+      - user_preferences
+      properties:
+        user_preferences:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserPreferenceItem'
+          minItems: 1
+          maxItems: 100
   securitySchemes:
     http_bearer_auth:
       type: http

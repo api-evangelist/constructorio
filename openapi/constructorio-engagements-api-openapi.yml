@@ -16,7 +16,7 @@ paths:
       tags:
       - Engagements
       summary: Update Engagement
-      description: '**🔐 This endpoint requires [HTTP Bearer authentication](https://docs.constructor.com/reference/main-authentication#bearer-authentication).**
+      description: '**🔐 This endpoint requires HTTP Bearer authentication.**
 
         For authenticating with Bearer token, required scopes are: `retail_media.engagements(w)`.
 
@@ -73,7 +73,7 @@ paths:
       tags:
       - Engagements
       summary: Retrieve Advertiser Spend
-      description: '**🔐 This endpoint requires [HTTP Bearer authentication](https://docs.constructor.com/reference/main-authentication#bearer-authentication).**
+      description: '**🔐 This endpoint requires HTTP Bearer authentication.**
 
         For authenticating with Bearer token, required scopes are: `retail_media.ad_spend_tracking(r)`.
 
@@ -131,97 +131,6 @@ paths:
         - retail_media.ad_spend_tracking(r)
 components:
   schemas:
-    EngagementResponse:
-      properties:
-        engagement_id:
-          type: string
-          title: Engagement ID
-          description: The advertiser engagement ID.
-        key:
-          type: string
-          title: Key
-          description: The key of the index.
-        is_suspended:
-          type: boolean
-          title: Is Suspended
-          description: Whether the engagement is suspended.
-      type: object
-      required:
-      - engagement_id
-      - key
-      - is_suspended
-      title: EngagementResponse
-    PublicErrorResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/PublicErrorDetails'
-          type: array
-          title: Errors
-        trace_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Trace ID
-      type: object
-      required:
-      - message
-      - errors
-      - trace_id
-      title: PublicErrorResponse
-    PublicErrorDetails:
-      properties:
-        code:
-          type: string
-          title: Code
-        message:
-          type: string
-          title: Message
-        source:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Source
-      type: object
-      required:
-      - code
-      - message
-      - source
-      title: PublicErrorDetails
-    EngagementUpdateRequest:
-      properties:
-        is_suspended:
-          type: boolean
-          title: Is Suspended
-          description: Whether the engagement is suspended.
-      type: object
-      required:
-      - is_suspended
-      title: EngagementUpdateRequest
-    AdvertiserSpendRecord:
-      properties:
-        engagement_id:
-          type: string
-          title: Engagement ID
-          description: The advertiser (engagement) ID for the record.
-        daily_spend:
-          additionalProperties:
-            type: string
-            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-          type: object
-          title: Daily Spend
-          description: Map of date (YYYY-MM-DD) to spend for that advertiser. Includes the last 30 days.
-          examples:
-          - '2026-06-18': '40.0'
-            '2026-06-19': '12.5'
-      type: object
-      required:
-      - engagement_id
-      - daily_spend
-      title: AdvertiserSpendRecord
     AdvertiserSpendResponse:
       properties:
         advertiser_spend:
@@ -248,6 +157,97 @@ components:
       - total_count
       - next_page_cursor
       title: AdvertiserSpendResponse
+    EngagementResponse:
+      properties:
+        engagement_id:
+          type: string
+          title: Engagement ID
+          description: The advertiser engagement ID.
+        key:
+          type: string
+          title: Key
+          description: The key of the index.
+        is_suspended:
+          type: boolean
+          title: Is Suspended
+          description: Whether the engagement is suspended.
+      type: object
+      required:
+      - engagement_id
+      - key
+      - is_suspended
+      title: EngagementResponse
+    PublicErrorDetails:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        source:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Source
+      type: object
+      required:
+      - code
+      - message
+      - source
+      title: PublicErrorDetails
+    PublicErrorResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/PublicErrorDetails'
+          type: array
+          title: Errors
+        trace_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Trace ID
+      type: object
+      required:
+      - message
+      - errors
+      - trace_id
+      title: PublicErrorResponse
+    AdvertiserSpendRecord:
+      properties:
+        engagement_id:
+          type: string
+          title: Engagement ID
+          description: The advertiser (engagement) ID for the record.
+        daily_spend:
+          additionalProperties:
+            type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          type: object
+          title: Daily Spend
+          description: Map of date (YYYY-MM-DD) to spend for that advertiser. Includes the last 30 days.
+          examples:
+          - '2026-06-18': '40.0'
+            '2026-06-19': '12.5'
+      type: object
+      required:
+      - engagement_id
+      - daily_spend
+      title: AdvertiserSpendRecord
+    EngagementUpdateRequest:
+      properties:
+        is_suspended:
+          type: boolean
+          title: Is Suspended
+          description: Whether the engagement is suspended.
+      type: object
+      required:
+      - is_suspended
+      title: EngagementUpdateRequest
   securitySchemes:
     bearerAuth:
       type: http

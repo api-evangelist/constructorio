@@ -16,7 +16,7 @@ paths:
       - Item statistics
       operationId: v1-items-fields-stats-retrieve-items-fields-stats
       summary: Retrieve item field statistics
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `catalog(r)`.
 
@@ -139,7 +139,7 @@ paths:
       - Item statistics
       operationId: v1-items-fields-stats-retrieve-item-field-stats
       summary: Retrieve item field statistic
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `catalog(r)`.
 
@@ -197,32 +197,11 @@ paths:
         - catalog(r)
 components:
   schemas:
-    ItemFieldStatsListGetResponse:
-      title: ItemFieldStatsListGetResponse
-      type: object
-      properties:
-        items_fields_stats:
-          title: Items Fields Stats
-          type: array
-          items:
-            $ref: '#/components/schemas/ItemFieldStatsResponse'
-        total_count:
-          title: Total Count
-          description: Number of item field stats
-          minimum: 0
-          type: integer
-      required:
-      - items_fields_stats
-      - total_count
-    MetadataSearchabilityType:
-      title: MetadataSearchabilityType
+    SortOrderType:
+      title: SortOrderType
       enum:
-      - number
-      - string
-      - array
-      - object
-      - boolean
-      - mixed
+      - ascending
+      - descending
       type: string
     ItemFieldStatsResponse:
       title: ItemFieldStatsResponse
@@ -273,12 +252,33 @@ components:
           minLength: 1
           type: string
       additionalProperties: false
-    SortOrderType:
-      title: SortOrderType
+    MetadataSearchabilityType:
+      title: MetadataSearchabilityType
       enum:
-      - ascending
-      - descending
+      - number
+      - string
+      - array
+      - object
+      - boolean
+      - mixed
       type: string
+    ItemFieldStatsListGetResponse:
+      title: ItemFieldStatsListGetResponse
+      type: object
+      properties:
+        items_fields_stats:
+          title: Items Fields Stats
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemFieldStatsResponse'
+        total_count:
+          title: Total Count
+          description: Number of item field stats
+          minimum: 0
+          type: integer
+      required:
+      - items_fields_stats
+      - total_count
     ItemFieldStatsGetResponse:
       title: ItemFieldStatsGetResponse
       type: object

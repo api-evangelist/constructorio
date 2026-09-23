@@ -274,25 +274,13 @@ paths:
       security: []
 components:
   schemas:
-    SingleItemGetResponse:
-      properties:
-        trace_id:
-          type: string
-          title: Trace Id
-        response:
-          title: Response
-          type: object
-          properties:
-            item:
-              $ref: '#/components/schemas/ItemWithEnrichedAttributes'
-          required:
-          - item
-      type: object
-      required:
-      - trace_id
-      - response
-      title: SingleItemGetResponse
-      description: Full response for GET /v1/items.
+    AttributeType:
+      type: string
+      enum:
+      - standard
+      - extended
+      title: AttributeType
+      description: The type of an enriched attribute value.
     ErrorDetail:
       properties:
         code:
@@ -307,19 +295,6 @@ components:
       - message
       title: ErrorDetail
       description: Single error entry in an error response.
-    AttributeValue:
-      properties:
-        value:
-          type: string
-          title: Value
-        type:
-          $ref: '#/components/schemas/AttributeType'
-      type: object
-      required:
-      - value
-      - type
-      title: AttributeValue
-      description: A single enriched attribute value.
     ErrorResponseWithTrace:
       properties:
         message:
@@ -340,37 +315,6 @@ components:
       - trace_id
       title: ErrorResponseWithTrace
       description: Error response body with trace ID.
-    EnrichedAttributes:
-      properties:
-        badges:
-          items:
-            $ref: '#/components/schemas/Badge'
-          type: array
-          title: Badges
-        attributes:
-          additionalProperties:
-            items:
-              $ref: '#/components/schemas/AttributeValue'
-            type: array
-          type: object
-          title: Attributes
-          examples:
-          - color:
-            - type: standard
-              value: red
-            - type: standard
-              value: green
-            - type: standard
-              value: blue
-            neckline:
-            - type: standard
-              value: round
-      type: object
-      required:
-      - badges
-      - attributes
-      title: EnrichedAttributes
-      description: 'Enriched attributes: resolved badges and attributes keyed by name.'
     VariationsGetResponse:
       properties:
         trace_id:
@@ -393,26 +337,6 @@ components:
       - response
       title: VariationsGetResponse
       description: Full response for GET /v1/variations.
-    Variation:
-      properties:
-        variation_id:
-          type: string
-          title: Variation ID
-        enriched_attributes:
-          $ref: '#/components/schemas/EnrichedAttributes'
-      type: object
-      required:
-      - variation_id
-      - enriched_attributes
-      title: Variation
-      description: Variation with nested enriched_attributes (used in GET /v1/variations).
-    AttributeType:
-      type: string
-      enum:
-      - standard
-      - extended
-      title: AttributeType
-      description: The type of an enriched attribute value.
     ErrorResponse:
       properties:
         message:
@@ -450,6 +374,69 @@ components:
       - display_name
       title: Badge
       description: Fully resolved badge (API type, all {placeholder} replaced).
+    Variation:
+      properties:
+        variation_id:
+          type: string
+          title: Variation ID
+        enriched_attributes:
+          $ref: '#/components/schemas/EnrichedAttributes'
+      type: object
+      required:
+      - variation_id
+      - enriched_attributes
+      title: Variation
+      description: Variation with nested enriched_attributes (used in GET /v1/variations).
+    EnrichedAttributes:
+      properties:
+        badges:
+          items:
+            $ref: '#/components/schemas/Badge'
+          type: array
+          title: Badges
+        attributes:
+          additionalProperties:
+            items:
+              $ref: '#/components/schemas/AttributeValue'
+            type: array
+          type: object
+          title: Attributes
+          examples:
+          - color:
+            - type: standard
+              value: red
+            - type: standard
+              value: green
+            - type: standard
+              value: blue
+            neckline:
+            - type: standard
+              value: round
+      type: object
+      required:
+      - badges
+      - attributes
+      title: EnrichedAttributes
+      description: 'Enriched attributes: resolved badges and attributes keyed by name.'
+    SingleItemGetResponse:
+      properties:
+        trace_id:
+          type: string
+          title: Trace Id
+        response:
+          title: Response
+          type: object
+          properties:
+            item:
+              $ref: '#/components/schemas/ItemWithEnrichedAttributes'
+          required:
+          - item
+      type: object
+      required:
+      - trace_id
+      - response
+      title: SingleItemGetResponse
+      description: Full response for GET /v1/items.
     ItemWithEnrichedAttributes:
       properties:
         id:
@@ -463,6 +450,19 @@ components:
       - enriched_attributes
       title: ItemWithEnrichedAttributes
       description: Item with nested enriched_attributes (used in GET /v1/items).
+    AttributeValue:
+      properties:
+        value:
+          type: string
+          title: Value
+        type:
+          $ref: '#/components/schemas/AttributeType'
+      type: object
+      required:
+      - value
+      - type
+      title: AttributeValue
+      description: A single enriched attribute value.
   securitySchemes:
     http_basic_auth:
       type: http

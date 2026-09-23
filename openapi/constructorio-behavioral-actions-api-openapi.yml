@@ -17,7 +17,7 @@ paths:
       - Behavioral actions
       operationId: v1-offline-behavioral-actions-create-actions
       summary: Post a list of offline behavioral actions
-      description: '**🔐 This endpoint requires [HTTP Basic authentication](https://docs.constructor.com/reference/main-authentication#basic-authentication).**
+      description: '**🔐 This endpoint requires HTTP Basic authentication.**
 
 
         Send list of behavioral actions (purchase,return) performed by your users offline.'
@@ -56,23 +56,12 @@ paths:
           description: Rate limit breached
 components:
   schemas:
-    OfflineBehavioralActionListPostBody:
-      title: OfflineBehavioralActionListPostBody
-      type: object
-      properties:
-        behavioral_actions:
-          title: Behavioral Actions
-          description: An array of actions. Each item of the array is an object containing action and data keys.
-          minItems: 1
-          maxItems: 100
-          type: array
-          items:
-            anyOf:
-            - $ref: '#/components/schemas/OfflinePurchase'
-            - $ref: '#/components/schemas/OfflineReturn'
-      required:
-      - behavioral_actions
-      additionalProperties: false
+    ReturnActionReturnType:
+      title: ReturnActionReturnType
+      enum:
+      - full
+      - partial
+      type: string
     ItemSchema:
       title: ItemSchema
       type: object
@@ -106,11 +95,30 @@ components:
           description: Count of item purchased. Price will be multiplied by count to get purchase revenue if order revenue is not passed.
           type: integer
       additionalProperties: false
-    ReturnActionReturnType:
-      title: ReturnActionReturnType
+    OfflineReturn:
+      title: OfflineReturn
+      type: object
+      properties:
+        action:
+          title: Action
+          description: Event action.
+          enum:
+          - return
+          type: string
+        data:
+          title: Data
+          description: Action data.
+          allOf:
+          - $ref: '#/components/schemas/OfflineItemReturnSchema'
+      required:
+      - action
+      - data
+      additionalProperties: false
+    ReturnActionReturnPreference:
+      title: ReturnActionReturnPreference
       enum:
-      - full
-      - partial
+      - refund
+      - replacement
       type: string
     OfflinePurchase:
       title: OfflinePurchase
@@ -131,12 +139,6 @@ components:
       - action
       - data
       additionalProperties: false
-    ReturnActionReturnPreference:
-      title: ReturnActionReturnPreference
-      enum:
-      - refund
-      - replacement
-      type: string
     OfflineItemReturnSchema:
       title: OfflineItemReturnSchema
       type: object
@@ -235,6 +237,23 @@ components:
       - _dt
       - items_returned
       additionalProperties: false
+    OfflineBehavioralActionListPostBody:
+      title: OfflineBehavioralActionListPostBody
+      type: object
+      properties:
+        behavioral_actions:
+          title: Behavioral Actions
+          description: An array of actions. Each item of the array is an object containing action and data keys.
+          minItems: 1
+          maxItems: 100
+          type: array
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/OfflinePurchase'
+            - $ref: '#/components/schemas/OfflineReturn'
+      required:
+      - behavioral_actions
+      additionalProperties: false
     OfflineItemPurchaseSchema:
       title: OfflineItemPurchaseSchema
       type: object
@@ -286,25 +305,6 @@ components:
       required:
       - _dt
       - items
-      additionalProperties: false
-    OfflineReturn:
-      title: OfflineReturn
-      type: object
-      properties:
-        action:
-          title: Action
-          description: Event action.
-          enum:
-          - return
-          type: string
-        data:
-          title: Data
-          description: Action data.
-          allOf:
-          - $ref: '#/components/schemas/OfflineItemReturnSchema'
-      required:
-      - action
-      - data
       additionalProperties: false
   securitySchemes:
     http_basic_auth:

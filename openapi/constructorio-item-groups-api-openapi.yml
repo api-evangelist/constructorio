@@ -16,7 +16,7 @@ paths:
       - Item groups
       operationId: v2-item-groups-retrieve-item-groups
       summary: Retrieve item groups
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `catalog(r)`.
 
@@ -117,12 +117,12 @@ paths:
       - Item groups
       operationId: v2-item-groups-create-or-replace-item-groups
       summary: Create or replace item groups
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `catalog(w)`.
 
 
-        Create item groups or replace the data of existing item groups. Returns an identifier for a background [task](/reference/v1-tasks-retrieve-task).'
+        Create item groups or replace the data of existing item groups. Returns an identifier for a background task.'
       parameters:
       - name: key
         in: query
@@ -200,12 +200,12 @@ paths:
       - Item groups
       operationId: v2-item-groups-update-item-groups
       summary: Update item groups
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `catalog(w)`.
 
 
-        Update existing item groups data. Data included in the request will be merged with data of the existing items groups. Returns an identifier for a background [task](/reference/v1-tasks-retrieve-task).'
+        Update existing item groups data. Data included in the request will be merged with data of the existing items groups. Returns an identifier for a background task.'
       parameters:
       - name: key
         in: query
@@ -283,12 +283,12 @@ paths:
       - Item groups
       operationId: v2-item-groups-delete-item-groups
       summary: Delete item groups
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `catalog(w)`.
 
 
-        Delete item groups. Returns an identifier for a background [task](/reference/v1-tasks-retrieve-task).'
+        Delete item groups. Returns an identifier for a background task.'
       parameters:
       - name: key
         in: query
@@ -367,7 +367,7 @@ paths:
       - Item groups
       operationId: v2-item-groups-retrieve-item-group
       summary: Retrieve item group
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `catalog(r)`.
 
@@ -430,7 +430,7 @@ paths:
       - Item groups
       operationId: v1-item-groups-retrieve-item-groups
       summary: Retrieve item groups (Deprecated)
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `catalog(r)`.
 
@@ -497,7 +497,7 @@ paths:
       - Item groups
       operationId: v1-item-groups-create-item-groups
       summary: Create new item groups (Deprecated)
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `catalog(w)`.
 
@@ -575,7 +575,7 @@ paths:
       - Item groups
       operationId: v1-item-groups-create-or-replace-item-groups
       summary: Create or replace item groups (Deprecated)
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `catalog(w)`.
 
@@ -653,7 +653,7 @@ paths:
       - Item groups
       operationId: v1-item-groups-create-or-update-item-groups
       summary: Create or update item groups (Deprecated)
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `catalog(w)`.
 
@@ -731,7 +731,7 @@ paths:
       - Item groups
       operationId: v1-item-groups-delete-item-groups
       summary: Delete item groups (Deprecated)
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `catalog(w)`.
 
@@ -799,7 +799,7 @@ paths:
       - Item groups
       operationId: v1-item-groups-retrieve-item-group
       summary: Retrieve item group (Deprecated)
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `catalog(r)`.
 
@@ -871,7 +871,7 @@ paths:
       - Item groups
       operationId: v1-item-groups-create-or-update-item-group
       summary: Create or update item group (Deprecated)
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `catalog(w)`.
 
@@ -952,21 +952,40 @@ paths:
         - catalog(w)
 components:
   schemas:
-    ItemGroupListPutRequestBody:
-      title: ItemGroupListPutRequestBody
+    ItemGroupsGetResponse:
+      title: ItemGroupsGetResponse
       type: object
       properties:
-        item_groups:
-          title: Item Groups
-          minItems: 1
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this item group. The maximum size of data object is limited to 5kB. The average size of data objects for all ingested item groups should not exceed 1kB.
+          type: object
+        id:
+          title: ID
+          description: The ID of the item group
+          minLength: 1
+          maxLength: 200
+          type: string
+        name:
+          title: Display Name
+          description: Item group display name.
+          minLength: 1
+          maxLength: 500
+          type: string
+        parent_ids:
+          title: Parent Ids
+          description: List of parent item group IDs
           type: array
           items:
-            $ref: '#/components/schemas/V1ItemGroup'
+            type: string
+            examples:
+            - parent-1
+            - root
       required:
-      - item_groups
-      additionalProperties: false
-    ItemGroupGetResponse:
-      title: ItemGroupGetResponse
+      - id
+      - name
+    ItemGroupListGetResponse:
+      title: ItemGroupListGetResponse
       type: object
       properties:
         item_groups:
@@ -984,60 +1003,38 @@ components:
       - item_groups
       - total_count
       additionalProperties: false
-    ItemGroupListPatchResponse:
-      title: ItemGroupListPatchResponse
+    ItemGroupCountModel:
+      title: ItemGroupCountModel
       type: object
       properties:
-        item_groups:
-          $ref: '#/components/schemas/ItemGroupCountModel'
+        processed:
+          title: Processed
+          description: Number of item groups processed.
+          minimum: 0
+          type: integer
+        inserted:
+          title: Inserted
+          description: Number of item groups inserted.
+          minimum: 0
+          type: integer
+        updated:
+          title: Updated
+          description: Number of item groups updated.
+          minimum: 0
+          type: integer
+        deleted:
+          title: Deleted
+          description: Number of item groups deleted.
+          minimum: 0
+          type: integer
       required:
-      - item_groups
+      - processed
+      - inserted
+      - updated
+      - deleted
       additionalProperties: false
-    ItemGroupListPostResponse:
-      title: ItemGroupListPostResponse
-      type: object
-      properties:
-        item_groups:
-          $ref: '#/components/schemas/ItemGroupCountModel'
-      required:
-      - item_groups
-      additionalProperties: false
-    ItemGroupPatch:
-      title: ItemGroupPatch
-      type: object
-      properties:
-        data:
-          title: Data
-          description: Object containing additional data, that should be attached to this item group. The maximum size of data object is limited to 5kB. The average size of data objects for all ingested item groups should not exceed 1kB.
-          type: object
-        id:
-          title: Id
-          description: ID of the item group.
-          examples:
-          - category-electronics
-          - group-123
-          minLength: 1
-          maxLength: 200
-          type: string
-        name:
-          title: Name
-          description: Item group display name.
-          minLength: 1
-          maxLength: 500
-          type: string
-        parent_ids:
-          title: Parent Ids
-          description: List of parent item group IDs
-          type: array
-          items:
-            type: string
-            examples:
-            - parent-1
-            - root
-      required:
-      - id
-    ItemGroupsListPutResponse:
-      title: ItemGroupsListPutResponse
+    ItemGroupsListDeleteResponse:
+      title: ItemGroupsListDeleteResponse
       type: object
       properties:
         task_id:
@@ -1049,6 +1046,37 @@ components:
       required:
       - task_id
       - task_status_path
+    ItemGroupsListPatchResponse:
+      title: ItemGroupsListPatchResponse
+      type: object
+      properties:
+        task_id:
+          title: Task ID
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          type: string
+      required:
+      - task_id
+      - task_status_path
+    ItemGroupsListGetResponse:
+      title: ItemGroupsListGetResponse
+      type: object
+      properties:
+        item_groups:
+          title: Item Groups
+          minItems: 0
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemGroupsGetResponse'
+        total_count:
+          title: Total Count
+          description: Total number of item groups.
+          minimum: 0
+          type: integer
+      required:
+      - item_groups
+      - total_count
     ItemGroupListDeleteResponse:
       title: ItemGroupListDeleteResponse
       type: object
@@ -1060,21 +1088,33 @@ components:
       required:
       - message
       additionalProperties: false
-    ItemGroupBase:
-      title: ItemGroupBase
+    ItemGroupsListPatchRequestBody:
+      title: ItemGroupsListPatchRequestBody
       type: object
       properties:
-        id:
-          title: Id
-          description: ID of the item group.
-          examples:
-          - category-electronics
-          - group-123
-          minLength: 1
-          maxLength: 200
-          type: string
+        item_groups:
+          title: Item Groups
+          description: Array of item groups you want to update.
+          minItems: 1
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemGroupPatch'
       required:
-      - id
+      - item_groups
+    ItemGroupListPatchRequestBody:
+      title: ItemGroupListPatchRequestBody
+      type: object
+      properties:
+        item_groups:
+          title: Item Groups
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/V1ItemGroup'
+      required:
+      - item_groups
+      additionalProperties: false
     ItemGroupPutResponse:
       title: ItemGroupPutResponse
       type: object
@@ -1121,111 +1161,24 @@ components:
       - path_list
       - path
       additionalProperties: false
-    ItemGroupsListDeleteResponse:
-      title: ItemGroupsListDeleteResponse
-      type: object
-      properties:
-        task_id:
-          title: Task ID
-          type: integer
-        task_status_path:
-          title: Task Status Path
-          type: string
-      required:
-      - task_id
-      - task_status_path
-    V1ItemGroup:
-      title: V1ItemGroup
-      type: object
-      properties:
-        data:
-          title: Data
-          description: Object containing additional data, that should be attached to this item group. The maximum size of data object is limited to 5kb. The average size of data objects for all ingested item groups should not exceed 1kb.
-          type: object
-        id:
-          title: Id
-          description: ID of the item group.
-          examples:
-          - category-electronics
-          - group-123
-          minLength: 1
-          maxLength: 200
-          type: string
-        name:
-          title: Name
-          description: Item group display name.
-          examples:
-          - Electronics
-          - Men's Clothing
-          minLength: 1
-          maxLength: 500
-          type: string
-        children:
-          title: Children
-          description: A list of item groups categorized under the current item group.
-          type: array
-          items:
-            type: object
-      required:
-      - id
-      - name
-      additionalProperties: false
-    ItemGroupsListDeleteRequestBody:
-      title: ItemGroupsListDeleteRequestBody
+    ItemGroupGetResponse:
+      title: ItemGroupGetResponse
       type: object
       properties:
         item_groups:
           title: Item Groups
-          description: Array of item group IDs you want to delete.
-          minItems: 1
-          maxItems: 10000
-          type: array
-          items:
-            $ref: '#/components/schemas/ItemGroupBase'
-      required:
-      - item_groups
-    ItemGroupCountModel:
-      title: ItemGroupCountModel
-      type: object
-      properties:
-        processed:
-          title: Processed
-          description: Number of item groups processed.
-          minimum: 0
-          type: integer
-        inserted:
-          title: Inserted
-          description: Number of item groups inserted.
-          minimum: 0
-          type: integer
-        updated:
-          title: Updated
-          description: Number of item groups updated.
-          minimum: 0
-          type: integer
-        deleted:
-          title: Deleted
-          description: Number of item groups deleted.
-          minimum: 0
-          type: integer
-      required:
-      - processed
-      - inserted
-      - updated
-      - deleted
-      additionalProperties: false
-    ItemGroupListPatchRequestBody:
-      title: ItemGroupListPatchRequestBody
-      type: object
-      properties:
-        item_groups:
-          title: Item Groups
-          minItems: 1
+          description: A list of item groups.
           type: array
           items:
             $ref: '#/components/schemas/V1ItemGroup'
+        total_count:
+          title: Total Count
+          description: Total number of item groups.
+          minimum: 0
+          type: integer
       required:
       - item_groups
+      - total_count
       additionalProperties: false
     ItemGroup:
       title: ItemGroup
@@ -1265,24 +1218,55 @@ components:
       required:
       - id
       - name
-    ItemGroupListGetResponse:
-      title: ItemGroupListGetResponse
+    ItemGroupsListDeleteRequestBody:
+      title: ItemGroupsListDeleteRequestBody
       type: object
       properties:
         item_groups:
           title: Item Groups
-          description: A list of item groups.
+          description: Array of item group IDs you want to delete.
+          minItems: 1
+          maxItems: 10000
           type: array
           items:
-            $ref: '#/components/schemas/V1ItemGroup'
-        total_count:
-          title: Total Count
-          description: Total number of item groups.
-          minimum: 0
-          type: integer
+            $ref: '#/components/schemas/ItemGroupBase'
       required:
       - item_groups
-      - total_count
+    V1ItemGroup:
+      title: V1ItemGroup
+      type: object
+      properties:
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this item group. The maximum size of data object is limited to 5kb. The average size of data objects for all ingested item groups should not exceed 1kb.
+          type: object
+        id:
+          title: Id
+          description: ID of the item group.
+          examples:
+          - category-electronics
+          - group-123
+          minLength: 1
+          maxLength: 200
+          type: string
+        name:
+          title: Name
+          description: Item group display name.
+          examples:
+          - Electronics
+          - Men's Clothing
+          minLength: 1
+          maxLength: 500
+          type: string
+        children:
+          title: Children
+          description: A list of item groups categorized under the current item group.
+          type: array
+          items:
+            type: object
+      required:
+      - id
+      - name
       additionalProperties: false
     ItemGroupListPostRequestBody:
       title: ItemGroupListPostRequestBody
@@ -1297,6 +1281,54 @@ components:
       required:
       - item_groups
       additionalProperties: false
+    ItemGroupPatch:
+      title: ItemGroupPatch
+      type: object
+      properties:
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this item group. The maximum size of data object is limited to 5kB. The average size of data objects for all ingested item groups should not exceed 1kB.
+          type: object
+        id:
+          title: Id
+          description: ID of the item group.
+          examples:
+          - category-electronics
+          - group-123
+          minLength: 1
+          maxLength: 200
+          type: string
+        name:
+          title: Name
+          description: Item group display name.
+          minLength: 1
+          maxLength: 500
+          type: string
+        parent_ids:
+          title: Parent Ids
+          description: List of parent item group IDs
+          type: array
+          items:
+            type: string
+            examples:
+            - parent-1
+            - root
+      required:
+      - id
+    ItemGroupsListPutRequestBody:
+      title: ItemGroupsListPutRequestBody
+      type: object
+      properties:
+        item_groups:
+          title: Item Groups
+          description: Array of item groups you want to create or replace.
+          minItems: 1
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemGroup'
+      required:
+      - item_groups
     ItemGroupPutRequestBody:
       title: ItemGroupPutRequestBody
       type: object
@@ -1322,8 +1354,21 @@ components:
           - root-category
           type: string
       additionalProperties: false
-    ItemGroupListPutResponse:
-      title: ItemGroupListPutResponse
+    ItemGroupListPutRequestBody:
+      title: ItemGroupListPutRequestBody
+      type: object
+      properties:
+        item_groups:
+          title: Item Groups
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/V1ItemGroup'
+      required:
+      - item_groups
+      additionalProperties: false
+    ItemGroupListPostResponse:
+      title: ItemGroupListPostResponse
       type: object
       properties:
         item_groups:
@@ -1331,8 +1376,32 @@ components:
       required:
       - item_groups
       additionalProperties: false
-    ItemGroupsListPatchResponse:
-      title: ItemGroupsListPatchResponse
+    ItemGroupListPatchResponse:
+      title: ItemGroupListPatchResponse
+      type: object
+      properties:
+        item_groups:
+          $ref: '#/components/schemas/ItemGroupCountModel'
+      required:
+      - item_groups
+      additionalProperties: false
+    ItemGroupBase:
+      title: ItemGroupBase
+      type: object
+      properties:
+        id:
+          title: Id
+          description: ID of the item group.
+          examples:
+          - category-electronics
+          - group-123
+          minLength: 1
+          maxLength: 200
+          type: string
+      required:
+      - id
+    ItemGroupsListPutResponse:
+      title: ItemGroupsListPutResponse
       type: object
       properties:
         task_id:
@@ -1344,84 +1413,15 @@ components:
       required:
       - task_id
       - task_status_path
-    ItemGroupsListGetResponse:
-      title: ItemGroupsListGetResponse
+    ItemGroupListPutResponse:
+      title: ItemGroupListPutResponse
       type: object
       properties:
         item_groups:
-          title: Item Groups
-          minItems: 0
-          type: array
-          items:
-            $ref: '#/components/schemas/ItemGroupsGetResponse'
-        total_count:
-          title: Total Count
-          description: Total number of item groups.
-          minimum: 0
-          type: integer
+          $ref: '#/components/schemas/ItemGroupCountModel'
       required:
       - item_groups
-      - total_count
-    ItemGroupsListPatchRequestBody:
-      title: ItemGroupsListPatchRequestBody
-      type: object
-      properties:
-        item_groups:
-          title: Item Groups
-          description: Array of item groups you want to update.
-          minItems: 1
-          maxItems: 10000
-          type: array
-          items:
-            $ref: '#/components/schemas/ItemGroupPatch'
-      required:
-      - item_groups
-    ItemGroupsListPutRequestBody:
-      title: ItemGroupsListPutRequestBody
-      type: object
-      properties:
-        item_groups:
-          title: Item Groups
-          description: Array of item groups you want to create or replace.
-          minItems: 1
-          maxItems: 10000
-          type: array
-          items:
-            $ref: '#/components/schemas/ItemGroup'
-      required:
-      - item_groups
-    ItemGroupsGetResponse:
-      title: ItemGroupsGetResponse
-      type: object
-      properties:
-        data:
-          title: Data
-          description: Object containing additional data, that should be attached to this item group. The maximum size of data object is limited to 5kB. The average size of data objects for all ingested item groups should not exceed 1kB.
-          type: object
-        id:
-          title: ID
-          description: The ID of the item group
-          minLength: 1
-          maxLength: 200
-          type: string
-        name:
-          title: Display Name
-          description: Item group display name.
-          minLength: 1
-          maxLength: 500
-          type: string
-        parent_ids:
-          title: Parent Ids
-          description: List of parent item group IDs
-          type: array
-          items:
-            type: string
-            examples:
-            - parent-1
-            - root
-      required:
-      - id
-      - name
+      additionalProperties: false
   securitySchemes:
     http_basic_auth:
       type: http

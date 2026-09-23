@@ -16,7 +16,7 @@ paths:
       - Metadata overrides
       operationId: metadata-overrides-get-metadata-overrides
       summary: Get metadata overrides for the specified autocomplete ID and
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `metadata_overrides(r)`.
 
@@ -95,13 +95,10 @@ paths:
       tags:
       - Metadata overrides
       operationId: metadata-overrides-post-metadata-override
-      summary: Create a new metadata override rule for the specified field name.
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      summary: Create a new metadata override rule for the specified field name
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
-        For authenticating with Bearer token, required scopes are: `metadata_overrides(w)`.
-
-
-        '
+        For authenticating with Bearer token, required scopes are: `metadata_overrides(w)`.'
       parameters:
       - name: key
         in: query
@@ -169,13 +166,10 @@ paths:
       tags:
       - Metadata overrides
       operationId: metadata-overrides-patch-metadata-override
-      summary: Patch an existing metadata override rule for the specified field name.
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      summary: Patch an existing metadata override rule for the specified field name
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
-        For authenticating with Bearer token, required scopes are: `metadata_overrides(w)`.
-
-
-        '
+        For authenticating with Bearer token, required scopes are: `metadata_overrides(w)`.'
       parameters:
       - name: field_name
         in: path
@@ -247,13 +241,10 @@ paths:
       tags:
       - Metadata overrides
       operationId: metadata-overrides-delete-metadata-override
-      summary: Delete an existing metadata override rule for the specified field name.
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      summary: Delete an existing metadata override rule for the specified field name
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
-        For authenticating with Bearer token, required scopes are: `metadata_overrides(w)`.
-
-
-        '
+        For authenticating with Bearer token, required scopes are: `metadata_overrides(w)`.'
       parameters:
       - name: field_name
         in: path
@@ -318,6 +309,86 @@ paths:
         - metadata_overrides(w)
 components:
   schemas:
+    MetadataOverridesDeleteResponse:
+      title: MetadataOverridesDeleteResponse
+      type: object
+      properties:
+        field_name:
+          title: Field Name
+          description: Field name associated with the metadata override configuration.
+          maxLength: 100
+          minLength: 1
+          type: string
+        field_path_in_metadata:
+          title: Field Path In Metadata
+          description: Path to the field in metadata where the metadata override configuration is applied.
+          maxLength: 300
+          minLength: 1
+          type: string
+        rules:
+          title: Rules
+          description: List of rules associated with metadata override configuration.
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/MetadataOverridesRuleResponseBase'
+      required:
+      - field_name
+      - rules
+    MetadataOverridesListPostBody:
+      title: MetadataOverridesListPostBody
+      type: object
+      properties:
+        field_name:
+          title: Field Name
+          description: Field name associated with the metadata override configuration.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - price
+          - description
+          type: string
+        field_path_in_metadata:
+          title: Field Path In Metadata
+          description: Path to the field in metadata where the metadata override configuration is applied.
+          maxLength: 300
+          minLength: 1
+          examples:
+          - data.price
+          - data.description
+          type: string
+        rules:
+          title: Rules
+          description: List of rules associated with the metadata override configuration. In total, there can be a maximum of 5 rules per key.
+          minItems: 1
+          maxItems: 5
+          type: array
+          items:
+            $ref: '#/components/schemas/MetadataOverridesRuleBase'
+      required:
+      - field_name
+      - field_path_in_metadata
+      - rules
+      additionalProperties: false
+    MetadataOverridesListGetResponse:
+      title: MetadataOverridesListGetResponse
+      type: object
+      properties:
+        metadata_overrides:
+          title: Metadata Overrides
+          description: List of metadata override configurations.
+          default: []
+          type: array
+          items:
+            $ref: '#/components/schemas/MetadataOverridesResponseBase'
+        total_count:
+          title: Total Count
+          description: Total number of metadata override configurations.
+          minimum: 0
+          type: integer
+      required:
+      - total_count
+      additionalProperties: false
     MetadataOverridesListPostResponse:
       title: MetadataOverridesListPostResponse
       type: object
@@ -363,43 +434,8 @@ components:
           items:
             $ref: '#/components/schemas/MetadataOverridesRuleBase'
       additionalProperties: false
-    MetadataOverridesListPostBody:
-      title: MetadataOverridesListPostBody
-      type: object
-      properties:
-        field_name:
-          title: Field Name
-          description: Field name associated with the metadata override configuration.
-          maxLength: 100
-          minLength: 1
-          examples:
-          - price
-          - description
-          type: string
-        field_path_in_metadata:
-          title: Field Path In Metadata
-          description: Path to the field in metadata where the metadata override configuration is applied.
-          maxLength: 300
-          minLength: 1
-          examples:
-          - data.price
-          - data.description
-          type: string
-        rules:
-          title: Rules
-          description: List of rules associated with the metadata override configuration. In total, there can be a maximum of 5 rules per key.
-          minItems: 1
-          maxItems: 5
-          type: array
-          items:
-            $ref: '#/components/schemas/MetadataOverridesRuleBase'
-      required:
-      - field_name
-      - field_path_in_metadata
-      - rules
-      additionalProperties: false
-    MetadataOverridesResponseBase:
-      title: MetadataOverridesResponseBase
+    MetadataOverridesPatchResponse:
+      title: MetadataOverridesPatchResponse
       type: object
       properties:
         field_name:
@@ -424,27 +460,8 @@ components:
       required:
       - field_name
       - rules
-    MetadataOverridesListGetResponse:
-      title: MetadataOverridesListGetResponse
-      type: object
-      properties:
-        metadata_overrides:
-          title: Metadata Overrides
-          description: List of metadata override configurations.
-          default: []
-          type: array
-          items:
-            $ref: '#/components/schemas/MetadataOverridesResponseBase'
-        total_count:
-          title: Total Count
-          description: Total number of metadata override configurations.
-          minimum: 0
-          type: integer
-      required:
-      - total_count
-      additionalProperties: false
-    MetadataOverridesDeleteResponse:
-      title: MetadataOverridesDeleteResponse
+    MetadataOverridesResponseBase:
+      title: MetadataOverridesResponseBase
       type: object
       properties:
         field_name:
@@ -552,32 +569,6 @@ components:
       - replaced_field_name
       - replaced_field_path_in_metadata
       additionalProperties: false
-    MetadataOverridesPatchResponse:
-      title: MetadataOverridesPatchResponse
-      type: object
-      properties:
-        field_name:
-          title: Field Name
-          description: Field name associated with the metadata override configuration.
-          maxLength: 100
-          minLength: 1
-          type: string
-        field_path_in_metadata:
-          title: Field Path In Metadata
-          description: Path to the field in metadata where the metadata override configuration is applied.
-          maxLength: 300
-          minLength: 1
-          type: string
-        rules:
-          title: Rules
-          description: List of rules associated with metadata override configuration.
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/MetadataOverridesRuleResponseBase'
-      required:
-      - field_name
-      - rules
   securitySchemes:
     http_basic_auth:
       type: http

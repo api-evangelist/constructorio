@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Offsite Discovery recommendations Offsite Discovery results API
+  title: Offsite Discovery recommendations Offsite Discovery results…
   contact:
     name: Constructor.io Support
     email: support@constructor.io
@@ -435,6 +435,73 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ResultSchema:
+      properties:
+        data:
+          allOf:
+          - $ref: '#/components/schemas/Data'
+          title: Data
+          description: Detailed information about the recommended product.
+        value:
+          type: string
+          title: Value
+          description: The name or title of the product (corresponds to item_name from OpenAPI example).
+          examples:
+          - Classic Blue T-Shirt
+        strategy:
+          allOf:
+          - $ref: '#/components/schemas/RecommendationStrategy'
+          title: Recommendation Strategy
+          description: Details about the recommendation strategy used.
+        labels:
+          allOf:
+          - $ref: '#/components/schemas/ProductLabels'
+          title: Product Labels
+          description: Labels associated with the product, such as retail media information.
+      type: object
+      required:
+      - data
+      title: Result
+      description: Schema for results in API responses.
+    RecommendationStrategy:
+      properties:
+        id:
+          type: string
+          title: Recommendation Strategy ID
+          description: The unique identifier for the recommendation strategy.
+          examples:
+          - bestsellers
+          - user_featured_items
+      type: object
+      required:
+      - id
+      title: RecommendationStrategy
+    ProductLabels:
+      properties:
+        is_retail_media:
+          type: boolean
+          title: Is Retail Media
+          description: Indicates whether the product is a sponsored item.
+          examples:
+          - true
+          - false
+        sl_campaign_id:
+          type: string
+          title: Sponsored Listing Campaign ID
+          description: The unique identifier for the sponsored listing campaign.
+          examples:
+          - campaign_123
+          - sl_abc_456
+        sl_campaign_owner:
+          type: string
+          title: Sponsored Listing Campaign Owner
+          description: The owner or advertiser of the sponsored listing campaign.
+          examples:
+          - brand_abc
+          - advertiser_xyz
+      type: object
+      title: ProductLabels
+      description: Product labels for sponsored listing and retail media information.
     ErrorResponse:
       properties:
         detail:
@@ -451,6 +518,13 @@ components:
       - detail
       title: ErrorResponse
       description: Standardized error response format for the API.
+    SortOrder:
+      type: string
+      enum:
+      - ascending
+      - descending
+      title: SortOrder
+      description: 'The sort order for results: ascending (low to high) or descending (high to low).'
     Data:
       properties:
         id:
@@ -485,79 +559,5 @@ components:
       - id
       title: Data
       description: Core product data containing essential fields. Additional customer-specific fields may be present in actual API responses based on configuration, but are not documented here for privacy and simplicity.
-    RecommendationStrategy:
-      properties:
-        id:
-          type: string
-          title: Recommendation Strategy ID
-          description: The unique identifier for the recommendation strategy.
-          examples:
-          - bestsellers
-          - user_featured_items
-      type: object
-      required:
-      - id
-      title: RecommendationStrategy
-    SortOrder:
-      type: string
-      enum:
-      - ascending
-      - descending
-      title: SortOrder
-      description: 'The sort order for results: ascending (low to high) or descending (high to low).'
-    ResultSchema:
-      properties:
-        data:
-          allOf:
-          - $ref: '#/components/schemas/Data'
-          title: Data
-          description: Detailed information about the recommended product.
-        value:
-          type: string
-          title: Value
-          description: The name or title of the product (corresponds to item_name from OpenAPI example).
-          examples:
-          - Classic Blue T-Shirt
-        strategy:
-          allOf:
-          - $ref: '#/components/schemas/RecommendationStrategy'
-          title: Recommendation Strategy
-          description: Details about the recommendation strategy used.
-        labels:
-          allOf:
-          - $ref: '#/components/schemas/ProductLabels'
-          title: Product Labels
-          description: Labels associated with the product, such as retail media information.
-      type: object
-      required:
-      - data
-      title: Result
-      description: Schema for results in API responses.
-    ProductLabels:
-      properties:
-        is_retail_media:
-          type: boolean
-          title: Is Retail Media
-          description: Indicates whether the product is a sponsored item.
-          examples:
-          - true
-          - false
-        sl_campaign_id:
-          type: string
-          title: Sponsored Listing Campaign ID
-          description: The unique identifier for the sponsored listing campaign.
-          examples:
-          - campaign_123
-          - sl_abc_456
-        sl_campaign_owner:
-          type: string
-          title: Sponsored Listing Campaign Owner
-          description: The owner or advertiser of the sponsored listing campaign.
-          examples:
-          - brand_abc
-          - advertiser_xyz
-      type: object
-      title: ProductLabels
-      description: Product labels for sponsored listing and retail media information.
 x-readme:
   explorer-enabled: false

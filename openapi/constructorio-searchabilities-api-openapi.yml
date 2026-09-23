@@ -17,7 +17,7 @@ paths:
       - Searchabilities
       operationId: v1-searchabilities-retrieve-searchabilities
       summary: Retrieve searchabilities (Deprecated)
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `searchabilities(r)`.
 
@@ -190,7 +190,7 @@ paths:
       - Searchabilities
       operationId: v1-searchabilities-create-or-update-searchabilities
       summary: Create or update searchabilities (Deprecated)
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `searchabilities(w)`.
 
@@ -273,7 +273,7 @@ paths:
       - Searchabilities
       operationId: v1-searchabilities-delete-searchabilities
       summary: Delete searchabilities (Deprecated)
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `searchabilities(w)`.
 
@@ -359,7 +359,7 @@ paths:
       - Searchabilities
       operationId: v1-searchabilities-retrieve-searchability
       summary: Retrieve searchability (Deprecated)
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `searchabilities(r)`.
 
@@ -433,7 +433,7 @@ paths:
       - Searchabilities
       operationId: v1-searchabilities-create-or-update-searchability
       summary: Create or update searchability (Deprecated)
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `searchabilities(w)`.
 
@@ -521,7 +521,7 @@ paths:
       - Searchabilities
       operationId: v1-searchabilities-delete-searchability
       summary: Delete searchability (Deprecated)
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `searchabilities(w)`.
 
@@ -606,7 +606,7 @@ paths:
       - Searchabilities
       operationId: v2-searchabilities-retrieve-searchabilities
       summary: Retrieve searchabilities
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `searchabilities(r)`.
 
@@ -783,7 +783,7 @@ paths:
       - Searchabilities
       operationId: v2-searchabilities-create-or-update-searchabilities
       summary: Create or update searchabilities
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `searchabilities(w)`.
 
@@ -867,7 +867,7 @@ paths:
       - Searchabilities
       operationId: v2-searchabilities-delete-searchabilities
       summary: Delete searchabilities
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `searchabilities(w)`.
 
@@ -952,7 +952,7 @@ paths:
       - Searchabilities
       operationId: v2-searchabilities-retrieve-searchability
       summary: Retrieve searchability
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `searchabilities(r)`.
 
@@ -1025,7 +1025,7 @@ paths:
       - Searchabilities
       operationId: v2-searchabilities-create-or-update-searchability
       summary: Create or update searchability
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `searchabilities(w)`.
 
@@ -1112,7 +1112,7 @@ paths:
       - Searchabilities
       operationId: v2-searchabilities-delete-searchability
       summary: Delete searchability
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `searchabilities(w)`.
 
@@ -1193,37 +1193,14 @@ paths:
         - searchabilities(w)
 components:
   schemas:
-    MetadataSearchabilityType:
-      title: MetadataSearchabilityType
+    SortOrderType:
+      title: SortOrderType
       enum:
-      - number
-      - string
-      - array
-      - object
-      - boolean
-      - mixed
+      - ascending
+      - descending
       type: string
-    SearchabilityListGetResponse:
-      title: SearchabilityListGetResponse
-      type: object
-      properties:
-        searchabilities:
-          title: Searchabilities
-          description: A list of facet searchabilities configurations.
-          type: array
-          items:
-            $ref: '#/components/schemas/SearchabilityResponse'
-        total_count:
-          title: Total Count
-          description: Number of searchabilities.
-          minimum: 0
-          type: integer
-      required:
-      - searchabilities
-      - total_count
-      additionalProperties: false
-    SearchabilityListV2DeleteRequestBody:
-      title: SearchabilityListV2DeleteRequestBody
+    SearchabilityListDeleteRequestBody:
+      title: SearchabilityListDeleteRequestBody
       type: object
       properties:
         searchabilities:
@@ -1233,160 +1210,43 @@ components:
           maxItems: 60
           type: array
           items:
-            $ref: '#/components/schemas/SearchabilityNameRequestV2'
+            $ref: '#/components/schemas/SearchabilityNameRequest'
       required:
       - searchabilities
       additionalProperties: false
-    SearchabilityResponseV2:
-      title: SearchabilityResponseV2
+    SearchabilityFilters:
+      title: SearchabilityFilters
       type: object
       properties:
         name:
           title: Name
           description: Name of searchability field.
           maxLength: 300
-          minLength: 1
+          examples:
+          - brand
+          - color
           type: string
         fuzzy_searchable:
           title: Fuzzy Searchable
           description: Configure a field as fuzzy-searchable to enable typo-tolerant keyword-matching on field values in search and autocomplete. A field can be fuzzy-searchable or exact-searchable, but not both. Avoid marking very verbose fields (e.g. long descriptions) as fuzzy-searchable, since it can lead to recall of more items than is necessary and introduces complexity with ranking.
+          examples:
+          - true
+          - false
           type: boolean
         exact_searchable:
           title: Exact Searchable
           description: Configure this field for ID or ID-like values (SKU ID, ISBN, part number, etc.) to enable exact matching only, with no typo-tolerance, for search and autocomplete. Do not use for fields containing natural language words. A field can be exact-searchable or fuzzy-searchable, but not both.
+          examples:
+          - false
+          - true
           type: boolean
         displayable:
           title: Displayable
           description: Specifies whether the field is displayable in the response within the `results` array.
+          examples:
+          - true
+          - false
           type: boolean
-        hidden:
-          title: Hidden
-          description: Hides the field by default in the response but makes it available to retrieve via `fmt_options[hidden_fields]` parameter.
-          type: boolean
-        created_at:
-          title: Created At
-          description: Creation date and time
-          type: string
-          format: date-time
-        updated_at:
-          title: Updated At
-          description: Last updated date and time
-          type: string
-          format: date-time
-      required:
-      - name
-      - fuzzy_searchable
-      - exact_searchable
-      - displayable
-      - hidden
-      - created_at
-      additionalProperties: false
-    SearchabilityV2GetResponse:
-      title: SearchabilityV2GetResponse
-      type: object
-      properties:
-        name:
-          title: Name
-          description: Name of searchability field.
-          maxLength: 300
-          minLength: 1
-          type: string
-        fuzzy_searchable:
-          title: Fuzzy Searchable
-          description: Configure a field as fuzzy-searchable to enable typo-tolerant keyword-matching on field values in search and autocomplete. A field can be fuzzy-searchable or exact-searchable, but not both. Avoid marking very verbose fields (e.g. long descriptions) as fuzzy-searchable, since it can lead to recall of more items than is necessary and introduces complexity with ranking.
-          type: boolean
-        exact_searchable:
-          title: Exact Searchable
-          description: Configure this field for ID or ID-like values (SKU ID, ISBN, part number, etc.) to enable exact matching only, with no typo-tolerance, for search and autocomplete. Do not use for fields containing natural language words. A field can be exact-searchable or fuzzy-searchable, but not both.
-          type: boolean
-        displayable:
-          title: Displayable
-          description: Specifies whether the field is displayable in the response within the `results` array.
-          type: boolean
-        hidden:
-          title: Hidden
-          description: Hides the field by default in the response but makes it available to retrieve via `fmt_options[hidden_fields]` parameter.
-          type: boolean
-        created_at:
-          title: Created At
-          description: Creation date and time
-          type: string
-          format: date-time
-        updated_at:
-          title: Updated At
-          description: Last updated date and time
-          type: string
-          format: date-time
-      required:
-      - name
-      - fuzzy_searchable
-      - exact_searchable
-      - displayable
-      - hidden
-      - created_at
-      additionalProperties: false
-    SearchabilityV2PatchResponse:
-      title: SearchabilityV2PatchResponse
-      type: object
-      properties:
-        name:
-          title: Name
-          description: Name of searchability field.
-          maxLength: 300
-          minLength: 1
-          type: string
-        fuzzy_searchable:
-          title: Fuzzy Searchable
-          description: Configure a field as fuzzy-searchable to enable typo-tolerant keyword-matching on field values in search and autocomplete. A field can be fuzzy-searchable or exact-searchable, but not both. Avoid marking very verbose fields (e.g. long descriptions) as fuzzy-searchable, since it can lead to recall of more items than is necessary and introduces complexity with ranking.
-          type: boolean
-        exact_searchable:
-          title: Exact Searchable
-          description: Configure this field for ID or ID-like values (SKU ID, ISBN, part number, etc.) to enable exact matching only, with no typo-tolerance, for search and autocomplete. Do not use for fields containing natural language words. A field can be exact-searchable or fuzzy-searchable, but not both.
-          type: boolean
-        displayable:
-          title: Displayable
-          description: Specifies whether the field is displayable in the response within the `results` array.
-          type: boolean
-        hidden:
-          title: Hidden
-          description: Hides the field by default in the response but makes it available to retrieve via `fmt_options[hidden_fields]` parameter.
-          type: boolean
-        created_at:
-          title: Created At
-          description: Creation date and time
-          type: string
-          format: date-time
-        updated_at:
-          title: Updated At
-          description: Last updated date and time
-          type: string
-          format: date-time
-      required:
-      - name
-      - fuzzy_searchable
-      - exact_searchable
-      - displayable
-      - hidden
-      - created_at
-      additionalProperties: false
-    SearchabilityListV2DeleteResponse:
-      title: SearchabilityListV2DeleteResponse
-      type: object
-      properties:
-        searchabilities:
-          title: Searchabilities
-          description: A list of facet searchabilities configurations.
-          type: array
-          items:
-            $ref: '#/components/schemas/SearchabilityResponseV2'
-        total_count:
-          title: Total Count
-          description: Number of searchabilities.
-          minimum: 0
-          type: integer
-      required:
-      - searchabilities
-      - total_count
       additionalProperties: false
     SearchabilityListPatchResponse:
       title: SearchabilityListPatchResponse
@@ -1407,42 +1267,8 @@ components:
       - searchabilities
       - total_count
       additionalProperties: false
-    SearchabilityListV2GetResponse:
-      title: SearchabilityListV2GetResponse
-      type: object
-      properties:
-        searchabilities:
-          title: Searchabilities
-          description: A list of facet searchabilities configurations.
-          type: array
-          items:
-            $ref: '#/components/schemas/SearchabilityResponseV2'
-        total_count:
-          title: Total Count
-          description: Number of searchabilities.
-          minimum: 0
-          type: integer
-      required:
-      - searchabilities
-      - total_count
-      additionalProperties: false
-    SearchabilityListDeleteRequestBody:
-      title: SearchabilityListDeleteRequestBody
-      type: object
-      properties:
-        searchabilities:
-          title: Searchabilities
-          description: A list of facet searchabilities configurations names to delete.
-          minItems: 1
-          maxItems: 60
-          type: array
-          items:
-            $ref: '#/components/schemas/SearchabilityNameRequest'
-      required:
-      - searchabilities
-      additionalProperties: false
-    SearchabilityListDeleteResponse:
-      title: SearchabilityListDeleteResponse
+    SearchabilityListGetResponse:
+      title: SearchabilityListGetResponse
       type: object
       properties:
         searchabilities:
@@ -1460,51 +1286,6 @@ components:
       - searchabilities
       - total_count
       additionalProperties: false
-    SearchabilityWithNameRequestV2:
-      title: SearchabilityWithNameRequestV2
-      type: object
-      properties:
-        name:
-          title: Name
-          description: Name of searchability field.
-          maxLength: 300
-          minLength: 1
-          examples:
-          - brand
-          - color
-          - price
-          type: string
-        fuzzy_searchable:
-          title: Fuzzy Searchable
-          description: Configure a field as fuzzy-searchable to enable typo-tolerant keyword-matching on field values in search and autocomplete. A field can be fuzzy-searchable or exact-searchable, but not both. Avoid marking very verbose fields (e.g. long descriptions) as fuzzy-searchable, since it can lead to recall of more items than is necessary and introduces complexity with ranking.
-          examples:
-          - true
-          - false
-          type: boolean
-        exact_searchable:
-          title: Exact Searchable
-          description: Configure this field for ID or ID-like values (SKU ID, ISBN, part number, etc.) to enable exact matching only, with no typo-tolerance, for search and autocomplete. Do not use for fields containing natural language words. A field can be exact-searchable or fuzzy-searchable, but not both.
-          examples:
-          - false
-          - true
-          type: boolean
-        displayable:
-          title: Displayable
-          description: Specifies whether the field is displayable in the response within the `results` array. On create, omitted value inherits from the nearest (deepest) configured parent. To learn more about displayability inheritance, please visit [this guide](/docs/using-the-constructor-dashboard-indexes-manage-searchability-and-displayability#inherited-displayability-configurations)
-          examples:
-          - true
-          - false
-          type: boolean
-        hidden:
-          title: Hidden
-          description: Hides the field by default in the response but makes it available to retrieve via `fmt_options[hidden_fields]` parameter.
-          examples:
-          - false
-          - true
-          type: boolean
-      required:
-      - name
-      additionalProperties: false
     SearchabilityNameRequestV2:
       title: SearchabilityNameRequestV2
       type: object
@@ -1521,297 +1302,6 @@ components:
           type: string
       required:
       - name
-      additionalProperties: false
-    SearchabilityPatchResponse:
-      title: SearchabilityPatchResponse
-      type: object
-      properties:
-        name:
-          title: Name
-          description: Name of searchability field.
-          maxLength: 300
-          minLength: 1
-          type: string
-        percentage_presence:
-          title: Percentage presence
-          description: Percentage of items and variations that contain this field.
-          minimum: 0
-          maximum: 100
-          type: number
-        fuzzy_searchable:
-          title: Fuzzy Searchable
-          description: Configure a field as fuzzy-searchable to enable typo-tolerant keyword-matching on field values in search and autocomplete. A field can be fuzzy-searchable or exact-searchable, but not both. Avoid marking very verbose fields (e.g. long descriptions) as fuzzy-searchable, since it can lead to recall of more items than is necessary and introduces complexity with ranking.
-          type: boolean
-        facetable:
-          title: Facetable
-          description: Specifies whether the field should be treated as a facet. When True, the metadata field must be a string, float, integer, or list of these types. Dictionaries are supported if they contain values of these types. Nested dictionaries are not supported
-          type: boolean
-        exact_searchable:
-          title: Exact Searchable
-          description: Configure this field for ID or ID-like values (SKU ID, ISBN, part number, etc.) to enable exact matching only, with no typo-tolerance, for search and autocomplete. Do not use for fields containing natural language words. A field can be exact-searchable or fuzzy-searchable, but not both.
-          type: boolean
-        type:
-          title: Type
-          allOf:
-          - $ref: '#/components/schemas/MetadataSearchabilityType'
-        example_items:
-          title: Example Items
-          description: A list of items that has this searchability field.
-          type: array
-          items:
-            type: string
-        default:
-          title: Default
-          description: Flag that shows if this searchability config is default.
-          type: boolean
-        displayable:
-          title: Displayable
-          description: Specifies whether the field is displayable in the response within the `results` array.
-          type: boolean
-        hidden:
-          title: Hidden
-          description: Hides the field by default in the response but makes it available to retrieve via `fmt_options[hidden_fields]` parameter.
-          type: boolean
-        created_at:
-          title: Created At
-          description: Creation date and time
-          type: string
-          format: date-time
-        updated_at:
-          title: Updated At
-          description: Last updated date and time
-          type: string
-          format: date-time
-      required:
-      - name
-      - fuzzy_searchable
-      - facetable
-      - exact_searchable
-      - default
-      - displayable
-      - hidden
-      - created_at
-      additionalProperties: false
-    SearchabilityDeleteResponse:
-      title: SearchabilityDeleteResponse
-      type: object
-      properties:
-        name:
-          title: Name
-          description: Name of searchability field.
-          maxLength: 300
-          minLength: 1
-          type: string
-        percentage_presence:
-          title: Percentage presence
-          description: Percentage of items and variations that contain this field.
-          minimum: 0
-          maximum: 100
-          type: number
-        fuzzy_searchable:
-          title: Fuzzy Searchable
-          description: Configure a field as fuzzy-searchable to enable typo-tolerant keyword-matching on field values in search and autocomplete. A field can be fuzzy-searchable or exact-searchable, but not both. Avoid marking very verbose fields (e.g. long descriptions) as fuzzy-searchable, since it can lead to recall of more items than is necessary and introduces complexity with ranking.
-          type: boolean
-        facetable:
-          title: Facetable
-          description: Specifies whether the field should be treated as a facet. When True, the metadata field must be a string, float, integer, or list of these types. Dictionaries are supported if they contain values of these types. Nested dictionaries are not supported
-          type: boolean
-        exact_searchable:
-          title: Exact Searchable
-          description: Configure this field for ID or ID-like values (SKU ID, ISBN, part number, etc.) to enable exact matching only, with no typo-tolerance, for search and autocomplete. Do not use for fields containing natural language words. A field can be exact-searchable or fuzzy-searchable, but not both.
-          type: boolean
-        type:
-          title: Type
-          allOf:
-          - $ref: '#/components/schemas/MetadataSearchabilityType'
-        example_items:
-          title: Example Items
-          description: A list of items that has this searchability field.
-          type: array
-          items:
-            type: string
-        default:
-          title: Default
-          description: Flag that shows if this searchability config is default.
-          type: boolean
-        displayable:
-          title: Displayable
-          description: Specifies whether the field is displayable in the response within the `results` array.
-          type: boolean
-        hidden:
-          title: Hidden
-          description: Hides the field by default in the response but makes it available to retrieve via `fmt_options[hidden_fields]` parameter.
-          type: boolean
-        created_at:
-          title: Created At
-          description: Creation date and time
-          type: string
-          format: date-time
-        updated_at:
-          title: Updated At
-          description: Last updated date and time
-          type: string
-          format: date-time
-      required:
-      - name
-      - fuzzy_searchable
-      - facetable
-      - exact_searchable
-      - default
-      - displayable
-      - hidden
-      - created_at
-      additionalProperties: false
-    SearchabilityListPatchRequestBody:
-      title: SearchabilityListPatchRequestBody
-      type: object
-      properties:
-        searchabilities:
-          title: Searchabilities
-          description: A list of facet searchabilities configurations for create or update.
-          minItems: 1
-          maxItems: 60
-          type: array
-          items:
-            $ref: '#/components/schemas/SearchabilityWithNameRequest'
-            examples:
-            - - name: brand
-                fuzzy_searchable: true
-                displayable: true
-              - name: color
-                facetable: true
-                displayable: true
-      required:
-      - searchabilities
-      additionalProperties: false
-    SearchabilityPatchRequestBody:
-      title: SearchabilityPatchRequestBody
-      type: object
-      properties:
-        fuzzy_searchable:
-          title: Fuzzy Searchable
-          description: Configure a field as fuzzy-searchable to enable typo-tolerant keyword-matching on field values in search and autocomplete. A field can be fuzzy-searchable or exact-searchable, but not both. Avoid marking very verbose fields (e.g. long descriptions) as fuzzy-searchable, since it can lead to recall of more items than is necessary and introduces complexity with ranking.
-          examples:
-          - true
-          - false
-          type: boolean
-        exact_searchable:
-          title: Exact Searchable
-          description: Configure this field for ID or ID-like values (SKU ID, ISBN, part number, etc.) to enable exact matching only, with no typo-tolerance, for search and autocomplete. Do not use for fields containing natural language words. A field can be exact-searchable or fuzzy-searchable, but not both.
-          examples:
-          - false
-          - true
-          type: boolean
-        facetable:
-          title: Facetable
-          description: Specifies whether the field should be treated as a facet. When True, the metadata field must be a string, float, integer, or list of these types. Dictionaries are supported if they contain values of these types. Nested dictionaries are not supported
-          examples:
-          - true
-          - false
-          type: boolean
-        displayable:
-          title: Displayable
-          description: Specifies whether the field is displayable in the response within the `results` array.
-          examples:
-          - true
-          - false
-          type: boolean
-        hidden:
-          title: Hidden
-          description: Hides the field by default in the response but makes it available to retrieve via `fmt_options[hidden_fields]` parameter.
-          examples:
-          - false
-          - true
-          type: boolean
-      additionalProperties: false
-    SearchabilityResponse:
-      title: SearchabilityResponse
-      type: object
-      properties:
-        name:
-          title: Name
-          description: Name of searchability field.
-          maxLength: 300
-          minLength: 1
-          type: string
-        percentage_presence:
-          title: Percentage presence
-          description: Percentage of items and variations that contain this field.
-          minimum: 0
-          maximum: 100
-          type: number
-        fuzzy_searchable:
-          title: Fuzzy Searchable
-          description: Configure a field as fuzzy-searchable to enable typo-tolerant keyword-matching on field values in search and autocomplete. A field can be fuzzy-searchable or exact-searchable, but not both. Avoid marking very verbose fields (e.g. long descriptions) as fuzzy-searchable, since it can lead to recall of more items than is necessary and introduces complexity with ranking.
-          type: boolean
-        facetable:
-          title: Facetable
-          description: Specifies whether the field should be treated as a facet. When True, the metadata field must be a string, float, integer, or list of these types. Dictionaries are supported if they contain values of these types. Nested dictionaries are not supported
-          type: boolean
-        exact_searchable:
-          title: Exact Searchable
-          description: Configure this field for ID or ID-like values (SKU ID, ISBN, part number, etc.) to enable exact matching only, with no typo-tolerance, for search and autocomplete. Do not use for fields containing natural language words. A field can be exact-searchable or fuzzy-searchable, but not both.
-          type: boolean
-        type:
-          title: Type
-          allOf:
-          - $ref: '#/components/schemas/MetadataSearchabilityType'
-        example_items:
-          title: Example Items
-          description: A list of items that has this searchability field.
-          type: array
-          items:
-            type: string
-        default:
-          title: Default
-          description: Flag that shows if this searchability config is default.
-          type: boolean
-        displayable:
-          title: Displayable
-          description: Specifies whether the field is displayable in the response within the `results` array.
-          type: boolean
-        hidden:
-          title: Hidden
-          description: Hides the field by default in the response but makes it available to retrieve via `fmt_options[hidden_fields]` parameter.
-          type: boolean
-        created_at:
-          title: Created At
-          description: Creation date and time
-          type: string
-          format: date-time
-        updated_at:
-          title: Updated At
-          description: Last updated date and time
-          type: string
-          format: date-time
-      required:
-      - name
-      - fuzzy_searchable
-      - facetable
-      - exact_searchable
-      - default
-      - displayable
-      - hidden
-      - created_at
-      additionalProperties: false
-    SearchabilityListV2PatchResponse:
-      title: SearchabilityListV2PatchResponse
-      type: object
-      properties:
-        searchabilities:
-          title: Searchabilities
-          description: A list of facet searchabilities configurations.
-          type: array
-          items:
-            $ref: '#/components/schemas/SearchabilityResponseV2'
-        total_count:
-          title: Total Count
-          description: Number of searchabilities.
-          minimum: 0
-          type: integer
-      required:
-      - searchabilities
-      - total_count
       additionalProperties: false
     SearchabilityListV2PatchRequestBody:
       title: SearchabilityListV2PatchRequestBody
@@ -1834,8 +1324,44 @@ components:
       required:
       - searchabilities
       additionalProperties: false
-    SearchabilityV2DeleteResponse:
-      title: SearchabilityV2DeleteResponse
+    SearchabilityListV2GetResponse:
+      title: SearchabilityListV2GetResponse
+      type: object
+      properties:
+        searchabilities:
+          title: Searchabilities
+          description: A list of facet searchabilities configurations.
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchabilityResponseV2'
+        total_count:
+          title: Total Count
+          description: Number of searchabilities.
+          minimum: 0
+          type: integer
+      required:
+      - searchabilities
+      - total_count
+      additionalProperties: false
+    SearchabilityNameRequest:
+      title: SearchabilityNameRequest
+      type: object
+      properties:
+        name:
+          title: Name
+          description: Name of searchability field.
+          maxLength: 300
+          minLength: 1
+          examples:
+          - brand
+          - color
+          - price
+          type: string
+      required:
+      - name
+      additionalProperties: false
+    SearchabilityV2GetResponse:
+      title: SearchabilityV2GetResponse
       type: object
       properties:
         name:
@@ -1911,12 +1437,50 @@ components:
           - true
           type: boolean
       additionalProperties: false
-    SortOrderType:
-      title: SortOrderType
-      enum:
-      - ascending
-      - descending
-      type: string
+    SearchabilityResponseV2:
+      title: SearchabilityResponseV2
+      type: object
+      properties:
+        name:
+          title: Name
+          description: Name of searchability field.
+          maxLength: 300
+          minLength: 1
+          type: string
+        fuzzy_searchable:
+          title: Fuzzy Searchable
+          description: Configure a field as fuzzy-searchable to enable typo-tolerant keyword-matching on field values in search and autocomplete. A field can be fuzzy-searchable or exact-searchable, but not both. Avoid marking very verbose fields (e.g. long descriptions) as fuzzy-searchable, since it can lead to recall of more items than is necessary and introduces complexity with ranking.
+          type: boolean
+        exact_searchable:
+          title: Exact Searchable
+          description: Configure this field for ID or ID-like values (SKU ID, ISBN, part number, etc.) to enable exact matching only, with no typo-tolerance, for search and autocomplete. Do not use for fields containing natural language words. A field can be exact-searchable or fuzzy-searchable, but not both.
+          type: boolean
+        displayable:
+          title: Displayable
+          description: Specifies whether the field is displayable in the response within the `results` array.
+          type: boolean
+        hidden:
+          title: Hidden
+          description: Hides the field by default in the response but makes it available to retrieve via `fmt_options[hidden_fields]` parameter.
+          type: boolean
+        created_at:
+          title: Created At
+          description: Creation date and time
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Last updated date and time
+          type: string
+          format: date-time
+      required:
+      - name
+      - fuzzy_searchable
+      - exact_searchable
+      - displayable
+      - hidden
+      - created_at
+      additionalProperties: false
     SearchabilityGetResponse:
       title: SearchabilityGetResponse
       type: object
@@ -1987,42 +1551,8 @@ components:
       - hidden
       - created_at
       additionalProperties: false
-    SearchabilityFilters:
-      title: SearchabilityFilters
-      type: object
-      properties:
-        name:
-          title: Name
-          description: Name of searchability field.
-          maxLength: 300
-          examples:
-          - brand
-          - color
-          type: string
-        fuzzy_searchable:
-          title: Fuzzy Searchable
-          description: Configure a field as fuzzy-searchable to enable typo-tolerant keyword-matching on field values in search and autocomplete. A field can be fuzzy-searchable or exact-searchable, but not both. Avoid marking very verbose fields (e.g. long descriptions) as fuzzy-searchable, since it can lead to recall of more items than is necessary and introduces complexity with ranking.
-          examples:
-          - true
-          - false
-          type: boolean
-        exact_searchable:
-          title: Exact Searchable
-          description: Configure this field for ID or ID-like values (SKU ID, ISBN, part number, etc.) to enable exact matching only, with no typo-tolerance, for search and autocomplete. Do not use for fields containing natural language words. A field can be exact-searchable or fuzzy-searchable, but not both.
-          examples:
-          - false
-          - true
-          type: boolean
-        displayable:
-          title: Displayable
-          description: Specifies whether the field is displayable in the response within the `results` array.
-          examples:
-          - true
-          - false
-          type: boolean
-      additionalProperties: false
-    SearchabilityNameRequest:
-      title: SearchabilityNameRequest
+    SearchabilityV2PatchResponse:
+      title: SearchabilityV2PatchResponse
       type: object
       properties:
         name:
@@ -2030,19 +1560,73 @@ components:
           description: Name of searchability field.
           maxLength: 300
           minLength: 1
-          examples:
-          - brand
-          - color
-          - price
           type: string
+        fuzzy_searchable:
+          title: Fuzzy Searchable
+          description: Configure a field as fuzzy-searchable to enable typo-tolerant keyword-matching on field values in search and autocomplete. A field can be fuzzy-searchable or exact-searchable, but not both. Avoid marking very verbose fields (e.g. long descriptions) as fuzzy-searchable, since it can lead to recall of more items than is necessary and introduces complexity with ranking.
+          type: boolean
+        exact_searchable:
+          title: Exact Searchable
+          description: Configure this field for ID or ID-like values (SKU ID, ISBN, part number, etc.) to enable exact matching only, with no typo-tolerance, for search and autocomplete. Do not use for fields containing natural language words. A field can be exact-searchable or fuzzy-searchable, but not both.
+          type: boolean
+        displayable:
+          title: Displayable
+          description: Specifies whether the field is displayable in the response within the `results` array.
+          type: boolean
+        hidden:
+          title: Hidden
+          description: Hides the field by default in the response but makes it available to retrieve via `fmt_options[hidden_fields]` parameter.
+          type: boolean
+        created_at:
+          title: Created At
+          description: Creation date and time
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Last updated date and time
+          type: string
+          format: date-time
       required:
       - name
+      - fuzzy_searchable
+      - exact_searchable
+      - displayable
+      - hidden
+      - created_at
       additionalProperties: false
-    MatchTypeV2:
-      title: MatchTypeV2
+    SearchabilityListPatchRequestBody:
+      title: SearchabilityListPatchRequestBody
+      type: object
+      properties:
+        searchabilities:
+          title: Searchabilities
+          description: A list of facet searchabilities configurations for create or update.
+          minItems: 1
+          maxItems: 60
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchabilityWithNameRequest'
+            examples:
+            - - name: brand
+                fuzzy_searchable: true
+                displayable: true
+              - name: color
+                facetable: true
+                displayable: true
+      required:
+      - searchabilities
+      additionalProperties: false
+    MetadataSearchabilityType:
+      title: MetadataSearchabilityType
       enum:
-      - and
-      - or
+      - number
+      - string
+      - array
+      - object
+      - boolean
+      - mixed
+      type: string
     SearchabilityWithNameRequest:
       title: SearchabilityWithNameRequest
       type: object
@@ -2094,6 +1678,422 @@ components:
           type: boolean
       required:
       - name
+      additionalProperties: false
+    MatchTypeV2:
+      title: MatchTypeV2
+      enum:
+      - and
+      - or
+    SearchabilityListV2DeleteResponse:
+      title: SearchabilityListV2DeleteResponse
+      type: object
+      properties:
+        searchabilities:
+          title: Searchabilities
+          description: A list of facet searchabilities configurations.
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchabilityResponseV2'
+        total_count:
+          title: Total Count
+          description: Number of searchabilities.
+          minimum: 0
+          type: integer
+      required:
+      - searchabilities
+      - total_count
+      additionalProperties: false
+    SearchabilityPatchResponse:
+      title: SearchabilityPatchResponse
+      type: object
+      properties:
+        name:
+          title: Name
+          description: Name of searchability field.
+          maxLength: 300
+          minLength: 1
+          type: string
+        percentage_presence:
+          title: Percentage presence
+          description: Percentage of items and variations that contain this field.
+          minimum: 0
+          maximum: 100
+          type: number
+        fuzzy_searchable:
+          title: Fuzzy Searchable
+          description: Configure a field as fuzzy-searchable to enable typo-tolerant keyword-matching on field values in search and autocomplete. A field can be fuzzy-searchable or exact-searchable, but not both. Avoid marking very verbose fields (e.g. long descriptions) as fuzzy-searchable, since it can lead to recall of more items than is necessary and introduces complexity with ranking.
+          type: boolean
+        facetable:
+          title: Facetable
+          description: Specifies whether the field should be treated as a facet. When True, the metadata field must be a string, float, integer, or list of these types. Dictionaries are supported if they contain values of these types. Nested dictionaries are not supported
+          type: boolean
+        exact_searchable:
+          title: Exact Searchable
+          description: Configure this field for ID or ID-like values (SKU ID, ISBN, part number, etc.) to enable exact matching only, with no typo-tolerance, for search and autocomplete. Do not use for fields containing natural language words. A field can be exact-searchable or fuzzy-searchable, but not both.
+          type: boolean
+        type:
+          title: Type
+          allOf:
+          - $ref: '#/components/schemas/MetadataSearchabilityType'
+        example_items:
+          title: Example Items
+          description: A list of items that has this searchability field.
+          type: array
+          items:
+            type: string
+        default:
+          title: Default
+          description: Flag that shows if this searchability config is default.
+          type: boolean
+        displayable:
+          title: Displayable
+          description: Specifies whether the field is displayable in the response within the `results` array.
+          type: boolean
+        hidden:
+          title: Hidden
+          description: Hides the field by default in the response but makes it available to retrieve via `fmt_options[hidden_fields]` parameter.
+          type: boolean
+        created_at:
+          title: Created At
+          description: Creation date and time
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Last updated date and time
+          type: string
+          format: date-time
+      required:
+      - name
+      - fuzzy_searchable
+      - facetable
+      - exact_searchable
+      - default
+      - displayable
+      - hidden
+      - created_at
+      additionalProperties: false
+    SearchabilityPatchRequestBody:
+      title: SearchabilityPatchRequestBody
+      type: object
+      properties:
+        fuzzy_searchable:
+          title: Fuzzy Searchable
+          description: Configure a field as fuzzy-searchable to enable typo-tolerant keyword-matching on field values in search and autocomplete. A field can be fuzzy-searchable or exact-searchable, but not both. Avoid marking very verbose fields (e.g. long descriptions) as fuzzy-searchable, since it can lead to recall of more items than is necessary and introduces complexity with ranking.
+          examples:
+          - true
+          - false
+          type: boolean
+        exact_searchable:
+          title: Exact Searchable
+          description: Configure this field for ID or ID-like values (SKU ID, ISBN, part number, etc.) to enable exact matching only, with no typo-tolerance, for search and autocomplete. Do not use for fields containing natural language words. A field can be exact-searchable or fuzzy-searchable, but not both.
+          examples:
+          - false
+          - true
+          type: boolean
+        facetable:
+          title: Facetable
+          description: Specifies whether the field should be treated as a facet. When True, the metadata field must be a string, float, integer, or list of these types. Dictionaries are supported if they contain values of these types. Nested dictionaries are not supported
+          examples:
+          - true
+          - false
+          type: boolean
+        displayable:
+          title: Displayable
+          description: Specifies whether the field is displayable in the response within the `results` array.
+          examples:
+          - true
+          - false
+          type: boolean
+        hidden:
+          title: Hidden
+          description: Hides the field by default in the response but makes it available to retrieve via `fmt_options[hidden_fields]` parameter.
+          examples:
+          - false
+          - true
+          type: boolean
+      additionalProperties: false
+    SearchabilityDeleteResponse:
+      title: SearchabilityDeleteResponse
+      type: object
+      properties:
+        name:
+          title: Name
+          description: Name of searchability field.
+          maxLength: 300
+          minLength: 1
+          type: string
+        percentage_presence:
+          title: Percentage presence
+          description: Percentage of items and variations that contain this field.
+          minimum: 0
+          maximum: 100
+          type: number
+        fuzzy_searchable:
+          title: Fuzzy Searchable
+          description: Configure a field as fuzzy-searchable to enable typo-tolerant keyword-matching on field values in search and autocomplete. A field can be fuzzy-searchable or exact-searchable, but not both. Avoid marking very verbose fields (e.g. long descriptions) as fuzzy-searchable, since it can lead to recall of more items than is necessary and introduces complexity with ranking.
+          type: boolean
+        facetable:
+          title: Facetable
+          description: Specifies whether the field should be treated as a facet. When True, the metadata field must be a string, float, integer, or list of these types. Dictionaries are supported if they contain values of these types. Nested dictionaries are not supported
+          type: boolean
+        exact_searchable:
+          title: Exact Searchable
+          description: Configure this field for ID or ID-like values (SKU ID, ISBN, part number, etc.) to enable exact matching only, with no typo-tolerance, for search and autocomplete. Do not use for fields containing natural language words. A field can be exact-searchable or fuzzy-searchable, but not both.
+          type: boolean
+        type:
+          title: Type
+          allOf:
+          - $ref: '#/components/schemas/MetadataSearchabilityType'
+        example_items:
+          title: Example Items
+          description: A list of items that has this searchability field.
+          type: array
+          items:
+            type: string
+        default:
+          title: Default
+          description: Flag that shows if this searchability config is default.
+          type: boolean
+        displayable:
+          title: Displayable
+          description: Specifies whether the field is displayable in the response within the `results` array.
+          type: boolean
+        hidden:
+          title: Hidden
+          description: Hides the field by default in the response but makes it available to retrieve via `fmt_options[hidden_fields]` parameter.
+          type: boolean
+        created_at:
+          title: Created At
+          description: Creation date and time
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Last updated date and time
+          type: string
+          format: date-time
+      required:
+      - name
+      - fuzzy_searchable
+      - facetable
+      - exact_searchable
+      - default
+      - displayable
+      - hidden
+      - created_at
+      additionalProperties: false
+    SearchabilityV2DeleteResponse:
+      title: SearchabilityV2DeleteResponse
+      type: object
+      properties:
+        name:
+          title: Name
+          description: Name of searchability field.
+          maxLength: 300
+          minLength: 1
+          type: string
+        fuzzy_searchable:
+          title: Fuzzy Searchable
+          description: Configure a field as fuzzy-searchable to enable typo-tolerant keyword-matching on field values in search and autocomplete. A field can be fuzzy-searchable or exact-searchable, but not both. Avoid marking very verbose fields (e.g. long descriptions) as fuzzy-searchable, since it can lead to recall of more items than is necessary and introduces complexity with ranking.
+          type: boolean
+        exact_searchable:
+          title: Exact Searchable
+          description: Configure this field for ID or ID-like values (SKU ID, ISBN, part number, etc.) to enable exact matching only, with no typo-tolerance, for search and autocomplete. Do not use for fields containing natural language words. A field can be exact-searchable or fuzzy-searchable, but not both.
+          type: boolean
+        displayable:
+          title: Displayable
+          description: Specifies whether the field is displayable in the response within the `results` array.
+          type: boolean
+        hidden:
+          title: Hidden
+          description: Hides the field by default in the response but makes it available to retrieve via `fmt_options[hidden_fields]` parameter.
+          type: boolean
+        created_at:
+          title: Created At
+          description: Creation date and time
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Last updated date and time
+          type: string
+          format: date-time
+      required:
+      - name
+      - fuzzy_searchable
+      - exact_searchable
+      - displayable
+      - hidden
+      - created_at
+      additionalProperties: false
+    SearchabilityListV2PatchResponse:
+      title: SearchabilityListV2PatchResponse
+      type: object
+      properties:
+        searchabilities:
+          title: Searchabilities
+          description: A list of facet searchabilities configurations.
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchabilityResponseV2'
+        total_count:
+          title: Total Count
+          description: Number of searchabilities.
+          minimum: 0
+          type: integer
+      required:
+      - searchabilities
+      - total_count
+      additionalProperties: false
+    SearchabilityResponse:
+      title: SearchabilityResponse
+      type: object
+      properties:
+        name:
+          title: Name
+          description: Name of searchability field.
+          maxLength: 300
+          minLength: 1
+          type: string
+        percentage_presence:
+          title: Percentage presence
+          description: Percentage of items and variations that contain this field.
+          minimum: 0
+          maximum: 100
+          type: number
+        fuzzy_searchable:
+          title: Fuzzy Searchable
+          description: Configure a field as fuzzy-searchable to enable typo-tolerant keyword-matching on field values in search and autocomplete. A field can be fuzzy-searchable or exact-searchable, but not both. Avoid marking very verbose fields (e.g. long descriptions) as fuzzy-searchable, since it can lead to recall of more items than is necessary and introduces complexity with ranking.
+          type: boolean
+        facetable:
+          title: Facetable
+          description: Specifies whether the field should be treated as a facet. When True, the metadata field must be a string, float, integer, or list of these types. Dictionaries are supported if they contain values of these types. Nested dictionaries are not supported
+          type: boolean
+        exact_searchable:
+          title: Exact Searchable
+          description: Configure this field for ID or ID-like values (SKU ID, ISBN, part number, etc.) to enable exact matching only, with no typo-tolerance, for search and autocomplete. Do not use for fields containing natural language words. A field can be exact-searchable or fuzzy-searchable, but not both.
+          type: boolean
+        type:
+          title: Type
+          allOf:
+          - $ref: '#/components/schemas/MetadataSearchabilityType'
+        example_items:
+          title: Example Items
+          description: A list of items that has this searchability field.
+          type: array
+          items:
+            type: string
+        default:
+          title: Default
+          description: Flag that shows if this searchability config is default.
+          type: boolean
+        displayable:
+          title: Displayable
+          description: Specifies whether the field is displayable in the response within the `results` array.
+          type: boolean
+        hidden:
+          title: Hidden
+          description: Hides the field by default in the response but makes it available to retrieve via `fmt_options[hidden_fields]` parameter.
+          type: boolean
+        created_at:
+          title: Created At
+          description: Creation date and time
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Last updated date and time
+          type: string
+          format: date-time
+      required:
+      - name
+      - fuzzy_searchable
+      - facetable
+      - exact_searchable
+      - default
+      - displayable
+      - hidden
+      - created_at
+      additionalProperties: false
+    SearchabilityWithNameRequestV2:
+      title: SearchabilityWithNameRequestV2
+      type: object
+      properties:
+        name:
+          title: Name
+          description: Name of searchability field.
+          maxLength: 300
+          minLength: 1
+          examples:
+          - brand
+          - color
+          - price
+          type: string
+        fuzzy_searchable:
+          title: Fuzzy Searchable
+          description: Configure a field as fuzzy-searchable to enable typo-tolerant keyword-matching on field values in search and autocomplete. A field can be fuzzy-searchable or exact-searchable, but not both. Avoid marking very verbose fields (e.g. long descriptions) as fuzzy-searchable, since it can lead to recall of more items than is necessary and introduces complexity with ranking.
+          examples:
+          - true
+          - false
+          type: boolean
+        exact_searchable:
+          title: Exact Searchable
+          description: Configure this field for ID or ID-like values (SKU ID, ISBN, part number, etc.) to enable exact matching only, with no typo-tolerance, for search and autocomplete. Do not use for fields containing natural language words. A field can be exact-searchable or fuzzy-searchable, but not both.
+          examples:
+          - false
+          - true
+          type: boolean
+        displayable:
+          title: Displayable
+          description: Specifies whether the field is displayable in the response within the `results` array. On create, omitted value inherits from the nearest (deepest) configured parent. To learn more about displayability inheritance, please visit [this guide](/docs/using-the-constructor-dashboard-indexes-manage-searchability-and-displayability#inherited-displayability-configurations)
+          examples:
+          - true
+          - false
+          type: boolean
+        hidden:
+          title: Hidden
+          description: Hides the field by default in the response but makes it available to retrieve via `fmt_options[hidden_fields]` parameter.
+          examples:
+          - false
+          - true
+          type: boolean
+      required:
+      - name
+      additionalProperties: false
+    SearchabilityListV2DeleteRequestBody:
+      title: SearchabilityListV2DeleteRequestBody
+      type: object
+      properties:
+        searchabilities:
+          title: Searchabilities
+          description: A list of facet searchabilities configurations names to delete.
+          minItems: 1
+          maxItems: 60
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchabilityNameRequestV2'
+      required:
+      - searchabilities
+      additionalProperties: false
+    SearchabilityListDeleteResponse:
+      title: SearchabilityListDeleteResponse
+      type: object
+      properties:
+        searchabilities:
+          title: Searchabilities
+          description: A list of facet searchabilities configurations.
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchabilityResponse'
+        total_count:
+          title: Total Count
+          description: Number of searchabilities.
+          minimum: 0
+          type: integer
+      required:
+      - searchabilities
+      - total_count
       additionalProperties: false
   securitySchemes:
     http_basic_auth:

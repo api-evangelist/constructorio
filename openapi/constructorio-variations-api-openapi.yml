@@ -1,165 +1,22 @@
 openapi: 3.2.0
 info:
-  title: Constructorio Variations API
   contact:
     email: support@constructor.io
-  version: '1.0'
-  description: 'Operations tagged Variations across 2 of this provider''s published API definitions: constructorio-catalog-batching-openapi.yml, constructorio-catalog-management-openapi.yml. Each path carries the servers of the definition it was published in.'
+  title: Catalog management Variations API
+  version: '0.1'
 servers:
-- url: https://batching.catalog.cnstrc.com
 - url: https://ac.cnstrc.com
+security: []
 tags:
 - name: Variations
 paths:
   /v2/variations:
-    patch:
-      tags:
-      - Variations
-      summary: Update catalog variations
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
-
-        For authenticating with Bearer token, required scopes are: `catalog(w)`.
-
-
-        Update variations in the catalog. If a variation does not exist, it will be created.'
-      operationId: v2-batching-variations-update-variations
-      parameters:
-      - name: key
-        in: query
-        required: true
-        schema:
-          type: string
-          description: The key of the index to use.
-          title: Key
-        description: The key of the index to use.
-      - name: section
-        in: query
-        required: true
-        schema:
-          type: string
-          description: The section of the index to use. Defaults to `Products`.
-          title: Section
-        description: The section of the index to use. Defaults to `Products`.
-      - name: on_missing
-        in: query
-        required: false
-        schema:
-          $ref: '#/components/schemas/MissingRecordsStrategy'
-          description: Strategy for handling variations that do not exist. Only CREATE is supported.
-          default: CREATE
-        description: Strategy for handling variations that do not exist. Only CREATE is supported.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/VariationsBatchRequest'
-      responses:
-        '202':
-          description: Accepted
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchAcceptedResponse'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '422':
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-        '429':
-          description: Too Many Requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-      security:
-      - http_basic_auth: []
-      - http_bearer_auth:
-        - catalog(w)
-    delete:
-      tags:
-      - Variations
-      summary: Delete catalog variations
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
-
-        For authenticating with Bearer token, required scopes are: `catalog(w)`.
-
-
-        Delete variations from the catalog. Deletions are processed asynchronously.'
-      operationId: v2-batching-variations-delete-variations
-      parameters:
-      - name: key
-        in: query
-        required: true
-        schema:
-          type: string
-          description: The key of the index to use.
-          title: Key
-        description: The key of the index to use.
-      - name: section
-        in: query
-        required: true
-        schema:
-          type: string
-          description: The section of the index to use. Defaults to `Products`.
-          title: Section
-        description: The section of the index to use. Defaults to `Products`.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/VariationsDeleteRequest'
-      responses:
-        '202':
-          description: Accepted
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BatchAcceptedResponse'
-        '400':
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '422':
-          description: Validation Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/HTTPValidationError'
-        '429':
-          description: Too Many Requests
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-      security:
-      - http_basic_auth: []
-      - http_bearer_auth:
-        - catalog(w)
     get:
       tags:
       - Variations
       operationId: v2-variations-retrieve-variations
       summary: Retrieve variations
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `catalog(r)`.
 
@@ -299,12 +156,12 @@ paths:
       - Variations
       operationId: v2-variations-create-or-replace-variations
       summary: Create or replace variations
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `catalog(w)`, `search_suggestions(w)`.
 
 
-        Create item variations or replace the data of existing item variations. Returns an identifier for a background [task](/reference/v1-tasks-retrieve-task).'
+        Create item variations or replace the data of existing item variations. Returns an identifier for a background task.'
       parameters:
       - name: key
         in: query
@@ -396,15 +253,229 @@ paths:
       - http_bearer_auth:
         - catalog(w)
         - search_suggestions(w)
-    servers:
-    - url: https://batching.catalog.cnstrc.com
+    patch:
+      tags:
+      - Variations
+      operationId: v2-variations-update-variations
+      summary: Update variations
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`, `search_suggestions(w)`.
+
+
+        Update existing item variation data. Data included in the request will be merged with data of the existing item variations. Returns an identifier for a background task.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      - name: force
+        in: query
+        schema:
+          title: Force
+          description: A flag to process the catalog even if it will invalidate a large part of existing data. Defaults to `False`.
+          examples:
+          - false
+          - true
+          type: boolean
+        required: false
+      - name: notification_email
+        in: query
+        schema:
+          title: Notification Email
+          description: The email address(es) to send a notification to if the task fails. Multiple addresses may be specified for multiple recipients.
+          type: array
+          items:
+            type: string
+            format: email
+            examples:
+            - user@example.com
+        required: false
+      - name: on_missing
+        in: query
+        schema:
+          description: The strategy for handling variations which are exist in the request and do not exist in the system. `IGNORE` silently prevents adding them to the system, `CREATE` creates them, `FAIL` fails the ingestion in case of their presence.
+          default: FAIL
+          examples:
+          - FAIL
+          - IGNORE
+          - CREATE
+          allOf:
+          - $ref: '#/components/schemas/MissingRecordsStrategy'
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VariationListPatchRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VariationListPatchResponse'
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VariationListPatchAcceptedResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+        - search_suggestions(w)
+    delete:
+      tags:
+      - Variations
+      operationId: v2-variations-delete-variations
+      summary: Delete variations
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
+
+        For authenticating with Bearer token, required scopes are: `catalog(w)`, `search_suggestions(w)`.
+
+
+        Delete item variations. Returns an identifier for a background task.'
+      parameters:
+      - name: key
+        in: query
+        schema:
+          title: Key
+          description: The key of the index to use.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - key_K2pX7vBnU0bgA5xp
+          type: string
+        required: true
+      - name: section
+        in: query
+        schema:
+          title: Section
+          description: The section of the index to use. Defaults to `Products`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - Products
+          - Search Suggestions
+          type: string
+        required: false
+      - name: c
+        in: query
+        schema:
+          title: C
+          description: The ID of the client and version that the request is coming from, such as `cio-js-2.90`.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - cio-js-2.90
+          - cio-ios-1.0
+          type: string
+        required: false
+      - name: force
+        in: query
+        schema:
+          title: Force
+          description: A flag to process the catalog even if it will invalidate a large part of existing data. Defaults to `False`.
+          examples:
+          - false
+          - true
+          type: boolean
+        required: false
+      - name: notification_email
+        in: query
+        schema:
+          title: Notification Email
+          description: The email address(es) to send a notification to if the task fails. Multiple addresses may be specified for multiple recipients.
+          type: array
+          items:
+            type: string
+            format: email
+            examples:
+            - user@example.com
+        required: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VariationListDeleteRequestBody'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VariationListDeleteResponse'
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VariationListDeleteAcceptedResponse'
+        '400':
+          description: Validation Error
+        '401':
+          description: Credentials are not passed or action is forbidden.
+        '403':
+          description: The supplied token does not have the required permissions.
+        '409':
+          description: Conflict
+        '429':
+          description: Rate limit breached
+      security:
+      - http_basic_auth: []
+      - http_bearer_auth:
+        - catalog(w)
+        - search_suggestions(w)
   /v2/variations/{variation_id}:
     get:
       tags:
       - Variations
       operationId: v2-variations-retrieve-variation
       summary: Retrieve variation
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `catalog(r)`.
 
@@ -463,264 +534,18 @@ paths:
       - http_basic_auth: []
       - http_bearer_auth:
         - catalog(r)
-    servers:
-    - url: https://ac.cnstrc.com
 components:
   schemas:
-    VariationDeletePayload:
-      properties:
-        id:
-          type: string
-          maxLength: 250
-          minLength: 1
-          title: ID
-          description: The ID of the variation to delete.
+    VariationListPatchAcceptedResponse:
+      title: VariationListPatchAcceptedResponse
       type: object
-      required:
-      - id
-      title: VariationDeletePayload
-      description: Payload for deleting a single variation.
-    MissingRecordsStrategy:
-      type: string
-      enum:
-      - CREATE
-      title: MissingRecordsStrategy
-      description: Strategy for handling records that do not exist in the system.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    Variation:
-      properties:
-        id:
-          type: string
-          maxLength: 250
-          minLength: 1
-          title: ID
-          description: The ID of the variation, must be unique.
-        item_id:
-          type: string
-          maxLength: 250
-          minLength: 1
-          title: Item ID
-          description: The ID of the item this variation is attached to.
-        name:
-          anyOf:
-          - type: string
-            maxLength: 250
-            minLength: 1
-          - type: 'null'
-          title: Name
-          description: The name of the variation, as it will appear in the results. Must contain at least one alphanumeric character.
-        suggested_score:
-          anyOf:
-          - type: integer
-            maximum: 500000000
-            minimum: -1
-          - type: 'null'
-          title: Suggested Score
-          description: A number that will influence the variation's initial ranking relative to other variation scores (the higher the score, the higher in the list of suggestions the variation will appear).
-        data:
-          anyOf:
-          - $ref: '#/components/schemas/VariationMetadata'
-          - type: 'null'
-          description: Object containing additional data, that should be attached to this variation. The maximum size of data object is limited to 30kB.
-      additionalProperties: false
-      type: object
-      required:
-      - id
-      - item_id
-      title: Variation
-      description: Catalog variation model.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ErrorResponse:
       properties:
         message:
-          type: string
           title: Message
-          description: Error message
-        errors:
-          anyOf:
-          - items:
-              additionalProperties: true
-              type: object
-            type: array
-          - type: 'null'
-          title: Errors
-          description: Detailed validation errors
-      type: object
+          description: Info message
+          type: string
       required:
       - message
-      title: ErrorResponse
-      description: Error response model.
-    VariationMetadata:
-      properties:
-        keywords:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Keywords
-          description: An array of keywords for this variation. Keywords are useful if you want a product name to appear when a user enters a search term that is not in the product name itself.
-        url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: URL
-          description: A URL to directly send the user after selecting the variation. Might be required in some cases. Please consult with your integration team for more information.
-        image_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Image URL
-          description: A URL that points to an image you would like displayed next to some variation (only applicable when URL is supplied).
-        group_ids:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Group IDs
-          description: You can associate each variation with one or more groups (i.e. categories). To set up a group hierarchy please contact support@constructor.io group_ids can be used as filters in search, autosuggest, and browse requests.
-        description:
-          anyOf:
-          - type: string
-            maxLength: 4000
-          - type: 'null'
-          title: Description
-          description: A description for this variation. The maximum length of this field is 4000 characters.
-        active:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Active
-          description: Whether the variation is active and eligible to be returned in results.
-        facets:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: string
-              - type: integer
-              - type: number
-              - items:
-                  anyOf:
-                  - type: string
-                  - type: integer
-                  - type: number
-                type: array
-            type: object
-          - type: 'null'
-          title: Facets
-          description: A mapping of facet names to values. Each value is either a single string, integer, or floating point number, or a list of those. Facet keys are limited to 100 characters; string values are limited to 200 characters.
-          deprecated: true
-        is_default:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Default
-          description: Whether this variation should always be returned as the best matching variation.
-      additionalProperties: true
-      type: object
-      title: VariationMetadata
-      description: Additional metadata for a variation.
-    BatchAcceptedResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-          description: Success message
-        count:
-          type: integer
-          title: Count
-          description: Number of items/variations accepted.
-      type: object
-      required:
-      - message
-      - count
-      title: BatchAcceptedResponse
-      description: Response for accepted batching requests.
-    VariationsDeleteRequest:
-      properties:
-        variations:
-          items:
-            $ref: '#/components/schemas/VariationDeletePayload'
-          type: array
-          maxItems: 100
-          minItems: 1
-          title: Variations
-          description: Array of variations to delete (1-100 variations).
-      type: object
-      required:
-      - variations
-      title: VariationsDeleteRequest
-      description: Request body for deleting variations.
-    VariationsBatchRequest:
-      properties:
-        variations:
-          items:
-            $ref: '#/components/schemas/Variation'
-          type: array
-          maxItems: 100
-          minItems: 1
-          title: Variations
-          description: Array of variations to batch (1-100 variations).
-      type: object
-      required:
-      - variations
-      title: VariationsBatchRequest
-      description: Request body for batching variations.
-    FacetValuesCoercedToList:
-      title: FacetValuesCoercedToList
-      type: array
-      items:
-        $ref: '#/components/schemas/FacetValue'
-    VariationBase:
-      title: VariationBase
-      type: object
-      properties:
-        id:
-          title: Id
-          description: The ID of the variation, must be unique.
-          examples:
-          - red-nike-shoes
-          - variation-123
-          minLength: 1
-          maxLength: 250
-          type: string
-      required:
-      - id
-      additionalProperties: false
     VariationListPatchResponse:
       title: VariationListPatchResponse
       type: object
@@ -734,7 +559,130 @@ components:
       required:
       - task_id
       - task_status_path
-    VariationMetadata_2:
+    VariationListPutAcceptedResponse:
+      title: VariationListPutAcceptedResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          description: Info message
+          type: string
+      required:
+      - message
+    VariationListDeleteRequestBody:
+      title: VariationListDeleteRequestBody
+      type: object
+      properties:
+        variations:
+          title: Variations
+          description: Array of variation IDs you want to delete.
+          minItems: 1
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/VariationBase'
+      required:
+      - variations
+    VariationListDeleteAcceptedResponse:
+      title: VariationListDeleteAcceptedResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          description: Info message
+          type: string
+      required:
+      - message
+    VariationListDeleteResponse:
+      title: VariationListDeleteResponse
+      type: object
+      properties:
+        task_id:
+          title: Task Id
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          type: string
+      required:
+      - task_id
+      - task_status_path
+    FacetValuesCoercedToList:
+      title: FacetValuesCoercedToList
+      type: array
+      items:
+        $ref: '#/components/schemas/FacetValue'
+    VariationListGetResponse:
+      title: VariationListGetResponse
+      type: object
+      properties:
+        total_count:
+          title: Total Count
+          description: Total number of variations. Omitted when using cursor-based pagination (`next_page_cursor`).
+          minimum: 0
+          examples:
+          - 100
+          - 5000
+          type: integer
+        variations:
+          title: Variations
+          type: array
+          items:
+            $ref: '#/components/schemas/VariationGetResponse'
+        next_page_cursor:
+          title: Pagination cursor
+          description: Pagination cursor to use to receive the next page of results. The value is returned by the previous page response. Cannot be used together with `page` or `offset`.
+          maxLength: 250
+          minLength: 1
+          examples:
+          - red-nike-shoes
+          - variation-123
+          type: string
+      required:
+      - variations
+    VariationGetResponse:
+      title: VariationGetResponse
+      type: object
+      properties:
+        id:
+          title: ID
+          description: The ID of the variation, must be unique.
+          minLength: 1
+          maxLength: 250
+          type: string
+        item_id:
+          title: Item ID
+          description: The ID of the item this variation is attached to.
+          minLength: 1
+          maxLength: 250
+          type: string
+        name:
+          title: Name
+          description: The name of the variation, as it will appear in the results. Contains at least one alphanumeric character.
+          maxLength: 250
+          minLength: 1
+          type: string
+        suggested_score:
+          title: Score
+          description: A number that will influence the variation's initial ranking relative to other variation scores (the higher the score, the higher in the list of suggestions the variation will appear).
+          minimum: -1
+          maximum: 500000000
+          type: integer
+        data:
+          title: Data
+          description: Object containing additional data attached to this variation.
+          allOf:
+          - $ref: '#/components/schemas/VariationMetadataResponse'
+        updated_at:
+          title: Updated at
+          description: A date when the variation was updated.
+          type: string
+          format: date-time
+      required:
+      - id
+      - item_id
+      - updated_at
+      additionalProperties: false
+    VariationMetadata:
       title: VariationMetadata
       description: 'Additional data about item. In addition to the listed properties
 
@@ -815,12 +763,63 @@ components:
           - '2024-01-15T10:30:00Z'
           type: string
           format: date-time
-    MissingRecordsStrategy_2:
-      title: MissingRecordsStrategy
-      enum:
-      - CREATE
-      - IGNORE
-      - FAIL
+    Variation:
+      title: Variation
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the variation, must be unique.
+          examples:
+          - red-nike-shoes
+          - variation-123
+          minLength: 1
+          maxLength: 250
+          type: string
+        item_id:
+          title: Item Id
+          description: The ID of the item this variation is attached to.
+          examples:
+          - nike-shoes
+          - product-123
+          minLength: 1
+          maxLength: 250
+          type: string
+        name:
+          title: Name
+          description: The name of the variation, as it will appear in the results. Must contain at least one alphanumeric character.
+          maxLength: 250
+          minLength: 1
+          examples:
+          - Running Shoes - Size 10
+          - Blue T-Shirt - Large
+          type: string
+        suggested_score:
+          title: Suggested Score
+          description: A number that will influence the variation's initial ranking relative to other variation scores (the higher the score, the higher in the list of suggestions the variation will appear).
+          minimum: -1
+          maximum: 500000000
+          examples:
+          - 100
+          - 9999
+          type: integer
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this variation. The maximum size of data object is limited to 200kb. The average size of data objects for all ingested items and variations should not exceed 30kb.
+          examples:
+          - url: http://example.com/variation
+            size: L
+          allOf:
+          - $ref: '#/components/schemas/VariationMetadata'
+      required:
+      - id
+      - item_id
+      additionalProperties: false
+    Facets:
+      title: Facets
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/FacetValuesCoercedToList'
     VariationPatch:
       title: VariationPatch
       type: object
@@ -868,20 +867,32 @@ components:
           - url: http://example.com/variation
             size: L
           allOf:
-          - $ref: '#/components/schemas/VariationMetadata_2'
+          - $ref: '#/components/schemas/VariationMetadata'
       required:
       - id
       additionalProperties: false
-    VariationListPatchAcceptedResponse:
-      title: VariationListPatchAcceptedResponse
+    FacetValue:
+      title: FacetValue
+      anyOf:
+      - type: string
+        minLength: 0
+        maxLength: 200
+      - type: integer
+      - type: number
+    VariationListPatchRequestBody:
+      title: VariationListPatchRequestBody
       type: object
       properties:
-        message:
-          title: Message
-          description: Info message
-          type: string
+        variations:
+          title: Variations
+          description: Array of variations you want to update.
+          minItems: 1
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/VariationPatch'
       required:
-      - message
+      - variations
     VariationListPutRequestBody:
       title: VariationListPutRequestBody
       type: object
@@ -893,9 +904,44 @@ components:
           maxItems: 10000
           type: array
           items:
-            $ref: '#/components/schemas/Variation_2'
+            $ref: '#/components/schemas/Variation'
       required:
       - variations
+    VariationBase:
+      title: VariationBase
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the variation, must be unique.
+          examples:
+          - red-nike-shoes
+          - variation-123
+          minLength: 1
+          maxLength: 250
+          type: string
+      required:
+      - id
+      additionalProperties: false
+    VariationListPutResponse:
+      title: VariationListPutResponse
+      type: object
+      properties:
+        task_id:
+          title: Task Id
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          type: string
+      required:
+      - task_id
+      - task_status_path
+    MissingRecordsStrategy:
+      title: MissingRecordsStrategy
+      enum:
+      - CREATE
+      - IGNORE
+      - FAIL
     VariationMetadataResponse:
       title: VariationMetadataResponse
       description: 'Additional data about item. In addition to the listed properties
@@ -971,216 +1017,6 @@ components:
           - false
           type: boolean
       additionalProperties: true
-    VariationListPutAcceptedResponse:
-      title: VariationListPutAcceptedResponse
-      type: object
-      properties:
-        message:
-          title: Message
-          description: Info message
-          type: string
-      required:
-      - message
-    VariationListDeleteAcceptedResponse:
-      title: VariationListDeleteAcceptedResponse
-      type: object
-      properties:
-        message:
-          title: Message
-          description: Info message
-          type: string
-      required:
-      - message
-    Facets:
-      title: Facets
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/FacetValuesCoercedToList'
-    VariationListGetResponse:
-      title: VariationListGetResponse
-      type: object
-      properties:
-        total_count:
-          title: Total Count
-          description: Total number of variations. Omitted when using cursor-based pagination (`next_page_cursor`).
-          minimum: 0
-          examples:
-          - 100
-          - 5000
-          type: integer
-        variations:
-          title: Variations
-          type: array
-          items:
-            $ref: '#/components/schemas/VariationGetResponse'
-        next_page_cursor:
-          title: Pagination cursor
-          description: Pagination cursor to use to receive the next page of results. The value is returned by the previous page response. Cannot be used together with `page` or `offset`.
-          maxLength: 250
-          minLength: 1
-          examples:
-          - red-nike-shoes
-          - variation-123
-          type: string
-      required:
-      - variations
-    VariationListPatchRequestBody:
-      title: VariationListPatchRequestBody
-      type: object
-      properties:
-        variations:
-          title: Variations
-          description: Array of variations you want to update.
-          minItems: 1
-          maxItems: 10000
-          type: array
-          items:
-            $ref: '#/components/schemas/VariationPatch'
-      required:
-      - variations
-    FacetValue:
-      title: FacetValue
-      anyOf:
-      - type: string
-        minLength: 0
-        maxLength: 200
-      - type: integer
-      - type: number
-    VariationListDeleteResponse:
-      title: VariationListDeleteResponse
-      type: object
-      properties:
-        task_id:
-          title: Task Id
-          type: integer
-        task_status_path:
-          title: Task Status Path
-          type: string
-      required:
-      - task_id
-      - task_status_path
-    VariationListDeleteRequestBody:
-      title: VariationListDeleteRequestBody
-      type: object
-      properties:
-        variations:
-          title: Variations
-          description: Array of variation IDs you want to delete.
-          minItems: 1
-          maxItems: 10000
-          type: array
-          items:
-            $ref: '#/components/schemas/VariationBase'
-      required:
-      - variations
-    VariationListPutResponse:
-      title: VariationListPutResponse
-      type: object
-      properties:
-        task_id:
-          title: Task Id
-          type: integer
-        task_status_path:
-          title: Task Status Path
-          type: string
-      required:
-      - task_id
-      - task_status_path
-    Variation_2:
-      title: Variation
-      type: object
-      properties:
-        id:
-          title: Id
-          description: The ID of the variation, must be unique.
-          examples:
-          - red-nike-shoes
-          - variation-123
-          minLength: 1
-          maxLength: 250
-          type: string
-        item_id:
-          title: Item Id
-          description: The ID of the item this variation is attached to.
-          examples:
-          - nike-shoes
-          - product-123
-          minLength: 1
-          maxLength: 250
-          type: string
-        name:
-          title: Name
-          description: The name of the variation, as it will appear in the results. Must contain at least one alphanumeric character.
-          maxLength: 250
-          minLength: 1
-          examples:
-          - Running Shoes - Size 10
-          - Blue T-Shirt - Large
-          type: string
-        suggested_score:
-          title: Suggested Score
-          description: A number that will influence the variation's initial ranking relative to other variation scores (the higher the score, the higher in the list of suggestions the variation will appear).
-          minimum: -1
-          maximum: 500000000
-          examples:
-          - 100
-          - 9999
-          type: integer
-        data:
-          title: Data
-          description: Object containing additional data, that should be attached to this variation. The maximum size of data object is limited to 200kb. The average size of data objects for all ingested items and variations should not exceed 30kb.
-          examples:
-          - url: http://example.com/variation
-            size: L
-          allOf:
-          - $ref: '#/components/schemas/VariationMetadata_2'
-      required:
-      - id
-      - item_id
-      additionalProperties: false
-    VariationGetResponse:
-      title: VariationGetResponse
-      type: object
-      properties:
-        id:
-          title: ID
-          description: The ID of the variation, must be unique.
-          minLength: 1
-          maxLength: 250
-          type: string
-        item_id:
-          title: Item ID
-          description: The ID of the item this variation is attached to.
-          minLength: 1
-          maxLength: 250
-          type: string
-        name:
-          title: Name
-          description: The name of the variation, as it will appear in the results. Contains at least one alphanumeric character.
-          maxLength: 250
-          minLength: 1
-          type: string
-        suggested_score:
-          title: Score
-          description: A number that will influence the variation's initial ranking relative to other variation scores (the higher the score, the higher in the list of suggestions the variation will appear).
-          minimum: -1
-          maximum: 500000000
-          type: integer
-        data:
-          title: Data
-          description: Object containing additional data attached to this variation.
-          allOf:
-          - $ref: '#/components/schemas/VariationMetadataResponse'
-        updated_at:
-          title: Updated at
-          description: A date when the variation was updated.
-          type: string
-          format: date-time
-      required:
-      - id
-      - item_id
-      - updated_at
-      additionalProperties: false
   securitySchemes:
     http_basic_auth:
       type: http
@@ -1188,8 +1024,5 @@ components:
     http_bearer_auth:
       type: http
       scheme: bearer
-x-refined-from:
-- constructorio-catalog-batching-openapi.yml
-- constructorio-catalog-management-openapi.yml
 x-readme:
   explorer-enabled: false

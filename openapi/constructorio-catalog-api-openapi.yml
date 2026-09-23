@@ -16,12 +16,12 @@ paths:
       - Catalog
       operationId: v1-catalog-create-or-replace-catalog
       summary: Create or replace catalog
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `catalog(w)`, `search_suggestions(w)`.
 
 
-        Replace the current catalog using one of two modes: **Full mode** (`mode=full`, default): Send full catalog files to replace the current catalog. You may upload up to three [files](https://docs.constructor.com/docs/integrating-with-constructor-product-catalog-catalog-files-via-http-or-ftps-catalog-file-upload-step-by-step-guide) in the form data under the following keys: `items`, `variations`, `item_groups`. If you do not wish to replace one of these types of resources then omit it from the request. Any records that already exist will be deleted and replaced with the records you provide in the files. **IDs mode** (`mode=ids`): Send files containing only the IDs of records to keep. Files should contain only an `id` column (CSV) or `id` field (JSONL). All records whose IDs are not present in the uploaded files will be deleted from the catalog. Returns an identifier for a background [task](https://docs.constructor.com/reference/v1-tasks-retrieve-task).'
+        Replace the current catalog using one of two modes: **Full mode** (`mode=full`, default): Send full catalog files to replace the current catalog. You may upload up to three files in the form data under the following keys: `items`, `variations`, `item_groups`. If you do not wish to replace one of these types of resources then omit it from the request. Any records that already exist will be deleted and replaced with the records you provide in the files. **IDs mode** (`mode=ids`): Send files containing only the IDs of records to keep. Files should contain only an `id` column (CSV) or `id` field (JSONL). All records whose IDs are not present in the uploaded files will be deleted from the catalog. Returns an identifier for a background task.'
       parameters:
       - name: key
         in: query
@@ -139,12 +139,12 @@ paths:
       - Catalog
       operationId: v1-catalog-update-catalog
       summary: Update catalog
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `catalog(w)`, `search_suggestions(w)`.
 
 
-        Send delta catalog files to replace the current catalog. You may upload up to three [files](https://docs.constructor.com/docs/integrating-with-constructor-product-catalog-catalog-files-via-http-or-ftps-catalog-file-upload-step-by-step-guide) in the form data under the following keys: `items`, `variations`, `item_groups`. If you do not wish to replace one of these types of resources then omit it from the request. Any records that already exist will be deleted and replaced with the records you provide in the files. Returns an identifier for a background [task](https://docs.constructor.com/reference/v1-tasks-retrieve-task).'
+        Send delta catalog files to replace the current catalog. You may upload up to three files in the form data under the following keys: `items`, `variations`, `item_groups`. If you do not wish to replace one of these types of resources then omit it from the request. Any records that already exist will be deleted and replaced with the records you provide in the files. Returns an identifier for a background task.'
       parameters:
       - name: key
         in: query
@@ -270,12 +270,16 @@ paths:
         - search_suggestions(w)
 components:
   schemas:
-    MissingRecordsStrategy:
-      title: MissingRecordsStrategy
-      enum:
-      - CREATE
-      - IGNORE
-      - FAIL
+    CatalogPutAcceptedResponse:
+      title: CatalogPutAcceptedResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          description: Info message
+          type: string
+      required:
+      - message
     CatalogPatchAcceptedResponse:
       title: CatalogPatchAcceptedResponse
       type: object
@@ -286,21 +290,6 @@ components:
           type: string
       required:
       - message
-    CatalogPutResponse:
-      title: CatalogPutResponse
-      type: object
-      properties:
-        task_id:
-          title: Task Id
-          description: Task ID for the ingestion job
-          type: integer
-        task_status_path:
-          title: Task Status Path
-          description: Path to check the status of the ingestion job
-          type: string
-      required:
-      - task_id
-      - task_status_path
     CatalogPatchRequestBody:
       title: CatalogPatchRequestBody
       type: object
@@ -320,8 +309,14 @@ components:
           description: File with item groups in CSV or JSONL format
           type: string
           format: binary
-    CatalogPatchResponse:
-      title: CatalogPatchResponse
+    CatalogMode:
+      title: CatalogMode
+      enum:
+      - full
+      - ids
+      type: string
+    CatalogPutResponse:
+      title: CatalogPutResponse
       type: object
       properties:
         task_id:
@@ -335,16 +330,12 @@ components:
       required:
       - task_id
       - task_status_path
-    CatalogPutAcceptedResponse:
-      title: CatalogPutAcceptedResponse
-      type: object
-      properties:
-        message:
-          title: Message
-          description: Info message
-          type: string
-      required:
-      - message
+    MissingRecordsStrategy:
+      title: MissingRecordsStrategy
+      enum:
+      - CREATE
+      - IGNORE
+      - FAIL
     CatalogPutRequestBody:
       title: CatalogPutRequestBody
       type: object
@@ -369,12 +360,21 @@ components:
       enum:
       - csv
       - jsonl
-    CatalogMode:
-      title: CatalogMode
-      enum:
-      - full
-      - ids
-      type: string
+    CatalogPatchResponse:
+      title: CatalogPatchResponse
+      type: object
+      properties:
+        task_id:
+          title: Task Id
+          description: Task ID for the ingestion job
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          description: Path to check the status of the ingestion job
+          type: string
+      required:
+      - task_id
+      - task_status_path
   securitySchemes:
     http_basic_auth:
       type: http

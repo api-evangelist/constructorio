@@ -16,7 +16,7 @@ paths:
       - Synonyms
       operationId: v2-one-way-synonyms-retrieve-one-way-synonym
       summary: Retrieve one-way synonym
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `synonyms(r)`.
 
@@ -142,7 +142,7 @@ paths:
       - Synonyms
       operationId: v2-one-way-synonyms-create-one-way-synonym
       summary: Create one-way synonym
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `synonyms(w)`.
 
@@ -206,7 +206,7 @@ paths:
       - Synonyms
       operationId: v2-one-way-synonyms-replace-one-way-synonym
       summary: Replace one-way synonym
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `synonyms(w)`.
 
@@ -270,7 +270,7 @@ paths:
       - Synonyms
       operationId: v2-one-way-synonyms-delete-one-way-synonym
       summary: Delete one-way synonym
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `synonyms(w)`.
 
@@ -330,7 +330,7 @@ paths:
       - Synonyms
       operationId: v2-one-way-synonyms-retrieve-one-way-synonyms
       summary: Retrieve one-way synonyms
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `synonyms(r)`.
 
@@ -463,7 +463,7 @@ paths:
       - Synonyms
       operationId: v2-one-way-synonyms-delete-one-way-synonyms
       summary: Delete one-way synonyms
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `synonyms(w)`.
 
@@ -514,88 +514,12 @@ paths:
         - synonyms(w)
 components:
   schemas:
-    OneWaySynonymRelationV2:
-      title: OneWaySynonymRelationV2
-      type: object
-      properties:
-        parent_phrase:
-          title: Parent Phrase
-          minLength: 1
-          maxLength: 200
-          type: string
-        child_phrases:
-          title: Child Phrases
-          type: array
-          items:
-            $ref: '#/components/schemas/PhraseResponse'
-      required:
-      - parent_phrase
-      - child_phrases
-      additionalProperties: false
-    OneWaySynonymV2GetResponse:
-      title: OneWaySynonymV2GetResponse
-      type: object
-      properties:
-        one_way_synonym_relations:
-          title: One Way Synonym Relations
-          description: A list of one way synonyms
-          type: array
-          items:
-            $ref: '#/components/schemas/OneWaySynonymRelationV2'
-        total_count:
-          title: Total Count
-          description: Total count of one way synonyms returned
-          type: integer
-      required:
-      - one_way_synonym_relations
-      - total_count
-      additionalProperties: false
-    OneWaySynonymV2ListDeleteResponse:
-      title: OneWaySynonymV2ListDeleteResponse
-      type: object
-      properties:
-        message:
-          title: Message
-          description: Descriptive message of the deletion status
-          type: string
-      required:
-      - message
-      additionalProperties: false
-    Phrase:
-      title: Phrase
-      type: object
-      properties:
-        phrase:
-          title: Phrase
-          examples:
-          - sneakers
-          - running shoes
-          minLength: 1
-          maxLength: 200
-          type: string
-      required:
-      - phrase
-      additionalProperties: false
     SortOrderType:
       title: SortOrderType
       enum:
       - ascending
       - descending
       type: string
-    OneWaySynonymV2PutRequestBody:
-      title: OneWaySynonymV2PutRequestBody
-      type: object
-      properties:
-        child_phrases:
-          title: Child Phrases
-          minItems: 1
-          maxItems: 50
-          type: array
-          items:
-            $ref: '#/components/schemas/Phrase'
-      required:
-      - child_phrases
-      additionalProperties: false
     PhraseResponse:
       title: PhraseResponse
       type: object
@@ -626,8 +550,34 @@ components:
       required:
       - phrase
       additionalProperties: false
-    OneWaySynonymV2PostRequestBody:
-      title: OneWaySynonymV2PostRequestBody
+    Phrase:
+      title: Phrase
+      type: object
+      properties:
+        phrase:
+          title: Phrase
+          examples:
+          - sneakers
+          - running shoes
+          minLength: 1
+          maxLength: 200
+          type: string
+      required:
+      - phrase
+      additionalProperties: false
+    OneWaySynonymV2ListDeleteResponse:
+      title: OneWaySynonymV2ListDeleteResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          description: Descriptive message of the deletion status
+          type: string
+      required:
+      - message
+      additionalProperties: false
+    OneWaySynonymV2PutRequestBody:
+      title: OneWaySynonymV2PutRequestBody
       type: object
       properties:
         child_phrases:
@@ -640,13 +590,6 @@ components:
       required:
       - child_phrases
       additionalProperties: false
-    NgramRelationSortByType:
-      title: NgramRelationSortByType
-      enum:
-      - created_at
-      - updated_at
-      - activated_at
-      type: string
     OneWaySynonymV2ListGetResponse:
       title: OneWaySynonymV2ListGetResponse
       type: object
@@ -664,6 +607,63 @@ components:
       required:
       - one_way_synonym_relations
       - total_count
+      additionalProperties: false
+    OneWaySynonymRelationV2:
+      title: OneWaySynonymRelationV2
+      type: object
+      properties:
+        parent_phrase:
+          title: Parent Phrase
+          minLength: 1
+          maxLength: 200
+          type: string
+        child_phrases:
+          title: Child Phrases
+          type: array
+          items:
+            $ref: '#/components/schemas/PhraseResponse'
+      required:
+      - parent_phrase
+      - child_phrases
+      additionalProperties: false
+    NgramRelationSortByType:
+      title: NgramRelationSortByType
+      enum:
+      - created_at
+      - updated_at
+      - activated_at
+      type: string
+    OneWaySynonymV2GetResponse:
+      title: OneWaySynonymV2GetResponse
+      type: object
+      properties:
+        one_way_synonym_relations:
+          title: One Way Synonym Relations
+          description: A list of one way synonyms
+          type: array
+          items:
+            $ref: '#/components/schemas/OneWaySynonymRelationV2'
+        total_count:
+          title: Total Count
+          description: Total count of one way synonyms returned
+          type: integer
+      required:
+      - one_way_synonym_relations
+      - total_count
+      additionalProperties: false
+    OneWaySynonymV2PostRequestBody:
+      title: OneWaySynonymV2PostRequestBody
+      type: object
+      properties:
+        child_phrases:
+          title: Child Phrases
+          minItems: 1
+          maxItems: 50
+          type: array
+          items:
+            $ref: '#/components/schemas/Phrase'
+      required:
+      - child_phrases
       additionalProperties: false
   securitySchemes:
     http_basic_auth:

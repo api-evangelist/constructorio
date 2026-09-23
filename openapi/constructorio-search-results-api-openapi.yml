@@ -8,12 +8,12 @@ servers:
 - url: https://ac.cnstrc.com
 security: []
 tags:
-- name: Search results
+- name: Search Results
 paths:
   /v1/search/{search_query}:
     get:
       tags:
-      - Search results
+      - Search Results
       operationId: v1-search-get-search-results
       summary: Retrieve by query
       description: Retrieve AI optimized search results for products (or optionally other sections) by search query.
@@ -299,25 +299,89 @@ paths:
       security: []
 components:
   schemas:
-    VariationsMapNot:
+    DictOrJsonStringWithDict:
+      anyOf:
+      - title: object
+        type: object
+      - format: json
+        title: Encoded JSON string
+        type: string
+      title: DictOrJsonStringWithDict
+    SortOrderType:
+      enum:
+      - ascending
+      - descending
+      title: SortOrderType
+      type: string
+    SortOption:
       additionalProperties: false
       properties:
-        not_:
-          type: object
-          title: Not
+        display_name:
+          description: The name of the sortable field as it is displayed to end users.
+          title: Display Name
+          type: string
+        status:
+          description: '`selected` if this option is selected in the current search request, empty string otherwise.'
+          enum:
+          - selected
+          - ''
+          title: Status
+          type: string
+        sort_by:
+          description: The attribute to sort by, and the value of the sort_by query parameter in the search request.
+          title: Sort By
+          type: string
+        sort_order:
+          description: The value of this attribute should be passed to the `sort_order` query string parameter in the search request when this option is selected.
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+        hidden:
+          description: '`true` if this sort option is hidden, `false` otherwise.'
+          title: Hidden
+          type: boolean
       required:
-      - not_
-      title: VariationsMapNot
+      - display_name
+      - status
+      - sort_by
+      - sort_order
+      - hidden
+      title: SortOption
       type: object
-    RangeFacet:
+    SearchGetResponse:
+      additionalProperties: false
+      properties:
+        request:
+          description: The request arguments how they were interpreted by the API. This field is of arbitrary type, ie it doesn't have a guaranteed schema, and data from it shouldn't be used programmatically, it is for debugging purposes only.
+          title: Request
+          type: object
+        result_id:
+          title: Result Id
+          type: string
+        response:
+          anyOf:
+          - $ref: '#/components/schemas/SearchResponse'
+          - $ref: '#/components/schemas/RedirectResponse'
+          title: Response
+      required:
+      - request
+      - response
+      title: SearchGetResponse
+      type: object
+    FacetOptionSortOrder:
+      enum:
+      - relevance
+      - value
+      - num_matches
+      title: FacetOptionSortOrder
+      type: string
+    HierarchicalFacet:
       additionalProperties: false
       properties:
         type:
-          description: If a facet is of type `range`, then no facet options are provided. Instead a `min` and `max` value is provided to specify the range of values that can be sent in `filters`.
           title: Type
           type: string
           enum:
-          - range
+          - hierarchical
         name:
           description: The name of the facet. This should be passed in the filters parameter when a facet of this type is selected. `filters[name]=value`
           title: Name
@@ -334,40 +398,19 @@ components:
           description: Object containing custom data associated with this facet. An empty object (`{}`) if no data is currently associated with this facet.
           title: Data
           type: object
-        status:
-          description: Specifies the selected facet value range. If no range is selected the field will be omitted.
-          allOf:
-          - $ref: '#/components/schemas/RangeFacetStatus'
-          title: Status
-        min:
-          anyOf:
-          - type: number
-          - type: integer
-          - enum:
-            - -inf
-            - +inf
-            - inf
-            type: string
-          description: Minimum facet value of the result items.
-          title: Min
-        max:
-          anyOf:
-          - type: number
-          - type: integer
-          - enum:
-            - -inf
-            - +inf
-            - inf
-            type: string
-          description: Maximum facet value of the result items.
-          title: Max
+        options:
+          description: An array of possible facet values matching this search. By default, facet options are sorted by relevance.
+          title: Options
+          items:
+            $ref: '#/components/schemas/HierarchicalFacetOption'
+          type: array
       required:
       - type
       - name
       - display_name
       - hidden
       - data
-      title: Range facet
+      title: Hierarchical facet
       type: object
     ResultVariation:
       additionalProperties: false
@@ -382,38 +425,51 @@ components:
       - value
       title: ResultVariation
       type: object
-    VariationsMapSimpleAggregation:
+    VariationsMap:
       properties:
-        aggregation:
+        filter_by:
+          description: A filtering expression that should be used to filter variations before doing any aggregations
+          allOf:
+          - $ref: '#/components/schemas/VariationsMapFilterBy'
+          title: Filter By
+        group_by:
+          description: An array of fields that should be used to group variations. Variations which share the value of all fields specified here will all fall under one group
+          title: Group By
+          items:
+            $ref: '#/components/schemas/VariationsMapGrouping'
+          maxItems: 5
+          type: array
+        values:
+          description: A set of aggregations that should be applied to each variation group. The object keys specify the name of the field under which each aggregated value will be returned in the response
+          title: Values
+          type: object
+          additionalProperties:
+            discriminator:
+              mapping:
+                all: '#/components/schemas/VariationsMapSimpleAggregation'
+                count: '#/components/schemas/VariationsMapCountAggregation'
+                distinct: '#/components/schemas/VariationsMapSimpleAggregation'
+                field_count: '#/components/schemas/VariationsMapSimpleAggregation'
+                first: '#/components/schemas/VariationsMapSimpleAggregation'
+                max: '#/components/schemas/VariationsMapSimpleAggregation'
+                min: '#/components/schemas/VariationsMapSimpleAggregation'
+                value_count: '#/components/schemas/VariationsMapValueCountAggregation'
+              propertyName: aggregation
+            oneOf:
+            - $ref: '#/components/schemas/VariationsMapSimpleAggregation'
+            - $ref: '#/components/schemas/VariationsMapCountAggregation'
+            - $ref: '#/components/schemas/VariationsMapValueCountAggregation'
+        dtype:
+          description: The expected data type of the variations_map objects in the response
           enum:
-          - first
-          - all
-          - distinct
-          - min
-          - max
-          - field_count
-          title: Aggregation
-          type: string
-        field:
-          minLength: 1
-          title: Field
+          - array
+          - object
+          title: Dtype
           type: string
       required:
-      - aggregation
-      - field
-      title: VariationsMapSimpleAggregation
-      type: object
-    ResultSourceValue:
-      additionalProperties: false
-      properties:
-        count:
-          description: Number of results returned from their respective sources
-          minimum: 0
-          title: Count
-          type: integer
-      required:
-      - count
-      title: ResultSourceValue
+      - values
+      - dtype
+      title: VariationsMap
       type: object
     SearchandizedResult:
       additionalProperties: false
@@ -469,254 +525,13 @@ components:
       - labels
       title: SearchandizedResult
       type: object
-    RedirectData:
-      properties:
-        url:
-          description: Target URL of the redirect.
-          title: Url
-          type: string
-      required:
-      - url
-      title: RedirectData
-      type: object
-    SortOption:
-      additionalProperties: false
-      properties:
-        display_name:
-          description: The name of the sortable field as it is displayed to end users.
-          title: Display Name
-          type: string
-        status:
-          description: '`selected` if this option is selected in the current search request, empty string otherwise.'
-          enum:
-          - selected
-          - ''
-          title: Status
-          type: string
-        sort_by:
-          description: The attribute to sort by, and the value of the sort_by query parameter in the search request.
-          title: Sort By
-          type: string
-        sort_order:
-          description: The value of this attribute should be passed to the `sort_order` query string parameter in the search request when this option is selected.
-          allOf:
-          - $ref: '#/components/schemas/SortOrderType'
-        hidden:
-          description: '`true` if this sort option is hidden, `false` otherwise.'
-          title: Hidden
-          type: boolean
-      required:
-      - display_name
-      - status
-      - sort_by
-      - sort_order
-      - hidden
-      title: SortOption
-      type: object
-    Path:
-      additionalProperties: false
-      properties:
-        id:
-          description: The ID of the group.
-          title: Id
-          type: string
-        display_name:
-          description: The name of the group as it is displayed to end users.
-          title: Display Name
-          type: string
-      required:
-      - id
-      title: Path
-      type: object
-    VariationsMapGrouping:
-      properties:
-        name:
-          pattern: ^\w+([ ]?[\w]+)*$
-          title: Name
-          type: string
-        field:
-          minLength: 1
-          title: Field
-          type: string
-      required:
-      - name
-      - field
-      title: VariationsMapGrouping
-      type: object
-    VariationsMapSingleFilter:
-      additionalProperties: false
-      properties:
-        field:
-          description: Path to a metadata field (dot-separated)
-          minLength: 1
-          title: Field
-          type: string
-        value:
-          anyOf:
-          - type: boolean
-          - type: integer
-          - type: number
-          - type: string
-          description: The value of this field to filter by
-          title: Value
-      required:
-      - field
-      - value
-      title: VariationsMapSingleFilter
-      type: object
-    SingleOrMultipleFacet:
-      additionalProperties: false
-      properties:
-        type:
-          description: 'If a facet is of type `single`, then only one of the options may be selected (e.g: display as radio button). If the type is `multiple`, then multiple options may be selected (e.g: display as checkboxes).'
-          enum:
-          - single
-          - multiple
-          title: Type
-          type: string
-        name:
-          description: The name of the facet. This should be passed in the filters parameter when a facet of this type is selected. `filters[name]=value`
-          title: Name
-          type: string
-        display_name:
-          description: The name of the facet as it is displayed to end users. Note that in `filters` parameter you need to use not `display_name` but `name`.
-          title: Display Name
-          type: string
-        hidden:
-          description: The boolean value saying whether facet is available for interaction.
-          title: Hidden
-          type: boolean
-        data:
-          description: Object containing custom data associated with this facet. An empty object (`{}`) if no data is currently associated with this facet.
-          title: Data
-          type: object
-        options:
-          description: An array of possible facet values matching this search. By default, facet options are sorted by relevance. Number of options is limited, by default, to 500. But the limit can be configured per [facet](/reference/v1-facets-create-facet) key.
-          title: Options
-          items:
-            $ref: '#/components/schemas/FacetOption'
-          type: array
-      required:
-      - type
-      - name
-      - display_name
-      - hidden
-      - data
-      title: Single or Multiple facet
-      type: object
-    ResultFacet:
-      additionalProperties: false
-      properties:
-        name:
-          title: Name
-          type: string
-        values:
-          items:
-            anyOf:
-            - type: number
-            - type: integer
-            - type: string
-            - type: boolean
-          title: Values
-          type: array
-      required:
-      - name
-      - values
-      title: ResultFacet
-      type: object
-    Feature:
-      additionalProperties: false
-      properties:
-        display_name:
-          description: The name of the features as it is displayed to end users.
-          title: Display Name
-          type: string
-        enabled:
-          description: Displays the enabled status of the feature.
-          title: Enabled
-          type: boolean
-        feature_name:
-          description: The name of the feature.
-          title: Feature Name
-          type: string
-        variant:
-          description: Displays the variant of this feature if there are any.
-          allOf:
-          - $ref: '#/components/schemas/FeatureVariant'
-          title: Variant
-      required:
-      - display_name
-      - enabled
-      - feature_name
-      title: Feature
-      type: object
-    ResultGroup:
-      additionalProperties: false
-      properties:
-        group_id:
-          description: The ID of the group.
-          title: Group Id
-          type: string
-        display_name:
-          description: The name of the group as it is displayed to end users.
-          title: Display Name
-          type: string
-        path:
-          description: The path of `group_id`s above this group. `/great-grandparent/grandparent/parent/`
-          examples:
-          - /great-grandparent/grandparent/parent/
-          title: Path
-          type: string
-        path_list:
-          description: An array of groups constituting the path
-          items:
-            $ref: '#/components/schemas/Path'
-          title: Path List
-          type: array
-      required:
-      - group_id
-      - path
-      - path_list
-      title: ResultGroup
-      type: object
-    HierarchicalFacet:
-      additionalProperties: false
-      properties:
-        type:
-          title: Type
-          type: string
-          enum:
-          - hierarchical
-        name:
-          description: The name of the facet. This should be passed in the filters parameter when a facet of this type is selected. `filters[name]=value`
-          title: Name
-          type: string
-        display_name:
-          description: The name of the facet as it is displayed to end users. Note that in `filters` parameter you need to use not `display_name` but `name`.
-          title: Display Name
-          type: string
-        hidden:
-          description: The boolean value saying whether facet is available for interaction.
-          title: Hidden
-          type: boolean
-        data:
-          description: Object containing custom data associated with this facet. An empty object (`{}`) if no data is currently associated with this facet.
-          title: Data
-          type: object
-        options:
-          description: An array of possible facet values matching this search. By default, facet options are sorted by relevance.
-          title: Options
-          items:
-            $ref: '#/components/schemas/HierarchicalFacetOption'
-          type: array
-      required:
-      - type
-      - name
-      - display_name
-      - hidden
-      - data
-      title: Hierarchical facet
-      type: object
+    FilterMatchType:
+      enum:
+      - any
+      - all
+      - none
+      title: FilterMatchType
+      type: string
     RangeFacetStatus:
       additionalProperties: false
       properties:
@@ -746,37 +561,124 @@ components:
           title: Max
       title: RangeFacetStatus
       type: object
-    VariationsMapAnd:
+    ResultData:
+      properties:
+        id:
+          description: The ID of this item as specified in the catalog.
+          title: Id
+          type: string
+        url:
+          description: The URL where the item can be viewed or purchased.
+          title: Url
+          type: string
+        image_url:
+          description: The item's image URL for display in results.
+          title: Image Url
+          type: string
+        variation_id:
+          description: ID of the selected (best matching) variation. All metadata of the best matching variation will also be merged into the item's `data` object.Returned when [item variation](#) data is defined.
+          title: Variation Id
+          type: string
+        facets:
+          description: The item's associated facets.
+          title: Facets
+          items:
+            $ref: '#/components/schemas/ResultFacet'
+          type: array
+        groups:
+          description: The item's associated categories.
+          title: Groups
+          items:
+            $ref: '#/components/schemas/ResultGroup'
+          type: array
+      title: Result data
+      type: object
+    VariationsMapValueCountAggregation:
+      properties:
+        aggregation:
+          title: Aggregation
+          type: string
+          enum:
+          - value_count
+        field:
+          minLength: 1
+          title: Field
+          type: string
+        value:
+          anyOf:
+          - type: boolean
+          - type: integer
+          - type: number
+          - type: string
+          title: Value
+      required:
+      - aggregation
+      - field
+      - value
+      title: VariationsMapValueCountAggregation
+      type: object
+    ResultSources:
       additionalProperties: false
       properties:
-        and_:
-          items:
-            type: array
-          title: And
-          type: array
+        token_match:
+          description: The summary of results that came from matching a keyword
+          allOf:
+          - $ref: '#/components/schemas/ResultSourceValue'
+          title: Token Match
+        embeddings_match:
+          description: The summary of results that originated from cognitive embeddings
+          allOf:
+          - $ref: '#/components/schemas/ResultSourceValue'
+          title: Embeddings Match
       required:
-      - and_
-      title: VariationsMapAnd
+      - token_match
+      - embeddings_match
+      title: ResultSources
       type: object
-    VariationsMapOr:
+    VariationsMapRange:
       additionalProperties: false
       properties:
-        or_:
+        field:
+          description: Path to a metadata field (dot-separated)
+          minLength: 1
+          title: Field
+          type: string
+        range:
+          description: This filter matches items where the specified field is within the specified range (min and max). The values are inclusive. Use "inf" for an unbounded upper limit or "-inf" for an unbounded lower limit.
           items:
-            type: array
-          title: Or
+            anyOf:
+            - enum:
+              - inf
+              - -inf
+              type: string
+            - type: integer
+            - type: number
+          maxItems: 2
+          minItems: 2
+          title: Range
           type: array
       required:
-      - or_
-      title: VariationsMapOr
+      - field
+      - range
+      title: VariationsMapRange
       type: object
-    FilterMatchType:
-      enum:
-      - any
-      - all
-      - none
-      title: FilterMatchType
-      type: string
+    Filters:
+      propertyNames:
+        minLength: 1
+      title: Filters
+      type: object
+    ResultSourceValue:
+      additionalProperties: false
+      properties:
+        count:
+          description: Number of results returned from their respective sources
+          minimum: 0
+          title: Count
+          type: integer
+      required:
+      - count
+      title: ResultSourceValue
+      type: object
     SearchResponse:
       additionalProperties: false
       properties:
@@ -863,16 +765,17 @@ components:
       - related_browse_pages
       title: Search response
       type: object
-    RelatedSearch:
+    VariationsMapOr:
       additionalProperties: false
       properties:
-        query:
-          description: The related search query.
-          title: Query
-          type: string
+        or_:
+          items:
+            type: array
+          title: Or
+          type: array
       required:
-      - query
-      title: RelatedSearch
+      - or_
+      title: VariationsMapOr
       type: object
     VariationsMapCountAggregation:
       properties:
@@ -885,37 +788,84 @@ components:
       - aggregation
       title: VariationsMapCountAggregation
       type: object
-    DictOrJsonStringWithDict:
-      anyOf:
-      - title: object
-        type: object
-      - format: json
-        title: Encoded JSON string
-        type: string
-      title: DictOrJsonStringWithDict
-    VariationsMapFilterBy:
-      discriminator:
-        mapping:
-          and: '#/components/schemas/VariationsMapAnd'
-          not: '#/components/schemas/VariationsMapNot'
-          or: '#/components/schemas/VariationsMapOr'
-          range: '#/components/schemas/VariationsMapRange'
-          single: '#/components/schemas/VariationsMapSingleFilter'
-        propertyName: type
-      oneOf:
-      - $ref: '#/components/schemas/VariationsMapRange'
-      - $ref: '#/components/schemas/VariationsMapSingleFilter'
-      - $ref: '#/components/schemas/VariationsMapOr'
-      - $ref: '#/components/schemas/VariationsMapAnd'
-      - $ref: '#/components/schemas/VariationsMapNot'
-      title: VariationsMapFilterBy
-    VariationsReturnType:
-      enum:
-      - default
-      - all
-      - matched
-      title: VariationsReturnType
-      type: string
+    VariationsMapAnd:
+      additionalProperties: false
+      properties:
+        and_:
+          items:
+            type: array
+          title: And
+          type: array
+      required:
+      - and_
+      title: VariationsMapAnd
+      type: object
+    SingleOrMultipleFacet:
+      additionalProperties: false
+      properties:
+        type:
+          description: 'If a facet is of type `single`, then only one of the options may be selected (e.g: display as radio button). If the type is `multiple`, then multiple options may be selected (e.g: display as checkboxes).'
+          enum:
+          - single
+          - multiple
+          title: Type
+          type: string
+        name:
+          description: The name of the facet. This should be passed in the filters parameter when a facet of this type is selected. `filters[name]=value`
+          title: Name
+          type: string
+        display_name:
+          description: The name of the facet as it is displayed to end users. Note that in `filters` parameter you need to use not `display_name` but `name`.
+          title: Display Name
+          type: string
+        hidden:
+          description: The boolean value saying whether facet is available for interaction.
+          title: Hidden
+          type: boolean
+        data:
+          description: Object containing custom data associated with this facet. An empty object (`{}`) if no data is currently associated with this facet.
+          title: Data
+          type: object
+        options:
+          description: An array of possible facet values matching this search. By default, facet options are sorted by relevance. Number of options is limited, by default, to 500. But the limit can be configured per [facet](/reference/v1-facets-create-facet) key.
+          title: Options
+          items:
+            $ref: '#/components/schemas/FacetOption'
+          type: array
+      required:
+      - type
+      - name
+      - display_name
+      - hidden
+      - data
+      title: Single or Multiple facet
+      type: object
+    Feature:
+      additionalProperties: false
+      properties:
+        display_name:
+          description: The name of the features as it is displayed to end users.
+          title: Display Name
+          type: string
+        enabled:
+          description: Displays the enabled status of the feature.
+          title: Enabled
+          type: boolean
+        feature_name:
+          description: The name of the feature.
+          title: Feature Name
+          type: string
+        variant:
+          description: Displays the variant of this feature if there are any.
+          allOf:
+          - $ref: '#/components/schemas/FeatureVariant'
+          title: Variant
+      required:
+      - display_name
+      - enabled
+      - feature_name
+      title: Feature
+      type: object
     RedirectResponse:
       additionalProperties: false
       properties:
@@ -925,7 +875,28 @@ components:
       - redirect
       title: Redirect response
       type: object
-    FacetOption:
+    VariationsMapSingleFilter:
+      additionalProperties: false
+      properties:
+        field:
+          description: Path to a metadata field (dot-separated)
+          minLength: 1
+          title: Field
+          type: string
+        value:
+          anyOf:
+          - type: boolean
+          - type: integer
+          - type: number
+          - type: string
+          description: The value of this field to filter by
+          title: Value
+      required:
+      - field
+      - value
+      title: VariationsMapSingleFilter
+      type: object
+    HierarchicalFacetOption:
       additionalProperties: false
       properties:
         display_name:
@@ -965,12 +936,18 @@ components:
               - inf
               type: string
           type: array
+        options:
+          description: An array of possible facet values matching this search. By default, facet options are sorted by relevance. The field exists only for options of a facet with type `hierarchical`.
+          title: Options
+          items:
+            type: object
+          type: array
       required:
       - display_name
       - status
       - value
       - count
-      title: FacetOption
+      title: HierarchicalFacetOption
       type: object
     FmtOptions:
       additionalProperties: false
@@ -1124,71 +1101,6 @@ components:
           type: array
       title: FmtOptions
       type: object
-    VariationsMapRange:
-      additionalProperties: false
-      properties:
-        field:
-          description: Path to a metadata field (dot-separated)
-          minLength: 1
-          title: Field
-          type: string
-        range:
-          description: This filter matches items where the specified field is within the specified range (min and max). The values are inclusive. Use "inf" for an unbounded upper limit or "-inf" for an unbounded lower limit.
-          items:
-            anyOf:
-            - enum:
-              - inf
-              - -inf
-              type: string
-            - type: integer
-            - type: number
-          maxItems: 2
-          minItems: 2
-          title: Range
-          type: array
-      required:
-      - field
-      - range
-      title: VariationsMapRange
-      type: object
-    ResultSources:
-      additionalProperties: false
-      properties:
-        token_match:
-          description: The summary of results that came from matching a keyword
-          allOf:
-          - $ref: '#/components/schemas/ResultSourceValue'
-          title: Token Match
-        embeddings_match:
-          description: The summary of results that originated from cognitive embeddings
-          allOf:
-          - $ref: '#/components/schemas/ResultSourceValue'
-          title: Embeddings Match
-      required:
-      - token_match
-      - embeddings_match
-      title: ResultSources
-      type: object
-    SearchGetResponse:
-      additionalProperties: false
-      properties:
-        request:
-          description: The request arguments how they were interpreted by the API. This field is of arbitrary type, ie it doesn't have a guaranteed schema, and data from it shouldn't be used programmatically, it is for debugging purposes only.
-          title: Request
-          type: object
-        result_id:
-          title: Result Id
-          type: string
-        response:
-          anyOf:
-          - $ref: '#/components/schemas/SearchResponse'
-          - $ref: '#/components/schemas/RedirectResponse'
-          title: Response
-      required:
-      - request
-      - response
-      title: SearchGetResponse
-      type: object
     Group:
       additionalProperties: false
       properties:
@@ -1228,6 +1140,104 @@ components:
       - parents
       title: Group
       type: object
+    VariationsMapNot:
+      additionalProperties: false
+      properties:
+        not_:
+          type: object
+          title: Not
+      required:
+      - not_
+      title: VariationsMapNot
+      type: object
+    FeatureVariant:
+      additionalProperties: false
+      properties:
+        name:
+          description: The name of the feature variant.
+          title: Name
+          type: string
+        display_name:
+          description: The name of the feature variant as it is displayed to end users.
+          title: Display Name
+          type: string
+      required:
+      - name
+      title: FeatureVariant
+      type: object
+    VariationsReturnType:
+      enum:
+      - default
+      - all
+      - matched
+      title: VariationsReturnType
+      type: string
+    ResultGroup:
+      additionalProperties: false
+      properties:
+        group_id:
+          description: The ID of the group.
+          title: Group Id
+          type: string
+        display_name:
+          description: The name of the group as it is displayed to end users.
+          title: Display Name
+          type: string
+        path:
+          description: The path of `group_id`s above this group. `/great-grandparent/grandparent/parent/`
+          examples:
+          - /great-grandparent/grandparent/parent/
+          title: Path
+          type: string
+        path_list:
+          description: An array of groups constituting the path
+          items:
+            $ref: '#/components/schemas/Path'
+          title: Path List
+          type: array
+      required:
+      - group_id
+      - path
+      - path_list
+      title: ResultGroup
+      type: object
+    RelatedSearch:
+      additionalProperties: false
+      properties:
+        query:
+          description: The related search query.
+          title: Query
+          type: string
+      required:
+      - query
+      title: RelatedSearch
+      type: object
+    RelatedBrowseEntity:
+      additionalProperties: false
+      properties:
+        filter_name:
+          description: The name of the related browse filter.
+          title: Filter Name
+          type: string
+        filter_value:
+          description: The value of the related browse filter.
+          title: Filter Value
+          type: string
+        display_name:
+          description: The display name of the related browse filter.
+          title: Display Name
+          type: string
+        image_url:
+          description: The thumbnail for the browse filter.
+          title: Image Url
+          type: string
+      required:
+      - filter_name
+      - filter_value
+      - display_name
+      - image_url
+      title: RelatedBrowseEntity
+      type: object
     GroupBase:
       additionalProperties: false
       properties:
@@ -1243,7 +1253,147 @@ components:
       - group_id
       title: GroupBase
       type: object
-    HierarchicalFacetOption:
+    RedirectData:
+      properties:
+        url:
+          description: Target URL of the redirect.
+          title: Url
+          type: string
+      required:
+      - url
+      title: RedirectData
+      type: object
+    VariationsMapGrouping:
+      properties:
+        name:
+          pattern: ^\w+([ ]?[\w]+)*$
+          title: Name
+          type: string
+        field:
+          minLength: 1
+          title: Field
+          type: string
+      required:
+      - name
+      - field
+      title: VariationsMapGrouping
+      type: object
+    Redirect:
+      additionalProperties: false
+      properties:
+        matched_terms:
+          description: An array of all the terms in the redirect match definition that matched the search query.
+          title: Matched Terms
+          items:
+            type: string
+          type: array
+        matched_user_segments:
+          description: An array of all the user segments in the redirect match definition that matched the search query.
+          title: Matched User Segments
+          items:
+            type: string
+          type: array
+        data:
+          description: Object containing the target URL and any metadata defined in the redirect rule.
+          allOf:
+          - $ref: '#/components/schemas/RedirectData'
+          title: Data
+      required:
+      - data
+      title: Redirect
+      type: object
+    RangeFacet:
+      additionalProperties: false
+      properties:
+        type:
+          description: If a facet is of type `range`, then no facet options are provided. Instead a `min` and `max` value is provided to specify the range of values that can be sent in `filters`.
+          title: Type
+          type: string
+          enum:
+          - range
+        name:
+          description: The name of the facet. This should be passed in the filters parameter when a facet of this type is selected. `filters[name]=value`
+          title: Name
+          type: string
+        display_name:
+          description: The name of the facet as it is displayed to end users. Note that in `filters` parameter you need to use not `display_name` but `name`.
+          title: Display Name
+          type: string
+        hidden:
+          description: The boolean value saying whether facet is available for interaction.
+          title: Hidden
+          type: boolean
+        data:
+          description: Object containing custom data associated with this facet. An empty object (`{}`) if no data is currently associated with this facet.
+          title: Data
+          type: object
+        status:
+          description: Specifies the selected facet value range. If no range is selected the field will be omitted.
+          allOf:
+          - $ref: '#/components/schemas/RangeFacetStatus'
+          title: Status
+        min:
+          anyOf:
+          - type: number
+          - type: integer
+          - enum:
+            - -inf
+            - +inf
+            - inf
+            type: string
+          description: Minimum facet value of the result items.
+          title: Min
+        max:
+          anyOf:
+          - type: number
+          - type: integer
+          - enum:
+            - -inf
+            - +inf
+            - inf
+            type: string
+          description: Maximum facet value of the result items.
+          title: Max
+      required:
+      - type
+      - name
+      - display_name
+      - hidden
+      - data
+      title: Range facet
+      type: object
+    Path:
+      additionalProperties: false
+      properties:
+        id:
+          description: The ID of the group.
+          title: Id
+          type: string
+        display_name:
+          description: The name of the group as it is displayed to end users.
+          title: Display Name
+          type: string
+      required:
+      - id
+      title: Path
+      type: object
+    VariationsMapFilterBy:
+      discriminator:
+        mapping:
+          and: '#/components/schemas/VariationsMapAnd'
+          not: '#/components/schemas/VariationsMapNot'
+          or: '#/components/schemas/VariationsMapOr'
+          range: '#/components/schemas/VariationsMapRange'
+          single: '#/components/schemas/VariationsMapSingleFilter'
+        propertyName: type
+      oneOf:
+      - $ref: '#/components/schemas/VariationsMapRange'
+      - $ref: '#/components/schemas/VariationsMapSingleFilter'
+      - $ref: '#/components/schemas/VariationsMapOr'
+      - $ref: '#/components/schemas/VariationsMapAnd'
+      - $ref: '#/components/schemas/VariationsMapNot'
+      title: VariationsMapFilterBy
+    FacetOption:
       additionalProperties: false
       properties:
         display_name:
@@ -1283,204 +1433,54 @@ components:
               - inf
               type: string
           type: array
-        options:
-          description: An array of possible facet values matching this search. By default, facet options are sorted by relevance. The field exists only for options of a facet with type `hierarchical`.
-          title: Options
-          items:
-            type: object
-          type: array
       required:
       - display_name
       - status
       - value
       - count
-      title: HierarchicalFacetOption
+      title: FacetOption
       type: object
-    Redirect:
-      additionalProperties: false
-      properties:
-        matched_terms:
-          description: An array of all the terms in the redirect match definition that matched the search query.
-          title: Matched Terms
-          items:
-            type: string
-          type: array
-        matched_user_segments:
-          description: An array of all the user segments in the redirect match definition that matched the search query.
-          title: Matched User Segments
-          items:
-            type: string
-          type: array
-        data:
-          description: Object containing the target URL and any metadata defined in the redirect rule.
-          allOf:
-          - $ref: '#/components/schemas/RedirectData'
-          title: Data
-      required:
-      - data
-      title: Redirect
-      type: object
-    VariationsMapValueCountAggregation:
+    VariationsMapSimpleAggregation:
       properties:
         aggregation:
+          enum:
+          - first
+          - all
+          - distinct
+          - min
+          - max
+          - field_count
           title: Aggregation
           type: string
-          enum:
-          - value_count
         field:
           minLength: 1
           title: Field
           type: string
-        value:
-          anyOf:
-          - type: boolean
-          - type: integer
-          - type: number
-          - type: string
-          title: Value
       required:
       - aggregation
       - field
-      - value
-      title: VariationsMapValueCountAggregation
+      title: VariationsMapSimpleAggregation
       type: object
-    ResultData:
-      properties:
-        id:
-          description: The ID of this item as specified in the catalog.
-          title: Id
-          type: string
-        url:
-          description: The URL where the item can be viewed or purchased.
-          title: Url
-          type: string
-        image_url:
-          description: The item's image URL for display in results.
-          title: Image Url
-          type: string
-        variation_id:
-          description: ID of the selected (best matching) variation. All metadata of the best matching variation will also be merged into the item's `data` object.Returned when [item variation](#) data is defined.
-          title: Variation Id
-          type: string
-        facets:
-          description: The item's associated facets.
-          title: Facets
-          items:
-            $ref: '#/components/schemas/ResultFacet'
-          type: array
-        groups:
-          description: The item's associated categories.
-          title: Groups
-          items:
-            $ref: '#/components/schemas/ResultGroup'
-          type: array
-      title: Result data
-      type: object
-    SortOrderType:
-      enum:
-      - ascending
-      - descending
-      title: SortOrderType
-      type: string
-    VariationsMap:
-      properties:
-        filter_by:
-          description: A filtering expression that should be used to filter variations before doing any aggregations
-          allOf:
-          - $ref: '#/components/schemas/VariationsMapFilterBy'
-          title: Filter By
-        group_by:
-          description: An array of fields that should be used to group variations. Variations which share the value of all fields specified here will all fall under one group
-          title: Group By
-          items:
-            $ref: '#/components/schemas/VariationsMapGrouping'
-          maxItems: 5
-          type: array
-        values:
-          description: A set of aggregations that should be applied to each variation group. The object keys specify the name of the field under which each aggregated value will be returned in the response
-          title: Values
-          type: object
-          additionalProperties:
-            discriminator:
-              mapping:
-                all: '#/components/schemas/VariationsMapSimpleAggregation'
-                count: '#/components/schemas/VariationsMapCountAggregation'
-                distinct: '#/components/schemas/VariationsMapSimpleAggregation'
-                field_count: '#/components/schemas/VariationsMapSimpleAggregation'
-                first: '#/components/schemas/VariationsMapSimpleAggregation'
-                max: '#/components/schemas/VariationsMapSimpleAggregation'
-                min: '#/components/schemas/VariationsMapSimpleAggregation'
-                value_count: '#/components/schemas/VariationsMapValueCountAggregation'
-              propertyName: aggregation
-            oneOf:
-            - $ref: '#/components/schemas/VariationsMapSimpleAggregation'
-            - $ref: '#/components/schemas/VariationsMapCountAggregation'
-            - $ref: '#/components/schemas/VariationsMapValueCountAggregation'
-        dtype:
-          description: The expected data type of the variations_map objects in the response
-          enum:
-          - array
-          - object
-          title: Dtype
-          type: string
-      required:
-      - values
-      - dtype
-      title: VariationsMap
-      type: object
-    RelatedBrowseEntity:
-      additionalProperties: false
-      properties:
-        filter_name:
-          description: The name of the related browse filter.
-          title: Filter Name
-          type: string
-        filter_value:
-          description: The value of the related browse filter.
-          title: Filter Value
-          type: string
-        display_name:
-          description: The display name of the related browse filter.
-          title: Display Name
-          type: string
-        image_url:
-          description: The thumbnail for the browse filter.
-          title: Image Url
-          type: string
-      required:
-      - filter_name
-      - filter_value
-      - display_name
-      - image_url
-      title: RelatedBrowseEntity
-      type: object
-    Filters:
-      propertyNames:
-        minLength: 1
-      title: Filters
-      type: object
-    FeatureVariant:
+    ResultFacet:
       additionalProperties: false
       properties:
         name:
-          description: The name of the feature variant.
           title: Name
           type: string
-        display_name:
-          description: The name of the feature variant as it is displayed to end users.
-          title: Display Name
-          type: string
+        values:
+          items:
+            anyOf:
+            - type: number
+            - type: integer
+            - type: string
+            - type: boolean
+          title: Values
+          type: array
       required:
       - name
-      title: FeatureVariant
+      - values
+      title: ResultFacet
       type: object
-    FacetOptionSortOrder:
-      enum:
-      - relevance
-      - value
-      - num_matches
-      title: FacetOptionSortOrder
-      type: string
   securitySchemes:
     http_basic_auth:
       type: http

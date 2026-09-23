@@ -16,7 +16,7 @@ paths:
       - Synonym groups
       operationId: v1-synonyms-retrieve-synonym
       summary: Retrieve synonym group
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `synonyms(r)`.
 
@@ -90,7 +90,7 @@ paths:
       - Synonym groups
       operationId: v1-synonyms-update-synonym
       summary: Update synonym group
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `synonyms(w)`.
 
@@ -167,7 +167,7 @@ paths:
       - Synonym groups
       operationId: v1-synonyms-delete-synonym
       summary: Delete synonym group
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `synonyms(w)`.
 
@@ -238,7 +238,7 @@ paths:
       - Synonym groups
       operationId: v1-synonyms-list-synonyms
       summary: Retrieve synonym groups
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `synonyms(r)`.
 
@@ -389,7 +389,7 @@ paths:
       - Synonym groups
       operationId: v1-synonyms-create-synonym
       summary: Create synonym group
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `synonyms(w)`.
 
@@ -462,12 +462,12 @@ paths:
       - Synonym groups
       operationId: v1-synonyms-delete-synonyms
       summary: Delete synonym groups
-      description: '**🔐 This endpoint requires [HTTP authentication](https://docs.constructor.com/reference/main-authentication) (either [Basic](https://docs.constructor.com/reference/main-authentication#basic-authentication) or [Bearer](https://docs.constructor.com/reference/main-authentication#bearer-authentication)).**
+      description: '**🔐 This endpoint requires HTTP authentication (either Basic or Bearer).**
 
         For authenticating with Bearer token, required scopes are: `synonyms(w)`.
 
 
-        Delete all synonyms groups for the provided `key`. Starts a background [task](/reference/v1-tasks-retrieve-task). Returns message.'
+        Delete all synonyms groups for the provided `key`. Starts a background task. Returns message.'
       parameters:
       - name: key
         in: query
@@ -525,6 +525,62 @@ paths:
         - synonyms(w)
 components:
   schemas:
+    SynonymListDeleteResponse:
+      title: SynonymListDeleteResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          examples:
+          - Successfully deleted all synonyms
+          type: string
+      required:
+      - message
+      additionalProperties: false
+    SortOrderType:
+      title: SortOrderType
+      enum:
+      - ascending
+      - descending
+      type: string
+    SynonymGetResponse:
+      title: SynonymGetResponse
+      type: object
+      properties:
+        total_count:
+          title: Total Count
+          minimum: 0
+          type: integer
+        synonym_groups:
+          title: Synonym Groups
+          type: array
+          items:
+            $ref: '#/components/schemas/SynonymGroupGetResponse'
+      required:
+      - total_count
+      - synonym_groups
+      additionalProperties: false
+    SynonymPutRequestBody:
+      title: SynonymPutRequestBody
+      type: object
+      properties:
+        synonyms:
+          title: Synonyms
+          description: Array of synonyms you want to set
+          minItems: 1
+          maxItems: 20
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 200
+            examples:
+            - tea
+            - tisane
+            - herbal tea
+      required:
+      - synonyms
+      additionalProperties: false
     SynonymListGetResponse:
       title: SynonymListGetResponse
       type: object
@@ -541,18 +597,6 @@ components:
       required:
       - total_count
       - synonym_groups
-      additionalProperties: false
-    SynonymListDeleteResponse:
-      title: SynonymListDeleteResponse
-      type: object
-      properties:
-        message:
-          title: Message
-          examples:
-          - Successfully deleted all synonyms
-          type: string
-      required:
-      - message
       additionalProperties: false
     SynonymGroupGetResponse:
       title: SynonymGroupGetResponse
@@ -587,31 +631,8 @@ components:
       - created_at
       - updated_at
       additionalProperties: false
-    SynonymGetResponse:
-      title: SynonymGetResponse
-      type: object
-      properties:
-        total_count:
-          title: Total Count
-          minimum: 0
-          type: integer
-        synonym_groups:
-          title: Synonym Groups
-          type: array
-          items:
-            $ref: '#/components/schemas/SynonymGroupGetResponse'
-      required:
-      - total_count
-      - synonym_groups
-      additionalProperties: false
-    SortOrderType:
-      title: SortOrderType
-      enum:
-      - ascending
-      - descending
-      type: string
-    SynonymPutRequestBody:
-      title: SynonymPutRequestBody
+    SynonymListPostRequestBody:
+      title: SynonymListPostRequestBody
       type: object
       properties:
         synonyms:
@@ -640,27 +661,6 @@ components:
           type: integer
       required:
       - group_id
-      additionalProperties: false
-    SynonymListPostRequestBody:
-      title: SynonymListPostRequestBody
-      type: object
-      properties:
-        synonyms:
-          title: Synonyms
-          description: Array of synonyms you want to set
-          minItems: 1
-          maxItems: 20
-          type: array
-          items:
-            type: string
-            minLength: 1
-            maxLength: 200
-            examples:
-            - tea
-            - tisane
-            - herbal tea
-      required:
-      - synonyms
       additionalProperties: false
   securitySchemes:
     http_basic_auth:

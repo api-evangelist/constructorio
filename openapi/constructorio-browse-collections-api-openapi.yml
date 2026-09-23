@@ -16,7 +16,7 @@ paths:
       - Browse collections
       operationId: v1-browse-get-browse-collections
       summary: Retrieve collections
-      description: Retrieve collections for end users. To get specific collection items use the `/browse/collection_id/<collection_id>` endpoint.
+      description: Retrieve collections for end users. To get specific collection items use the `/browse/collection_id/` endpoint.
       parameters:
       - name: key
         in: query
@@ -193,6 +193,24 @@ paths:
       security: []
 components:
   schemas:
+    BrowseCollectionsResponse:
+      additionalProperties: false
+      properties:
+        collections:
+          description: Information on browsed collections.
+          items:
+            $ref: '#/components/schemas/Collection'
+          title: Collections
+          type: array
+        total_num_results:
+          description: Total count of collections.
+          title: Total Num Results
+          type: integer
+      required:
+      - collections
+      - total_num_results
+      title: BrowseCollectionsResponse
+      type: object
     Collection:
       additionalProperties: false
       properties:
@@ -227,6 +245,12 @@ components:
       - id
       title: Collection
       type: object
+    SortOrderType:
+      enum:
+      - ascending
+      - descending
+      title: SortOrderType
+      type: string
     BrowseCollectionsGetResponse:
       additionalProperties: false
       properties:
@@ -235,30 +259,6 @@ components:
       required:
       - response
       title: BrowseCollectionsGetResponse
-      type: object
-    SortOrderType:
-      enum:
-      - ascending
-      - descending
-      title: SortOrderType
-      type: string
-    BrowseCollectionsResponse:
-      additionalProperties: false
-      properties:
-        collections:
-          description: Information on browsed collections.
-          items:
-            $ref: '#/components/schemas/Collection'
-          title: Collections
-          type: array
-        total_num_results:
-          description: Total count of collections.
-          title: Total Num Results
-          type: integer
-      required:
-      - collections
-      - total_num_results
-      title: BrowseCollectionsResponse
       type: object
   securitySchemes:
     http_basic_auth:
