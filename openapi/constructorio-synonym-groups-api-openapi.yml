@@ -537,31 +537,8 @@ components:
       required:
       - message
       additionalProperties: false
-    SortOrderType:
-      title: SortOrderType
-      enum:
-      - ascending
-      - descending
-      type: string
-    SynonymGetResponse:
-      title: SynonymGetResponse
-      type: object
-      properties:
-        total_count:
-          title: Total Count
-          minimum: 0
-          type: integer
-        synonym_groups:
-          title: Synonym Groups
-          type: array
-          items:
-            $ref: '#/components/schemas/SynonymGroupGetResponse'
-      required:
-      - total_count
-      - synonym_groups
-      additionalProperties: false
-    SynonymPutRequestBody:
-      title: SynonymPutRequestBody
+    SynonymListPostRequestBody:
+      title: SynonymListPostRequestBody
       type: object
       properties:
         synonyms:
@@ -580,23 +557,6 @@ components:
             - herbal tea
       required:
       - synonyms
-      additionalProperties: false
-    SynonymListGetResponse:
-      title: SynonymListGetResponse
-      type: object
-      properties:
-        total_count:
-          title: Total Count
-          minimum: 0
-          type: integer
-        synonym_groups:
-          title: Synonym Groups
-          type: array
-          items:
-            $ref: '#/components/schemas/SynonymGroupGetResponse'
-      required:
-      - total_count
-      - synonym_groups
       additionalProperties: false
     SynonymGroupGetResponse:
       title: SynonymGroupGetResponse
@@ -631,8 +591,8 @@ components:
       - created_at
       - updated_at
       additionalProperties: false
-    SynonymListPostRequestBody:
-      title: SynonymListPostRequestBody
+    SynonymPutRequestBody:
+      title: SynonymPutRequestBody
       type: object
       properties:
         synonyms:
@@ -652,6 +612,29 @@ components:
       required:
       - synonyms
       additionalProperties: false
+    SynonymGetResponse:
+      title: SynonymGetResponse
+      type: object
+      properties:
+        total_count:
+          title: Total Count
+          minimum: 0
+          type: integer
+        synonym_groups:
+          title: Synonym Groups
+          type: array
+          items:
+            $ref: '#/components/schemas/SynonymGroupGetResponse'
+      required:
+      - total_count
+      - synonym_groups
+      additionalProperties: false
+    SortOrderType:
+      title: SortOrderType
+      enum:
+      - ascending
+      - descending
+      type: string
     SynonymListPostResponse:
       title: SynonymListPostResponse
       type: object
@@ -661,6 +644,23 @@ components:
           type: integer
       required:
       - group_id
+      additionalProperties: false
+    SynonymListGetResponse:
+      title: SynonymListGetResponse
+      type: object
+      properties:
+        total_count:
+          title: Total Count
+          minimum: 0
+          type: integer
+        synonym_groups:
+          title: Synonym Groups
+          type: array
+          items:
+            $ref: '#/components/schemas/SynonymGroupGetResponse'
+      required:
+      - total_count
+      - synonym_groups
       additionalProperties: false
   securitySchemes:
     http_basic_auth:

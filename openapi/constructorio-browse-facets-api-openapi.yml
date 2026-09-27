@@ -500,35 +500,6 @@ components:
       - response
       title: BrowseFacetOptionsGetResponse
       type: object
-    BrowseFacetsGetResponse:
-      additionalProperties: false
-      properties:
-        request:
-          description: The request arguments how they were interpreted by the API. This field is of arbitrary type, ie it doesn't have a guaranteed schema, and data from it shouldn't be used programmatically, it is for debugging purposes only.
-          title: Request
-          type: object
-        result_id:
-          title: Result Id
-          type: string
-        response:
-          $ref: '#/components/schemas/BrowseFacetsResponse'
-      required:
-      - request
-      - response
-      title: BrowseFacetsGetResponse
-      type: object
-    BrowseFacetsWithOptionsGetResponse:
-      additionalProperties: false
-      properties:
-        response:
-          $ref: '#/components/schemas/BrowseFacetsResponse'
-        result_id:
-          title: Result Id
-          type: string
-      required:
-      - response
-      title: BrowseFacetsWithOptionsGetResponse
-      type: object
     BrowseFacetOptionsResponse:
       additionalProperties: false
       properties:
@@ -556,46 +527,6 @@ components:
       - facets
       - total_num_results
       title: Browse facet options response
-      type: object
-    SingleOrMultipleFacet:
-      additionalProperties: false
-      properties:
-        type:
-          description: 'If a facet is of type `single`, then only one of the options may be selected (e.g: display as radio button). If the type is `multiple`, then multiple options may be selected (e.g: display as checkboxes).'
-          enum:
-          - single
-          - multiple
-          title: Type
-          type: string
-        name:
-          description: The name of the facet. This should be passed in the filters parameter when a facet of this type is selected. `filters[name]=value`
-          title: Name
-          type: string
-        display_name:
-          description: The name of the facet as it is displayed to end users. Note that in `filters` parameter you need to use not `display_name` but `name`.
-          title: Display Name
-          type: string
-        hidden:
-          description: The boolean value saying whether facet is available for interaction.
-          title: Hidden
-          type: boolean
-        data:
-          description: Object containing custom data associated with this facet. An empty object (`{}`) if no data is currently associated with this facet.
-          title: Data
-          type: object
-        options:
-          description: An array of possible facet values matching this search. By default, facet options are sorted by relevance. Number of options is limited, by default, to 500. But the limit can be configured per [facet](/reference/v1-facets-create-facet) key.
-          title: Options
-          items:
-            $ref: '#/components/schemas/FacetOption'
-          type: array
-      required:
-      - type
-      - name
-      - display_name
-      - hidden
-      - data
-      title: Single or Multiple facet
       type: object
     BrowseFacetsResponse:
       additionalProperties: false
@@ -625,6 +556,121 @@ components:
       - facets
       - total_num_results
       title: Browse facets response
+      type: object
+    FacetFmtOptions:
+      additionalProperties: false
+      properties:
+        show_hidden_facets:
+          default: false
+          description: A flag to return all facets configured as `hidden` in `response.facets`.
+          examples:
+          - false
+          - true
+          title: Show Hidden Facets
+          type: boolean
+        hidden_facets:
+          description: A list of specific hidden facets to return in the response. Unlike `show_hidden_facets` this parameter allows the request to control which hidden facets are returned.  Used to return facets for a particular store or user segment.
+          title: Hidden Facets
+          items:
+            maxLength: 100
+            minLength: 1
+            type: string
+            examples:
+            - store_id
+            - region
+          maxItems: 20
+          type: array
+        show_hidden_facet_options:
+          description: A flag to return all `hidden` facets options in the response.
+          examples:
+          - false
+          - true
+          title: Show Hidden Facet Options
+          type: boolean
+        show_protected_facets:
+          default: false
+          description: A flag to return all `protected` facets in the response. Requires authentication.
+          examples:
+          - false
+          - true
+          title: Show Protected Facets
+          type: boolean
+        show_internal_facets:
+          title: Show Internal Facets
+          type: boolean
+      title: FacetFmtOptions
+      type: object
+    BrowseFacetsWithOptionsGetResponse:
+      additionalProperties: false
+      properties:
+        response:
+          $ref: '#/components/schemas/BrowseFacetsResponse'
+        result_id:
+          title: Result Id
+          type: string
+      required:
+      - response
+      title: BrowseFacetsWithOptionsGetResponse
+      type: object
+    RangeFacet:
+      additionalProperties: false
+      properties:
+        type:
+          description: If a facet is of type `range`, then no facet options are provided. Instead a `min` and `max` value is provided to specify the range of values that can be sent in `filters`.
+          title: Type
+          type: string
+          enum:
+          - range
+        name:
+          description: The name of the facet. This should be passed in the filters parameter when a facet of this type is selected. `filters[name]=value`
+          title: Name
+          type: string
+        display_name:
+          description: The name of the facet as it is displayed to end users. Note that in `filters` parameter you need to use not `display_name` but `name`.
+          title: Display Name
+          type: string
+        hidden:
+          description: The boolean value saying whether facet is available for interaction.
+          title: Hidden
+          type: boolean
+        data:
+          description: Object containing custom data associated with this facet. An empty object (`{}`) if no data is currently associated with this facet.
+          title: Data
+          type: object
+        status:
+          description: Specifies the selected facet value range. If no range is selected the field will be omitted.
+          allOf:
+          - $ref: '#/components/schemas/RangeFacetStatus'
+          title: Status
+        min:
+          anyOf:
+          - type: number
+          - type: integer
+          - enum:
+            - -inf
+            - +inf
+            - inf
+            type: string
+          description: Minimum facet value of the result items.
+          title: Min
+        max:
+          anyOf:
+          - type: number
+          - type: integer
+          - enum:
+            - -inf
+            - +inf
+            - inf
+            type: string
+          description: Maximum facet value of the result items.
+          title: Max
+      required:
+      - type
+      - name
+      - display_name
+      - hidden
+      - data
+      title: Range facet
       type: object
     HierarchicalFacet:
       additionalProperties: false
@@ -717,15 +763,16 @@ components:
       - count
       title: HierarchicalFacetOption
       type: object
-    RangeFacet:
+    SingleOrMultipleFacet:
       additionalProperties: false
       properties:
         type:
-          description: If a facet is of type `range`, then no facet options are provided. Instead a `min` and `max` value is provided to specify the range of values that can be sent in `filters`.
+          description: 'If a facet is of type `single`, then only one of the options may be selected (e.g: display as radio button). If the type is `multiple`, then multiple options may be selected (e.g: display as checkboxes).'
+          enum:
+          - single
+          - multiple
           title: Type
           type: string
-          enum:
-          - range
         name:
           description: The name of the facet. This should be passed in the filters parameter when a facet of this type is selected. `filters[name]=value`
           title: Name
@@ -742,11 +789,40 @@ components:
           description: Object containing custom data associated with this facet. An empty object (`{}`) if no data is currently associated with this facet.
           title: Data
           type: object
-        status:
-          description: Specifies the selected facet value range. If no range is selected the field will be omitted.
-          allOf:
-          - $ref: '#/components/schemas/RangeFacetStatus'
-          title: Status
+        options:
+          description: An array of possible facet values matching this search. By default, facet options are sorted by relevance. Number of options is limited, by default, to 500. But the limit can be configured per [facet](/reference/v1-facets-create-facet) key.
+          title: Options
+          items:
+            $ref: '#/components/schemas/FacetOption'
+          type: array
+      required:
+      - type
+      - name
+      - display_name
+      - hidden
+      - data
+      title: Single or Multiple facet
+      type: object
+    BrowseFacetsGetResponse:
+      additionalProperties: false
+      properties:
+        request:
+          description: The request arguments how they were interpreted by the API. This field is of arbitrary type, ie it doesn't have a guaranteed schema, and data from it shouldn't be used programmatically, it is for debugging purposes only.
+          title: Request
+          type: object
+        result_id:
+          title: Result Id
+          type: string
+        response:
+          $ref: '#/components/schemas/BrowseFacetsResponse'
+      required:
+      - request
+      - response
+      title: BrowseFacetsGetResponse
+      type: object
+    RangeFacetStatus:
+      additionalProperties: false
+      properties:
         min:
           anyOf:
           - type: number
@@ -756,7 +832,8 @@ components:
             - +inf
             - inf
             type: string
-          description: Minimum facet value of the result items.
+          - type: string
+          description: Selected minimum value of the range facet.
           title: Min
         max:
           anyOf:
@@ -767,15 +844,10 @@ components:
             - +inf
             - inf
             type: string
-          description: Maximum facet value of the result items.
+          - type: string
+          description: Selected maximum value of the range facet.
           title: Max
-      required:
-      - type
-      - name
-      - display_name
-      - hidden
-      - data
-      title: Range facet
+      title: RangeFacetStatus
       type: object
     FacetOption:
       additionalProperties: false
@@ -823,78 +895,6 @@ components:
       - value
       - count
       title: FacetOption
-      type: object
-    FacetFmtOptions:
-      additionalProperties: false
-      properties:
-        show_hidden_facets:
-          default: false
-          description: A flag to return all facets configured as `hidden` in `response.facets`.
-          examples:
-          - false
-          - true
-          title: Show Hidden Facets
-          type: boolean
-        hidden_facets:
-          description: A list of specific hidden facets to return in the response. Unlike `show_hidden_facets` this parameter allows the request to control which hidden facets are returned.  Used to return facets for a particular store or user segment.
-          title: Hidden Facets
-          items:
-            maxLength: 100
-            minLength: 1
-            type: string
-            examples:
-            - store_id
-            - region
-          maxItems: 20
-          type: array
-        show_hidden_facet_options:
-          description: A flag to return all `hidden` facets options in the response.
-          examples:
-          - false
-          - true
-          title: Show Hidden Facet Options
-          type: boolean
-        show_protected_facets:
-          default: false
-          description: A flag to return all `protected` facets in the response. Requires authentication.
-          examples:
-          - false
-          - true
-          title: Show Protected Facets
-          type: boolean
-        show_internal_facets:
-          title: Show Internal Facets
-          type: boolean
-      title: FacetFmtOptions
-      type: object
-    RangeFacetStatus:
-      additionalProperties: false
-      properties:
-        min:
-          anyOf:
-          - type: number
-          - type: integer
-          - enum:
-            - -inf
-            - +inf
-            - inf
-            type: string
-          - type: string
-          description: Selected minimum value of the range facet.
-          title: Min
-        max:
-          anyOf:
-          - type: number
-          - type: integer
-          - enum:
-            - -inf
-            - +inf
-            - inf
-            type: string
-          - type: string
-          description: Selected maximum value of the range facet.
-          title: Max
-      title: RangeFacetStatus
       type: object
   securitySchemes:
     http_basic_auth:

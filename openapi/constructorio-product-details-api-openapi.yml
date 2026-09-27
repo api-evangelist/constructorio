@@ -274,85 +274,6 @@ paths:
       security: []
 components:
   schemas:
-    AttributeType:
-      type: string
-      enum:
-      - standard
-      - extended
-      title: AttributeType
-      description: The type of an enriched attribute value.
-    ErrorDetail:
-      properties:
-        code:
-          type: string
-          title: Code
-        message:
-          type: string
-          title: Message
-      type: object
-      required:
-      - code
-      - message
-      title: ErrorDetail
-      description: Single error entry in an error response.
-    ErrorResponseWithTrace:
-      properties:
-        message:
-          type: string
-          title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
-          title: Errors
-        trace_id:
-          type: string
-          title: Trace Id
-      type: object
-      required:
-      - message
-      - errors
-      - trace_id
-      title: ErrorResponseWithTrace
-      description: Error response body with trace ID.
-    VariationsGetResponse:
-      properties:
-        trace_id:
-          type: string
-          title: Trace Id
-        response:
-          title: Response
-          type: object
-          properties:
-            variations:
-              title: Variations
-              type: array
-              items:
-                $ref: '#/components/schemas/Variation'
-          required:
-          - variations
-      type: object
-      required:
-      - trace_id
-      - response
-      title: VariationsGetResponse
-      description: Full response for GET /v1/variations.
-    ErrorResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
-          title: Errors
-      type: object
-      required:
-      - message
-      - errors
-      title: ErrorResponse
-      description: Standard error response body.
     Badge:
       properties:
         type:
@@ -374,19 +295,6 @@ components:
       - display_name
       title: Badge
       description: Fully resolved badge (API type, all {placeholder} replaced).
-    Variation:
-      properties:
-        variation_id:
-          type: string
-          title: Variation ID
-        enriched_attributes:
-          $ref: '#/components/schemas/EnrichedAttributes'
-      type: object
-      required:
-      - variation_id
-      - enriched_attributes
-      title: Variation
-      description: Variation with nested enriched_attributes (used in GET /v1/variations).
     EnrichedAttributes:
       properties:
         badges:
@@ -418,6 +326,70 @@ components:
       - attributes
       title: EnrichedAttributes
       description: 'Enriched attributes: resolved badges and attributes keyed by name.'
+    ErrorResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+          title: Errors
+      type: object
+      required:
+      - message
+      - errors
+      title: ErrorResponse
+      description: Standard error response body.
+    VariationsGetResponse:
+      properties:
+        trace_id:
+          type: string
+          title: Trace Id
+        response:
+          title: Response
+          type: object
+          properties:
+            variations:
+              title: Variations
+              type: array
+              items:
+                $ref: '#/components/schemas/Variation'
+          required:
+          - variations
+      type: object
+      required:
+      - trace_id
+      - response
+      title: VariationsGetResponse
+      description: Full response for GET /v1/variations.
+    AttributeValue:
+      properties:
+        value:
+          type: string
+          title: Value
+        type:
+          $ref: '#/components/schemas/AttributeType'
+      type: object
+      required:
+      - value
+      - type
+      title: AttributeValue
+      description: A single enriched attribute value.
+    ItemWithEnrichedAttributes:
+      properties:
+        id:
+          type: string
+          title: ID
+        enriched_attributes:
+          $ref: '#/components/schemas/EnrichedAttributes'
+      type: object
+      required:
+      - id
+      - enriched_attributes
+      title: ItemWithEnrichedAttributes
+      description: Item with nested enriched_attributes (used in GET /v1/items).
     SingleItemGetResponse:
       properties:
         trace_id:
@@ -437,32 +409,60 @@ components:
       - response
       title: SingleItemGetResponse
       description: Full response for GET /v1/items.
-    ItemWithEnrichedAttributes:
+    ErrorResponseWithTrace:
       properties:
-        id:
+        message:
           type: string
-          title: ID
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+          title: Errors
+        trace_id:
+          type: string
+          title: Trace Id
+      type: object
+      required:
+      - message
+      - errors
+      - trace_id
+      title: ErrorResponseWithTrace
+      description: Error response body with trace ID.
+    AttributeType:
+      type: string
+      enum:
+      - standard
+      - extended
+      title: AttributeType
+      description: The type of an enriched attribute value.
+    ErrorDetail:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - code
+      - message
+      title: ErrorDetail
+      description: Single error entry in an error response.
+    Variation:
+      properties:
+        variation_id:
+          type: string
+          title: Variation ID
         enriched_attributes:
           $ref: '#/components/schemas/EnrichedAttributes'
       type: object
       required:
-      - id
+      - variation_id
       - enriched_attributes
-      title: ItemWithEnrichedAttributes
-      description: Item with nested enriched_attributes (used in GET /v1/items).
-    AttributeValue:
-      properties:
-        value:
-          type: string
-          title: Value
-        type:
-          $ref: '#/components/schemas/AttributeType'
-      type: object
-      required:
-      - value
-      - type
-      title: AttributeValue
-      description: A single enriched attribute value.
+      title: Variation
+      description: Variation with nested enriched_attributes (used in GET /v1/variations).
   securitySchemes:
     http_basic_auth:
       type: http

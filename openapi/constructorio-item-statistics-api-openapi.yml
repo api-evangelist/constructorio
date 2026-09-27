@@ -197,12 +197,23 @@ paths:
         - catalog(r)
 components:
   schemas:
-    SortOrderType:
-      title: SortOrderType
-      enum:
-      - ascending
-      - descending
-      type: string
+    ItemFieldStatsListGetResponse:
+      title: ItemFieldStatsListGetResponse
+      type: object
+      properties:
+        items_fields_stats:
+          title: Items Fields Stats
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemFieldStatsResponse'
+        total_count:
+          title: Total Count
+          description: Number of item field stats
+          minimum: 0
+          type: integer
+      required:
+      - items_fields_stats
+      - total_count
     ItemFieldStatsResponse:
       title: ItemFieldStatsResponse
       type: object
@@ -241,6 +252,22 @@ components:
       required:
       - name
       - created_at
+    MetadataSearchabilityType:
+      title: MetadataSearchabilityType
+      enum:
+      - number
+      - string
+      - array
+      - object
+      - boolean
+      - mixed
+      type: string
+    SortOrderType:
+      title: SortOrderType
+      enum:
+      - ascending
+      - descending
+      type: string
     ItemFieldFilters:
       title: Filters
       type: object
@@ -252,33 +279,6 @@ components:
           minLength: 1
           type: string
       additionalProperties: false
-    MetadataSearchabilityType:
-      title: MetadataSearchabilityType
-      enum:
-      - number
-      - string
-      - array
-      - object
-      - boolean
-      - mixed
-      type: string
-    ItemFieldStatsListGetResponse:
-      title: ItemFieldStatsListGetResponse
-      type: object
-      properties:
-        items_fields_stats:
-          title: Items Fields Stats
-          type: array
-          items:
-            $ref: '#/components/schemas/ItemFieldStatsResponse'
-        total_count:
-          title: Total Count
-          description: Number of item field stats
-          minimum: 0
-          type: integer
-      required:
-      - items_fields_stats
-      - total_count
     ItemFieldStatsGetResponse:
       title: ItemFieldStatsGetResponse
       type: object

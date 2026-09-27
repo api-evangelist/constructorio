@@ -463,19 +463,6 @@ components:
       - data
       title: Result
       description: Schema for results in API responses.
-    RecommendationStrategy:
-      properties:
-        id:
-          type: string
-          title: Recommendation Strategy ID
-          description: The unique identifier for the recommendation strategy.
-          examples:
-          - bestsellers
-          - user_featured_items
-      type: object
-      required:
-      - id
-      title: RecommendationStrategy
     ProductLabels:
       properties:
         is_retail_media:
@@ -518,13 +505,6 @@ components:
       - detail
       title: ErrorResponse
       description: Standardized error response format for the API.
-    SortOrder:
-      type: string
-      enum:
-      - ascending
-      - descending
-      title: SortOrder
-      description: 'The sort order for results: ascending (low to high) or descending (high to low).'
     Data:
       properties:
         id:
@@ -559,5 +539,25 @@ components:
       - id
       title: Data
       description: Core product data containing essential fields. Additional customer-specific fields may be present in actual API responses based on configuration, but are not documented here for privacy and simplicity.
+    SortOrder:
+      type: string
+      enum:
+      - ascending
+      - descending
+      title: SortOrder
+      description: 'The sort order for results: ascending (low to high) or descending (high to low).'
+    RecommendationStrategy:
+      properties:
+        id:
+          type: string
+          title: Recommendation Strategy ID
+          description: The unique identifier for the recommendation strategy.
+          examples:
+          - bestsellers
+          - user_featured_items
+      type: object
+      required:
+      - id
+      title: RecommendationStrategy
 x-readme:
   explorer-enabled: false

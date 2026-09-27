@@ -44,6 +44,9 @@ x-source: harvest:secondary-market
 specificationVersion: '0.23'
 created: '2026-08-01'
 modified: '2026-08-01'
+x-docs-platform: readme
+x-docs-platform-confidence: high
+x-docs-platform-checked: 2026-09-24
 tags:
 - Company
 - Search
@@ -80,7 +83,7 @@ apis:
   baseURL: https://docs.constructor.com/mcp
   tags:
   - MCP
-  - agent-native
+  - Agent-Native
   - Documentation
   tags_raw:
   - mcp

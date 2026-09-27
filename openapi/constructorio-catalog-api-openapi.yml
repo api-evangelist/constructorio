@@ -270,16 +270,26 @@ paths:
         - search_suggestions(w)
 components:
   schemas:
-    CatalogPutAcceptedResponse:
-      title: CatalogPutAcceptedResponse
+    CatalogPutResponse:
+      title: CatalogPutResponse
       type: object
       properties:
-        message:
-          title: Message
-          description: Info message
+        task_id:
+          title: Task Id
+          description: Task ID for the ingestion job
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          description: Path to check the status of the ingestion job
           type: string
       required:
-      - message
+      - task_id
+      - task_status_path
+    FileFormat:
+      title: FileFormat
+      enum:
+      - csv
+      - jsonl
     CatalogPatchAcceptedResponse:
       title: CatalogPatchAcceptedResponse
       type: object
@@ -290,6 +300,56 @@ components:
           type: string
       required:
       - message
+    CatalogPutAcceptedResponse:
+      title: CatalogPutAcceptedResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          description: Info message
+          type: string
+      required:
+      - message
+    CatalogPutRequestBody:
+      title: CatalogPutRequestBody
+      type: object
+      properties:
+        items:
+          title: Items
+          description: File with items in CSV or JSONL format
+          type: string
+          format: binary
+        variations:
+          title: Variations
+          description: File with variations in CSV or JSONL format
+          type: string
+          format: binary
+        item_groups:
+          title: Item Groups
+          description: File with item groups in CSV or JSONL format
+          type: string
+          format: binary
+    MissingRecordsStrategy:
+      title: MissingRecordsStrategy
+      enum:
+      - CREATE
+      - IGNORE
+      - FAIL
+    CatalogPatchResponse:
+      title: CatalogPatchResponse
+      type: object
+      properties:
+        task_id:
+          title: Task Id
+          description: Task ID for the ingestion job
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          description: Path to check the status of the ingestion job
+          type: string
+      required:
+      - task_id
+      - task_status_path
     CatalogPatchRequestBody:
       title: CatalogPatchRequestBody
       type: object
@@ -315,66 +375,6 @@ components:
       - full
       - ids
       type: string
-    CatalogPutResponse:
-      title: CatalogPutResponse
-      type: object
-      properties:
-        task_id:
-          title: Task Id
-          description: Task ID for the ingestion job
-          type: integer
-        task_status_path:
-          title: Task Status Path
-          description: Path to check the status of the ingestion job
-          type: string
-      required:
-      - task_id
-      - task_status_path
-    MissingRecordsStrategy:
-      title: MissingRecordsStrategy
-      enum:
-      - CREATE
-      - IGNORE
-      - FAIL
-    CatalogPutRequestBody:
-      title: CatalogPutRequestBody
-      type: object
-      properties:
-        items:
-          title: Items
-          description: File with items in CSV or JSONL format
-          type: string
-          format: binary
-        variations:
-          title: Variations
-          description: File with variations in CSV or JSONL format
-          type: string
-          format: binary
-        item_groups:
-          title: Item Groups
-          description: File with item groups in CSV or JSONL format
-          type: string
-          format: binary
-    FileFormat:
-      title: FileFormat
-      enum:
-      - csv
-      - jsonl
-    CatalogPatchResponse:
-      title: CatalogPatchResponse
-      type: object
-      properties:
-        task_id:
-          title: Task Id
-          description: Task ID for the ingestion job
-          type: integer
-        task_status_path:
-          title: Task Status Path
-          description: Path to check the status of the ingestion job
-          type: string
-      required:
-      - task_id
-      - task_status_path
   securitySchemes:
     http_basic_auth:
       type: http

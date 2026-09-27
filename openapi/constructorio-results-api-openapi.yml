@@ -959,335 +959,6 @@ paths:
     - url: https://quizzes.cnstrc.com
 components:
   schemas:
-    DictOrJsonStringWithDict:
-      anyOf:
-      - type: object
-      - type: string
-        format: json
-        title: Encoded JSON String
-      title: DictOrJsonStringWithDict
-      description: Model that accepts either a dictionary or a JSON string that contains a dictionary.
-    SortOrderType:
-      type: string
-      enum:
-      - ascending
-      - descending
-      title: SortOrderType
-    SearchRequest:
-      properties:
-        display_name:
-          type: string
-          title: Display Name
-        search_term:
-          type: string
-          title: Search Term
-        params:
-          type: object
-          title: Params
-      type: object
-      required:
-      - display_name
-      - search_term
-      - params
-      title: SearchRequest
-    ServerError:
-      properties:
-        event:
-          type: string
-          enum:
-          - server_error
-          title: event type
-          default: server_error
-        intent_result_id:
-          type: string
-          title: Intent Result ID
-        thread_id:
-          type: string
-          format: uuid
-          title: Thread ID
-        status_code:
-          type: integer
-          title: Status Code
-        message:
-          type: string
-          title: Message
-      type: object
-      required:
-      - intent_result_id
-      - status_code
-      - message
-      title: ServerError
-    pdp__schema__item_questions_api_model__Message:
-      properties:
-        event:
-          type: string
-          enum:
-          - message
-          title: event type
-          default: message
-        qna_result_id:
-          type: string
-          title: QnA Result Id
-          description: Questions and answers result ID.
-        thread_id:
-          type: string
-          format: uuid
-          title: Thread Id
-          description: A unique identifier for the conversation thread. This ID links multiple requests to the same conversation.
-        text:
-          type: string
-          title: Text
-          description: Arbitrary text.
-      type: object
-      required:
-      - event
-      - qna_result_id
-      title: Message
-    ResultVariation:
-      properties:
-        data:
-          $ref: '#/components/schemas/ResultData'
-        value:
-          type: string
-          title: Value
-      additionalProperties: false
-      type: object
-      required:
-      - data
-      - value
-      title: ResultVariation
-    Response:
-      properties:
-        search_request:
-          $ref: '#/components/schemas/SearchRequest'
-        alternative_search_requests:
-          items:
-            $ref: '#/components/schemas/SearchRequest'
-          type: array
-          title: Alternative Search Requests
-        results:
-          items:
-            $ref: '#/components/schemas/SearchandizedResult'
-          type: array
-          title: Results
-      type: object
-      required:
-      - search_request
-      - alternative_search_requests
-      - results
-      title: Response
-    SearchandizedResult:
-      properties:
-        value:
-          type: string
-          title: Value
-          description: Name of the matched item or variation (if variations are defined).
-        matched_terms:
-          items:
-            type: string
-          type: array
-          title: Matched Terms
-          description: All terms within the item matching the user's query (regardless of whether misspelled).
-        data:
-          $ref: '#/components/schemas/ResultData'
-        variations:
-          items:
-            $ref: '#/components/schemas/ResultVariation'
-          type: array
-          title: Variations
-          description: An array of this item's variations matching user's query.
-        variations_map:
-          anyOf:
-          - items: {}
-            type: array
-          - type: object
-          title: Variations Map
-          description: Variations data in the format requested by `variations_map` query parameter.
-        is_slotted:
-          type: boolean
-          title: Is Slotted
-          description: '`true` if the current product is slotted as a result of searchandizing.'
-        labels:
-          type: object
-          title: Labels
-          description: A set of miscellaneous properties of this result. For example, it can indicate whether a slotted result is advertised or promoted.
-      type: object
-      required:
-      - value
-      - matched_terms
-      - data
-      - is_slotted
-      - labels
-      title: SearchandizedResult
-    pdp__schema__item_questions_api_model__SSEItemResults:
-      properties:
-        event:
-          type: string
-          enum:
-          - item_results
-          title: event type
-          default: item_results
-        qna_result_id:
-          type: string
-          title: QnA Result Id
-          description: Questions and answers result ID.
-        thread_id:
-          type: string
-          format: uuid
-          title: Thread Id
-          description: A unique identifier for the conversation thread. This ID links multiple requests to the same conversation.
-        request:
-          type: object
-          title: Request
-        response:
-          $ref: '#/components/schemas/pdp__schema__item_questions_api_model__Response'
-      type: object
-      required:
-      - event
-      - qna_result_id
-      - response
-      title: SSEItemResults
-    ImageMeta:
-      properties:
-        event:
-          type: string
-          enum:
-          - image_meta
-          title: event type
-          default: image_meta
-        intent_result_id:
-          type: string
-          title: Intent Result ID
-        thread_id:
-          type: string
-          format: uuid
-          title: Thread ID
-        item_id:
-          type: string
-          title: item_id
-        image_url:
-          type: string
-          maxLength: 2083
-          minLength: 1
-          format: uri
-          title: image_url
-        image_url_small:
-          type: string
-          maxLength: 2083
-          minLength: 1
-          format: uri
-          title: image_url_small
-      type: object
-      required:
-      - intent_result_id
-      - item_id
-      title: ImageMeta
-      example:
-        event: image_meta
-        intent_result_id: def01234-56ab-7890-cd12-1234567890ef
-        item_id: item12345
-        image_url: https://example.com/images/item12345.jpg
-        image_url_small: https://example.com/images/item12345-small.jpg
-    ResultData:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: The ID of this item as specified in the catalog.
-        url:
-          type: string
-          title: URL
-          description: The URL where the item can be viewed or purchased.
-        image_url:
-          type: string
-          title: Image URL
-          description: The item's image URL for display in results.
-        variation_id:
-          type: string
-          title: Variation Id
-          description: ID of the selected (best matching) variation. All metadata of the best matching variation will also be merged into the item's `data` object.Returned when [item variation](#) data is defined.
-        facets:
-          items:
-            $ref: '#/components/schemas/ResultFacet'
-          type: array
-          title: Facets
-          description: The item's associated facets.
-        groups:
-          items:
-            $ref: '#/components/schemas/ResultGroup'
-          type: array
-          title: Groups
-          description: The item's associated categories.
-      type: object
-      title: Result data
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    pdp__schema__item_questions_api_model__SSEFollowUpQuestions:
-      properties:
-        event:
-          type: string
-          enum:
-          - follow_up_questions
-          title: event type
-          default: follow_up_questions
-        qna_result_id:
-          type: string
-          title: QnA Result Id
-          description: Questions and answers result ID.
-        thread_id:
-          type: string
-          format: uuid
-          title: Thread Id
-          description: A unique identifier for the conversation thread. This ID links multiple requests to the same conversation.
-        questions:
-          items:
-            $ref: '#/components/schemas/pdp__schema__item_questions_api_model__Question'
-          type: array
-          title: Questions
-          description: AI powered list of follow-up questions that user might ask.
-      type: object
-      required:
-      - event
-      - qna_result_id
-      - questions
-      title: SSEFollowUpQuestions
-    pdp__schema__item_questions_api_model__AsaItemQuestionsAnswerResponse:
-      properties:
-        qna_result_id:
-          type: string
-          title: QnA Result Id
-          description: Questions and answers result ID.
-        value:
-          type: string
-          title: Value
-          description: AI powered answer to question for a given item.
-        item_results:
-          $ref: '#/components/schemas/pdp__schema__item_questions_api_model__ItemResults'
-          title: Item results
-          description: Contains list of suggested items (alternatives, complimentary items etc.).
-        follow_up_questions:
-          items:
-            $ref: '#/components/schemas/pdp__schema__item_questions_api_model__Question'
-          type: array
-          title: Follow Up Questions
-          description: AI powered list of follow-up questions for the given item.
-        thread_id:
-          type: string
-          format: uuid
-          title: Thread ID
-          description: A unique identifier for the conversation thread. This ID links multiple requests to the same conversation.
-      type: object
-      required:
-      - qna_result_id
-      - value
-      title: AsaItemQuestionsAnswerResponse
     GroupsSortOrder:
       type: string
       enum:
@@ -1335,51 +1006,14 @@ components:
         - Stir in tomatoes, and cook until heated through.
         - Mix spaghetti with the sauce, and serve with basil leaves on top.
         text: Serve with grated Parmesan cheese if desired.
-    Result:
-      properties:
-        value:
-          type: string
-          title: Value
-          description: Name of the matched item or variation (if variations are defined).
-        matched_terms:
-          items:
-            type: string
-          type: array
-          title: Matched Terms
-          description: All terms within the item matching the user's query (regardless of whether misspelled).
-        data:
-          $ref: '#/components/schemas/ResultData'
-        variations:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ResultVariation'
-            type: array
-          - type: 'null'
-          title: Variations
-          description: An array of this item's variations matching user's query.
-        variations_map:
-          anyOf:
-          - items: {}
-            type: array
-          - type: object
-          - type: 'null'
-          title: Variations Map
-          description: Variations data in the format requested by `variations_map` query parameter.
-      additionalProperties: true
-      type: object
-      required:
-      - value
-      - matched_terms
-      - data
-      title: Result
-    End:
+    SSEFollowUpRefinement:
       properties:
         event:
           type: string
           enum:
-          - end
+          - follow_up_refinement
           title: event type
-          default: end
+          default: follow_up_refinement
         intent_result_id:
           type: string
           title: Intent Result ID
@@ -1387,24 +1021,79 @@ components:
           type: string
           format: uuid
           title: Thread ID
-        search_result_count:
-          type: integer
-          title: Search Result Count
-          description: The number of search result events returned.
+        question:
+          type: string
+          title: Follow-Up Question
+          description: The follow-up question these options answer.
+        options:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Suggested answers to the follow-up question
+          description: Suggested answer options for the follow-up question. May be null if no predefined options are available.
       type: object
       required:
       - intent_result_id
-      title: End
-    pdp__schema__item_questions_api_model__Question:
+      - question
+      title: Follow-Up Refinement Event
+      description: Suggested refinement options for the follow-up question asked by the agent. Each option is a short label the shopper can select to narrow their intent.
+      example:
+        event: follow_up_refinement
+        intent_result_id: abcd1234-56ef-7890-ab12-1234567890ab
+        question: Do you have any color preference?
+        options:
+        - Blue
+        - Red
+        - Green
+    ResultFacet:
       properties:
-        value:
+        name:
           type: string
-          title: Value
-          description: Human-readable question text.
+          title: Name
+        values:
+          items:
+            anyOf:
+            - type: number
+            - type: integer
+            - type: string
+          type: array
+          title: Values
+      additionalProperties: false
       type: object
       required:
-      - value
-      title: Question
+      - name
+      - values
+      title: ResultFacet
+    ResultGroup:
+      properties:
+        group_id:
+          type: string
+          title: Group Id
+          description: The ID of the group.
+        display_name:
+          type: string
+          title: Display Name
+          description: The name of the group as it is displayed to end users.
+        path:
+          type: string
+          title: Path
+          description: The path of `group_id`s above this group. `/great-grandparent/grandparent/parent/`
+          example: example='/great-grandparent/grandparent/parent/',
+        path_list:
+          items:
+            $ref: '#/components/schemas/Path'
+          type: array
+          title: Path List
+          description: An array of groups constituting the path.
+      additionalProperties: false
+      type: object
+      required:
+      - group_id
+      - path
+      - path_list
+      title: ResultGroup
     AsaRequest:
       properties:
         intent:
@@ -1469,6 +1158,71 @@ components:
       - key
       - domain
       title: AsaRequest
+    Result:
+      properties:
+        value:
+          type: string
+          title: Value
+          description: Name of the matched item or variation (if variations are defined).
+        matched_terms:
+          items:
+            type: string
+          type: array
+          title: Matched Terms
+          description: All terms within the item matching the user's query (regardless of whether misspelled).
+        data:
+          $ref: '#/components/schemas/ResultData'
+        variations:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ResultVariation'
+            type: array
+          - type: 'null'
+          title: Variations
+          description: An array of this item's variations matching user's query.
+        variations_map:
+          anyOf:
+          - items: {}
+            type: array
+          - type: object
+          - type: 'null'
+          title: Variations Map
+          description: Variations data in the format requested by `variations_map` query parameter.
+      additionalProperties: true
+      type: object
+      required:
+      - value
+      - matched_terms
+      - data
+      title: Result
+    pdp__schema__item_questions_api_model__SSEItemResults:
+      properties:
+        event:
+          type: string
+          enum:
+          - item_results
+          title: event type
+          default: item_results
+        qna_result_id:
+          type: string
+          title: QnA Result Id
+          description: Questions and answers result ID.
+        thread_id:
+          type: string
+          format: uuid
+          title: Thread Id
+          description: A unique identifier for the conversation thread. This ID links multiple requests to the same conversation.
+        request:
+          type: object
+          title: Request
+        response:
+          $ref: '#/components/schemas/pdp__schema__item_questions_api_model__Response'
+      type: object
+      required:
+      - event
+      - qna_result_id
+      - response
+      title: SSEItemResults
     FmtOptions:
       properties:
         fields:
@@ -1583,6 +1337,106 @@ components:
       type: object
       title: FmtOptions
       description: Options to format different aspects of the response.
+    pdp__schema__item_questions_api_model__Start:
+      properties:
+        event:
+          type: string
+          enum:
+          - start
+          title: event type
+          default: start
+        qna_result_id:
+          type: string
+          title: QnA Result Id
+          description: Questions and answers result ID.
+        thread_id:
+          type: string
+          format: uuid
+          title: Thread Id
+          description: A unique identifier for the conversation thread. This ID links multiple requests to the same conversation.
+      type: object
+      required:
+      - event
+      - qna_result_id
+      title: Start
+    End:
+      properties:
+        event:
+          type: string
+          enum:
+          - end
+          title: event type
+          default: end
+        intent_result_id:
+          type: string
+          title: Intent Result ID
+        thread_id:
+          type: string
+          format: uuid
+          title: Thread ID
+        search_result_count:
+          type: integer
+          title: Search Result Count
+          description: The number of search result events returned.
+      type: object
+      required:
+      - intent_result_id
+      title: End
+    Path:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: The ID of the group.
+        display_name:
+          type: string
+          title: Display Name
+          description: The name of the group as it is displayed to end users.
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      title: Path
+    Message:
+      properties:
+        event:
+          type: string
+          enum:
+          - message
+          title: event type
+          default: message
+        intent_result_id:
+          type: string
+          title: Intent Result ID
+        thread_id:
+          type: string
+          format: uuid
+          title: Thread ID
+        text:
+          type: string
+          title: Arbitrary text
+      type: object
+      required:
+      - intent_result_id
+      title: Message
+      description: Represents a simple text message.
+      example:
+        event: message
+        intent_result_id: abcd1234-56ef-7890-ab12-1234567890ab
+        text: Arbitrary text.
+    ResultVariation:
+      properties:
+        data:
+          $ref: '#/components/schemas/ResultData'
+        value:
+          type: string
+          title: Value
+      additionalProperties: false
+      type: object
+      required:
+      - data
+      - value
+      title: ResultVariation
     pdp__schema__item_questions_api_model__ServerError:
       properties:
         event:
@@ -1613,140 +1467,24 @@ components:
       - status_code
       - message
       title: ServerError
-    ArticleReference:
+    pdp__schema__item_questions_api_model__Question:
       properties:
-        event:
+        value:
           type: string
-          enum:
-          - article_reference
-          title: event type
-          default: article_reference
-        intent_result_id:
-          type: string
-          title: Intent Result ID
-        thread_id:
-          type: string
-          format: uuid
-          title: Thread ID
-        source:
-          type: string
-          maxLength: 2083
-          minLength: 1
-          format: uri
-          title: article_url
-        title:
-          type: string
-          title: title
-        image_url:
-          type: string
-          maxLength: 2083
-          minLength: 1
-          format: uri
-          title: image_url
-        abstract:
-          type: string
-          title: abstract
+          title: Value
+          description: Human-readable question text.
       type: object
       required:
-      - intent_result_id
-      - source
-      - title
-      title: ArticleReference
-      example:
-        event: article_reference
-        intent_result_id: 987fbc77-34ae-11d1-a456-426655440000
-        source: https://example.com/article/how-to-cook-rice
-        title: How to Cook Rice Perfectly Every Time
-        image_url: https://example.com/images/cooked-rice.jpg
-        abstract: Discover the secrets to cooking fluffy, perfect rice every time with our simple guide.
-    VariationsReturnType:
-      type: string
-      enum:
-      - default
-      - all
-      - matched
-      title: VariationsReturnType
-    SSESearchResponse:
-      properties:
-        event:
-          type: string
-          enum:
-          - search_result
-          title: event type
-          default: search_result
-        intent_result_id:
-          type: string
-          title: Intent Result ID
-        thread_id:
-          type: string
-          format: uuid
-          title: Thread ID
-        result_id:
-          type: string
-          title: Result ID
-        response:
-          $ref: '#/components/schemas/Response'
-      type: object
-      required:
-      - intent_result_id
-      - result_id
-      - response
-      title: Base Result Event
-      description: An Event to encapsulate a SABR result.
-      example:
-        event: search_result
-        intent_result_id: abc12345-6789-de01-2345-6789abcdef01
-        result_id: res12345-6789-de01-2345-6789abcdef01
-        response:
-          search_request:
-            display_name: Italian
-            search_term: best Italian recipes
-            params:
-              cuisine: Italian
-              difficulty: easy
-          alternative_search_requests:
-          - display_name: Vegetarian Italian
-            search_term: vegetarian Italian recipes
-            params:
-              cuisine: Italian
-              difficulty: easy
-              diet: vegetarian
-          - display_name: Quick Italian
-            search_term: quick Italian recipes
-            params:
-              cuisine: Italian
-              difficulty: easy
-              time: <30min
-          results:
-          - '...'
-    ResultGroup:
-      properties:
-        group_id:
-          type: string
-          title: Group Id
-          description: The ID of the group.
-        display_name:
-          type: string
-          title: Display Name
-          description: The name of the group as it is displayed to end users.
-        path:
-          type: string
-          title: Path
-          description: The path of `group_id`s above this group. `/great-grandparent/grandparent/parent/`
-          example: example='/great-grandparent/grandparent/parent/',
-        path_list:
-          items:
-            $ref: '#/components/schemas/Path'
-          type: array
-          title: Path List
-          description: An array of groups constituting the path.
-      additionalProperties: false
-      type: object
-      required:
-      - group_id
-      - path
-      - path_list
-      title: ResultGroup
+      - value
+      title: Question
+    DictOrJsonStringWithDict:
+      anyOf:
+      - type: object
+      - type: string
+        format: json
+        title: Encoded JSON String
+      title: DictOrJsonStringWithDict
+      description: Model that accepts either a dictionary or a JSON string that contains a dictionary.
     pdp__schema__item_questions_api_model__End:
       properties:
         event:
@@ -1769,89 +1507,65 @@ components:
       - event
       - qna_result_id
       title: End
-    pdp__schema__item_questions_api_model__AsaItemQuestionsResponse:
+    pdp__schema__item_questions_api_model__SSEFollowUpQuestions:
       properties:
+        event:
+          type: string
+          enum:
+          - follow_up_questions
+          title: event type
+          default: follow_up_questions
+        qna_result_id:
+          type: string
+          title: QnA Result Id
+          description: Questions and answers result ID.
+        thread_id:
+          type: string
+          format: uuid
+          title: Thread Id
+          description: A unique identifier for the conversation thread. This ID links multiple requests to the same conversation.
         questions:
           items:
             $ref: '#/components/schemas/pdp__schema__item_questions_api_model__Question'
           type: array
           title: Questions
-          description: AI powered list of frequently asked questions for the given item.
+          description: AI powered list of follow-up questions that user might ask.
       type: object
       required:
+      - event
+      - qna_result_id
       - questions
-      title: AsaItemQuestionsResponse
-    pdp__schema__item_questions_api_model__ItemResults:
+      title: SSEFollowUpQuestions
+    pdp__schema__item_questions_api_model__AsaItemQuestionsAnswerResponse:
       properties:
-        request:
-          type: object
-          title: Request
-        response:
-          $ref: '#/components/schemas/pdp__schema__item_questions_api_model__Response'
-      type: object
-      required:
-      - response
-      title: ItemResults
-    Message:
-      properties:
-        event:
+        qna_result_id:
           type: string
-          enum:
-          - message
-          title: event type
-          default: message
-        intent_result_id:
+          title: QnA Result Id
+          description: Questions and answers result ID.
+        value:
           type: string
-          title: Intent Result ID
+          title: Value
+          description: AI powered answer to question for a given item.
+        item_results:
+          $ref: '#/components/schemas/pdp__schema__item_questions_api_model__ItemResults'
+          title: Item results
+          description: Contains list of suggested items (alternatives, complimentary items etc.).
+        follow_up_questions:
+          items:
+            $ref: '#/components/schemas/pdp__schema__item_questions_api_model__Question'
+          type: array
+          title: Follow Up Questions
+          description: AI powered list of follow-up questions for the given item.
         thread_id:
           type: string
           format: uuid
           title: Thread ID
-        text:
-          type: string
-          title: Arbitrary text
+          description: A unique identifier for the conversation thread. This ID links multiple requests to the same conversation.
       type: object
       required:
-      - intent_result_id
-      title: Message
-      description: Represents a simple text message.
-      example:
-        event: message
-        intent_result_id: abcd1234-56ef-7890-ab12-1234567890ab
-        text: Arbitrary text.
-    pdp__schema__item_questions_api_model__Response:
-      properties:
-        results:
-          items:
-            $ref: '#/components/schemas/Result'
-          type: array
-          title: Results
-          description: List of results in format defined by Constructor product discovery API.
-      type: object
-      required:
-      - results
-      title: Response
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - qna_result_id
+      - value
+      title: AsaItemQuestionsAnswerResponse
     RecipeInfo:
       properties:
         event:
@@ -1905,14 +1619,80 @@ components:
         - 1 garlic clove
         - 400g tin of tomatoes
         - Handful of basil leaves
-    SSEFollowUpRefinement:
+    pdp__schema__item_questions_api_model__Response:
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/Result'
+          type: array
+          title: Results
+          description: List of results in format defined by Constructor product discovery API.
+      type: object
+      required:
+      - results
+      title: Response
+    pdp__schema__item_questions_api_model__ItemResults:
+      properties:
+        request:
+          type: object
+          title: Request
+        response:
+          $ref: '#/components/schemas/pdp__schema__item_questions_api_model__Response'
+      type: object
+      required:
+      - response
+      title: ItemResults
+    SearchandizedResult:
+      properties:
+        value:
+          type: string
+          title: Value
+          description: Name of the matched item or variation (if variations are defined).
+        matched_terms:
+          items:
+            type: string
+          type: array
+          title: Matched Terms
+          description: All terms within the item matching the user's query (regardless of whether misspelled).
+        data:
+          $ref: '#/components/schemas/ResultData'
+        variations:
+          items:
+            $ref: '#/components/schemas/ResultVariation'
+          type: array
+          title: Variations
+          description: An array of this item's variations matching user's query.
+        variations_map:
+          anyOf:
+          - items: {}
+            type: array
+          - type: object
+          title: Variations Map
+          description: Variations data in the format requested by `variations_map` query parameter.
+        is_slotted:
+          type: boolean
+          title: Is Slotted
+          description: '`true` if the current product is slotted as a result of searchandizing.'
+        labels:
+          type: object
+          title: Labels
+          description: A set of miscellaneous properties of this result. For example, it can indicate whether a slotted result is advertised or promoted.
+      type: object
+      required:
+      - value
+      - matched_terms
+      - data
+      - is_slotted
+      - labels
+      title: SearchandizedResult
+    ServerError:
       properties:
         event:
           type: string
           enum:
-          - follow_up_refinement
+          - server_error
           title: event type
-          default: follow_up_refinement
+          default: server_error
         intent_result_id:
           type: string
           title: Intent Result ID
@@ -1920,55 +1700,150 @@ components:
           type: string
           format: uuid
           title: Thread ID
-        question:
+        status_code:
+          type: integer
+          title: Status Code
+        message:
           type: string
-          title: Follow-Up Question
-          description: The follow-up question these options answer.
-        options:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Suggested answers to the follow-up question
-          description: Suggested answer options for the follow-up question. May be null if no predefined options are available.
+          title: Message
       type: object
       required:
       - intent_result_id
-      - question
-      title: Follow-Up Refinement Event
-      description: Suggested refinement options for the follow-up question asked by the agent. Each option is a short label the shopper can select to narrow their intent.
-      example:
-        event: follow_up_refinement
-        intent_result_id: abcd1234-56ef-7890-ab12-1234567890ab
-        question: Do you have any color preference?
-        options:
-        - Blue
-        - Red
-        - Green
-    Path:
-      properties:
-        id:
-          type: string
-          title: Id
-          description: The ID of the group.
-        display_name:
-          type: string
-          title: Display Name
-          description: The name of the group as it is displayed to end users.
-      additionalProperties: false
-      type: object
-      required:
-      - id
-      title: Path
-    pdp__schema__item_questions_api_model__Start:
+      - status_code
+      - message
+      title: ServerError
+    SSESearchResponse:
       properties:
         event:
           type: string
           enum:
-          - start
+          - search_result
           title: event type
-          default: start
+          default: search_result
+        intent_result_id:
+          type: string
+          title: Intent Result ID
+        thread_id:
+          type: string
+          format: uuid
+          title: Thread ID
+        result_id:
+          type: string
+          title: Result ID
+        response:
+          $ref: '#/components/schemas/Response'
+      type: object
+      required:
+      - intent_result_id
+      - result_id
+      - response
+      title: Base Result Event
+      description: An Event to encapsulate a SABR result.
+      example:
+        event: search_result
+        intent_result_id: abc12345-6789-de01-2345-6789abcdef01
+        result_id: res12345-6789-de01-2345-6789abcdef01
+        response:
+          search_request:
+            display_name: Italian
+            search_term: best Italian recipes
+            params:
+              cuisine: Italian
+              difficulty: easy
+          alternative_search_requests:
+          - display_name: Vegetarian Italian
+            search_term: vegetarian Italian recipes
+            params:
+              cuisine: Italian
+              difficulty: easy
+              diet: vegetarian
+          - display_name: Quick Italian
+            search_term: quick Italian recipes
+            params:
+              cuisine: Italian
+              difficulty: easy
+              time: <30min
+          results:
+          - '...'
+    SortOrderType:
+      type: string
+      enum:
+      - ascending
+      - descending
+      title: SortOrderType
+    pdp__schema__item_questions_api_model__AsaItemQuestionsResponse:
+      properties:
+        questions:
+          items:
+            $ref: '#/components/schemas/pdp__schema__item_questions_api_model__Question'
+          type: array
+          title: Questions
+          description: AI powered list of frequently asked questions for the given item.
+      type: object
+      required:
+      - questions
+      title: AsaItemQuestionsResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ResultData:
+      properties:
+        id:
+          type: string
+          title: Id
+          description: The ID of this item as specified in the catalog.
+        url:
+          type: string
+          title: URL
+          description: The URL where the item can be viewed or purchased.
+        image_url:
+          type: string
+          title: Image URL
+          description: The item's image URL for display in results.
+        variation_id:
+          type: string
+          title: Variation Id
+          description: ID of the selected (best matching) variation. All metadata of the best matching variation will also be merged into the item's `data` object.Returned when [item variation](#) data is defined.
+        facets:
+          items:
+            $ref: '#/components/schemas/ResultFacet'
+          type: array
+          title: Facets
+          description: The item's associated facets.
+        groups:
+          items:
+            $ref: '#/components/schemas/ResultGroup'
+          type: array
+          title: Groups
+          description: The item's associated categories.
+      type: object
+      title: Result data
+    pdp__schema__item_questions_api_model__Message:
+      properties:
+        event:
+          type: string
+          enum:
+          - message
+          title: event type
+          default: message
         qna_result_id:
           type: string
           title: QnA Result Id
@@ -1978,11 +1853,56 @@ components:
           format: uuid
           title: Thread Id
           description: A unique identifier for the conversation thread. This ID links multiple requests to the same conversation.
+        text:
+          type: string
+          title: Text
+          description: Arbitrary text.
       type: object
       required:
       - event
       - qna_result_id
-      title: Start
+      title: Message
+    ImageMeta:
+      properties:
+        event:
+          type: string
+          enum:
+          - image_meta
+          title: event type
+          default: image_meta
+        intent_result_id:
+          type: string
+          title: Intent Result ID
+        thread_id:
+          type: string
+          format: uuid
+          title: Thread ID
+        item_id:
+          type: string
+          title: item_id
+        image_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: image_url
+        image_url_small:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: image_url_small
+      type: object
+      required:
+      - intent_result_id
+      - item_id
+      title: ImageMeta
+      example:
+        event: image_meta
+        intent_result_id: def01234-56ab-7890-cd12-1234567890ef
+        item_id: item12345
+        image_url: https://example.com/images/item12345.jpg
+        image_url_small: https://example.com/images/item12345-small.jpg
     Start:
       properties:
         event:
@@ -2005,50 +1925,105 @@ components:
       - intent_result_id
       - request
       title: Start
-    ResultFacet:
+    Response:
       properties:
-        name:
-          type: string
-          title: Name
-        values:
+        search_request:
+          $ref: '#/components/schemas/SearchRequest'
+        alternative_search_requests:
           items:
-            anyOf:
-            - type: number
-            - type: integer
-            - type: string
+            $ref: '#/components/schemas/SearchRequest'
           type: array
-          title: Values
-      additionalProperties: false
+          title: Alternative Search Requests
+        results:
+          items:
+            $ref: '#/components/schemas/SearchandizedResult'
+          type: array
+          title: Results
       type: object
       required:
-      - name
-      - values
-      title: ResultFacet
-    Images:
-      type: object
+      - search_request
+      - alternative_search_requests
+      - results
+      title: Response
+    VariationsReturnType:
+      type: string
+      enum:
+      - default
+      - all
+      - matched
+      title: VariationsReturnType
+    HTTPValidationError:
       properties:
-        primary_url:
-          type:
-          - string
-          - 'null'
-          example: PRIMARY_ASSET_URL
-        primary_alt:
-          type:
-          - string
-          - 'null'
-          description: Alt string used for the primary url asset.
-          example: PRIMARY_ASSET_ALT
-        secondary_url:
-          type:
-          - string
-          - 'null'
-          example: SECONDARY_ASSET_URL
-        secondary_alt:
-          type:
-          - string
-          - 'null'
-          description: Alt string used for the secondary url asset.
-          example: SECONDARY_ASSET_ALT
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ArticleReference:
+      properties:
+        event:
+          type: string
+          enum:
+          - article_reference
+          title: event type
+          default: article_reference
+        intent_result_id:
+          type: string
+          title: Intent Result ID
+        thread_id:
+          type: string
+          format: uuid
+          title: Thread ID
+        source:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: article_url
+        title:
+          type: string
+          title: title
+        image_url:
+          type: string
+          maxLength: 2083
+          minLength: 1
+          format: uri
+          title: image_url
+        abstract:
+          type: string
+          title: abstract
+      type: object
+      required:
+      - intent_result_id
+      - source
+      - title
+      title: ArticleReference
+      example:
+        event: article_reference
+        intent_result_id: 987fbc77-34ae-11d1-a456-426655440000
+        source: https://example.com/article/how-to-cook-rice
+        title: How to Cook Rice Perfectly Every Time
+        image_url: https://example.com/images/cooked-rice.jpg
+        abstract: Discover the secrets to cooking fluffy, perfect rice every time with our simple guide.
+    SearchRequest:
+      properties:
+        display_name:
+          type: string
+          title: Display Name
+        search_term:
+          type: string
+          title: Search Term
+        params:
+          type: object
+          title: Params
+      type: object
+      required:
+      - display_name
+      - search_term
+      - params
+      title: SearchRequest
     OpenTextQuestion:
       type: object
       properties:
@@ -2092,72 +2067,7 @@ components:
           type:
           - string
           - 'null'
-    NextQuestion:
-      type: object
-      properties:
-        next_question:
-          type:
-          - object
-          - 'null'
-          description: Next question
-          oneOf:
-          - $ref: '#/components/schemas/MultipleSelectQuestion'
-          - $ref: '#/components/schemas/SingleSelectQuestion'
-          - $ref: '#/components/schemas/OpenTextQuestion'
-          - $ref: '#/components/schemas/CoverPageQuestion'
-          - $ref: '#/components/schemas/MultipleFilterSelectQuestion'
-          - $ref: '#/components/schemas/SingleFilterSelectQuestion'
-        total_questions:
-          type: number
-          description: Gives the total number of questions in the quiz
-        version_id:
-          type: string
-          description: Version id of this quiz
-          example: 11db5ac7-67e1-4000-9000-414d8425cab3
-        quiz_version_id:
-          type: string
-          description: Version id of this quiz
-          example: 11db5ac7-67e1-4000-9000-414d8425cab3
-        quiz_id:
-          type: string
-          description: id of quiz
-          example: 11db5ac7-67e1-4000-9000-414d8425cab3
-        quiz_session_id:
-          type: string
-          description: Session id of this quiz
-          example: 11db5ac7-67e1-4000-9000-414d8425cab3
-    ResultsConfigResponse:
-      type: object
-      properties:
-        results_config:
-          type: object
-          description: Config for the results page
-          example:
-            desktop:
-              title:
-                text: TITLE
-                is_active: true
-              description:
-                text: DESCRIPTION
-                is_active: false
-              response_summary:
-                text: SUMMARY
-                is_active: true
-                items_separator: ','
-                last_separator: AND
-        quiz_version_id:
-          type: string
-          description: Version id of this quiz
-          example: 11db5ac7-67e1-4000-9000-414d8425cab3
-        quiz_id:
-          type: string
-          description: id of quiz
-          example: 11db5ac7-67e1-4000-9000-414d8425cab3
-        metadata:
-          type: object
-          description: Metadata for the quiz
-          example: null
-    CoverPageQuestion:
+    MultipleFilterSelectQuestion:
       type: object
       properties:
         id:
@@ -2192,10 +2102,18 @@ components:
           type:
           - string
           - 'null'
+        option:
+          type: array
+          items:
+            $ref: '#/components/schemas/Option'
+        filter_name:
+          type: array
+          items:
+            type: string
         type:
           type: string
           enum:
-          - cover
+          - multiple_filter_values
     Results:
       type: object
       properties:
@@ -2268,6 +2186,40 @@ components:
           type: string
           enum:
           - single_filter_value
+    NextQuestion:
+      type: object
+      properties:
+        next_question:
+          type:
+          - object
+          - 'null'
+          description: Next question
+          oneOf:
+          - $ref: '#/components/schemas/MultipleSelectQuestion'
+          - $ref: '#/components/schemas/SingleSelectQuestion'
+          - $ref: '#/components/schemas/OpenTextQuestion'
+          - $ref: '#/components/schemas/CoverPageQuestion'
+          - $ref: '#/components/schemas/MultipleFilterSelectQuestion'
+          - $ref: '#/components/schemas/SingleFilterSelectQuestion'
+        total_questions:
+          type: number
+          description: Gives the total number of questions in the quiz
+        version_id:
+          type: string
+          description: Version id of this quiz
+          example: 11db5ac7-67e1-4000-9000-414d8425cab3
+        quiz_version_id:
+          type: string
+          description: Version id of this quiz
+          example: 11db5ac7-67e1-4000-9000-414d8425cab3
+        quiz_id:
+          type: string
+          description: id of quiz
+          example: 11db5ac7-67e1-4000-9000-414d8425cab3
+        quiz_session_id:
+          type: string
+          description: Session id of this quiz
+          example: 11db5ac7-67e1-4000-9000-414d8425cab3
     MultipleSelectQuestion:
       type: object
       properties:
@@ -2311,53 +2263,37 @@ components:
           type: string
           enum:
           - multiple
-    MultipleFilterSelectQuestion:
+    ResultsConfigResponse:
       type: object
       properties:
-        id:
-          type: number
-        title:
+        results_config:
+          type: object
+          description: Config for the results page
+          example:
+            desktop:
+              title:
+                text: TITLE
+                is_active: true
+              description:
+                text: DESCRIPTION
+                is_active: false
+              response_summary:
+                text: SUMMARY
+                is_active: true
+                items_separator: ','
+                last_separator: AND
+        quiz_version_id:
           type: string
-          example: TITLE
-        description:
-          type:
-          - string
-          - 'null'
-          example: DESCRIPTION
-        images:
-          type:
-          - object
-          - 'null'
-          allOf:
-          - $ref: '#/components/schemas/Images'
-        cta_text:
-          type:
-          - string
-          - 'null'
-        key:
+          description: Version id of this quiz
+          example: 11db5ac7-67e1-4000-9000-414d8425cab3
+        quiz_id:
           type: string
-        is_skippable:
-          type: boolean
-        priority:
-          type:
-          - number
-          - 'null'
-        bucket_id:
-          type:
-          - string
-          - 'null'
-        option:
-          type: array
-          items:
-            $ref: '#/components/schemas/Option'
-        filter_name:
-          type: array
-          items:
-            type: string
-        type:
-          type: string
-          enum:
-          - multiple_filter_values
+          description: id of quiz
+          example: 11db5ac7-67e1-4000-9000-414d8425cab3
+        metadata:
+          type: object
+          description: Metadata for the quiz
+          example: null
     SingleSelectQuestion:
       type: object
       properties:
@@ -2427,6 +2363,70 @@ components:
         key:
           type: string
           description: Unique immutable key to identify the option
+    Images:
+      type: object
+      properties:
+        primary_url:
+          type:
+          - string
+          - 'null'
+          example: PRIMARY_ASSET_URL
+        primary_alt:
+          type:
+          - string
+          - 'null'
+          description: Alt string used for the primary url asset.
+          example: PRIMARY_ASSET_ALT
+        secondary_url:
+          type:
+          - string
+          - 'null'
+          example: SECONDARY_ASSET_URL
+        secondary_alt:
+          type:
+          - string
+          - 'null'
+          description: Alt string used for the secondary url asset.
+          example: SECONDARY_ASSET_ALT
+    CoverPageQuestion:
+      type: object
+      properties:
+        id:
+          type: number
+        title:
+          type: string
+          example: TITLE
+        description:
+          type:
+          - string
+          - 'null'
+          example: DESCRIPTION
+        images:
+          type:
+          - object
+          - 'null'
+          allOf:
+          - $ref: '#/components/schemas/Images'
+        cta_text:
+          type:
+          - string
+          - 'null'
+        key:
+          type: string
+        is_skippable:
+          type: boolean
+        priority:
+          type:
+          - number
+          - 'null'
+        bucket_id:
+          type:
+          - string
+          - 'null'
+        type:
+          type: string
+          enum:
+          - cover
 x-refined-from:
 - constructorio-ai-shopping-agent-openapi-original.json
 - constructorio-quizzes-openapi-original.json

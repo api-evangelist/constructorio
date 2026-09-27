@@ -514,11 +514,27 @@ paths:
         - synonyms(w)
 components:
   schemas:
-    SortOrderType:
-      title: SortOrderType
+    Phrase:
+      title: Phrase
+      type: object
+      properties:
+        phrase:
+          title: Phrase
+          examples:
+          - sneakers
+          - running shoes
+          minLength: 1
+          maxLength: 200
+          type: string
+      required:
+      - phrase
+      additionalProperties: false
+    NgramRelationSortByType:
+      title: NgramRelationSortByType
       enum:
-      - ascending
-      - descending
+      - created_at
+      - updated_at
+      - activated_at
       type: string
     PhraseResponse:
       title: PhraseResponse
@@ -550,31 +566,23 @@ components:
       required:
       - phrase
       additionalProperties: false
-    Phrase:
-      title: Phrase
+    OneWaySynonymV2GetResponse:
+      title: OneWaySynonymV2GetResponse
       type: object
       properties:
-        phrase:
-          title: Phrase
-          examples:
-          - sneakers
-          - running shoes
-          minLength: 1
-          maxLength: 200
-          type: string
+        one_way_synonym_relations:
+          title: One Way Synonym Relations
+          description: A list of one way synonyms
+          type: array
+          items:
+            $ref: '#/components/schemas/OneWaySynonymRelationV2'
+        total_count:
+          title: Total Count
+          description: Total count of one way synonyms returned
+          type: integer
       required:
-      - phrase
-      additionalProperties: false
-    OneWaySynonymV2ListDeleteResponse:
-      title: OneWaySynonymV2ListDeleteResponse
-      type: object
-      properties:
-        message:
-          title: Message
-          description: Descriptive message of the deletion status
-          type: string
-      required:
-      - message
+      - one_way_synonym_relations
+      - total_count
       additionalProperties: false
     OneWaySynonymV2PutRequestBody:
       title: OneWaySynonymV2PutRequestBody
@@ -608,6 +616,37 @@ components:
       - one_way_synonym_relations
       - total_count
       additionalProperties: false
+    OneWaySynonymV2PostRequestBody:
+      title: OneWaySynonymV2PostRequestBody
+      type: object
+      properties:
+        child_phrases:
+          title: Child Phrases
+          minItems: 1
+          maxItems: 50
+          type: array
+          items:
+            $ref: '#/components/schemas/Phrase'
+      required:
+      - child_phrases
+      additionalProperties: false
+    SortOrderType:
+      title: SortOrderType
+      enum:
+      - ascending
+      - descending
+      type: string
+    OneWaySynonymV2ListDeleteResponse:
+      title: OneWaySynonymV2ListDeleteResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          description: Descriptive message of the deletion status
+          type: string
+      required:
+      - message
+      additionalProperties: false
     OneWaySynonymRelationV2:
       title: OneWaySynonymRelationV2
       type: object
@@ -624,45 +663,6 @@ components:
             $ref: '#/components/schemas/PhraseResponse'
       required:
       - parent_phrase
-      - child_phrases
-      additionalProperties: false
-    NgramRelationSortByType:
-      title: NgramRelationSortByType
-      enum:
-      - created_at
-      - updated_at
-      - activated_at
-      type: string
-    OneWaySynonymV2GetResponse:
-      title: OneWaySynonymV2GetResponse
-      type: object
-      properties:
-        one_way_synonym_relations:
-          title: One Way Synonym Relations
-          description: A list of one way synonyms
-          type: array
-          items:
-            $ref: '#/components/schemas/OneWaySynonymRelationV2'
-        total_count:
-          title: Total Count
-          description: Total count of one way synonyms returned
-          type: integer
-      required:
-      - one_way_synonym_relations
-      - total_count
-      additionalProperties: false
-    OneWaySynonymV2PostRequestBody:
-      title: OneWaySynonymV2PostRequestBody
-      type: object
-      properties:
-        child_phrases:
-          title: Child Phrases
-          minItems: 1
-          maxItems: 50
-          type: array
-          items:
-            $ref: '#/components/schemas/Phrase'
-      required:
       - child_phrases
       additionalProperties: false
   securitySchemes:
