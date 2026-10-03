@@ -147,60 +147,34 @@ paths:
       security: []
 components:
   schemas:
-    GroupBase:
+    ResultSourceValue:
       additionalProperties: false
       properties:
-        group_id:
-          description: The ID of the group.
-          title: Group Id
-          type: string
-        display_name:
-          description: The name of the group as it is displayed to end users.
-          title: Display Name
-          type: string
-      required:
-      - group_id
-      title: GroupBase
-      type: object
-    ResultSources:
-      additionalProperties: false
-      properties:
-        token_match:
-          description: The summary of results that came from matching a keyword
-          allOf:
-          - $ref: '#/components/schemas/ResultSourceValue'
-          title: Token Match
-        embeddings_match:
-          description: The summary of results that originated from cognitive embeddings
-          allOf:
-          - $ref: '#/components/schemas/ResultSourceValue'
-          title: Embeddings Match
-      required:
-      - token_match
-      - embeddings_match
-      title: ResultSources
-      type: object
-    GroupFmtOptions:
-      additionalProperties: false
-      properties:
-        groups_max_depth:
-          default: 1
-          description: The maximum depth of the group hierarchy in the response.
-          examples:
-          - 1
-          - 3
-          title: Groups Max Depth
+        count:
+          description: Number of results returned from their respective sources
+          minimum: 0
+          title: Count
           type: integer
-        groups_start:
-          default: current
-          description: A flag to specify the start of the group hierarchy returned in the response. `current` returns groups starting from the currently selected one. `top` returns groups starting from the root category in the hierarchy. `group_id:{id}`, returns the whole tree starting from group with the provided ID.
-          examples:
-          - current
-          - top
-          - group_id:jeans
-          title: Groups Start
+      required:
+      - count
+      title: ResultSourceValue
+      type: object
+    BrowseGroupsGetResponse:
+      additionalProperties: false
+      properties:
+        request:
+          description: The request arguments how they were interpreted by the API. This field is of arbitrary type, ie it doesn't have a guaranteed schema, and data from it shouldn't be used programmatically, it is for debugging purposes only.
+          title: Request
+          type: object
+        result_id:
+          title: Result Id
           type: string
-      title: GroupFmtOptions
+        response:
+          $ref: '#/components/schemas/BrowseGroupsResponse'
+      required:
+      - request
+      - response
+      title: BrowseGroupsGetResponse
       type: object
     GroupFilters:
       additionalProperties: false
@@ -243,34 +217,60 @@ components:
       - refined_content
       title: Browse groups response
       type: object
-    BrowseGroupsGetResponse:
+    ResultSources:
       additionalProperties: false
       properties:
-        request:
-          description: The request arguments how they were interpreted by the API. This field is of arbitrary type, ie it doesn't have a guaranteed schema, and data from it shouldn't be used programmatically, it is for debugging purposes only.
-          title: Request
-          type: object
-        result_id:
-          title: Result Id
-          type: string
-        response:
-          $ref: '#/components/schemas/BrowseGroupsResponse'
+        token_match:
+          description: The summary of results that came from matching a keyword
+          allOf:
+          - $ref: '#/components/schemas/ResultSourceValue'
+          title: Token Match
+        embeddings_match:
+          description: The summary of results that originated from cognitive embeddings
+          allOf:
+          - $ref: '#/components/schemas/ResultSourceValue'
+          title: Embeddings Match
       required:
-      - request
-      - response
-      title: BrowseGroupsGetResponse
+      - token_match
+      - embeddings_match
+      title: ResultSources
       type: object
-    ResultSourceValue:
+    GroupBase:
       additionalProperties: false
       properties:
-        count:
-          description: Number of results returned from their respective sources
-          minimum: 0
-          title: Count
-          type: integer
+        group_id:
+          description: The ID of the group.
+          title: Group Id
+          type: string
+        display_name:
+          description: The name of the group as it is displayed to end users.
+          title: Display Name
+          type: string
       required:
-      - count
-      title: ResultSourceValue
+      - group_id
+      title: GroupBase
+      type: object
+    GroupFmtOptions:
+      additionalProperties: false
+      properties:
+        groups_max_depth:
+          default: 1
+          description: The maximum depth of the group hierarchy in the response.
+          examples:
+          - 1
+          - 3
+          title: Groups Max Depth
+          type: integer
+        groups_start:
+          default: current
+          description: A flag to specify the start of the group hierarchy returned in the response. `current` returns groups starting from the currently selected one. `top` returns groups starting from the root category in the hierarchy. `group_id:{id}`, returns the whole tree starting from group with the provided ID.
+          examples:
+          - current
+          - top
+          - group_id:jeans
+          title: Groups Start
+          type: string
+      title: GroupFmtOptions
       type: object
     Group:
       additionalProperties: false

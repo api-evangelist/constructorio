@@ -952,87 +952,22 @@ paths:
         - catalog(w)
 components:
   schemas:
-    ItemGroupsListPutResponse:
-      title: ItemGroupsListPutResponse
-      type: object
-      properties:
-        task_id:
-          title: Task ID
-          type: integer
-        task_status_path:
-          title: Task Status Path
-          type: string
-      required:
-      - task_id
-      - task_status_path
-    ItemGroupListPatchResponse:
-      title: ItemGroupListPatchResponse
-      type: object
-      properties:
-        item_groups:
-          $ref: '#/components/schemas/ItemGroupCountModel'
-      required:
-      - item_groups
-      additionalProperties: false
-    ItemGroupCountModel:
-      title: ItemGroupCountModel
-      type: object
-      properties:
-        processed:
-          title: Processed
-          description: Number of item groups processed.
-          minimum: 0
-          type: integer
-        inserted:
-          title: Inserted
-          description: Number of item groups inserted.
-          minimum: 0
-          type: integer
-        updated:
-          title: Updated
-          description: Number of item groups updated.
-          minimum: 0
-          type: integer
-        deleted:
-          title: Deleted
-          description: Number of item groups deleted.
-          minimum: 0
-          type: integer
-      required:
-      - processed
-      - inserted
-      - updated
-      - deleted
-      additionalProperties: false
-    ItemGroupListPostRequestBody:
-      title: ItemGroupListPostRequestBody
+    ItemGroupsListPutRequestBody:
+      title: ItemGroupsListPutRequestBody
       type: object
       properties:
         item_groups:
           title: Item Groups
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/V1ItemGroup'
-      required:
-      - item_groups
-      additionalProperties: false
-    ItemGroupsListPatchRequestBody:
-      title: ItemGroupsListPatchRequestBody
-      type: object
-      properties:
-        item_groups:
-          title: Item Groups
-          description: Array of item groups you want to update.
+          description: Array of item groups you want to create or replace.
           minItems: 1
           maxItems: 10000
           type: array
           items:
-            $ref: '#/components/schemas/ItemGroupPatch'
+            $ref: '#/components/schemas/ItemGroup'
       required:
       - item_groups
-    ItemGroupPatch:
-      title: ItemGroupPatch
+    ItemGroup:
+      title: ItemGroup
       type: object
       properties:
         data:
@@ -1051,6 +986,9 @@ components:
         name:
           title: Name
           description: Item group display name.
+          examples:
+          - Electronics
+          - Men's Clothing
           minLength: 1
           maxLength: 500
           type: string
@@ -1065,26 +1003,21 @@ components:
             - root
       required:
       - id
-    ItemGroupListDeleteResponse:
-      title: ItemGroupListDeleteResponse
-      type: object
-      properties:
-        message:
-          title: Message
-          description: Item group list delete message.
-          type: string
-      required:
-      - message
-      additionalProperties: false
-    ItemGroupListPostResponse:
-      title: ItemGroupListPostResponse
+      - name
+    ItemGroupsListPatchRequestBody:
+      title: ItemGroupsListPatchRequestBody
       type: object
       properties:
         item_groups:
-          $ref: '#/components/schemas/ItemGroupCountModel'
+          title: Item Groups
+          description: Array of item groups you want to update.
+          minItems: 1
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemGroupPatch'
       required:
       - item_groups
-      additionalProperties: false
     ItemGroupListPutRequestBody:
       title: ItemGroupListPutRequestBody
       type: object
@@ -1098,21 +1031,106 @@ components:
       required:
       - item_groups
       additionalProperties: false
-    ItemGroupBase:
-      title: ItemGroupBase
+    ItemGroupPutRequestBody:
+      title: ItemGroupPutRequestBody
       type: object
       properties:
-        id:
-          title: Id
-          description: ID of the item group.
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this item group. The maximum size of data object is limited to 5kb. The average size of data objects for all ingested item groups should not exceed 1kb.
+          type: object
+        name:
+          title: Name
+          description: Item group display name.
           examples:
-          - category-electronics
-          - group-123
+          - Electronics
+          - Men's Clothing
+          minLength: 1
+          maxLength: 500
+          type: string
+        parent_id:
+          title: Parent Id
+          description: Parent item group ID or null for root item groups.
+          examples:
+          - parent-group-1
+          - root-category
+          type: string
+      additionalProperties: false
+    ItemGroupListGetResponse:
+      title: ItemGroupListGetResponse
+      type: object
+      properties:
+        item_groups:
+          title: Item Groups
+          description: A list of item groups.
+          type: array
+          items:
+            $ref: '#/components/schemas/V1ItemGroup'
+        total_count:
+          title: Total Count
+          description: Total number of item groups.
+          minimum: 0
+          type: integer
+      required:
+      - item_groups
+      - total_count
+      additionalProperties: false
+    ItemGroupListDeleteResponse:
+      title: ItemGroupListDeleteResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          description: Item group list delete message.
+          type: string
+      required:
+      - message
+      additionalProperties: false
+    ItemGroupListPatchRequestBody:
+      title: ItemGroupListPatchRequestBody
+      type: object
+      properties:
+        item_groups:
+          title: Item Groups
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/V1ItemGroup'
+      required:
+      - item_groups
+      additionalProperties: false
+    ItemGroupsGetResponse:
+      title: ItemGroupsGetResponse
+      type: object
+      properties:
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this item group. The maximum size of data object is limited to 5kB. The average size of data objects for all ingested item groups should not exceed 1kB.
+          type: object
+        id:
+          title: ID
+          description: The ID of the item group
           minLength: 1
           maxLength: 200
           type: string
+        name:
+          title: Display Name
+          description: Item group display name.
+          minLength: 1
+          maxLength: 500
+          type: string
+        parent_ids:
+          title: Parent Ids
+          description: List of parent item group IDs
+          type: array
+          items:
+            type: string
+            examples:
+            - parent-1
+            - root
       required:
       - id
+      - name
     ItemGroupPutResponse:
       title: ItemGroupPutResponse
       type: object
@@ -1159,30 +1177,40 @@ components:
       - path_list
       - path
       additionalProperties: false
-    ItemGroupPutRequestBody:
-      title: ItemGroupPutRequestBody
+    ItemGroupListPostResponse:
+      title: ItemGroupListPostResponse
       type: object
       properties:
-        data:
-          title: Data
-          description: Object containing additional data, that should be attached to this item group. The maximum size of data object is limited to 5kb. The average size of data objects for all ingested item groups should not exceed 1kb.
-          type: object
-        name:
-          title: Name
-          description: Item group display name.
-          examples:
-          - Electronics
-          - Men's Clothing
-          minLength: 1
-          maxLength: 500
+        item_groups:
+          $ref: '#/components/schemas/ItemGroupCountModel'
+      required:
+      - item_groups
+      additionalProperties: false
+    ItemGroupsListPatchResponse:
+      title: ItemGroupsListPatchResponse
+      type: object
+      properties:
+        task_id:
+          title: Task ID
+          type: integer
+        task_status_path:
+          title: Task Status Path
           type: string
-        parent_id:
-          title: Parent Id
-          description: Parent item group ID or null for root item groups.
-          examples:
-          - parent-group-1
-          - root-category
-          type: string
+      required:
+      - task_id
+      - task_status_path
+    ItemGroupListPostRequestBody:
+      title: ItemGroupListPostRequestBody
+      type: object
+      properties:
+        item_groups:
+          title: Item Groups
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/V1ItemGroup'
+      required:
+      - item_groups
       additionalProperties: false
     ItemGroupGetResponse:
       title: ItemGroupGetResponse
@@ -1202,6 +1230,91 @@ components:
       required:
       - item_groups
       - total_count
+      additionalProperties: false
+    ItemGroupBase:
+      title: ItemGroupBase
+      type: object
+      properties:
+        id:
+          title: Id
+          description: ID of the item group.
+          examples:
+          - category-electronics
+          - group-123
+          minLength: 1
+          maxLength: 200
+          type: string
+      required:
+      - id
+    ItemGroupsListPutResponse:
+      title: ItemGroupsListPutResponse
+      type: object
+      properties:
+        task_id:
+          title: Task ID
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          type: string
+      required:
+      - task_id
+      - task_status_path
+    ItemGroupCountModel:
+      title: ItemGroupCountModel
+      type: object
+      properties:
+        processed:
+          title: Processed
+          description: Number of item groups processed.
+          minimum: 0
+          type: integer
+        inserted:
+          title: Inserted
+          description: Number of item groups inserted.
+          minimum: 0
+          type: integer
+        updated:
+          title: Updated
+          description: Number of item groups updated.
+          minimum: 0
+          type: integer
+        deleted:
+          title: Deleted
+          description: Number of item groups deleted.
+          minimum: 0
+          type: integer
+      required:
+      - processed
+      - inserted
+      - updated
+      - deleted
+      additionalProperties: false
+    ItemGroupsListGetResponse:
+      title: ItemGroupsListGetResponse
+      type: object
+      properties:
+        item_groups:
+          title: Item Groups
+          minItems: 0
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemGroupsGetResponse'
+        total_count:
+          title: Total Count
+          description: Total number of item groups.
+          minimum: 0
+          type: integer
+      required:
+      - item_groups
+      - total_count
+    ItemGroupListPatchResponse:
+      title: ItemGroupListPatchResponse
+      type: object
+      properties:
+        item_groups:
+          $ref: '#/components/schemas/ItemGroupCountModel'
+      required:
+      - item_groups
       additionalProperties: false
     V1ItemGroup:
       title: V1ItemGroup
@@ -1239,121 +1352,8 @@ components:
       - id
       - name
       additionalProperties: false
-    ItemGroupListPutResponse:
-      title: ItemGroupListPutResponse
-      type: object
-      properties:
-        item_groups:
-          $ref: '#/components/schemas/ItemGroupCountModel'
-      required:
-      - item_groups
-      additionalProperties: false
-    ItemGroupListPatchRequestBody:
-      title: ItemGroupListPatchRequestBody
-      type: object
-      properties:
-        item_groups:
-          title: Item Groups
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/V1ItemGroup'
-      required:
-      - item_groups
-      additionalProperties: false
-    ItemGroupsListDeleteRequestBody:
-      title: ItemGroupsListDeleteRequestBody
-      type: object
-      properties:
-        item_groups:
-          title: Item Groups
-          description: Array of item group IDs you want to delete.
-          minItems: 1
-          maxItems: 10000
-          type: array
-          items:
-            $ref: '#/components/schemas/ItemGroupBase'
-      required:
-      - item_groups
-    ItemGroupsListPutRequestBody:
-      title: ItemGroupsListPutRequestBody
-      type: object
-      properties:
-        item_groups:
-          title: Item Groups
-          description: Array of item groups you want to create or replace.
-          minItems: 1
-          maxItems: 10000
-          type: array
-          items:
-            $ref: '#/components/schemas/ItemGroup'
-      required:
-      - item_groups
-    ItemGroupsListGetResponse:
-      title: ItemGroupsListGetResponse
-      type: object
-      properties:
-        item_groups:
-          title: Item Groups
-          minItems: 0
-          type: array
-          items:
-            $ref: '#/components/schemas/ItemGroupsGetResponse'
-        total_count:
-          title: Total Count
-          description: Total number of item groups.
-          minimum: 0
-          type: integer
-      required:
-      - item_groups
-      - total_count
-    ItemGroupsListPatchResponse:
-      title: ItemGroupsListPatchResponse
-      type: object
-      properties:
-        task_id:
-          title: Task ID
-          type: integer
-        task_status_path:
-          title: Task Status Path
-          type: string
-      required:
-      - task_id
-      - task_status_path
-    ItemGroupsGetResponse:
-      title: ItemGroupsGetResponse
-      type: object
-      properties:
-        data:
-          title: Data
-          description: Object containing additional data, that should be attached to this item group. The maximum size of data object is limited to 5kB. The average size of data objects for all ingested item groups should not exceed 1kB.
-          type: object
-        id:
-          title: ID
-          description: The ID of the item group
-          minLength: 1
-          maxLength: 200
-          type: string
-        name:
-          title: Display Name
-          description: Item group display name.
-          minLength: 1
-          maxLength: 500
-          type: string
-        parent_ids:
-          title: Parent Ids
-          description: List of parent item group IDs
-          type: array
-          items:
-            type: string
-            examples:
-            - parent-1
-            - root
-      required:
-      - id
-      - name
-    ItemGroup:
-      title: ItemGroup
+    ItemGroupPatch:
+      title: ItemGroupPatch
       type: object
       properties:
         data:
@@ -1372,9 +1372,6 @@ components:
         name:
           title: Name
           description: Item group display name.
-          examples:
-          - Electronics
-          - Men's Clothing
           minLength: 1
           maxLength: 500
           type: string
@@ -1389,26 +1386,20 @@ components:
             - root
       required:
       - id
-      - name
-    ItemGroupListGetResponse:
-      title: ItemGroupListGetResponse
+    ItemGroupsListDeleteRequestBody:
+      title: ItemGroupsListDeleteRequestBody
       type: object
       properties:
         item_groups:
           title: Item Groups
-          description: A list of item groups.
+          description: Array of item group IDs you want to delete.
+          minItems: 1
+          maxItems: 10000
           type: array
           items:
-            $ref: '#/components/schemas/V1ItemGroup'
-        total_count:
-          title: Total Count
-          description: Total number of item groups.
-          minimum: 0
-          type: integer
+            $ref: '#/components/schemas/ItemGroupBase'
       required:
       - item_groups
-      - total_count
-      additionalProperties: false
     ItemGroupsListDeleteResponse:
       title: ItemGroupsListDeleteResponse
       type: object
@@ -1422,6 +1413,15 @@ components:
       required:
       - task_id
       - task_status_path
+    ItemGroupListPutResponse:
+      title: ItemGroupListPutResponse
+      type: object
+      properties:
+        item_groups:
+          $ref: '#/components/schemas/ItemGroupCountModel'
+      required:
+      - item_groups
+      additionalProperties: false
   securitySchemes:
     http_basic_auth:
       type: http

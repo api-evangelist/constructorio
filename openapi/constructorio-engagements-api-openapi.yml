@@ -131,27 +131,6 @@ paths:
         - retail_media.ad_spend_tracking(r)
 components:
   schemas:
-    AdvertiserSpendRecord:
-      properties:
-        engagement_id:
-          type: string
-          title: Engagement ID
-          description: The advertiser (engagement) ID for the record.
-        daily_spend:
-          additionalProperties:
-            type: string
-            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-          type: object
-          title: Daily Spend
-          description: Map of date (YYYY-MM-DD) to spend for that advertiser. Includes the last 30 days.
-          examples:
-          - '2026-06-18': '40.0'
-            '2026-06-19': '12.5'
-      type: object
-      required:
-      - engagement_id
-      - daily_spend
-      title: AdvertiserSpendRecord
     PublicErrorDetails:
       properties:
         code:
@@ -218,6 +197,27 @@ components:
       - errors
       - trace_id
       title: PublicErrorResponse
+    AdvertiserSpendRecord:
+      properties:
+        engagement_id:
+          type: string
+          title: Engagement ID
+          description: The advertiser (engagement) ID for the record.
+        daily_spend:
+          additionalProperties:
+            type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          type: object
+          title: Daily Spend
+          description: Map of date (YYYY-MM-DD) to spend for that advertiser. Includes the last 30 days.
+          examples:
+          - '2026-06-18': '40.0'
+            '2026-06-19': '12.5'
+      type: object
+      required:
+      - engagement_id
+      - daily_spend
+      title: AdvertiserSpendRecord
     EngagementResponse:
       properties:
         engagement_id:

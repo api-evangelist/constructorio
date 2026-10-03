@@ -289,207 +289,13 @@ paths:
       security: []
 components:
   schemas:
-    VariationsMap:
-      properties:
-        filter_by:
-          description: A filtering expression that should be used to filter variations before doing any aggregations
-          allOf:
-          - $ref: '#/components/schemas/VariationsMapFilterBy'
-          title: Filter By
-        group_by:
-          description: An array of fields that should be used to group variations. Variations which share the value of all fields specified here will all fall under one group
-          title: Group By
-          items:
-            $ref: '#/components/schemas/VariationsMapGrouping'
-          maxItems: 5
-          type: array
-        values:
-          description: A set of aggregations that should be applied to each variation group. The object keys specify the name of the field under which each aggregated value will be returned in the response
-          title: Values
-          type: object
-          additionalProperties:
-            discriminator:
-              mapping:
-                all: '#/components/schemas/VariationsMapSimpleAggregation'
-                count: '#/components/schemas/VariationsMapCountAggregation'
-                distinct: '#/components/schemas/VariationsMapSimpleAggregation'
-                field_count: '#/components/schemas/VariationsMapSimpleAggregation'
-                first: '#/components/schemas/VariationsMapSimpleAggregation'
-                max: '#/components/schemas/VariationsMapSimpleAggregation'
-                min: '#/components/schemas/VariationsMapSimpleAggregation'
-                value_count: '#/components/schemas/VariationsMapValueCountAggregation'
-              propertyName: aggregation
-            oneOf:
-            - $ref: '#/components/schemas/VariationsMapSimpleAggregation'
-            - $ref: '#/components/schemas/VariationsMapCountAggregation'
-            - $ref: '#/components/schemas/VariationsMapValueCountAggregation'
-        dtype:
-          description: The expected data type of the variations_map objects in the response
-          enum:
-          - array
-          - object
-          title: Dtype
-          type: string
-      required:
-      - values
-      - dtype
-      title: VariationsMap
-      type: object
-    VariationsMapSingleFilter:
-      additionalProperties: false
-      properties:
-        field:
-          description: Path to a metadata field (dot-separated)
-          minLength: 1
-          title: Field
-          type: string
-        value:
-          anyOf:
-          - type: boolean
-          - type: integer
-          - type: number
-          - type: string
-          description: The value of this field to filter by
-          title: Value
-      required:
-      - field
-      - value
-      title: VariationsMapSingleFilter
-      type: object
-    ResultFacet:
-      additionalProperties: false
-      properties:
-        name:
-          title: Name
-          type: string
-        values:
-          items:
-            anyOf:
-            - type: number
-            - type: integer
-            - type: string
-            - type: boolean
-          title: Values
-          type: array
-      required:
-      - name
-      - values
-      title: ResultFacet
-      type: object
-    VariationsMapGrouping:
-      properties:
-        name:
-          pattern: ^\w+([ ]?[\w]+)*$
-          title: Name
-          type: string
-        field:
-          minLength: 1
-          title: Field
-          type: string
-      required:
-      - name
-      - field
-      title: VariationsMapGrouping
-      type: object
-    ResultGroup:
-      additionalProperties: false
-      properties:
-        group_id:
-          description: The ID of the group.
-          title: Group Id
-          type: string
-        display_name:
-          description: The name of the group as it is displayed to end users.
-          title: Display Name
-          type: string
-        path:
-          description: The path of `group_id`s above this group. `/great-grandparent/grandparent/parent/`
-          examples:
-          - /great-grandparent/grandparent/parent/
-          title: Path
-          type: string
-        path_list:
-          description: An array of groups constituting the path
-          items:
-            $ref: '#/components/schemas/Path'
-          title: Path List
-          type: array
-      required:
-      - group_id
-      - path
-      - path_list
-      title: ResultGroup
-      type: object
-    VariationsMapCountAggregation:
-      properties:
-        aggregation:
-          title: Aggregation
-          type: string
-          enum:
-          - count
-      required:
-      - aggregation
-      title: VariationsMapCountAggregation
-      type: object
-    Path:
-      additionalProperties: false
-      properties:
-        id:
-          description: The ID of the group.
-          title: Id
-          type: string
-        display_name:
-          description: The name of the group as it is displayed to end users.
-          title: Display Name
-          type: string
-      required:
-      - id
-      title: Path
-      type: object
-    ResultVariation:
-      additionalProperties: false
-      properties:
-        data:
-          $ref: '#/components/schemas/ResultData'
-        value:
-          title: Value
-          type: string
-      required:
-      - data
-      - value
-      title: ResultVariation
-      type: object
-    VariationsMapSimpleAggregation:
-      properties:
-        aggregation:
-          enum:
-          - first
-          - all
-          - distinct
-          - min
-          - max
-          - field_count
-          title: Aggregation
-          type: string
-        field:
-          minLength: 1
-          title: Field
-          type: string
-      required:
-      - aggregation
-      - field
-      title: VariationsMapSimpleAggregation
-      type: object
-    VariationsMapNot:
-      additionalProperties: false
-      properties:
-        not_:
-          type: object
-          title: Not
-      required:
-      - not_
-      title: VariationsMapNot
-      type: object
+    VariationsReturnType:
+      enum:
+      - default
+      - all
+      - matched
+      title: VariationsReturnType
+      type: string
     AutocompleteFmtOptions:
       additionalProperties: false
       properties:
@@ -542,35 +348,44 @@ components:
           type: boolean
       title: AutocompleteFmtOptions
       type: object
-    PreFilterExpression:
-      anyOf:
-      - title: object
-        type: object
-      - format: json
-        title: Encoded JSON string
-        type: string
-      title: PreFilterExpression
-    Filters:
-      propertyNames:
-        minLength: 1
-      title: Filters
+    VariationsMapCountAggregation:
+      properties:
+        aggregation:
+          title: Aggregation
+          type: string
+          enum:
+          - count
+      required:
+      - aggregation
+      title: VariationsMapCountAggregation
       type: object
-    VariationsMapFilterBy:
-      discriminator:
-        mapping:
-          and: '#/components/schemas/VariationsMapAnd'
-          not: '#/components/schemas/VariationsMapNot'
-          or: '#/components/schemas/VariationsMapOr'
-          range: '#/components/schemas/VariationsMapRange'
-          single: '#/components/schemas/VariationsMapSingleFilter'
-        propertyName: type
-      oneOf:
-      - $ref: '#/components/schemas/VariationsMapRange'
-      - $ref: '#/components/schemas/VariationsMapSingleFilter'
-      - $ref: '#/components/schemas/VariationsMapOr'
-      - $ref: '#/components/schemas/VariationsMapAnd'
-      - $ref: '#/components/schemas/VariationsMapNot'
-      title: VariationsMapFilterBy
+    VariationsMapOr:
+      additionalProperties: false
+      properties:
+        or_:
+          items:
+            type: array
+          title: Or
+          type: array
+      required:
+      - or_
+      title: VariationsMapOr
+      type: object
+    VariationsMapGrouping:
+      properties:
+        name:
+          pattern: ^\w+([ ]?[\w]+)*$
+          title: Name
+          type: string
+        field:
+          minLength: 1
+          title: Field
+          type: string
+      required:
+      - name
+      - field
+      title: VariationsMapGrouping
+      type: object
     VariationsMapAnd:
       additionalProperties: false
       properties:
@@ -582,6 +397,24 @@ components:
       required:
       - and_
       title: VariationsMapAnd
+      type: object
+    ResultVariation:
+      additionalProperties: false
+      properties:
+        data:
+          $ref: '#/components/schemas/ResultData'
+        value:
+          title: Value
+          type: string
+      required:
+      - data
+      - value
+      title: ResultVariation
+      type: object
+    Filters:
+      propertyNames:
+        minLength: 1
+      title: Filters
       type: object
     SearchandizedResult:
       additionalProperties: false
@@ -644,29 +477,47 @@ components:
       - none
       title: FilterMatchType
       type: string
-    VariationsMapValueCountAggregation:
+    VariationsMapRange:
+      additionalProperties: false
       properties:
-        aggregation:
-          title: Aggregation
-          type: string
-          enum:
-          - value_count
         field:
+          description: Path to a metadata field (dot-separated)
           minLength: 1
           title: Field
           type: string
-        value:
-          anyOf:
-          - type: boolean
-          - type: integer
-          - type: number
-          - type: string
-          title: Value
+        range:
+          description: This filter matches items where the specified field is within the specified range (min and max). The values are inclusive. Use "inf" for an unbounded upper limit or "-inf" for an unbounded lower limit.
+          items:
+            anyOf:
+            - enum:
+              - inf
+              - -inf
+              type: string
+            - type: integer
+            - type: number
+          maxItems: 2
+          minItems: 2
+          title: Range
+          type: array
       required:
-      - aggregation
       - field
-      - value
-      title: VariationsMapValueCountAggregation
+      - range
+      title: VariationsMapRange
+      type: object
+    Path:
+      additionalProperties: false
+      properties:
+        id:
+          description: The ID of the group.
+          title: Id
+          type: string
+        display_name:
+          description: The name of the group as it is displayed to end users.
+          title: Display Name
+          type: string
+      required:
+      - id
+      title: Path
       type: object
     ResultData:
       properties:
@@ -700,40 +551,105 @@ components:
           type: array
       title: Result data
       type: object
-    VariationsMapRange:
-      additionalProperties: false
+    VariationsMap:
       properties:
+        filter_by:
+          description: A filtering expression that should be used to filter variations before doing any aggregations
+          allOf:
+          - $ref: '#/components/schemas/VariationsMapFilterBy'
+          title: Filter By
+        group_by:
+          description: An array of fields that should be used to group variations. Variations which share the value of all fields specified here will all fall under one group
+          title: Group By
+          items:
+            $ref: '#/components/schemas/VariationsMapGrouping'
+          maxItems: 5
+          type: array
+        values:
+          description: A set of aggregations that should be applied to each variation group. The object keys specify the name of the field under which each aggregated value will be returned in the response
+          title: Values
+          type: object
+          additionalProperties:
+            discriminator:
+              mapping:
+                all: '#/components/schemas/VariationsMapSimpleAggregation'
+                count: '#/components/schemas/VariationsMapCountAggregation'
+                distinct: '#/components/schemas/VariationsMapSimpleAggregation'
+                field_count: '#/components/schemas/VariationsMapSimpleAggregation'
+                first: '#/components/schemas/VariationsMapSimpleAggregation'
+                max: '#/components/schemas/VariationsMapSimpleAggregation'
+                min: '#/components/schemas/VariationsMapSimpleAggregation'
+                value_count: '#/components/schemas/VariationsMapValueCountAggregation'
+              propertyName: aggregation
+            oneOf:
+            - $ref: '#/components/schemas/VariationsMapSimpleAggregation'
+            - $ref: '#/components/schemas/VariationsMapCountAggregation'
+            - $ref: '#/components/schemas/VariationsMapValueCountAggregation'
+        dtype:
+          description: The expected data type of the variations_map objects in the response
+          enum:
+          - array
+          - object
+          title: Dtype
+          type: string
+      required:
+      - values
+      - dtype
+      title: VariationsMap
+      type: object
+    VariationsMapValueCountAggregation:
+      properties:
+        aggregation:
+          title: Aggregation
+          type: string
+          enum:
+          - value_count
         field:
-          description: Path to a metadata field (dot-separated)
           minLength: 1
           title: Field
           type: string
-        range:
-          description: This filter matches items where the specified field is within the specified range (min and max). The values are inclusive. Use "inf" for an unbounded upper limit or "-inf" for an unbounded lower limit.
-          items:
-            anyOf:
-            - enum:
-              - inf
-              - -inf
-              type: string
-            - type: integer
-            - type: number
-          maxItems: 2
-          minItems: 2
-          title: Range
-          type: array
+        value:
+          anyOf:
+          - type: boolean
+          - type: integer
+          - type: number
+          - type: string
+          title: Value
       required:
+      - aggregation
       - field
-      - range
-      title: VariationsMapRange
+      - value
+      title: VariationsMapValueCountAggregation
       type: object
-    VariationsReturnType:
-      enum:
-      - default
-      - all
-      - matched
-      title: VariationsReturnType
-      type: string
+    PreFilterExpression:
+      anyOf:
+      - title: object
+        type: object
+      - format: json
+        title: Encoded JSON string
+        type: string
+      title: PreFilterExpression
+    VariationsMapSimpleAggregation:
+      properties:
+        aggregation:
+          enum:
+          - first
+          - all
+          - distinct
+          - min
+          - max
+          - field_count
+          title: Aggregation
+          type: string
+        field:
+          minLength: 1
+          title: Field
+          type: string
+      required:
+      - aggregation
+      - field
+      title: VariationsMapSimpleAggregation
+      type: object
     AutocompleteGetResponse:
       additionalProperties: false
       properties:
@@ -762,17 +678,101 @@ components:
       - sections
       title: AutocompleteGetResponse
       type: object
-    VariationsMapOr:
+    ResultFacet:
       additionalProperties: false
       properties:
-        or_:
+        name:
+          title: Name
+          type: string
+        values:
           items:
-            type: array
-          title: Or
+            anyOf:
+            - type: number
+            - type: integer
+            - type: string
+            - type: boolean
+          title: Values
           type: array
       required:
-      - or_
-      title: VariationsMapOr
+      - name
+      - values
+      title: ResultFacet
+      type: object
+    VariationsMapSingleFilter:
+      additionalProperties: false
+      properties:
+        field:
+          description: Path to a metadata field (dot-separated)
+          minLength: 1
+          title: Field
+          type: string
+        value:
+          anyOf:
+          - type: boolean
+          - type: integer
+          - type: number
+          - type: string
+          description: The value of this field to filter by
+          title: Value
+      required:
+      - field
+      - value
+      title: VariationsMapSingleFilter
+      type: object
+    VariationsMapFilterBy:
+      discriminator:
+        mapping:
+          and: '#/components/schemas/VariationsMapAnd'
+          not: '#/components/schemas/VariationsMapNot'
+          or: '#/components/schemas/VariationsMapOr'
+          range: '#/components/schemas/VariationsMapRange'
+          single: '#/components/schemas/VariationsMapSingleFilter'
+        propertyName: type
+      oneOf:
+      - $ref: '#/components/schemas/VariationsMapRange'
+      - $ref: '#/components/schemas/VariationsMapSingleFilter'
+      - $ref: '#/components/schemas/VariationsMapOr'
+      - $ref: '#/components/schemas/VariationsMapAnd'
+      - $ref: '#/components/schemas/VariationsMapNot'
+      title: VariationsMapFilterBy
+    VariationsMapNot:
+      additionalProperties: false
+      properties:
+        not_:
+          type: object
+          title: Not
+      required:
+      - not_
+      title: VariationsMapNot
+      type: object
+    ResultGroup:
+      additionalProperties: false
+      properties:
+        group_id:
+          description: The ID of the group.
+          title: Group Id
+          type: string
+        display_name:
+          description: The name of the group as it is displayed to end users.
+          title: Display Name
+          type: string
+        path:
+          description: The path of `group_id`s above this group. `/great-grandparent/grandparent/parent/`
+          examples:
+          - /great-grandparent/grandparent/parent/
+          title: Path
+          type: string
+        path_list:
+          description: An array of groups constituting the path
+          items:
+            $ref: '#/components/schemas/Path'
+          title: Path List
+          type: array
+      required:
+      - group_id
+      - path
+      - path_list
+      title: ResultGroup
       type: object
   securitySchemes:
     http_basic_auth:

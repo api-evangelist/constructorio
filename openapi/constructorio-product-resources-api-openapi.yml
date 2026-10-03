@@ -991,6 +991,47 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    Data:
+      properties:
+        id:
+          type: string
+          title: ID
+          description: The unique identifier for the product (maps to item_id in some contexts).
+          examples:
+          - PROD123
+        variation_id:
+          type: string
+          title: Variation ID
+          description: The unique identifier for the product variation, if applicable.
+          examples:
+          - VAR456
+        url:
+          type: string
+          format: url
+          title: URL
+          description: URL for the product detail page.
+          examples:
+          - https://example.com/products/prod123
+          - /products?skuId=123
+        image_url:
+          type: string
+          format: url
+          title: Image URL
+          description: URL for the product's primary image.
+          examples:
+          - https://example.com/images/prod123.jpg
+      type: object
+      required:
+      - id
+      title: Data
+      description: Core product data containing essential fields. Additional customer-specific fields may be present in actual API responses based on configuration, but are not documented here for privacy and simplicity.
+    ResponseFormat:
+      type: string
+      enum:
+      - redirect
+      - json
+      title: ResponseFormat
+      description: Enumeration of possible response formats for snippet requests.
     ErrorResponse:
       properties:
         detail:
@@ -1052,40 +1093,6 @@ components:
           variation_id: VAR_001_BLUE
           url: https://shop.example.com/products/premium-sneakers
           image_url: https://images.example.com/products/PROD_001_main.jpg
-    Data:
-      properties:
-        id:
-          type: string
-          title: ID
-          description: The unique identifier for the product (maps to item_id in some contexts).
-          examples:
-          - PROD123
-        variation_id:
-          type: string
-          title: Variation ID
-          description: The unique identifier for the product variation, if applicable.
-          examples:
-          - VAR456
-        url:
-          type: string
-          format: url
-          title: URL
-          description: URL for the product detail page.
-          examples:
-          - https://example.com/products/prod123
-          - /products?skuId=123
-        image_url:
-          type: string
-          format: url
-          title: Image URL
-          description: URL for the product's primary image.
-          examples:
-          - https://example.com/images/prod123.jpg
-      type: object
-      required:
-      - id
-      title: Data
-      description: Core product data containing essential fields. Additional customer-specific fields may be present in actual API responses based on configuration, but are not documented here for privacy and simplicity.
     SortOrder:
       type: string
       enum:
@@ -1093,12 +1100,5 @@ components:
       - descending
       title: SortOrder
       description: 'The sort order for results: ascending (low to high) or descending (high to low).'
-    ResponseFormat:
-      type: string
-      enum:
-      - redirect
-      - json
-      title: ResponseFormat
-      description: Enumeration of possible response formats for snippet requests.
 x-readme:
   explorer-enabled: false

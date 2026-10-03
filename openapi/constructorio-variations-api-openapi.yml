@@ -536,6 +536,333 @@ paths:
         - catalog(r)
 components:
   schemas:
+    Variation:
+      title: Variation
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the variation, must be unique.
+          examples:
+          - red-nike-shoes
+          - variation-123
+          minLength: 1
+          maxLength: 250
+          type: string
+        item_id:
+          title: Item Id
+          description: The ID of the item this variation is attached to.
+          examples:
+          - nike-shoes
+          - product-123
+          minLength: 1
+          maxLength: 250
+          type: string
+        name:
+          title: Name
+          description: The name of the variation, as it will appear in the results. Must contain at least one alphanumeric character.
+          maxLength: 250
+          minLength: 1
+          examples:
+          - Running Shoes - Size 10
+          - Blue T-Shirt - Large
+          type: string
+        suggested_score:
+          title: Suggested Score
+          description: A number that will influence the variation's initial ranking relative to other variation scores (the higher the score, the higher in the list of suggestions the variation will appear).
+          minimum: -1
+          maximum: 500000000
+          examples:
+          - 100
+          - 9999
+          type: integer
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this variation. The maximum size of data object is limited to 200kb. The average size of data objects for all ingested items and variations should not exceed 30kb.
+          examples:
+          - url: http://example.com/variation
+            size: L
+          allOf:
+          - $ref: '#/components/schemas/VariationMetadata'
+      required:
+      - id
+      - item_id
+      additionalProperties: false
+    VariationListDeleteAcceptedResponse:
+      title: VariationListDeleteAcceptedResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          description: Info message
+          type: string
+      required:
+      - message
+    VariationListPatchResponse:
+      title: VariationListPatchResponse
+      type: object
+      properties:
+        task_id:
+          title: Task Id
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          type: string
+      required:
+      - task_id
+      - task_status_path
+    VariationListPutRequestBody:
+      title: VariationListPutRequestBody
+      type: object
+      properties:
+        variations:
+          title: Variations
+          description: Array of variations you want to create or replace.
+          minItems: 1
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/Variation'
+      required:
+      - variations
+    VariationMetadataResponse:
+      title: VariationMetadataResponse
+      description: 'Additional data about item. In addition to the listed properties
+
+        you can also provide any other information you want to associate
+
+        with that item. No special validation is made for that data.'
+      type: object
+      properties:
+        keywords:
+          title: Keywords
+          description: An array of keywords for this item. Keywords are useful if you want a product name to appear when a user enters a search term that isn't in the product name itself.
+          type: array
+          items:
+            type: string
+            examples:
+            - running
+            - athletic
+            - sports
+        url:
+          title: Url
+          description: A URL to directly send the user after selecting the item. Might be required in some cases. Please contact support@constructor.io if you have questions around that.
+          examples:
+          - http://www.example.com/product/123
+          - /products/shoes
+          type: string
+        image_url:
+          title: Image Url
+          description: A URL that points to an image you'd like displayed next to some item (only applicable when url is supplied).
+          examples:
+          - http://www.example.com/images/product.jpg
+          type: string
+        facets:
+          title: Facets
+          description: 'Warning: ingesting data directly as facets has been deprecated. Please ingest the data as metadata instead, and create a facet configuration as shown in our guide on global facet configuration. '
+          deprecated: true
+          examples:
+          - color:
+            - red
+            - blue
+            size:
+            - L
+            - XL
+          allOf:
+          - $ref: '#/components/schemas/Facets'
+        group_ids:
+          title: Group Ids
+          description: You can associate each item with one or more groups (i.e. categories). To set up a group hierarchy please contact support@constructor.io group_ids can be used as filters in search, autosuggest, and browse requests.
+          type: array
+          items:
+            type: string
+            examples:
+            - shoes
+            - athletic
+        description:
+          title: Description
+          description: A description for this item. The maximum length of this field is 4000 characters.
+          examples:
+          - A comfortable running shoe with cushioned sole
+          maxLength: 4000
+          type: string
+        active:
+          title: Active
+          examples:
+          - true
+          - false
+          type: boolean
+        is_default:
+          title: Is Default
+          description: Whether this variation should always be returned as the best matching variation.
+          examples:
+          - true
+          - false
+          type: boolean
+      additionalProperties: true
+    VariationListPutResponse:
+      title: VariationListPutResponse
+      type: object
+      properties:
+        task_id:
+          title: Task Id
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          type: string
+      required:
+      - task_id
+      - task_status_path
+    Facets:
+      title: Facets
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/FacetValuesCoercedToList'
+    VariationListDeleteRequestBody:
+      title: VariationListDeleteRequestBody
+      type: object
+      properties:
+        variations:
+          title: Variations
+          description: Array of variation IDs you want to delete.
+          minItems: 1
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/VariationBase'
+      required:
+      - variations
+    FacetValue:
+      title: FacetValue
+      anyOf:
+      - type: string
+        minLength: 0
+        maxLength: 200
+      - type: integer
+      - type: number
+    VariationListDeleteResponse:
+      title: VariationListDeleteResponse
+      type: object
+      properties:
+        task_id:
+          title: Task Id
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          type: string
+      required:
+      - task_id
+      - task_status_path
+    VariationListPutAcceptedResponse:
+      title: VariationListPutAcceptedResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          description: Info message
+          type: string
+      required:
+      - message
+    VariationBase:
+      title: VariationBase
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the variation, must be unique.
+          examples:
+          - red-nike-shoes
+          - variation-123
+          minLength: 1
+          maxLength: 250
+          type: string
+      required:
+      - id
+      additionalProperties: false
+    VariationListGetResponse:
+      title: VariationListGetResponse
+      type: object
+      properties:
+        total_count:
+          title: Total Count
+          description: Total number of variations. Omitted when using cursor-based pagination (`next_page_cursor`).
+          minimum: 0
+          examples:
+          - 100
+          - 5000
+          type: integer
+        variations:
+          title: Variations
+          type: array
+          items:
+            $ref: '#/components/schemas/VariationGetResponse'
+        next_page_cursor:
+          title: Pagination cursor
+          description: Pagination cursor to use to receive the next page of results. The value is returned by the previous page response. Cannot be used together with `page` or `offset`.
+          maxLength: 250
+          minLength: 1
+          examples:
+          - red-nike-shoes
+          - variation-123
+          type: string
+      required:
+      - variations
+    VariationPatch:
+      title: VariationPatch
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the variation, must be unique.
+          examples:
+          - red-nike-shoes
+          - variation-123
+          minLength: 1
+          maxLength: 250
+          type: string
+        item_id:
+          title: Item Id
+          description: The ID of the item this variation is attached to.
+          examples:
+          - nike-shoes
+          - product-123
+          minLength: 1
+          maxLength: 250
+          type: string
+        name:
+          title: Name
+          description: The name of the variation, as it will appear in the results. Must contain at least one alphanumeric character.
+          maxLength: 250
+          minLength: 1
+          examples:
+          - Running Shoes - Size 10
+          - Blue T-Shirt - Large
+          type: string
+        suggested_score:
+          title: Suggested Score
+          description: A number that will influence the variation's initial ranking relative to other variation scores (the higher the score, the higher in the list of suggestions the variation will appear).
+          minimum: -1
+          maximum: 500000000
+          examples:
+          - 100
+          - 9999
+          type: integer
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this variation. The maximum size of data object is limited to 200kb. The average size of data objects for all ingested items and variations should not exceed 30kb.
+          examples:
+          - url: http://example.com/variation
+            size: L
+          allOf:
+          - $ref: '#/components/schemas/VariationMetadata'
+      required:
+      - id
+      additionalProperties: false
+    FacetValuesCoercedToList:
+      title: FacetValuesCoercedToList
+      type: array
+      items:
+        $ref: '#/components/schemas/FacetValue'
     VariationListPatchAcceptedResponse:
       title: VariationListPatchAcceptedResponse
       type: object
@@ -546,6 +873,63 @@ components:
           type: string
       required:
       - message
+    VariationGetResponse:
+      title: VariationGetResponse
+      type: object
+      properties:
+        id:
+          title: ID
+          description: The ID of the variation, must be unique.
+          minLength: 1
+          maxLength: 250
+          type: string
+        item_id:
+          title: Item ID
+          description: The ID of the item this variation is attached to.
+          minLength: 1
+          maxLength: 250
+          type: string
+        name:
+          title: Name
+          description: The name of the variation, as it will appear in the results. Contains at least one alphanumeric character.
+          maxLength: 250
+          minLength: 1
+          type: string
+        suggested_score:
+          title: Score
+          description: A number that will influence the variation's initial ranking relative to other variation scores (the higher the score, the higher in the list of suggestions the variation will appear).
+          minimum: -1
+          maximum: 500000000
+          type: integer
+        data:
+          title: Data
+          description: Object containing additional data attached to this variation.
+          allOf:
+          - $ref: '#/components/schemas/VariationMetadataResponse'
+        updated_at:
+          title: Updated at
+          description: A date when the variation was updated.
+          type: string
+          format: date-time
+      required:
+      - id
+      - item_id
+      - updated_at
+      additionalProperties: false
+    VariationListPatchRequestBody:
+      title: VariationListPatchRequestBody
+      type: object
+      properties:
+        variations:
+          title: Variations
+          description: Array of variations you want to update.
+          minItems: 1
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/VariationPatch'
+      required:
+      - variations
     VariationMetadata:
       title: VariationMetadata
       description: 'Additional data about item. In addition to the listed properties
@@ -633,390 +1017,6 @@ components:
       - CREATE
       - IGNORE
       - FAIL
-    VariationMetadataResponse:
-      title: VariationMetadataResponse
-      description: 'Additional data about item. In addition to the listed properties
-
-        you can also provide any other information you want to associate
-
-        with that item. No special validation is made for that data.'
-      type: object
-      properties:
-        keywords:
-          title: Keywords
-          description: An array of keywords for this item. Keywords are useful if you want a product name to appear when a user enters a search term that isn't in the product name itself.
-          type: array
-          items:
-            type: string
-            examples:
-            - running
-            - athletic
-            - sports
-        url:
-          title: Url
-          description: A URL to directly send the user after selecting the item. Might be required in some cases. Please contact support@constructor.io if you have questions around that.
-          examples:
-          - http://www.example.com/product/123
-          - /products/shoes
-          type: string
-        image_url:
-          title: Image Url
-          description: A URL that points to an image you'd like displayed next to some item (only applicable when url is supplied).
-          examples:
-          - http://www.example.com/images/product.jpg
-          type: string
-        facets:
-          title: Facets
-          description: 'Warning: ingesting data directly as facets has been deprecated. Please ingest the data as metadata instead, and create a facet configuration as shown in our guide on global facet configuration. '
-          deprecated: true
-          examples:
-          - color:
-            - red
-            - blue
-            size:
-            - L
-            - XL
-          allOf:
-          - $ref: '#/components/schemas/Facets'
-        group_ids:
-          title: Group Ids
-          description: You can associate each item with one or more groups (i.e. categories). To set up a group hierarchy please contact support@constructor.io group_ids can be used as filters in search, autosuggest, and browse requests.
-          type: array
-          items:
-            type: string
-            examples:
-            - shoes
-            - athletic
-        description:
-          title: Description
-          description: A description for this item. The maximum length of this field is 4000 characters.
-          examples:
-          - A comfortable running shoe with cushioned sole
-          maxLength: 4000
-          type: string
-        active:
-          title: Active
-          examples:
-          - true
-          - false
-          type: boolean
-        is_default:
-          title: Is Default
-          description: Whether this variation should always be returned as the best matching variation.
-          examples:
-          - true
-          - false
-          type: boolean
-      additionalProperties: true
-    VariationListPatchResponse:
-      title: VariationListPatchResponse
-      type: object
-      properties:
-        task_id:
-          title: Task Id
-          type: integer
-        task_status_path:
-          title: Task Status Path
-          type: string
-      required:
-      - task_id
-      - task_status_path
-    Facets:
-      title: Facets
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/FacetValuesCoercedToList'
-    VariationListPatchRequestBody:
-      title: VariationListPatchRequestBody
-      type: object
-      properties:
-        variations:
-          title: Variations
-          description: Array of variations you want to update.
-          minItems: 1
-          maxItems: 10000
-          type: array
-          items:
-            $ref: '#/components/schemas/VariationPatch'
-      required:
-      - variations
-    VariationBase:
-      title: VariationBase
-      type: object
-      properties:
-        id:
-          title: Id
-          description: The ID of the variation, must be unique.
-          examples:
-          - red-nike-shoes
-          - variation-123
-          minLength: 1
-          maxLength: 250
-          type: string
-      required:
-      - id
-      additionalProperties: false
-    VariationListDeleteRequestBody:
-      title: VariationListDeleteRequestBody
-      type: object
-      properties:
-        variations:
-          title: Variations
-          description: Array of variation IDs you want to delete.
-          minItems: 1
-          maxItems: 10000
-          type: array
-          items:
-            $ref: '#/components/schemas/VariationBase'
-      required:
-      - variations
-    VariationListGetResponse:
-      title: VariationListGetResponse
-      type: object
-      properties:
-        total_count:
-          title: Total Count
-          description: Total number of variations. Omitted when using cursor-based pagination (`next_page_cursor`).
-          minimum: 0
-          examples:
-          - 100
-          - 5000
-          type: integer
-        variations:
-          title: Variations
-          type: array
-          items:
-            $ref: '#/components/schemas/VariationGetResponse'
-        next_page_cursor:
-          title: Pagination cursor
-          description: Pagination cursor to use to receive the next page of results. The value is returned by the previous page response. Cannot be used together with `page` or `offset`.
-          maxLength: 250
-          minLength: 1
-          examples:
-          - red-nike-shoes
-          - variation-123
-          type: string
-      required:
-      - variations
-    VariationListDeleteResponse:
-      title: VariationListDeleteResponse
-      type: object
-      properties:
-        task_id:
-          title: Task Id
-          type: integer
-        task_status_path:
-          title: Task Status Path
-          type: string
-      required:
-      - task_id
-      - task_status_path
-    VariationListPutResponse:
-      title: VariationListPutResponse
-      type: object
-      properties:
-        task_id:
-          title: Task Id
-          type: integer
-        task_status_path:
-          title: Task Status Path
-          type: string
-      required:
-      - task_id
-      - task_status_path
-    VariationListPutAcceptedResponse:
-      title: VariationListPutAcceptedResponse
-      type: object
-      properties:
-        message:
-          title: Message
-          description: Info message
-          type: string
-      required:
-      - message
-    FacetValue:
-      title: FacetValue
-      anyOf:
-      - type: string
-        minLength: 0
-        maxLength: 200
-      - type: integer
-      - type: number
-    VariationListDeleteAcceptedResponse:
-      title: VariationListDeleteAcceptedResponse
-      type: object
-      properties:
-        message:
-          title: Message
-          description: Info message
-          type: string
-      required:
-      - message
-    VariationListPutRequestBody:
-      title: VariationListPutRequestBody
-      type: object
-      properties:
-        variations:
-          title: Variations
-          description: Array of variations you want to create or replace.
-          minItems: 1
-          maxItems: 10000
-          type: array
-          items:
-            $ref: '#/components/schemas/Variation'
-      required:
-      - variations
-    VariationPatch:
-      title: VariationPatch
-      type: object
-      properties:
-        id:
-          title: Id
-          description: The ID of the variation, must be unique.
-          examples:
-          - red-nike-shoes
-          - variation-123
-          minLength: 1
-          maxLength: 250
-          type: string
-        item_id:
-          title: Item Id
-          description: The ID of the item this variation is attached to.
-          examples:
-          - nike-shoes
-          - product-123
-          minLength: 1
-          maxLength: 250
-          type: string
-        name:
-          title: Name
-          description: The name of the variation, as it will appear in the results. Must contain at least one alphanumeric character.
-          maxLength: 250
-          minLength: 1
-          examples:
-          - Running Shoes - Size 10
-          - Blue T-Shirt - Large
-          type: string
-        suggested_score:
-          title: Suggested Score
-          description: A number that will influence the variation's initial ranking relative to other variation scores (the higher the score, the higher in the list of suggestions the variation will appear).
-          minimum: -1
-          maximum: 500000000
-          examples:
-          - 100
-          - 9999
-          type: integer
-        data:
-          title: Data
-          description: Object containing additional data, that should be attached to this variation. The maximum size of data object is limited to 200kb. The average size of data objects for all ingested items and variations should not exceed 30kb.
-          examples:
-          - url: http://example.com/variation
-            size: L
-          allOf:
-          - $ref: '#/components/schemas/VariationMetadata'
-      required:
-      - id
-      additionalProperties: false
-    FacetValuesCoercedToList:
-      title: FacetValuesCoercedToList
-      type: array
-      items:
-        $ref: '#/components/schemas/FacetValue'
-    VariationGetResponse:
-      title: VariationGetResponse
-      type: object
-      properties:
-        id:
-          title: ID
-          description: The ID of the variation, must be unique.
-          minLength: 1
-          maxLength: 250
-          type: string
-        item_id:
-          title: Item ID
-          description: The ID of the item this variation is attached to.
-          minLength: 1
-          maxLength: 250
-          type: string
-        name:
-          title: Name
-          description: The name of the variation, as it will appear in the results. Contains at least one alphanumeric character.
-          maxLength: 250
-          minLength: 1
-          type: string
-        suggested_score:
-          title: Score
-          description: A number that will influence the variation's initial ranking relative to other variation scores (the higher the score, the higher in the list of suggestions the variation will appear).
-          minimum: -1
-          maximum: 500000000
-          type: integer
-        data:
-          title: Data
-          description: Object containing additional data attached to this variation.
-          allOf:
-          - $ref: '#/components/schemas/VariationMetadataResponse'
-        updated_at:
-          title: Updated at
-          description: A date when the variation was updated.
-          type: string
-          format: date-time
-      required:
-      - id
-      - item_id
-      - updated_at
-      additionalProperties: false
-    Variation:
-      title: Variation
-      type: object
-      properties:
-        id:
-          title: Id
-          description: The ID of the variation, must be unique.
-          examples:
-          - red-nike-shoes
-          - variation-123
-          minLength: 1
-          maxLength: 250
-          type: string
-        item_id:
-          title: Item Id
-          description: The ID of the item this variation is attached to.
-          examples:
-          - nike-shoes
-          - product-123
-          minLength: 1
-          maxLength: 250
-          type: string
-        name:
-          title: Name
-          description: The name of the variation, as it will appear in the results. Must contain at least one alphanumeric character.
-          maxLength: 250
-          minLength: 1
-          examples:
-          - Running Shoes - Size 10
-          - Blue T-Shirt - Large
-          type: string
-        suggested_score:
-          title: Suggested Score
-          description: A number that will influence the variation's initial ranking relative to other variation scores (the higher the score, the higher in the list of suggestions the variation will appear).
-          minimum: -1
-          maximum: 500000000
-          examples:
-          - 100
-          - 9999
-          type: integer
-        data:
-          title: Data
-          description: Object containing additional data, that should be attached to this variation. The maximum size of data object is limited to 200kb. The average size of data objects for all ingested items and variations should not exceed 30kb.
-          examples:
-          - url: http://example.com/variation
-            size: L
-          allOf:
-          - $ref: '#/components/schemas/VariationMetadata'
-      required:
-      - id
-      - item_id
-      additionalProperties: false
   securitySchemes:
     http_basic_auth:
       type: http

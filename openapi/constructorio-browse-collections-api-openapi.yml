@@ -193,30 +193,6 @@ paths:
       security: []
 components:
   schemas:
-    BrowseCollectionsResponse:
-      additionalProperties: false
-      properties:
-        collections:
-          description: Information on browsed collections.
-          items:
-            $ref: '#/components/schemas/Collection'
-          title: Collections
-          type: array
-        total_num_results:
-          description: Total count of collections.
-          title: Total Num Results
-          type: integer
-      required:
-      - collections
-      - total_num_results
-      title: BrowseCollectionsResponse
-      type: object
-    SortOrderType:
-      enum:
-      - ascending
-      - descending
-      title: SortOrderType
-      type: string
     Collection:
       additionalProperties: false
       properties:
@@ -250,6 +226,30 @@ components:
       required:
       - id
       title: Collection
+      type: object
+    SortOrderType:
+      enum:
+      - ascending
+      - descending
+      title: SortOrderType
+      type: string
+    BrowseCollectionsResponse:
+      additionalProperties: false
+      properties:
+        collections:
+          description: Information on browsed collections.
+          items:
+            $ref: '#/components/schemas/Collection'
+          title: Collections
+          type: array
+        total_num_results:
+          description: Total count of collections.
+          title: Total Num Results
+          type: integer
+      required:
+      - collections
+      - total_num_results
+      title: BrowseCollectionsResponse
       type: object
     BrowseCollectionsGetResponse:
       additionalProperties: false

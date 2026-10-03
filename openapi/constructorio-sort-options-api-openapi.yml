@@ -505,79 +505,12 @@ paths:
         - sort_options(w)
 components:
   schemas:
-    SortOptionResponse:
-      title: SortOptionResponse
-      type: object
-      properties:
-        display_name:
-          title: Display Name
-          description: The name of the sort option as it is displayed to end users.
-          examples:
-          - 'Price: Low to High'
-          - Best Rating
-          minLength: 1
-          maxLength: 200
-          type: string
-        path_in_metadata:
-          title: Path In Metadata
-          description: The path in the item's metadata to the field that results will be sorted according to.
-          examples:
-          - data.price
-          - data.rating
-          maxLength: 200
-          type: string
-        position:
-          title: Position
-          description: The position of the sort option, used to provide sort options in a specific order.
-          examples:
-          - 1
-          - 5
-          type: integer
-        hidden:
-          title: Hidden
-          description: Indicates if a sort option is hidden. This can be marked at `sort_by` level. A hidden sort option will be ignored in response by default.
-          default: false
-          examples:
-          - false
-          - true
-          type: boolean
-        sort_by:
-          title: Sort By
-          description: The name of the sort option.
-          examples:
-          - price
-          - relevance
-          - rating
-          minLength: 1
-          maxLength: 200
-          type: string
-        sort_order:
-          description: The order the results will be sorted in
-          examples:
-          - ascending
-          - descending
-          allOf:
-          - $ref: '#/components/schemas/SortOrderType'
-      required:
-      - display_name
-      - path_in_metadata
-      - sort_by
-      - sort_order
-    SortOptionListPutBody:
-      title: SortOptionListPutBody
-      type: object
-      properties:
-        sort_options:
-          title: Sort Options
-          description: Array of sort options you want to create or replace.
-          minItems: 1
-          maxItems: 50
-          type: array
-          items:
-            $ref: '#/components/schemas/SortOption'
-      required:
-      - sort_options
-      additionalProperties: false
+    SortOrderType:
+      title: SortOrderType
+      enum:
+      - ascending
+      - descending
+      type: string
     SortOptionPutResponse:
       title: SortOptionPutResponse
       type: object
@@ -636,18 +569,162 @@ components:
       - path_in_metadata
       - sort_by
       - sort_order
-    SortOptionListPutResponse:
-      title: SortOptionListPutResponse
+    SortOptionListDeleteRequestBody:
+      title: SortOptionListDeleteRequestBody
       type: object
       properties:
         sort_options:
           title: Sort Options
+          description: The list of sort options to delete, specified by `sort_order` and `sort_by`.
+          minItems: 1
+          maxItems: 200
           type: array
           items:
-            $ref: '#/components/schemas/SortOptionResponse'
+            $ref: '#/components/schemas/SortOptionBase'
       required:
       - sort_options
       additionalProperties: false
+    SortOptionBase:
+      title: SortOptionBase
+      type: object
+      properties:
+        sort_by:
+          title: Sort By
+          description: The name of the sort option.
+          examples:
+          - price
+          - relevance
+          - rating
+          minLength: 1
+          maxLength: 200
+          type: string
+        sort_order:
+          description: The order the results will be sorted in
+          examples:
+          - ascending
+          - descending
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+      required:
+      - sort_by
+      - sort_order
+      additionalProperties: false
+    SortOptionPatchResponse:
+      title: SortOptionPatchResponse
+      type: object
+      properties:
+        display_name:
+          title: Display Name
+          description: The name of the sort option as it is displayed to end users.
+          examples:
+          - 'Price: Low to High'
+          - Best Rating
+          minLength: 1
+          maxLength: 200
+          type: string
+        path_in_metadata:
+          title: Path In Metadata
+          description: The path in the item's metadata to the field that results will be sorted according to.
+          examples:
+          - data.price
+          - data.rating
+          maxLength: 200
+          type: string
+        position:
+          title: Position
+          description: The position of the sort option, used to provide sort options in a specific order.
+          examples:
+          - 1
+          - 5
+          type: integer
+        hidden:
+          title: Hidden
+          description: Indicates if a sort option is hidden. This can be marked at `sort_by` level. A hidden sort option will be ignored in response by default.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        sort_by:
+          title: Sort By
+          description: The name of the sort option.
+          examples:
+          - price
+          - relevance
+          - rating
+          minLength: 1
+          maxLength: 200
+          type: string
+        sort_order:
+          description: The order the results will be sorted in
+          examples:
+          - ascending
+          - descending
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+      required:
+      - display_name
+      - path_in_metadata
+      - sort_by
+      - sort_order
+    SortOptionPostResponse:
+      title: SortOptionPostResponse
+      type: object
+      properties:
+        display_name:
+          title: Display Name
+          description: The name of the sort option as it is displayed to end users.
+          examples:
+          - 'Price: Low to High'
+          - Best Rating
+          minLength: 1
+          maxLength: 200
+          type: string
+        path_in_metadata:
+          title: Path In Metadata
+          description: The path in the item's metadata to the field that results will be sorted according to.
+          examples:
+          - data.price
+          - data.rating
+          maxLength: 200
+          type: string
+        position:
+          title: Position
+          description: The position of the sort option, used to provide sort options in a specific order.
+          examples:
+          - 1
+          - 5
+          type: integer
+        hidden:
+          title: Hidden
+          description: Indicates if a sort option is hidden. This can be marked at `sort_by` level. A hidden sort option will be ignored in response by default.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        sort_by:
+          title: Sort By
+          description: The name of the sort option.
+          examples:
+          - price
+          - relevance
+          - rating
+          minLength: 1
+          maxLength: 200
+          type: string
+        sort_order:
+          description: The order the results will be sorted in
+          examples:
+          - ascending
+          - descending
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+      required:
+      - display_name
+      - path_in_metadata
+      - sort_by
+      - sort_order
     SortOptionPutBody:
       title: SortOptionPutBody
       type: object
@@ -685,23 +762,147 @@ components:
           - true
           type: boolean
       additionalProperties: false
-    SortOptionListDeleteRequestBody:
-      title: SortOptionListDeleteRequestBody
+    SortOptionPatchBody:
+      title: SortOptionPatchBody
+      type: object
+      properties:
+        display_name:
+          title: Display Name
+          description: The name of the sort option as it is displayed to end users.
+          examples:
+          - 'Price: Low to High'
+          - Best Rating
+          minLength: 1
+          maxLength: 200
+          type: string
+        path_in_metadata:
+          title: Path In Metadata
+          description: The path in the item's metadata to the field that results will be sorted according to.
+          examples:
+          - data.price
+          - data.rating
+          maxLength: 200
+          type: string
+        position:
+          title: Position
+          description: The position of the sort option, used to provide sort options in a specific order.
+          examples:
+          - 1
+          - 5
+          type: integer
+        hidden:
+          title: Hidden
+          description: Indicates if a sort option is hidden. This can be marked at `sort_by` level. A hidden sort option will be ignored in response by default.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+      additionalProperties: false
+    SortOptionListGetResponse:
+      title: SortOptionListGetResponse
+      type: object
+      properties:
+        total_count:
+          title: Total Count
+          minimum: 0
+          type: integer
+        sort_options:
+          title: Sort Options
+          type: array
+          items:
+            $ref: '#/components/schemas/SortOptionResponse'
+      required:
+      - total_count
+      - sort_options
+      additionalProperties: false
+    SortOptionListPutResponse:
+      title: SortOptionListPutResponse
       type: object
       properties:
         sort_options:
           title: Sort Options
-          description: The list of sort options to delete, specified by `sort_order` and `sort_by`.
-          minItems: 1
-          maxItems: 200
           type: array
           items:
-            $ref: '#/components/schemas/SortOptionBase'
+            $ref: '#/components/schemas/SortOptionResponse'
       required:
       - sort_options
       additionalProperties: false
-    SortOptionPostResponse:
-      title: SortOptionPostResponse
+    SortOption:
+      title: SortOption
+      type: object
+      properties:
+        display_name:
+          title: Display Name
+          description: The name of the sort option as it is displayed to end users.
+          examples:
+          - 'Price: Low to High'
+          - Best Rating
+          minLength: 1
+          maxLength: 200
+          type: string
+        path_in_metadata:
+          title: Path In Metadata
+          description: The path in the item's metadata to the field that results will be sorted according to.
+          examples:
+          - data.price
+          - data.rating
+          maxLength: 200
+          type: string
+        position:
+          title: Position
+          description: The position of the sort option, used to provide sort options in a specific order.
+          examples:
+          - 1
+          - 5
+          type: integer
+        hidden:
+          title: Hidden
+          description: Indicates if a sort option is hidden. This can be marked at `sort_by` level. A hidden sort option will be ignored in response by default.
+          default: false
+          examples:
+          - false
+          - true
+          type: boolean
+        sort_by:
+          title: Sort By
+          description: The name of the sort option.
+          examples:
+          - price
+          - relevance
+          - rating
+          minLength: 1
+          maxLength: 200
+          type: string
+        sort_order:
+          description: The order the results will be sorted in
+          examples:
+          - ascending
+          - descending
+          allOf:
+          - $ref: '#/components/schemas/SortOrderType'
+      required:
+      - path_in_metadata
+      - sort_by
+      - sort_order
+      additionalProperties: false
+    SortOptionListPutBody:
+      title: SortOptionListPutBody
+      type: object
+      properties:
+        sort_options:
+          title: Sort Options
+          description: Array of sort options you want to create or replace.
+          minItems: 1
+          maxItems: 50
+          type: array
+          items:
+            $ref: '#/components/schemas/SortOption'
+      required:
+      - sort_options
+      additionalProperties: false
+    SortOptionResponse:
+      title: SortOptionResponse
       type: object
       properties:
         display_name:
@@ -815,207 +1016,6 @@ components:
       - path_in_metadata
       - sort_by
       - sort_order
-      additionalProperties: false
-    SortOptionBase:
-      title: SortOptionBase
-      type: object
-      properties:
-        sort_by:
-          title: Sort By
-          description: The name of the sort option.
-          examples:
-          - price
-          - relevance
-          - rating
-          minLength: 1
-          maxLength: 200
-          type: string
-        sort_order:
-          description: The order the results will be sorted in
-          examples:
-          - ascending
-          - descending
-          allOf:
-          - $ref: '#/components/schemas/SortOrderType'
-      required:
-      - sort_by
-      - sort_order
-      additionalProperties: false
-    SortOptionPatchResponse:
-      title: SortOptionPatchResponse
-      type: object
-      properties:
-        display_name:
-          title: Display Name
-          description: The name of the sort option as it is displayed to end users.
-          examples:
-          - 'Price: Low to High'
-          - Best Rating
-          minLength: 1
-          maxLength: 200
-          type: string
-        path_in_metadata:
-          title: Path In Metadata
-          description: The path in the item's metadata to the field that results will be sorted according to.
-          examples:
-          - data.price
-          - data.rating
-          maxLength: 200
-          type: string
-        position:
-          title: Position
-          description: The position of the sort option, used to provide sort options in a specific order.
-          examples:
-          - 1
-          - 5
-          type: integer
-        hidden:
-          title: Hidden
-          description: Indicates if a sort option is hidden. This can be marked at `sort_by` level. A hidden sort option will be ignored in response by default.
-          default: false
-          examples:
-          - false
-          - true
-          type: boolean
-        sort_by:
-          title: Sort By
-          description: The name of the sort option.
-          examples:
-          - price
-          - relevance
-          - rating
-          minLength: 1
-          maxLength: 200
-          type: string
-        sort_order:
-          description: The order the results will be sorted in
-          examples:
-          - ascending
-          - descending
-          allOf:
-          - $ref: '#/components/schemas/SortOrderType'
-      required:
-      - display_name
-      - path_in_metadata
-      - sort_by
-      - sort_order
-    SortOption:
-      title: SortOption
-      type: object
-      properties:
-        display_name:
-          title: Display Name
-          description: The name of the sort option as it is displayed to end users.
-          examples:
-          - 'Price: Low to High'
-          - Best Rating
-          minLength: 1
-          maxLength: 200
-          type: string
-        path_in_metadata:
-          title: Path In Metadata
-          description: The path in the item's metadata to the field that results will be sorted according to.
-          examples:
-          - data.price
-          - data.rating
-          maxLength: 200
-          type: string
-        position:
-          title: Position
-          description: The position of the sort option, used to provide sort options in a specific order.
-          examples:
-          - 1
-          - 5
-          type: integer
-        hidden:
-          title: Hidden
-          description: Indicates if a sort option is hidden. This can be marked at `sort_by` level. A hidden sort option will be ignored in response by default.
-          default: false
-          examples:
-          - false
-          - true
-          type: boolean
-        sort_by:
-          title: Sort By
-          description: The name of the sort option.
-          examples:
-          - price
-          - relevance
-          - rating
-          minLength: 1
-          maxLength: 200
-          type: string
-        sort_order:
-          description: The order the results will be sorted in
-          examples:
-          - ascending
-          - descending
-          allOf:
-          - $ref: '#/components/schemas/SortOrderType'
-      required:
-      - path_in_metadata
-      - sort_by
-      - sort_order
-      additionalProperties: false
-    SortOptionPatchBody:
-      title: SortOptionPatchBody
-      type: object
-      properties:
-        display_name:
-          title: Display Name
-          description: The name of the sort option as it is displayed to end users.
-          examples:
-          - 'Price: Low to High'
-          - Best Rating
-          minLength: 1
-          maxLength: 200
-          type: string
-        path_in_metadata:
-          title: Path In Metadata
-          description: The path in the item's metadata to the field that results will be sorted according to.
-          examples:
-          - data.price
-          - data.rating
-          maxLength: 200
-          type: string
-        position:
-          title: Position
-          description: The position of the sort option, used to provide sort options in a specific order.
-          examples:
-          - 1
-          - 5
-          type: integer
-        hidden:
-          title: Hidden
-          description: Indicates if a sort option is hidden. This can be marked at `sort_by` level. A hidden sort option will be ignored in response by default.
-          default: false
-          examples:
-          - false
-          - true
-          type: boolean
-      additionalProperties: false
-    SortOrderType:
-      title: SortOrderType
-      enum:
-      - ascending
-      - descending
-      type: string
-    SortOptionListGetResponse:
-      title: SortOptionListGetResponse
-      type: object
-      properties:
-        total_count:
-          title: Total Count
-          minimum: 0
-          type: integer
-        sort_options:
-          title: Sort Options
-          type: array
-          items:
-            $ref: '#/components/schemas/SortOptionResponse'
-      required:
-      - total_count
-      - sort_options
       additionalProperties: false
   securitySchemes:
     http_basic_auth:

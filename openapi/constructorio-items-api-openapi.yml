@@ -521,43 +521,6 @@ paths:
         - catalog(r)
 components:
   schemas:
-    ItemGetResponse:
-      title: ItemGetResponse
-      type: object
-      properties:
-        id:
-          title: ID
-          description: The ID of the item, must be unique.
-          minLength: 1
-          maxLength: 250
-          type: string
-        name:
-          title: Name
-          description: The name of the item, as it will appear in the results. Contains at least one alphanumeric character.
-          maxLength: 250
-          minLength: 1
-          type: string
-        suggested_score:
-          title: Suggested score
-          description: A number that will influence the item's initial ranking relative to other item scores (the higher the score, the higher in the list of suggestions the item will appear).
-          minimum: -1
-          maximum: 500000000
-          type: integer
-        data:
-          title: Data
-          description: Object containing additional data attached to this item.
-          allOf:
-          - $ref: '#/components/schemas/ItemMetadataResponse'
-        updated_at:
-          title: Updated at
-          description: A date when the item or any of item's variations were updated.
-          type: string
-          format: date-time
-      required:
-      - id
-      - name
-      - updated_at
-      additionalProperties: false
     ItemListPatchAcceptedResponse:
       title: ItemListPatchAcceptedResponse
       type: object
@@ -568,26 +531,6 @@ components:
           type: string
       required:
       - message
-    ItemListDeleteRequestBody:
-      title: ItemListDeleteRequestBody
-      type: object
-      properties:
-        items:
-          title: Items
-          description: Array of item IDs you want to delete.
-          minItems: 1
-          maxItems: 10000
-          type: array
-          items:
-            $ref: '#/components/schemas/ItemBase'
-      required:
-      - items
-    MissingRecordsStrategy:
-      title: MissingRecordsStrategy
-      enum:
-      - CREATE
-      - IGNORE
-      - FAIL
     ItemListGetResponse:
       title: ItemListGetResponse
       type: object
@@ -616,172 +559,20 @@ components:
           type: string
       required:
       - items
-    Facets:
-      title: Facets
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/FacetValuesCoercedToList'
-    Item:
-      title: Item
-      type: object
-      properties:
-        id:
-          title: Id
-          description: The ID of the item, must be unique.
-          examples:
-          - nike-shoes
-          - product-123
-          minLength: 1
-          maxLength: 250
-          type: string
-        name:
-          title: Name
-          description: The name of the item, as it will appear in the results. Must contain at least one alphanumeric character.
-          maxLength: 250
-          minLength: 1
-          examples:
-          - Running Shoes
-          - Blue T-Shirt
-          type: string
-        suggested_score:
-          title: Suggested Score
-          description: A number that will influence the item's initial ranking relative to other item scores (the higher the score, the higher in the list of suggestions the item will appear).
-          minimum: -1
-          maximum: 500000000
-          examples:
-          - 100
-          - 1000
-          type: integer
-        data:
-          title: Data
-          description: Object containing additional data, that should be attached to this item. The maximum size of data object is limited to 200kb. The average size of data objects for all ingested items and variations should not exceed 30kb.
-          examples:
-          - url: http://example.com/product
-            brand: Nike
-          allOf:
-          - $ref: '#/components/schemas/ItemMetadata'
-      required:
-      - id
-      - name
-      additionalProperties: false
-    ItemListPutRequestBody:
-      title: ItemListPutRequestBody
+    ItemListDeleteRequestBody:
+      title: ItemListDeleteRequestBody
       type: object
       properties:
         items:
           title: Items
-          description: Array of items you want to create or replace.
+          description: Array of item IDs you want to delete.
           minItems: 1
           maxItems: 10000
           type: array
           items:
-            $ref: '#/components/schemas/Item'
+            $ref: '#/components/schemas/ItemBase'
       required:
       - items
-    ItemBase:
-      title: ItemBase
-      type: object
-      properties:
-        id:
-          title: Id
-          description: The ID of the item, must be unique.
-          examples:
-          - nike-shoes
-          - product-123
-          minLength: 1
-          maxLength: 250
-          type: string
-      required:
-      - id
-      additionalProperties: false
-    ItemListPutAcceptedResponse:
-      title: ItemListPutAcceptedResponse
-      type: object
-      properties:
-        message:
-          title: Message
-          description: Info message
-          type: string
-      required:
-      - message
-    ItemListDeleteResponse:
-      title: ItemListDeleteResponse
-      type: object
-      properties:
-        task_id:
-          title: Task Id
-          type: integer
-        task_status_path:
-          title: Task Status Path
-          type: string
-      required:
-      - task_id
-      - task_status_path
-    ItemPatch:
-      title: ItemPatch
-      type: object
-      properties:
-        id:
-          title: Id
-          description: The ID of the item, must be unique.
-          examples:
-          - nike-shoes
-          - product-123
-          minLength: 1
-          maxLength: 250
-          type: string
-        name:
-          title: Name
-          description: The name of the item, as it will appear in the results. Must contain at least one alphanumeric character.
-          maxLength: 250
-          minLength: 1
-          examples:
-          - Running Shoes
-          - Blue T-Shirt
-          type: string
-        suggested_score:
-          title: Suggested Score
-          description: A number that will influence the item's initial ranking relative to other item scores (the higher the score, the higher in the list of suggestions the item will appear).
-          minimum: -1
-          maximum: 500000000
-          examples:
-          - 100
-          - 1000
-          type: integer
-        data:
-          title: Data
-          description: Object containing additional data, that should be attached to this item. The maximum size of data object is limited to 200kb. The average size of data objects for all ingested items and variations should not exceed 30kb.
-          examples:
-          - url: http://example.com/product
-            brand: Nike
-          allOf:
-          - $ref: '#/components/schemas/ItemMetadata'
-      required:
-      - id
-      additionalProperties: false
-    ItemListPatchResponse:
-      title: ItemListPatchResponse
-      type: object
-      properties:
-        task_id:
-          title: Task Id
-          type: integer
-        task_status_path:
-          title: Task Status Path
-          type: string
-      required:
-      - task_id
-      - task_status_path
-    ItemListDeleteAcceptedResponse:
-      title: ItemListDeleteAcceptedResponse
-      type: object
-      properties:
-        message:
-          title: Message
-          description: Info message
-          type: string
-      required:
-      - message
     ItemMetadata:
       title: ItemMetadata
       description: 'Additional data about item. In addition to the listed properties
@@ -856,6 +647,115 @@ components:
           - '2024-01-15T10:30:00Z'
           type: string
           format: date-time
+    ItemListPutAcceptedResponse:
+      title: ItemListPutAcceptedResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          description: Info message
+          type: string
+      required:
+      - message
+    ItemListDeleteResponse:
+      title: ItemListDeleteResponse
+      type: object
+      properties:
+        task_id:
+          title: Task Id
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          type: string
+      required:
+      - task_id
+      - task_status_path
+    ItemBase:
+      title: ItemBase
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the item, must be unique.
+          examples:
+          - nike-shoes
+          - product-123
+          minLength: 1
+          maxLength: 250
+          type: string
+      required:
+      - id
+      additionalProperties: false
+    Facets:
+      title: Facets
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/FacetValuesCoercedToList'
+    Item:
+      title: Item
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the item, must be unique.
+          examples:
+          - nike-shoes
+          - product-123
+          minLength: 1
+          maxLength: 250
+          type: string
+        name:
+          title: Name
+          description: The name of the item, as it will appear in the results. Must contain at least one alphanumeric character.
+          maxLength: 250
+          minLength: 1
+          examples:
+          - Running Shoes
+          - Blue T-Shirt
+          type: string
+        suggested_score:
+          title: Suggested Score
+          description: A number that will influence the item's initial ranking relative to other item scores (the higher the score, the higher in the list of suggestions the item will appear).
+          minimum: -1
+          maximum: 500000000
+          examples:
+          - 100
+          - 1000
+          type: integer
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this item. The maximum size of data object is limited to 200kb. The average size of data objects for all ingested items and variations should not exceed 30kb.
+          examples:
+          - url: http://example.com/product
+            brand: Nike
+          allOf:
+          - $ref: '#/components/schemas/ItemMetadata'
+      required:
+      - id
+      - name
+      additionalProperties: false
+    FacetValue:
+      title: FacetValue
+      anyOf:
+      - type: string
+        minLength: 0
+        maxLength: 200
+      - type: integer
+      - type: number
+    ItemListPutRequestBody:
+      title: ItemListPutRequestBody
+      type: object
+      properties:
+        items:
+          title: Items
+          description: Array of items you want to create or replace.
+          minItems: 1
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
+      required:
+      - items
     ItemMetadataResponse:
       title: ItemMetadataResponse
       description: 'Additional data about item. In addition to the listed properties
@@ -924,6 +824,126 @@ components:
           - false
           type: boolean
       additionalProperties: true
+    ItemPatch:
+      title: ItemPatch
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the item, must be unique.
+          examples:
+          - nike-shoes
+          - product-123
+          minLength: 1
+          maxLength: 250
+          type: string
+        name:
+          title: Name
+          description: The name of the item, as it will appear in the results. Must contain at least one alphanumeric character.
+          maxLength: 250
+          minLength: 1
+          examples:
+          - Running Shoes
+          - Blue T-Shirt
+          type: string
+        suggested_score:
+          title: Suggested Score
+          description: A number that will influence the item's initial ranking relative to other item scores (the higher the score, the higher in the list of suggestions the item will appear).
+          minimum: -1
+          maximum: 500000000
+          examples:
+          - 100
+          - 1000
+          type: integer
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this item. The maximum size of data object is limited to 200kb. The average size of data objects for all ingested items and variations should not exceed 30kb.
+          examples:
+          - url: http://example.com/product
+            brand: Nike
+          allOf:
+          - $ref: '#/components/schemas/ItemMetadata'
+      required:
+      - id
+      additionalProperties: false
+    FacetValuesCoercedToList:
+      title: FacetValuesCoercedToList
+      type: array
+      items:
+        $ref: '#/components/schemas/FacetValue'
+    ItemListDeleteAcceptedResponse:
+      title: ItemListDeleteAcceptedResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          description: Info message
+          type: string
+      required:
+      - message
+    ItemListPutResponse:
+      title: ItemListPutResponse
+      type: object
+      properties:
+        task_id:
+          title: Task Id
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          type: string
+      required:
+      - task_id
+      - task_status_path
+    ItemGetResponse:
+      title: ItemGetResponse
+      type: object
+      properties:
+        id:
+          title: ID
+          description: The ID of the item, must be unique.
+          minLength: 1
+          maxLength: 250
+          type: string
+        name:
+          title: Name
+          description: The name of the item, as it will appear in the results. Contains at least one alphanumeric character.
+          maxLength: 250
+          minLength: 1
+          type: string
+        suggested_score:
+          title: Suggested score
+          description: A number that will influence the item's initial ranking relative to other item scores (the higher the score, the higher in the list of suggestions the item will appear).
+          minimum: -1
+          maximum: 500000000
+          type: integer
+        data:
+          title: Data
+          description: Object containing additional data attached to this item.
+          allOf:
+          - $ref: '#/components/schemas/ItemMetadataResponse'
+        updated_at:
+          title: Updated at
+          description: A date when the item or any of item's variations were updated.
+          type: string
+          format: date-time
+      required:
+      - id
+      - name
+      - updated_at
+      additionalProperties: false
+    ItemListPatchResponse:
+      title: ItemListPatchResponse
+      type: object
+      properties:
+        task_id:
+          title: Task Id
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          type: string
+      required:
+      - task_id
+      - task_status_path
     ItemListPatchRequestBody:
       title: ItemListPatchRequestBody
       type: object
@@ -938,32 +958,12 @@ components:
             $ref: '#/components/schemas/ItemPatch'
       required:
       - items
-    FacetValue:
-      title: FacetValue
-      anyOf:
-      - type: string
-        minLength: 0
-        maxLength: 200
-      - type: integer
-      - type: number
-    FacetValuesCoercedToList:
-      title: FacetValuesCoercedToList
-      type: array
-      items:
-        $ref: '#/components/schemas/FacetValue'
-    ItemListPutResponse:
-      title: ItemListPutResponse
-      type: object
-      properties:
-        task_id:
-          title: Task Id
-          type: integer
-        task_status_path:
-          title: Task Status Path
-          type: string
-      required:
-      - task_id
-      - task_status_path
+    MissingRecordsStrategy:
+      title: MissingRecordsStrategy
+      enum:
+      - CREATE
+      - IGNORE
+      - FAIL
   securitySchemes:
     http_basic_auth:
       type: http

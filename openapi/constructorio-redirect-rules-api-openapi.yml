@@ -468,6 +468,93 @@ paths:
         - redirects(w)
 components:
   schemas:
+    SortOrderType:
+      title: SortOrderType
+      enum:
+      - ascending
+      - descending
+      type: string
+    RedirectRuleListGetResponse:
+      title: RedirectRuleListGetResponse
+      type: object
+      properties:
+        redirect_rules:
+          title: Redirect Rules
+          description: A list of redirect rules.
+          type: array
+          items:
+            $ref: '#/components/schemas/RedirectRule'
+        total_count:
+          title: Total Count
+          description: The total count of redirect rules.
+          type: integer
+      required:
+      - redirect_rules
+      - total_count
+      additionalProperties: false
+    RedirectRuleMatchRequest:
+      title: RedirectRuleMatchRequest
+      type: object
+      properties:
+        pattern:
+          title: Pattern
+          description: The pattern for the redirect rule match.
+          examples:
+          - take me here
+          - summer sale
+          minLength: 1
+          maxLength: 255
+          type: string
+        match_type:
+          title: Match Type
+          description: The match type for the redirect rule.
+          examples:
+          - EXACT
+          - PHRASE
+          - UNORDERED
+          enum:
+          - EXACT
+          - PHRASE
+          - UNORDERED
+          type: string
+      required:
+      - pattern
+      - match_type
+      additionalProperties: false
+    RedirectRuleMatchResponse:
+      title: RedirectRuleMatchResponse
+      type: object
+      properties:
+        pattern:
+          title: Pattern
+          description: The pattern for the redirect rule match.
+          examples:
+          - take me here
+          - summer sale
+          minLength: 1
+          maxLength: 255
+          type: string
+        match_type:
+          title: Match Type
+          description: The match type for the redirect rule.
+          examples:
+          - EXACT
+          - PHRASE
+          - UNORDERED
+          enum:
+          - EXACT
+          - PHRASE
+          - UNORDERED
+          type: string
+        id:
+          title: Id
+          description: The identifier for the redirect rule match.
+          type: integer
+      required:
+      - pattern
+      - match_type
+      - id
+      additionalProperties: false
     RedirectRulePutBody:
       title: RedirectRulePutBody
       type: object
@@ -523,85 +610,115 @@ components:
       - url
       - matches
       additionalProperties: false
-    RedirectRuleMatchRequest:
-      title: RedirectRuleMatchRequest
+    RedirectRuleListPostBody:
+      title: RedirectRuleListPostBody
       type: object
       properties:
-        pattern:
-          title: Pattern
-          description: The pattern for the redirect rule match.
+        url:
+          title: Url
+          description: The target URL for the redirect rule.
           examples:
-          - take me here
-          - summer sale
+          - /landing-page
+          - /promotions/summer-sale
           minLength: 1
-          maxLength: 255
+          maxLength: 1000
           type: string
-        match_type:
-          title: Match Type
-          description: The match type for the redirect rule.
-          examples:
-          - EXACT
-          - PHRASE
-          - UNORDERED
-          enum:
-          - EXACT
-          - PHRASE
-          - UNORDERED
-          type: string
-      required:
-      - pattern
-      - match_type
-      additionalProperties: false
-    RedirectRulePatchResponse:
-      title: RedirectRulePatchResponse
-      type: object
-      properties:
-        id:
-          title: Id
-          description: The identifier for the redirect rule match.
-          type: integer
+        matches:
+          title: Matches
+          description: A list of redirect rule matches.
+          minItems: 1
+          maxItems: 300
+          type: array
+          items:
+            $ref: '#/components/schemas/RedirectRuleMatchRequest'
         start_time:
           title: Start Time
           description: The start time for the redirect rule.
+          examples:
+          - '2025-01-01T00:00:00'
           type: string
           format: date-time
         end_time:
           title: End Time
-          description: The end time for the redirect rule.
-          type: string
-          format: date-time
-        url:
-          title: Target Url
-          description: The target URL for redirect the rule.
-          type: string
-        metadata:
-          title: Metadata Json
-          description: The metadata for the redirect rule.
-          type: object
-        last_updated:
-          title: Last Updated
-          description: The last updated time for the redirect rule.
+          description: The end time for redirect rule.
+          examples:
+          - '2025-12-31T23:59:59'
           type: string
           format: date-time
         user_segments:
           title: User Segments
           description: A list of user segments for the redirect rule.
+          minItems: 1
           type: array
           items:
             type: string
-        matches:
-          title: Matches Dicts
-          description: A list of redirect rule matches.
-          type: array
-          items:
-            $ref: '#/components/schemas/RedirectRuleMatchResponse'
+            examples:
+            - premium
+            - vip
+        metadata:
+          title: Metadata
+          description: The metadata for the redirect rule.
+          examples:
+          - campaign: summer
+          type: object
       required:
-      - id
       - url
       - matches
       additionalProperties: false
-    RedirectRule:
-      title: RedirectRule
+    RedirectRulePatchBody:
+      title: RedirectRulePatchBody
+      type: object
+      properties:
+        url:
+          title: Url
+          description: The target URL for the redirect rule.
+          examples:
+          - /landing-page
+          - /promotions/summer-sale
+          minLength: 1
+          maxLength: 1000
+          type: string
+        matches:
+          title: Matches
+          description: A list of redirect rule matches.
+          minItems: 1
+          maxItems: 300
+          type: array
+          items:
+            $ref: '#/components/schemas/RedirectRuleMatchRequest'
+        start_time:
+          title: Start Time
+          description: The start time for the redirect rule.
+          examples:
+          - '2025-01-01T00:00:00'
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: The end time for redirect rule.
+          examples:
+          - '2025-12-31T23:59:59'
+          type: string
+          format: date-time
+        user_segments:
+          title: User Segments
+          description: A list of user segments for the redirect rule.
+          minItems: 1
+          type: array
+          items:
+            type: string
+            examples:
+            - premium
+            - vip
+        metadata:
+          title: Metadata
+          description: The metadata for the redirect rule.
+          examples:
+          - campaign: summer
+          type: object
+      additionalProperties: false
+    RedirectRulePatchResponse:
+      title: RedirectRulePatchResponse
       type: object
       properties:
         id:
@@ -696,60 +813,8 @@ components:
       - url
       - matches
       additionalProperties: false
-    RedirectRulePatchBody:
-      title: RedirectRulePatchBody
-      type: object
-      properties:
-        url:
-          title: Url
-          description: The target URL for the redirect rule.
-          examples:
-          - /landing-page
-          - /promotions/summer-sale
-          minLength: 1
-          maxLength: 1000
-          type: string
-        matches:
-          title: Matches
-          description: A list of redirect rule matches.
-          minItems: 1
-          maxItems: 300
-          type: array
-          items:
-            $ref: '#/components/schemas/RedirectRuleMatchRequest'
-        start_time:
-          title: Start Time
-          description: The start time for the redirect rule.
-          examples:
-          - '2025-01-01T00:00:00'
-          type: string
-          format: date-time
-        end_time:
-          title: End Time
-          description: The end time for redirect rule.
-          examples:
-          - '2025-12-31T23:59:59'
-          type: string
-          format: date-time
-        user_segments:
-          title: User Segments
-          description: A list of user segments for the redirect rule.
-          minItems: 1
-          type: array
-          items:
-            type: string
-            examples:
-            - premium
-            - vip
-        metadata:
-          title: Metadata
-          description: The metadata for the redirect rule.
-          examples:
-          - campaign: summer
-          type: object
-      additionalProperties: false
-    RedirectRulePutResponse:
-      title: RedirectRulePutResponse
+    RedirectRule:
+      title: RedirectRule
       type: object
       properties:
         id:
@@ -796,60 +861,56 @@ components:
       - url
       - matches
       additionalProperties: false
-    RedirectRuleListGetResponse:
-      title: RedirectRuleListGetResponse
+    RedirectRuleListPostResponse:
+      title: RedirectRuleListPostResponse
       type: object
       properties:
-        redirect_rules:
-          title: Redirect Rules
-          description: A list of redirect rules.
-          type: array
-          items:
-            $ref: '#/components/schemas/RedirectRule'
-        total_count:
-          title: Total Count
-          description: The total count of redirect rules.
-          type: integer
-      required:
-      - redirect_rules
-      - total_count
-      additionalProperties: false
-    RedirectRuleMatchResponse:
-      title: RedirectRuleMatchResponse
-      type: object
-      properties:
-        pattern:
-          title: Pattern
-          description: The pattern for the redirect rule match.
-          examples:
-          - take me here
-          - summer sale
-          minLength: 1
-          maxLength: 255
-          type: string
-        match_type:
-          title: Match Type
-          description: The match type for the redirect rule.
-          examples:
-          - EXACT
-          - PHRASE
-          - UNORDERED
-          enum:
-          - EXACT
-          - PHRASE
-          - UNORDERED
-          type: string
         id:
           title: Id
           description: The identifier for the redirect rule match.
           type: integer
+        start_time:
+          title: Start Time
+          description: The start time for the redirect rule.
+          type: string
+          format: date-time
+        end_time:
+          title: End Time
+          description: The end time for the redirect rule.
+          type: string
+          format: date-time
+        url:
+          title: Target Url
+          description: The target URL for redirect the rule.
+          type: string
+        metadata:
+          title: Metadata Json
+          description: The metadata for the redirect rule.
+          type: object
+        last_updated:
+          title: Last Updated
+          description: The last updated time for the redirect rule.
+          type: string
+          format: date-time
+        user_segments:
+          title: User Segments
+          description: A list of user segments for the redirect rule.
+          type: array
+          items:
+            type: string
+        matches:
+          title: Matches Dicts
+          description: A list of redirect rule matches.
+          type: array
+          items:
+            $ref: '#/components/schemas/RedirectRuleMatchResponse'
       required:
-      - pattern
-      - match_type
       - id
+      - url
+      - matches
       additionalProperties: false
-    RedirectRuleListPostResponse:
-      title: RedirectRuleListPostResponse
+    RedirectRulePutResponse:
+      title: RedirectRulePutResponse
       type: object
       properties:
         id:
@@ -941,67 +1002,6 @@ components:
             $ref: '#/components/schemas/RedirectRuleMatchResponse'
       required:
       - id
-      - url
-      - matches
-      additionalProperties: false
-    SortOrderType:
-      title: SortOrderType
-      enum:
-      - ascending
-      - descending
-      type: string
-    RedirectRuleListPostBody:
-      title: RedirectRuleListPostBody
-      type: object
-      properties:
-        url:
-          title: Url
-          description: The target URL for the redirect rule.
-          examples:
-          - /landing-page
-          - /promotions/summer-sale
-          minLength: 1
-          maxLength: 1000
-          type: string
-        matches:
-          title: Matches
-          description: A list of redirect rule matches.
-          minItems: 1
-          maxItems: 300
-          type: array
-          items:
-            $ref: '#/components/schemas/RedirectRuleMatchRequest'
-        start_time:
-          title: Start Time
-          description: The start time for the redirect rule.
-          examples:
-          - '2025-01-01T00:00:00'
-          type: string
-          format: date-time
-        end_time:
-          title: End Time
-          description: The end time for redirect rule.
-          examples:
-          - '2025-12-31T23:59:59'
-          type: string
-          format: date-time
-        user_segments:
-          title: User Segments
-          description: A list of user segments for the redirect rule.
-          minItems: 1
-          type: array
-          items:
-            type: string
-            examples:
-            - premium
-            - vip
-        metadata:
-          title: Metadata
-          description: The metadata for the redirect rule.
-          examples:
-          - campaign: summer
-          type: object
-      required:
       - url
       - matches
       additionalProperties: false

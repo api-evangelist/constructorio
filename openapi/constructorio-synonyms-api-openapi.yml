@@ -514,58 +514,12 @@ paths:
         - synonyms(w)
 components:
   schemas:
-    Phrase:
-      title: Phrase
-      type: object
-      properties:
-        phrase:
-          title: Phrase
-          examples:
-          - sneakers
-          - running shoes
-          minLength: 1
-          maxLength: 200
-          type: string
-      required:
-      - phrase
-      additionalProperties: false
-    NgramRelationSortByType:
-      title: NgramRelationSortByType
+    SortOrderType:
+      title: SortOrderType
       enum:
-      - created_at
-      - updated_at
-      - activated_at
+      - ascending
+      - descending
       type: string
-    PhraseResponse:
-      title: PhraseResponse
-      type: object
-      properties:
-        phrase:
-          title: Related Ngram
-          minLength: 1
-          maxLength: 200
-          type: string
-        automatically_generated:
-          title: Automatically Generated
-          type: boolean
-        created_at:
-          title: Created At
-          description: One way synonym creation date and time in ISO 8601 format
-          type: string
-          format: date-time
-        updated_at:
-          title: Updated At
-          description: Last one way synonym update date and time in ISO 8601 format.
-          type: string
-          format: date-time
-        activated_at:
-          title: Activated At
-          description: Last one way synonym update date and time in ISO 8601 format.
-          type: string
-          format: date-time
-      required:
-      - phrase
-      additionalProperties: false
     OneWaySynonymV2GetResponse:
       title: OneWaySynonymV2GetResponse
       type: object
@@ -584,8 +538,26 @@ components:
       - one_way_synonym_relations
       - total_count
       additionalProperties: false
-    OneWaySynonymV2PutRequestBody:
-      title: OneWaySynonymV2PutRequestBody
+    OneWaySynonymRelationV2:
+      title: OneWaySynonymRelationV2
+      type: object
+      properties:
+        parent_phrase:
+          title: Parent Phrase
+          minLength: 1
+          maxLength: 200
+          type: string
+        child_phrases:
+          title: Child Phrases
+          type: array
+          items:
+            $ref: '#/components/schemas/PhraseResponse'
+      required:
+      - parent_phrase
+      - child_phrases
+      additionalProperties: false
+    OneWaySynonymV2PostRequestBody:
+      title: OneWaySynonymV2PostRequestBody
       type: object
       properties:
         child_phrases:
@@ -616,8 +588,64 @@ components:
       - one_way_synonym_relations
       - total_count
       additionalProperties: false
-    OneWaySynonymV2PostRequestBody:
-      title: OneWaySynonymV2PostRequestBody
+    PhraseResponse:
+      title: PhraseResponse
+      type: object
+      properties:
+        phrase:
+          title: Related Ngram
+          minLength: 1
+          maxLength: 200
+          type: string
+        automatically_generated:
+          title: Automatically Generated
+          type: boolean
+        created_at:
+          title: Created At
+          description: One way synonym creation date and time in ISO 8601 format
+          type: string
+          format: date-time
+        updated_at:
+          title: Updated At
+          description: Last one way synonym update date and time in ISO 8601 format.
+          type: string
+          format: date-time
+        activated_at:
+          title: Activated At
+          description: Last one way synonym update date and time in ISO 8601 format.
+          type: string
+          format: date-time
+      required:
+      - phrase
+      additionalProperties: false
+    OneWaySynonymV2ListDeleteResponse:
+      title: OneWaySynonymV2ListDeleteResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          description: Descriptive message of the deletion status
+          type: string
+      required:
+      - message
+      additionalProperties: false
+    Phrase:
+      title: Phrase
+      type: object
+      properties:
+        phrase:
+          title: Phrase
+          examples:
+          - sneakers
+          - running shoes
+          minLength: 1
+          maxLength: 200
+          type: string
+      required:
+      - phrase
+      additionalProperties: false
+    OneWaySynonymV2PutRequestBody:
+      title: OneWaySynonymV2PutRequestBody
       type: object
       properties:
         child_phrases:
@@ -630,41 +658,13 @@ components:
       required:
       - child_phrases
       additionalProperties: false
-    SortOrderType:
-      title: SortOrderType
+    NgramRelationSortByType:
+      title: NgramRelationSortByType
       enum:
-      - ascending
-      - descending
+      - created_at
+      - updated_at
+      - activated_at
       type: string
-    OneWaySynonymV2ListDeleteResponse:
-      title: OneWaySynonymV2ListDeleteResponse
-      type: object
-      properties:
-        message:
-          title: Message
-          description: Descriptive message of the deletion status
-          type: string
-      required:
-      - message
-      additionalProperties: false
-    OneWaySynonymRelationV2:
-      title: OneWaySynonymRelationV2
-      type: object
-      properties:
-        parent_phrase:
-          title: Parent Phrase
-          minLength: 1
-          maxLength: 200
-          type: string
-        child_phrases:
-          title: Child Phrases
-          type: array
-          items:
-            $ref: '#/components/schemas/PhraseResponse'
-      required:
-      - parent_phrase
-      - child_phrases
-      additionalProperties: false
   securitySchemes:
     http_basic_auth:
       type: http

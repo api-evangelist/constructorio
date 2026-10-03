@@ -214,6 +214,23 @@ components:
       required:
       - items_fields_stats
       - total_count
+    SortOrderType:
+      title: SortOrderType
+      enum:
+      - ascending
+      - descending
+      type: string
+    ItemFieldFilters:
+      title: Filters
+      type: object
+      properties:
+        name:
+          title: Name
+          description: The item field name on which stats are computed
+          maxLength: 300
+          minLength: 1
+          type: string
+      additionalProperties: false
     ItemFieldStatsResponse:
       title: ItemFieldStatsResponse
       type: object
@@ -262,23 +279,6 @@ components:
       - boolean
       - mixed
       type: string
-    SortOrderType:
-      title: SortOrderType
-      enum:
-      - ascending
-      - descending
-      type: string
-    ItemFieldFilters:
-      title: Filters
-      type: object
-      properties:
-        name:
-          title: Name
-          description: The item field name on which stats are computed
-          maxLength: 300
-          minLength: 1
-          type: string
-      additionalProperties: false
     ItemFieldStatsGetResponse:
       title: ItemFieldStatsGetResponse
       type: object
