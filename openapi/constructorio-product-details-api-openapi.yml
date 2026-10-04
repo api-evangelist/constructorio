@@ -274,19 +274,19 @@ paths:
       security: []
 components:
   schemas:
-    Variation:
+    ItemWithEnrichedAttributes:
       properties:
-        variation_id:
+        id:
           type: string
-          title: Variation ID
+          title: ID
         enriched_attributes:
           $ref: '#/components/schemas/EnrichedAttributes'
       type: object
       required:
-      - variation_id
+      - id
       - enriched_attributes
-      title: Variation
-      description: Variation with nested enriched_attributes (used in GET /v1/variations).
+      title: ItemWithEnrichedAttributes
+      description: Item with nested enriched_attributes (used in GET /v1/items).
     AttributeType:
       type: string
       enum:
@@ -294,19 +294,6 @@ components:
       - extended
       title: AttributeType
       description: The type of an enriched attribute value.
-    AttributeValue:
-      properties:
-        value:
-          type: string
-          title: Value
-        type:
-          $ref: '#/components/schemas/AttributeType'
-      type: object
-      required:
-      - value
-      - type
-      title: AttributeValue
-      description: A single enriched attribute value.
     VariationsGetResponse:
       properties:
         trace_id:
@@ -329,20 +316,6 @@ components:
       - response
       title: VariationsGetResponse
       description: Full response for GET /v1/variations.
-    ErrorDetail:
-      properties:
-        code:
-          type: string
-          title: Code
-        message:
-          type: string
-          title: Message
-      type: object
-      required:
-      - code
-      - message
-      title: ErrorDetail
-      description: Single error entry in an error response.
     EnrichedAttributes:
       properties:
         badges:
@@ -374,6 +347,52 @@ components:
       - attributes
       title: EnrichedAttributes
       description: 'Enriched attributes: resolved badges and attributes keyed by name.'
+    ErrorResponseWithTrace:
+      properties:
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type: array
+          title: Errors
+        trace_id:
+          type: string
+          title: Trace Id
+      type: object
+      required:
+      - message
+      - errors
+      - trace_id
+      title: ErrorResponseWithTrace
+      description: Error response body with trace ID.
+    AttributeValue:
+      properties:
+        value:
+          type: string
+          title: Value
+        type:
+          $ref: '#/components/schemas/AttributeType'
+      type: object
+      required:
+      - value
+      - type
+      title: AttributeValue
+      description: A single enriched attribute value.
+    Variation:
+      properties:
+        variation_id:
+          type: string
+          title: Variation ID
+        enriched_attributes:
+          $ref: '#/components/schemas/EnrichedAttributes'
+      type: object
+      required:
+      - variation_id
+      - enriched_attributes
+      title: Variation
+      description: Variation with nested enriched_attributes (used in GET /v1/variations).
     Badge:
       properties:
         type:
@@ -411,39 +430,6 @@ components:
       - errors
       title: ErrorResponse
       description: Standard error response body.
-    ItemWithEnrichedAttributes:
-      properties:
-        id:
-          type: string
-          title: ID
-        enriched_attributes:
-          $ref: '#/components/schemas/EnrichedAttributes'
-      type: object
-      required:
-      - id
-      - enriched_attributes
-      title: ItemWithEnrichedAttributes
-      description: Item with nested enriched_attributes (used in GET /v1/items).
-    ErrorResponseWithTrace:
-      properties:
-        message:
-          type: string
-          title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/ErrorDetail'
-          type: array
-          title: Errors
-        trace_id:
-          type: string
-          title: Trace Id
-      type: object
-      required:
-      - message
-      - errors
-      - trace_id
-      title: ErrorResponseWithTrace
-      description: Error response body with trace ID.
     SingleItemGetResponse:
       properties:
         trace_id:
@@ -463,6 +449,20 @@ components:
       - response
       title: SingleItemGetResponse
       description: Full response for GET /v1/items.
+    ErrorDetail:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - code
+      - message
+      title: ErrorDetail
+      description: Single error entry in an error response.
   securitySchemes:
     http_basic_auth:
       type: http

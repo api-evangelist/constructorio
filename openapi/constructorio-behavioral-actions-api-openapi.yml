@@ -56,23 +56,97 @@ paths:
           description: Rate limit breached
 components:
   schemas:
-    OfflineBehavioralActionListPostBody:
-      title: OfflineBehavioralActionListPostBody
+    ItemSchema:
+      title: ItemSchema
       type: object
       properties:
-        behavioral_actions:
-          title: Behavioral Actions
-          description: An array of actions. Each item of the array is an object containing action and data keys.
+        item_id:
+          title: Item Id
+          description: Id of purchased item. Either item_id or item_name is required to be passed.
+          maxLength: 250
+          minLength: 1
+          type: string
+        item_name:
+          title: Item Name
+          description: Name of purchased item. Either item_id or item_name is required to be passed.
+          maxLength: 250
+          minLength: 1
+          type: string
+        variation_id:
+          title: Variation Id
+          description: Id of purchased variation, if applicable. Either item_id or item_name of related item must be passed along with variation_id.
+          maxLength: 250
+          minLength: 1
+          type: string
+        price:
+          title: Price
+          description: Price of purchased item or variation. Will be used to calculate purchase revenue if order revenue is not passed. Passed as string, from which numeric value will be extracted.
+          anyOf:
+          - type: number
+          - type: integer
+        count:
+          title: Count
+          description: Count of item purchased. Price will be multiplied by count to get purchase revenue if order revenue is not passed.
+          type: integer
+      additionalProperties: false
+    OfflineItemPurchaseSchema:
+      title: OfflineItemPurchaseSchema
+      type: object
+      properties:
+        _dt:
+          title: _dt
+          description: Unix timestamp in seconds of when the event happened
+          type: integer
+        ui:
+          title: Ui
+          description: Identifier that maps to an internal user account ID on a customer website.
+          type: string
+        order_id:
+          title: Order Id
+          description: Order id. Can be used to merge different events into single one.
+          type: string
+        lat:
+          title: Lat
+          description: Latitude of store.
+          maxLength: 20
+          minLength: 1
+          type: string
+        lon:
+          title: Lon
+          description: Longitude of store.
+          maxLength: 20
+          minLength: 1
+          type: string
+        store_id:
+          title: Store Id
+          description: Store id.
+          maxLength: 250
+          minLength: 1
+          type: string
+        items:
+          title: Items
+          description: Array of items.
           minItems: 1
-          maxItems: 100
+          maxItems: 500
           type: array
           items:
-            anyOf:
-            - $ref: '#/components/schemas/OfflinePurchase'
-            - $ref: '#/components/schemas/OfflineReturn'
+            $ref: '#/components/schemas/ItemSchema'
+        revenue:
+          title: Revenue
+          description: Revenue of order. Can be passed explicitly or will be evaluated by summation of passed item prices and its counts.
+          anyOf:
+          - type: number
+          - type: integer
       required:
-      - behavioral_actions
+      - _dt
+      - items
       additionalProperties: false
+    ReturnActionReturnType:
+      title: ReturnActionReturnType
+      enum:
+      - full
+      - partial
+      type: string
     OfflinePurchase:
       title: OfflinePurchase
       type: object
@@ -190,12 +264,6 @@ components:
       - _dt
       - items_returned
       additionalProperties: false
-    ReturnActionReturnPreference:
-      title: ReturnActionReturnPreference
-      enum:
-      - refund
-      - replacement
-      type: string
     OfflineReturn:
       title: OfflineReturn
       type: object
@@ -215,97 +283,29 @@ components:
       - action
       - data
       additionalProperties: false
-    ItemSchema:
-      title: ItemSchema
+    ReturnActionReturnPreference:
+      title: ReturnActionReturnPreference
+      enum:
+      - refund
+      - replacement
+      type: string
+    OfflineBehavioralActionListPostBody:
+      title: OfflineBehavioralActionListPostBody
       type: object
       properties:
-        item_id:
-          title: Item Id
-          description: Id of purchased item. Either item_id or item_name is required to be passed.
-          maxLength: 250
-          minLength: 1
-          type: string
-        item_name:
-          title: Item Name
-          description: Name of purchased item. Either item_id or item_name is required to be passed.
-          maxLength: 250
-          minLength: 1
-          type: string
-        variation_id:
-          title: Variation Id
-          description: Id of purchased variation, if applicable. Either item_id or item_name of related item must be passed along with variation_id.
-          maxLength: 250
-          minLength: 1
-          type: string
-        price:
-          title: Price
-          description: Price of purchased item or variation. Will be used to calculate purchase revenue if order revenue is not passed. Passed as string, from which numeric value will be extracted.
-          anyOf:
-          - type: number
-          - type: integer
-        count:
-          title: Count
-          description: Count of item purchased. Price will be multiplied by count to get purchase revenue if order revenue is not passed.
-          type: integer
-      additionalProperties: false
-    OfflineItemPurchaseSchema:
-      title: OfflineItemPurchaseSchema
-      type: object
-      properties:
-        _dt:
-          title: _dt
-          description: Unix timestamp in seconds of when the event happened
-          type: integer
-        ui:
-          title: Ui
-          description: Identifier that maps to an internal user account ID on a customer website.
-          type: string
-        order_id:
-          title: Order Id
-          description: Order id. Can be used to merge different events into single one.
-          type: string
-        lat:
-          title: Lat
-          description: Latitude of store.
-          maxLength: 20
-          minLength: 1
-          type: string
-        lon:
-          title: Lon
-          description: Longitude of store.
-          maxLength: 20
-          minLength: 1
-          type: string
-        store_id:
-          title: Store Id
-          description: Store id.
-          maxLength: 250
-          minLength: 1
-          type: string
-        items:
-          title: Items
-          description: Array of items.
+        behavioral_actions:
+          title: Behavioral Actions
+          description: An array of actions. Each item of the array is an object containing action and data keys.
           minItems: 1
-          maxItems: 500
+          maxItems: 100
           type: array
           items:
-            $ref: '#/components/schemas/ItemSchema'
-        revenue:
-          title: Revenue
-          description: Revenue of order. Can be passed explicitly or will be evaluated by summation of passed item prices and its counts.
-          anyOf:
-          - type: number
-          - type: integer
+            anyOf:
+            - $ref: '#/components/schemas/OfflinePurchase'
+            - $ref: '#/components/schemas/OfflineReturn'
       required:
-      - _dt
-      - items
+      - behavioral_actions
       additionalProperties: false
-    ReturnActionReturnType:
-      title: ReturnActionReturnType
-      enum:
-      - full
-      - partial
-      type: string
   securitySchemes:
     http_basic_auth:
       type: http

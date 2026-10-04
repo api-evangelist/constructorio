@@ -227,12 +227,6 @@ components:
       - id
       title: Collection
       type: object
-    SortOrderType:
-      enum:
-      - ascending
-      - descending
-      title: SortOrderType
-      type: string
     BrowseCollectionsResponse:
       additionalProperties: false
       properties:
@@ -251,6 +245,12 @@ components:
       - total_num_results
       title: BrowseCollectionsResponse
       type: object
+    SortOrderType:
+      enum:
+      - ascending
+      - descending
+      title: SortOrderType
+      type: string
     BrowseCollectionsGetResponse:
       additionalProperties: false
       properties:

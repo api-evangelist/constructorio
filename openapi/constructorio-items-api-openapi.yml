@@ -521,6 +521,19 @@ paths:
         - catalog(r)
 components:
   schemas:
+    ItemListPatchResponse:
+      title: ItemListPatchResponse
+      type: object
+      properties:
+        task_id:
+          title: Task Id
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          type: string
+      required:
+      - task_id
+      - task_status_path
     ItemListPatchAcceptedResponse:
       title: ItemListPatchAcceptedResponse
       type: object
@@ -531,32 +544,89 @@ components:
           type: string
       required:
       - message
-    ItemListGetResponse:
-      title: ItemListGetResponse
+    ItemListPutResponse:
+      title: ItemListPutResponse
       type: object
       properties:
-        total_count:
-          title: Total Count
-          description: Total number of items. Omitted when using cursor-based pagination (`next_page_cursor`).
-          minimum: 0
-          examples:
-          - 100
-          - 5000
+        task_id:
+          title: Task Id
           type: integer
-        items:
-          title: Items
-          type: array
-          items:
-            $ref: '#/components/schemas/ItemGetResponse'
-        next_page_cursor:
-          title: Pagination cursor
-          description: Pagination cursor to use to receive the next page of results. The value is returned by the previous page response. Cannot be used together with `page` or `offset`.
-          maxLength: 250
-          minLength: 1
+        task_status_path:
+          title: Task Status Path
+          type: string
+      required:
+      - task_id
+      - task_status_path
+    ItemBase:
+      title: ItemBase
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the item, must be unique.
           examples:
           - nike-shoes
           - product-123
+          minLength: 1
+          maxLength: 250
           type: string
+      required:
+      - id
+      additionalProperties: false
+    ItemPatch:
+      title: ItemPatch
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the item, must be unique.
+          examples:
+          - nike-shoes
+          - product-123
+          minLength: 1
+          maxLength: 250
+          type: string
+        name:
+          title: Name
+          description: The name of the item, as it will appear in the results. Must contain at least one alphanumeric character.
+          maxLength: 250
+          minLength: 1
+          examples:
+          - Running Shoes
+          - Blue T-Shirt
+          type: string
+        suggested_score:
+          title: Suggested Score
+          description: A number that will influence the item's initial ranking relative to other item scores (the higher the score, the higher in the list of suggestions the item will appear).
+          minimum: -1
+          maximum: 500000000
+          examples:
+          - 100
+          - 1000
+          type: integer
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this item. The maximum size of data object is limited to 200kb. The average size of data objects for all ingested items and variations should not exceed 30kb.
+          examples:
+          - url: http://example.com/product
+            brand: Nike
+          allOf:
+          - $ref: '#/components/schemas/ItemMetadata'
+      required:
+      - id
+      additionalProperties: false
+    ItemListPutRequestBody:
+      title: ItemListPutRequestBody
+      type: object
+      properties:
+        items:
+          title: Items
+          description: Array of items you want to create or replace.
+          minItems: 1
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
       required:
       - items
     ItemListDeleteRequestBody:
@@ -573,6 +643,155 @@ components:
             $ref: '#/components/schemas/ItemBase'
       required:
       - items
+    MissingRecordsStrategy:
+      title: MissingRecordsStrategy
+      enum:
+      - CREATE
+      - IGNORE
+      - FAIL
+    FacetValue:
+      title: FacetValue
+      anyOf:
+      - type: string
+        minLength: 0
+        maxLength: 200
+      - type: integer
+      - type: number
+    ItemMetadataResponse:
+      title: ItemMetadataResponse
+      description: 'Additional data about item. In addition to the listed properties
+
+        you can also provide any other information you want to associate
+
+        with that item. No special validation is made for that data.'
+      type: object
+      properties:
+        keywords:
+          title: Keywords
+          description: An array of keywords for this item. Keywords are useful if you want a product name to appear when a user enters a search term that isn't in the product name itself.
+          type: array
+          items:
+            type: string
+            examples:
+            - running
+            - athletic
+            - sports
+        url:
+          title: Url
+          description: A URL to directly send the user after selecting the item. Might be required in some cases. Please contact support@constructor.io if you have questions around that.
+          examples:
+          - http://www.example.com/product/123
+          - /products/shoes
+          type: string
+        image_url:
+          title: Image Url
+          description: A URL that points to an image you'd like displayed next to some item (only applicable when url is supplied).
+          examples:
+          - http://www.example.com/images/product.jpg
+          type: string
+        facets:
+          title: Facets
+          description: 'Warning: ingesting data directly as facets has been deprecated. Please ingest the data as metadata instead, and create a facet configuration as shown in our guide on global facet configuration. '
+          deprecated: true
+          examples:
+          - color:
+            - red
+            - blue
+            size:
+            - L
+            - XL
+          allOf:
+          - $ref: '#/components/schemas/Facets'
+        group_ids:
+          title: Group Ids
+          description: You can associate each item with one or more groups (i.e. categories). To set up a group hierarchy please contact support@constructor.io group_ids can be used as filters in search, autosuggest, and browse requests.
+          type: array
+          items:
+            type: string
+            examples:
+            - shoes
+            - athletic
+        description:
+          title: Description
+          description: A description for this item. The maximum length of this field is 4000 characters.
+          examples:
+          - A comfortable running shoe with cushioned sole
+          maxLength: 4000
+          type: string
+        active:
+          title: Active
+          examples:
+          - true
+          - false
+          type: boolean
+      additionalProperties: true
+    ItemListPatchRequestBody:
+      title: ItemListPatchRequestBody
+      type: object
+      properties:
+        items:
+          title: Items
+          description: Array of items you want to update.
+          minItems: 1
+          maxItems: 10000
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemPatch'
+      required:
+      - items
+    ItemListDeleteAcceptedResponse:
+      title: ItemListDeleteAcceptedResponse
+      type: object
+      properties:
+        message:
+          title: Message
+          description: Info message
+          type: string
+      required:
+      - message
+    Item:
+      title: Item
+      type: object
+      properties:
+        id:
+          title: Id
+          description: The ID of the item, must be unique.
+          examples:
+          - nike-shoes
+          - product-123
+          minLength: 1
+          maxLength: 250
+          type: string
+        name:
+          title: Name
+          description: The name of the item, as it will appear in the results. Must contain at least one alphanumeric character.
+          maxLength: 250
+          minLength: 1
+          examples:
+          - Running Shoes
+          - Blue T-Shirt
+          type: string
+        suggested_score:
+          title: Suggested Score
+          description: A number that will influence the item's initial ranking relative to other item scores (the higher the score, the higher in the list of suggestions the item will appear).
+          minimum: -1
+          maximum: 500000000
+          examples:
+          - 100
+          - 1000
+          type: integer
+        data:
+          title: Data
+          description: Object containing additional data, that should be attached to this item. The maximum size of data object is limited to 200kb. The average size of data objects for all ingested items and variations should not exceed 30kb.
+          examples:
+          - url: http://example.com/product
+            brand: Nike
+          allOf:
+          - $ref: '#/components/schemas/ItemMetadata'
+      required:
+      - id
+      - name
+      additionalProperties: false
     ItemMetadata:
       title: ItemMetadata
       description: 'Additional data about item. In addition to the listed properties
@@ -647,6 +866,44 @@ components:
           - '2024-01-15T10:30:00Z'
           type: string
           format: date-time
+    ItemListGetResponse:
+      title: ItemListGetResponse
+      type: object
+      properties:
+        total_count:
+          title: Total Count
+          description: Total number of items. Omitted when using cursor-based pagination (`next_page_cursor`).
+          minimum: 0
+          examples:
+          - 100
+          - 5000
+          type: integer
+        items:
+          title: Items
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemGetResponse'
+        next_page_cursor:
+          title: Pagination cursor
+          description: Pagination cursor to use to receive the next page of results. The value is returned by the previous page response. Cannot be used together with `page` or `offset`.
+          maxLength: 250
+          minLength: 1
+          examples:
+          - nike-shoes
+          - product-123
+          type: string
+      required:
+      - items
+    Facets:
+      title: Facets
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/FacetValuesCoercedToList'
+    FacetValuesCoercedToList:
+      title: FacetValuesCoercedToList
+      type: array
+      items:
+        $ref: '#/components/schemas/FacetValue'
     ItemListPutAcceptedResponse:
       title: ItemListPutAcceptedResponse
       type: object
@@ -657,243 +914,6 @@ components:
           type: string
       required:
       - message
-    ItemListDeleteResponse:
-      title: ItemListDeleteResponse
-      type: object
-      properties:
-        task_id:
-          title: Task Id
-          type: integer
-        task_status_path:
-          title: Task Status Path
-          type: string
-      required:
-      - task_id
-      - task_status_path
-    ItemBase:
-      title: ItemBase
-      type: object
-      properties:
-        id:
-          title: Id
-          description: The ID of the item, must be unique.
-          examples:
-          - nike-shoes
-          - product-123
-          minLength: 1
-          maxLength: 250
-          type: string
-      required:
-      - id
-      additionalProperties: false
-    Facets:
-      title: Facets
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/FacetValuesCoercedToList'
-    Item:
-      title: Item
-      type: object
-      properties:
-        id:
-          title: Id
-          description: The ID of the item, must be unique.
-          examples:
-          - nike-shoes
-          - product-123
-          minLength: 1
-          maxLength: 250
-          type: string
-        name:
-          title: Name
-          description: The name of the item, as it will appear in the results. Must contain at least one alphanumeric character.
-          maxLength: 250
-          minLength: 1
-          examples:
-          - Running Shoes
-          - Blue T-Shirt
-          type: string
-        suggested_score:
-          title: Suggested Score
-          description: A number that will influence the item's initial ranking relative to other item scores (the higher the score, the higher in the list of suggestions the item will appear).
-          minimum: -1
-          maximum: 500000000
-          examples:
-          - 100
-          - 1000
-          type: integer
-        data:
-          title: Data
-          description: Object containing additional data, that should be attached to this item. The maximum size of data object is limited to 200kb. The average size of data objects for all ingested items and variations should not exceed 30kb.
-          examples:
-          - url: http://example.com/product
-            brand: Nike
-          allOf:
-          - $ref: '#/components/schemas/ItemMetadata'
-      required:
-      - id
-      - name
-      additionalProperties: false
-    FacetValue:
-      title: FacetValue
-      anyOf:
-      - type: string
-        minLength: 0
-        maxLength: 200
-      - type: integer
-      - type: number
-    ItemListPutRequestBody:
-      title: ItemListPutRequestBody
-      type: object
-      properties:
-        items:
-          title: Items
-          description: Array of items you want to create or replace.
-          minItems: 1
-          maxItems: 10000
-          type: array
-          items:
-            $ref: '#/components/schemas/Item'
-      required:
-      - items
-    ItemMetadataResponse:
-      title: ItemMetadataResponse
-      description: 'Additional data about item. In addition to the listed properties
-
-        you can also provide any other information you want to associate
-
-        with that item. No special validation is made for that data.'
-      type: object
-      properties:
-        keywords:
-          title: Keywords
-          description: An array of keywords for this item. Keywords are useful if you want a product name to appear when a user enters a search term that isn't in the product name itself.
-          type: array
-          items:
-            type: string
-            examples:
-            - running
-            - athletic
-            - sports
-        url:
-          title: Url
-          description: A URL to directly send the user after selecting the item. Might be required in some cases. Please contact support@constructor.io if you have questions around that.
-          examples:
-          - http://www.example.com/product/123
-          - /products/shoes
-          type: string
-        image_url:
-          title: Image Url
-          description: A URL that points to an image you'd like displayed next to some item (only applicable when url is supplied).
-          examples:
-          - http://www.example.com/images/product.jpg
-          type: string
-        facets:
-          title: Facets
-          description: 'Warning: ingesting data directly as facets has been deprecated. Please ingest the data as metadata instead, and create a facet configuration as shown in our guide on global facet configuration. '
-          deprecated: true
-          examples:
-          - color:
-            - red
-            - blue
-            size:
-            - L
-            - XL
-          allOf:
-          - $ref: '#/components/schemas/Facets'
-        group_ids:
-          title: Group Ids
-          description: You can associate each item with one or more groups (i.e. categories). To set up a group hierarchy please contact support@constructor.io group_ids can be used as filters in search, autosuggest, and browse requests.
-          type: array
-          items:
-            type: string
-            examples:
-            - shoes
-            - athletic
-        description:
-          title: Description
-          description: A description for this item. The maximum length of this field is 4000 characters.
-          examples:
-          - A comfortable running shoe with cushioned sole
-          maxLength: 4000
-          type: string
-        active:
-          title: Active
-          examples:
-          - true
-          - false
-          type: boolean
-      additionalProperties: true
-    ItemPatch:
-      title: ItemPatch
-      type: object
-      properties:
-        id:
-          title: Id
-          description: The ID of the item, must be unique.
-          examples:
-          - nike-shoes
-          - product-123
-          minLength: 1
-          maxLength: 250
-          type: string
-        name:
-          title: Name
-          description: The name of the item, as it will appear in the results. Must contain at least one alphanumeric character.
-          maxLength: 250
-          minLength: 1
-          examples:
-          - Running Shoes
-          - Blue T-Shirt
-          type: string
-        suggested_score:
-          title: Suggested Score
-          description: A number that will influence the item's initial ranking relative to other item scores (the higher the score, the higher in the list of suggestions the item will appear).
-          minimum: -1
-          maximum: 500000000
-          examples:
-          - 100
-          - 1000
-          type: integer
-        data:
-          title: Data
-          description: Object containing additional data, that should be attached to this item. The maximum size of data object is limited to 200kb. The average size of data objects for all ingested items and variations should not exceed 30kb.
-          examples:
-          - url: http://example.com/product
-            brand: Nike
-          allOf:
-          - $ref: '#/components/schemas/ItemMetadata'
-      required:
-      - id
-      additionalProperties: false
-    FacetValuesCoercedToList:
-      title: FacetValuesCoercedToList
-      type: array
-      items:
-        $ref: '#/components/schemas/FacetValue'
-    ItemListDeleteAcceptedResponse:
-      title: ItemListDeleteAcceptedResponse
-      type: object
-      properties:
-        message:
-          title: Message
-          description: Info message
-          type: string
-      required:
-      - message
-    ItemListPutResponse:
-      title: ItemListPutResponse
-      type: object
-      properties:
-        task_id:
-          title: Task Id
-          type: integer
-        task_status_path:
-          title: Task Status Path
-          type: string
-      required:
-      - task_id
-      - task_status_path
     ItemGetResponse:
       title: ItemGetResponse
       type: object
@@ -931,8 +951,8 @@ components:
       - name
       - updated_at
       additionalProperties: false
-    ItemListPatchResponse:
-      title: ItemListPatchResponse
+    ItemListDeleteResponse:
+      title: ItemListDeleteResponse
       type: object
       properties:
         task_id:
@@ -944,26 +964,6 @@ components:
       required:
       - task_id
       - task_status_path
-    ItemListPatchRequestBody:
-      title: ItemListPatchRequestBody
-      type: object
-      properties:
-        items:
-          title: Items
-          description: Array of items you want to update.
-          minItems: 1
-          maxItems: 10000
-          type: array
-          items:
-            $ref: '#/components/schemas/ItemPatch'
-      required:
-      - items
-    MissingRecordsStrategy:
-      title: MissingRecordsStrategy
-      enum:
-      - CREATE
-      - IGNORE
-      - FAIL
   securitySchemes:
     http_basic_auth:
       type: http

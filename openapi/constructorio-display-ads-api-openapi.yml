@@ -193,42 +193,6 @@ paths:
       security: []
 components:
   schemas:
-    ImageOverride:
-      properties:
-        media:
-          type: string
-          title: Media
-          description: A media query that must match for this image to be shown.
-        srcset:
-          items:
-            $ref: '#/components/schemas/SrcWithPixelDensity'
-          type: array
-          title: Srcset
-          description: Set of images with their corresponding pixel densities.
-      type: object
-      required:
-      - media
-      - srcset
-      title: ImageOverride
-    PublicErrorDetails:
-      properties:
-        code:
-          type: string
-          title: Code
-        message:
-          type: string
-          title: Message
-        source:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Source
-      type: object
-      required:
-      - code
-      - message
-      - source
-      title: PublicErrorDetails
     DisplayAd:
       properties:
         banner_ad_id:
@@ -258,6 +222,184 @@ components:
       - advertiser
       - image_banner
       title: DisplayAd
+    FlatDisplayAd:
+      properties:
+        type:
+          type: string
+          const: image_banner
+          title: Type
+          description: Ad type discriminator.
+        banner_ad_id:
+          type: string
+          title: Banner Ad ID
+          description: Unique identifier of this ad instance for tracking purposes.
+        advertiser:
+          type: string
+          title: Advertiser
+          description: Name of the advertiser for compliance and disclosure purposes.
+        target_url:
+          type: string
+          title: Target URL
+          description: Target URL of the ad.
+        title:
+          type: string
+          title: Title
+          description: Plain text title of the ad.
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: Optional plain text description of the ad.
+        cta:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: CTA
+          description: Optional call-to-action for the ad.
+        cta_label:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: CTA Label
+          description: Optional aria-label for the call-to-action button.
+        srcset:
+          items:
+            $ref: '#/components/schemas/SrcWithPixelDensity'
+          type: array
+          title: Srcset
+          description: Main set of images for the ad with their corresponding pixel densities.
+        images:
+          items:
+            $ref: '#/components/schemas/ImageOverride'
+          type: array
+          title: Images
+          description: Optional list of alternative images for different media conditions.
+        custom_fields:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Custom Fields
+          description: Custom key-value fields associated with the creative.
+      type: object
+      required:
+      - type
+      - banner_ad_id
+      - advertiser
+      - target_url
+      - title
+      - description
+      - cta
+      - srcset
+      - images
+      title: FlatDisplayAd
+    MultiPlacementResponse:
+      properties:
+        type:
+          type: string
+          const: multi
+          title: Type
+          description: Ad type discriminator.
+        ads:
+          items:
+            $ref: '#/components/schemas/FlatDisplayAd'
+          type: array
+          title: Ads
+          description: List of ads ordered by auction rank.
+      type: object
+      required:
+      - type
+      - ads
+      title: MultiPlacementResponse
+    SrcWithPixelDensity:
+      properties:
+        src:
+          type: string
+          title: Src
+          description: URL of the image.
+        pixel_density:
+          type: number
+          title: Pixel Density
+          description: Pixel density at which this image should be used.
+        alt_text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Alt text
+          description: Optional alt text for the image.
+      type: object
+      required:
+      - src
+      - pixel_density
+      title: SrcWithPixelDensity
+    ImageOverride:
+      properties:
+        media:
+          type: string
+          title: Media
+          description: A media query that must match for this image to be shown.
+        srcset:
+          items:
+            $ref: '#/components/schemas/SrcWithPixelDensity'
+          type: array
+          title: Srcset
+          description: Set of images with their corresponding pixel densities.
+      type: object
+      required:
+      - media
+      - srcset
+      title: ImageOverride
+    ImageBanner:
+      properties:
+        target_url:
+          type: string
+          title: Target URL
+          description: Target URL of the ad.
+        srcset:
+          items:
+            $ref: '#/components/schemas/SrcWithPixelDensity'
+          type: array
+          title: Srcset
+          description: Main set of images for the ad with their corresponding pixel densities.
+        title:
+          type: string
+          title: Title
+          description: Plain text title of the ad.
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: Optional plain text description of the ad.
+        cta:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: CTA
+          description: Optional call-to-action for the ad.
+        cta_label:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: CTA Label
+          description: Optional aria-label for the call-to-action button.
+        images:
+          items:
+            $ref: '#/components/schemas/ImageOverride'
+          type: array
+          title: Images
+          description: Optional list of alternative images for different media conditions.
+      type: object
+      required:
+      - target_url
+      - srcset
+      - title
+      - description
+      - cta
+      - images
+      title: ImageBanner
     DisplayAdsV2Response:
       properties:
         display_ads:
@@ -303,55 +445,6 @@ components:
       required:
       - display_ads
       title: DisplayAdsV2Response
-    MultiPlacementResponse:
-      properties:
-        type:
-          type: string
-          const: multi
-          title: Type
-          description: Ad type discriminator.
-        ads:
-          items:
-            $ref: '#/components/schemas/FlatDisplayAd'
-          type: array
-          title: Ads
-          description: List of ads ordered by auction rank.
-      type: object
-      required:
-      - type
-      - ads
-      title: MultiPlacementResponse
-    DisplayAdsResponse:
-      properties:
-        display_ads:
-          additionalProperties:
-            $ref: '#/components/schemas/DisplayAd'
-          type: object
-          title: Display Ads
-          description: Map of placement IDs to Display Ads. If a placement ID is missing it means that there are no available ads for that placement.
-          examples:
-          - home_page:
-              advertiser: Advertiser Name
-              banner_ad_id: AD_ID
-              image_banner:
-                cta: Ad CTA
-                cta_label: Call to action label
-                description: Ad Description
-                images:
-                - media: '(min-width: 1024px)'
-                  srcset:
-                  - alt_text: An example image
-                    pixel_density: 1
-                    src: https://example.com/image.jpg
-                srcset:
-                - pixel_density: 1
-                  src: https://example.com/image.jpg
-                target_url: https://example.com
-                title: Ad Title
-      type: object
-      required:
-      - display_ads
-      title: DisplayAdsResponse
     BannerPlacementResponse:
       properties:
         type:
@@ -446,149 +539,56 @@ components:
       - errors
       - trace_id
       title: PublicErrorResponse
-    ImageBanner:
+    DisplayAdsResponse:
       properties:
-        target_url:
-          type: string
-          title: Target URL
-          description: Target URL of the ad.
-        srcset:
-          items:
-            $ref: '#/components/schemas/SrcWithPixelDensity'
-          type: array
-          title: Srcset
-          description: Main set of images for the ad with their corresponding pixel densities.
-        title:
-          type: string
-          title: Title
-          description: Plain text title of the ad.
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-          description: Optional plain text description of the ad.
-        cta:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: CTA
-          description: Optional call-to-action for the ad.
-        cta_label:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: CTA Label
-          description: Optional aria-label for the call-to-action button.
-        images:
-          items:
-            $ref: '#/components/schemas/ImageOverride'
-          type: array
-          title: Images
-          description: Optional list of alternative images for different media conditions.
+        display_ads:
+          additionalProperties:
+            $ref: '#/components/schemas/DisplayAd'
+          type: object
+          title: Display Ads
+          description: Map of placement IDs to Display Ads. If a placement ID is missing it means that there are no available ads for that placement.
+          examples:
+          - home_page:
+              advertiser: Advertiser Name
+              banner_ad_id: AD_ID
+              image_banner:
+                cta: Ad CTA
+                cta_label: Call to action label
+                description: Ad Description
+                images:
+                - media: '(min-width: 1024px)'
+                  srcset:
+                  - alt_text: An example image
+                    pixel_density: 1
+                    src: https://example.com/image.jpg
+                srcset:
+                - pixel_density: 1
+                  src: https://example.com/image.jpg
+                target_url: https://example.com
+                title: Ad Title
       type: object
       required:
-      - target_url
-      - srcset
-      - title
-      - description
-      - cta
-      - images
-      title: ImageBanner
-    FlatDisplayAd:
+      - display_ads
+      title: DisplayAdsResponse
+    PublicErrorDetails:
       properties:
-        type:
+        code:
           type: string
-          const: image_banner
-          title: Type
-          description: Ad type discriminator.
-        banner_ad_id:
+          title: Code
+        message:
           type: string
-          title: Banner Ad ID
-          description: Unique identifier of this ad instance for tracking purposes.
-        advertiser:
-          type: string
-          title: Advertiser
-          description: Name of the advertiser for compliance and disclosure purposes.
-        target_url:
-          type: string
-          title: Target URL
-          description: Target URL of the ad.
-        title:
-          type: string
-          title: Title
-          description: Plain text title of the ad.
-        description:
+          title: Message
+        source:
           anyOf:
           - type: string
           - type: 'null'
-          title: Description
-          description: Optional plain text description of the ad.
-        cta:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: CTA
-          description: Optional call-to-action for the ad.
-        cta_label:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: CTA Label
-          description: Optional aria-label for the call-to-action button.
-        srcset:
-          items:
-            $ref: '#/components/schemas/SrcWithPixelDensity'
-          type: array
-          title: Srcset
-          description: Main set of images for the ad with their corresponding pixel densities.
-        images:
-          items:
-            $ref: '#/components/schemas/ImageOverride'
-          type: array
-          title: Images
-          description: Optional list of alternative images for different media conditions.
-        custom_fields:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Custom Fields
-          description: Custom key-value fields associated with the creative.
+          title: Source
       type: object
       required:
-      - type
-      - banner_ad_id
-      - advertiser
-      - target_url
-      - title
-      - description
-      - cta
-      - srcset
-      - images
-      title: FlatDisplayAd
-    SrcWithPixelDensity:
-      properties:
-        src:
-          type: string
-          title: Src
-          description: URL of the image.
-        pixel_density:
-          type: number
-          title: Pixel Density
-          description: Pixel density at which this image should be used.
-        alt_text:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Alt text
-          description: Optional alt text for the image.
-      type: object
-      required:
-      - src
-      - pixel_density
-      title: SrcWithPixelDensity
+      - code
+      - message
+      - source
+      title: PublicErrorDetails
   securitySchemes:
     bearerAuth:
       type: http

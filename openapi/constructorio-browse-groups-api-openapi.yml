@@ -147,6 +147,28 @@ paths:
       security: []
 components:
   schemas:
+    GroupFmtOptions:
+      additionalProperties: false
+      properties:
+        groups_max_depth:
+          default: 1
+          description: The maximum depth of the group hierarchy in the response.
+          examples:
+          - 1
+          - 3
+          title: Groups Max Depth
+          type: integer
+        groups_start:
+          default: current
+          description: A flag to specify the start of the group hierarchy returned in the response. `current` returns groups starting from the currently selected one. `top` returns groups starting from the root category in the hierarchy. `group_id:{id}`, returns the whole tree starting from group with the provided ID.
+          examples:
+          - current
+          - top
+          - group_id:jeans
+          title: Groups Start
+          type: string
+      title: GroupFmtOptions
+      type: object
     ResultSourceValue:
       additionalProperties: false
       properties:
@@ -158,6 +180,78 @@ components:
       required:
       - count
       title: ResultSourceValue
+      type: object
+    GroupBase:
+      additionalProperties: false
+      properties:
+        group_id:
+          description: The ID of the group.
+          title: Group Id
+          type: string
+        display_name:
+          description: The name of the group as it is displayed to end users.
+          title: Display Name
+          type: string
+      required:
+      - group_id
+      title: GroupBase
+      type: object
+    Group:
+      additionalProperties: false
+      properties:
+        group_id:
+          description: The ID of the group.
+          title: Group Id
+          type: string
+        display_name:
+          description: The name of the group as it is displayed to end users.
+          title: Display Name
+          type: string
+        count:
+          description: The number of results within this group.
+          minimum: 0
+          title: Count
+          type: integer
+        data:
+          description: Object containing custom data associated with this group.
+          title: Data
+          type: object
+        children:
+          description: An array of groups that are 'children' of the group in question.
+          items:
+            type: object
+          title: Children
+          type: array
+        parents:
+          description: An array of groups that are 'parents' of the group in question.
+          items:
+            $ref: '#/components/schemas/GroupBase'
+          title: Parents
+          type: array
+      required:
+      - group_id
+      - count
+      - children
+      - parents
+      title: Group
+      type: object
+    ResultSources:
+      additionalProperties: false
+      properties:
+        token_match:
+          description: The summary of results that came from matching a keyword
+          allOf:
+          - $ref: '#/components/schemas/ResultSourceValue'
+          title: Token Match
+        embeddings_match:
+          description: The summary of results that originated from cognitive embeddings
+          allOf:
+          - $ref: '#/components/schemas/ResultSourceValue'
+          title: Embeddings Match
+      required:
+      - token_match
+      - embeddings_match
+      title: ResultSources
       type: object
     BrowseGroupsGetResponse:
       additionalProperties: false
@@ -216,100 +310,6 @@ components:
       - result_sources
       - refined_content
       title: Browse groups response
-      type: object
-    ResultSources:
-      additionalProperties: false
-      properties:
-        token_match:
-          description: The summary of results that came from matching a keyword
-          allOf:
-          - $ref: '#/components/schemas/ResultSourceValue'
-          title: Token Match
-        embeddings_match:
-          description: The summary of results that originated from cognitive embeddings
-          allOf:
-          - $ref: '#/components/schemas/ResultSourceValue'
-          title: Embeddings Match
-      required:
-      - token_match
-      - embeddings_match
-      title: ResultSources
-      type: object
-    GroupBase:
-      additionalProperties: false
-      properties:
-        group_id:
-          description: The ID of the group.
-          title: Group Id
-          type: string
-        display_name:
-          description: The name of the group as it is displayed to end users.
-          title: Display Name
-          type: string
-      required:
-      - group_id
-      title: GroupBase
-      type: object
-    GroupFmtOptions:
-      additionalProperties: false
-      properties:
-        groups_max_depth:
-          default: 1
-          description: The maximum depth of the group hierarchy in the response.
-          examples:
-          - 1
-          - 3
-          title: Groups Max Depth
-          type: integer
-        groups_start:
-          default: current
-          description: A flag to specify the start of the group hierarchy returned in the response. `current` returns groups starting from the currently selected one. `top` returns groups starting from the root category in the hierarchy. `group_id:{id}`, returns the whole tree starting from group with the provided ID.
-          examples:
-          - current
-          - top
-          - group_id:jeans
-          title: Groups Start
-          type: string
-      title: GroupFmtOptions
-      type: object
-    Group:
-      additionalProperties: false
-      properties:
-        group_id:
-          description: The ID of the group.
-          title: Group Id
-          type: string
-        display_name:
-          description: The name of the group as it is displayed to end users.
-          title: Display Name
-          type: string
-        count:
-          description: The number of results within this group.
-          minimum: 0
-          title: Count
-          type: integer
-        data:
-          description: Object containing custom data associated with this group.
-          title: Data
-          type: object
-        children:
-          description: An array of groups that are 'children' of the group in question.
-          items:
-            type: object
-          title: Children
-          type: array
-        parents:
-          description: An array of groups that are 'parents' of the group in question.
-          items:
-            $ref: '#/components/schemas/GroupBase'
-          title: Parents
-          type: array
-      required:
-      - group_id
-      - count
-      - children
-      - parents
-      title: Group
       type: object
   securitySchemes:
     http_basic_auth:

@@ -991,6 +991,13 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ResponseFormat:
+      type: string
+      enum:
+      - redirect
+      - json
+      title: ResponseFormat
+      description: Enumeration of possible response formats for snippet requests.
     Data:
       properties:
         id:
@@ -1025,13 +1032,13 @@ components:
       - id
       title: Data
       description: Core product data containing essential fields. Additional customer-specific fields may be present in actual API responses based on configuration, but are not documented here for privacy and simplicity.
-    ResponseFormat:
+    SortOrder:
       type: string
       enum:
-      - redirect
-      - json
-      title: ResponseFormat
-      description: Enumeration of possible response formats for snippet requests.
+      - ascending
+      - descending
+      title: SortOrder
+      description: 'The sort order for results: ascending (low to high) or descending (high to low).'
     ErrorResponse:
       properties:
         detail:
@@ -1093,12 +1100,5 @@ components:
           variation_id: VAR_001_BLUE
           url: https://shop.example.com/products/premium-sneakers
           image_url: https://images.example.com/products/PROD_001_main.jpg
-    SortOrder:
-      type: string
-      enum:
-      - ascending
-      - descending
-      title: SortOrder
-      description: 'The sort order for results: ascending (low to high) or descending (high to low).'
 x-readme:
   explorer-enabled: false

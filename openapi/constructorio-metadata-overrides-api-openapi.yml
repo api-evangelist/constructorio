@@ -309,6 +309,41 @@ paths:
         - metadata_overrides(w)
 components:
   schemas:
+    MetadataOverridesListPostBody:
+      title: MetadataOverridesListPostBody
+      type: object
+      properties:
+        field_name:
+          title: Field Name
+          description: Field name associated with the metadata override configuration.
+          maxLength: 100
+          minLength: 1
+          examples:
+          - price
+          - description
+          type: string
+        field_path_in_metadata:
+          title: Field Path In Metadata
+          description: Path to the field in metadata where the metadata override configuration is applied.
+          maxLength: 300
+          minLength: 1
+          examples:
+          - data.price
+          - data.description
+          type: string
+        rules:
+          title: Rules
+          description: List of rules associated with the metadata override configuration. In total, there can be a maximum of 5 rules per key.
+          minItems: 1
+          maxItems: 5
+          type: array
+          items:
+            $ref: '#/components/schemas/MetadataOverridesRuleBase'
+      required:
+      - field_name
+      - field_path_in_metadata
+      - rules
+      additionalProperties: false
     MetadataOverridesRuleResponseBase:
       title: MetadataOverridesRuleResponseBase
       type: object
@@ -350,8 +385,8 @@ components:
       - end_time
       - replaced_field_name
       - replaced_field_path_in_metadata
-    MetadataOverridesPatchResponse:
-      title: MetadataOverridesPatchResponse
+    MetadataOverridesResponseBase:
+      title: MetadataOverridesResponseBase
       type: object
       properties:
         field_name:
@@ -376,93 +411,6 @@ components:
       required:
       - field_name
       - rules
-    MetadataOverridesListPostResponse:
-      title: MetadataOverridesListPostResponse
-      type: object
-      properties:
-        field_name:
-          title: Field Name
-          description: Field name associated with the metadata override configuration.
-          maxLength: 100
-          minLength: 1
-          type: string
-        field_path_in_metadata:
-          title: Field Path In Metadata
-          description: Path to the field in metadata where the metadata override configuration is applied.
-          maxLength: 300
-          minLength: 1
-          type: string
-        rules:
-          title: Rules
-          description: List of rules associated with metadata override configuration.
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/MetadataOverridesRuleResponseBase'
-      required:
-      - field_name
-      - rules
-    MetadataOverridesDeleteResponse:
-      title: MetadataOverridesDeleteResponse
-      type: object
-      properties:
-        field_name:
-          title: Field Name
-          description: Field name associated with the metadata override configuration.
-          maxLength: 100
-          minLength: 1
-          type: string
-        field_path_in_metadata:
-          title: Field Path In Metadata
-          description: Path to the field in metadata where the metadata override configuration is applied.
-          maxLength: 300
-          minLength: 1
-          type: string
-        rules:
-          title: Rules
-          description: List of rules associated with metadata override configuration.
-          minItems: 1
-          type: array
-          items:
-            $ref: '#/components/schemas/MetadataOverridesRuleResponseBase'
-      required:
-      - field_name
-      - rules
-    MetadataOverridesListPostBody:
-      title: MetadataOverridesListPostBody
-      type: object
-      properties:
-        field_name:
-          title: Field Name
-          description: Field name associated with the metadata override configuration.
-          maxLength: 100
-          minLength: 1
-          examples:
-          - price
-          - description
-          type: string
-        field_path_in_metadata:
-          title: Field Path In Metadata
-          description: Path to the field in metadata where the metadata override configuration is applied.
-          maxLength: 300
-          minLength: 1
-          examples:
-          - data.price
-          - data.description
-          type: string
-        rules:
-          title: Rules
-          description: List of rules associated with the metadata override configuration. In total, there can be a maximum of 5 rules per key.
-          minItems: 1
-          maxItems: 5
-          type: array
-          items:
-            $ref: '#/components/schemas/MetadataOverridesRuleBase'
-      required:
-      - field_name
-      - field_path_in_metadata
-      - rules
-      additionalProperties: false
     MetadataOverridesRuleBase:
       title: MetadataOverridesRuleBase
       type: object
@@ -505,25 +453,6 @@ components:
       - replaced_field_name
       - replaced_field_path_in_metadata
       additionalProperties: false
-    MetadataOverridesPatchBody:
-      title: MetadataOverridesPatchBody
-      type: object
-      properties:
-        field_path_in_metadata:
-          title: Field Path In Metadata
-          description: Path to the field in metadata where the metadata override configuration is applied.
-          maxLength: 300
-          minLength: 1
-          type: string
-        rules:
-          title: Rules
-          description: List of rules associated with the metadata override configuration. In total, there can be a maximum of 5 rules per key.
-          minItems: 1
-          maxItems: 5
-          type: array
-          items:
-            $ref: '#/components/schemas/MetadataOverridesRuleBase'
-      additionalProperties: false
     MetadataOverridesListGetResponse:
       title: MetadataOverridesListGetResponse
       type: object
@@ -543,8 +472,79 @@ components:
       required:
       - total_count
       additionalProperties: false
-    MetadataOverridesResponseBase:
-      title: MetadataOverridesResponseBase
+    MetadataOverridesListPostResponse:
+      title: MetadataOverridesListPostResponse
+      type: object
+      properties:
+        field_name:
+          title: Field Name
+          description: Field name associated with the metadata override configuration.
+          maxLength: 100
+          minLength: 1
+          type: string
+        field_path_in_metadata:
+          title: Field Path In Metadata
+          description: Path to the field in metadata where the metadata override configuration is applied.
+          maxLength: 300
+          minLength: 1
+          type: string
+        rules:
+          title: Rules
+          description: List of rules associated with metadata override configuration.
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/MetadataOverridesRuleResponseBase'
+      required:
+      - field_name
+      - rules
+    MetadataOverridesPatchBody:
+      title: MetadataOverridesPatchBody
+      type: object
+      properties:
+        field_path_in_metadata:
+          title: Field Path In Metadata
+          description: Path to the field in metadata where the metadata override configuration is applied.
+          maxLength: 300
+          minLength: 1
+          type: string
+        rules:
+          title: Rules
+          description: List of rules associated with the metadata override configuration. In total, there can be a maximum of 5 rules per key.
+          minItems: 1
+          maxItems: 5
+          type: array
+          items:
+            $ref: '#/components/schemas/MetadataOverridesRuleBase'
+      additionalProperties: false
+    MetadataOverridesDeleteResponse:
+      title: MetadataOverridesDeleteResponse
+      type: object
+      properties:
+        field_name:
+          title: Field Name
+          description: Field name associated with the metadata override configuration.
+          maxLength: 100
+          minLength: 1
+          type: string
+        field_path_in_metadata:
+          title: Field Path In Metadata
+          description: Path to the field in metadata where the metadata override configuration is applied.
+          maxLength: 300
+          minLength: 1
+          type: string
+        rules:
+          title: Rules
+          description: List of rules associated with metadata override configuration.
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/MetadataOverridesRuleResponseBase'
+      required:
+      - field_name
+      - rules
+    MetadataOverridesPatchResponse:
+      title: MetadataOverridesPatchResponse
       type: object
       properties:
         field_name:

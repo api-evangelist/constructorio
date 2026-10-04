@@ -131,25 +131,48 @@ paths:
         - retail_media.ad_spend_tracking(r)
 components:
   schemas:
-    PublicErrorDetails:
+    AdvertiserSpendRecord:
       properties:
-        code:
+        engagement_id:
           type: string
-          title: Code
+          title: Engagement ID
+          description: The advertiser (engagement) ID for the record.
+        daily_spend:
+          additionalProperties:
+            type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          type: object
+          title: Daily Spend
+          description: Map of date (YYYY-MM-DD) to spend for that advertiser. Includes the last 30 days.
+          examples:
+          - '2026-06-18': '40.0'
+            '2026-06-19': '12.5'
+      type: object
+      required:
+      - engagement_id
+      - daily_spend
+      title: AdvertiserSpendRecord
+    PublicErrorResponse:
+      properties:
         message:
           type: string
           title: Message
-        source:
+        errors:
+          items:
+            $ref: '#/components/schemas/PublicErrorDetails'
+          type: array
+          title: Errors
+        trace_id:
           anyOf:
           - type: string
           - type: 'null'
-          title: Source
+          title: Trace ID
       type: object
       required:
-      - code
       - message
-      - source
-      title: PublicErrorDetails
+      - errors
+      - trace_id
+      title: PublicErrorResponse
     AdvertiserSpendResponse:
       properties:
         advertiser_spend:
@@ -176,48 +199,25 @@ components:
       - total_count
       - next_page_cursor
       title: AdvertiserSpendResponse
-    PublicErrorResponse:
+    PublicErrorDetails:
       properties:
+        code:
+          type: string
+          title: Code
         message:
           type: string
           title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/PublicErrorDetails'
-          type: array
-          title: Errors
-        trace_id:
+        source:
           anyOf:
           - type: string
           - type: 'null'
-          title: Trace ID
+          title: Source
       type: object
       required:
+      - code
       - message
-      - errors
-      - trace_id
-      title: PublicErrorResponse
-    AdvertiserSpendRecord:
-      properties:
-        engagement_id:
-          type: string
-          title: Engagement ID
-          description: The advertiser (engagement) ID for the record.
-        daily_spend:
-          additionalProperties:
-            type: string
-            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-          type: object
-          title: Daily Spend
-          description: Map of date (YYYY-MM-DD) to spend for that advertiser. Includes the last 30 days.
-          examples:
-          - '2026-06-18': '40.0'
-            '2026-06-19': '12.5'
-      type: object
-      required:
-      - engagement_id
-      - daily_spend
-      title: AdvertiserSpendRecord
+      - source
+      title: PublicErrorDetails
     EngagementResponse:
       properties:
         engagement_id:

@@ -270,47 +270,32 @@ paths:
         - search_suggestions(w)
 components:
   schemas:
-    MissingRecordsStrategy:
-      title: MissingRecordsStrategy
-      enum:
-      - CREATE
-      - IGNORE
-      - FAIL
-    CatalogPatchResponse:
-      title: CatalogPatchResponse
+    CatalogPatchAcceptedResponse:
+      title: CatalogPatchAcceptedResponse
       type: object
       properties:
-        task_id:
-          title: Task Id
-          description: Task ID for the ingestion job
-          type: integer
-        task_status_path:
-          title: Task Status Path
-          description: Path to check the status of the ingestion job
+        message:
+          title: Message
+          description: Info message
           type: string
       required:
-      - task_id
-      - task_status_path
-    FileFormat:
-      title: FileFormat
-      enum:
-      - csv
-      - jsonl
-    CatalogPutResponse:
-      title: CatalogPutResponse
+      - message
+    CatalogPutAcceptedResponse:
+      title: CatalogPutAcceptedResponse
       type: object
       properties:
-        task_id:
-          title: Task Id
-          description: Task ID for the ingestion job
-          type: integer
-        task_status_path:
-          title: Task Status Path
-          description: Path to check the status of the ingestion job
+        message:
+          title: Message
+          description: Info message
           type: string
       required:
-      - task_id
-      - task_status_path
+      - message
+    CatalogMode:
+      title: CatalogMode
+      enum:
+      - full
+      - ids
+      type: string
     CatalogPutRequestBody:
       title: CatalogPutRequestBody
       type: object
@@ -330,22 +315,21 @@ components:
           description: File with item groups in CSV or JSONL format
           type: string
           format: binary
-    CatalogPatchAcceptedResponse:
-      title: CatalogPatchAcceptedResponse
+    CatalogPatchResponse:
+      title: CatalogPatchResponse
       type: object
       properties:
-        message:
-          title: Message
-          description: Info message
+        task_id:
+          title: Task Id
+          description: Task ID for the ingestion job
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          description: Path to check the status of the ingestion job
           type: string
       required:
-      - message
-    CatalogMode:
-      title: CatalogMode
-      enum:
-      - full
-      - ids
-      type: string
+      - task_id
+      - task_status_path
     CatalogPatchRequestBody:
       title: CatalogPatchRequestBody
       type: object
@@ -365,16 +349,32 @@ components:
           description: File with item groups in CSV or JSONL format
           type: string
           format: binary
-    CatalogPutAcceptedResponse:
-      title: CatalogPutAcceptedResponse
+    MissingRecordsStrategy:
+      title: MissingRecordsStrategy
+      enum:
+      - CREATE
+      - IGNORE
+      - FAIL
+    CatalogPutResponse:
+      title: CatalogPutResponse
       type: object
       properties:
-        message:
-          title: Message
-          description: Info message
+        task_id:
+          title: Task Id
+          description: Task ID for the ingestion job
+          type: integer
+        task_status_path:
+          title: Task Status Path
+          description: Path to check the status of the ingestion job
           type: string
       required:
-      - message
+      - task_id
+      - task_status_path
+    FileFormat:
+      title: FileFormat
+      enum:
+      - csv
+      - jsonl
   securitySchemes:
     http_basic_auth:
       type: http
