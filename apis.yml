@@ -43,7 +43,7 @@ x-type: company
 x-source: harvest:secondary-market
 specificationVersion: '0.23'
 created: '2026-08-01'
-modified: '2026-08-01'
+modified: '2026-10-06'
 x-docs-platform: readme
 x-docs-platform-confidence: high
 x-docs-platform-checked: 2026-09-24
@@ -1837,6 +1837,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- url: https://constructor.com/blog/rss.xml
+  type: BlogRSS
 - type: CapabilityMap
   url: capabilities/constructorio-capability-edges.yml
   name: Constructor.io Business Capability Map
