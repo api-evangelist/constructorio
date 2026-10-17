@@ -193,6 +193,21 @@ paths:
       security: []
 components:
   schemas:
+    SortOrderType:
+      enum:
+      - ascending
+      - descending
+      title: SortOrderType
+      type: string
+    BrowseCollectionsGetResponse:
+      additionalProperties: false
+      properties:
+        response:
+          $ref: '#/components/schemas/BrowseCollectionsResponse'
+      required:
+      - response
+      title: BrowseCollectionsGetResponse
+      type: object
     Collection:
       additionalProperties: false
       properties:
@@ -244,21 +259,6 @@ components:
       - collections
       - total_num_results
       title: BrowseCollectionsResponse
-      type: object
-    SortOrderType:
-      enum:
-      - ascending
-      - descending
-      title: SortOrderType
-      type: string
-    BrowseCollectionsGetResponse:
-      additionalProperties: false
-      properties:
-        response:
-          $ref: '#/components/schemas/BrowseCollectionsResponse'
-      required:
-      - response
-      title: BrowseCollectionsGetResponse
       type: object
   securitySchemes:
     http_basic_auth:

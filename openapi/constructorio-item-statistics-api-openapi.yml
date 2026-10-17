@@ -197,8 +197,52 @@ paths:
         - catalog(r)
 components:
   schemas:
-    ItemFieldStatsGetResponse:
-      title: ItemFieldStatsGetResponse
+    ItemFieldFilters:
+      title: Filters
+      type: object
+      properties:
+        name:
+          title: Name
+          description: The item field name on which stats are computed
+          maxLength: 300
+          minLength: 1
+          type: string
+      additionalProperties: false
+    SortOrderType:
+      title: SortOrderType
+      enum:
+      - ascending
+      - descending
+      type: string
+    ItemFieldStatsListGetResponse:
+      title: ItemFieldStatsListGetResponse
+      type: object
+      properties:
+        items_fields_stats:
+          title: Items Fields Stats
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemFieldStatsResponse'
+        total_count:
+          title: Total Count
+          description: Number of item field stats
+          minimum: 0
+          type: integer
+      required:
+      - items_fields_stats
+      - total_count
+    MetadataSearchabilityType:
+      title: MetadataSearchabilityType
+      enum:
+      - number
+      - string
+      - array
+      - object
+      - boolean
+      - mixed
+      type: string
+    ItemFieldStatsResponse:
+      title: ItemFieldStatsResponse
       type: object
       properties:
         name:
@@ -235,52 +279,8 @@ components:
       required:
       - name
       - created_at
-    ItemFieldStatsListGetResponse:
-      title: ItemFieldStatsListGetResponse
-      type: object
-      properties:
-        items_fields_stats:
-          title: Items Fields Stats
-          type: array
-          items:
-            $ref: '#/components/schemas/ItemFieldStatsResponse'
-        total_count:
-          title: Total Count
-          description: Number of item field stats
-          minimum: 0
-          type: integer
-      required:
-      - items_fields_stats
-      - total_count
-    SortOrderType:
-      title: SortOrderType
-      enum:
-      - ascending
-      - descending
-      type: string
-    MetadataSearchabilityType:
-      title: MetadataSearchabilityType
-      enum:
-      - number
-      - string
-      - array
-      - object
-      - boolean
-      - mixed
-      type: string
-    ItemFieldFilters:
-      title: Filters
-      type: object
-      properties:
-        name:
-          title: Name
-          description: The item field name on which stats are computed
-          maxLength: 300
-          minLength: 1
-          type: string
-      additionalProperties: false
-    ItemFieldStatsResponse:
-      title: ItemFieldStatsResponse
+    ItemFieldStatsGetResponse:
+      title: ItemFieldStatsGetResponse
       type: object
       properties:
         name:

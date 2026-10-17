@@ -61,17 +61,6 @@ paths:
           description: Permission Denied
 components:
   schemas:
-    UserPreferencesBody:
-      type: object
-      required:
-      - user_preferences
-      properties:
-        user_preferences:
-          type: array
-          items:
-            $ref: '#/components/schemas/UserPreferenceItem'
-          minItems: 1
-          maxItems: 100
     UserPreferenceItem:
       type: object
       required:
@@ -88,6 +77,17 @@ components:
           minItems: 1
         ui:
           type: string
+    UserPreferencesBody:
+      type: object
+      required:
+      - user_preferences
+      properties:
+        user_preferences:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserPreferenceItem'
+          minItems: 1
+          maxItems: 100
   securitySchemes:
     http_bearer_auth:
       type: http

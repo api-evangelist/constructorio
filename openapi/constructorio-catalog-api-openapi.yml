@@ -270,6 +270,31 @@ paths:
         - search_suggestions(w)
 components:
   schemas:
+    CatalogPutRequestBody:
+      title: CatalogPutRequestBody
+      type: object
+      properties:
+        items:
+          title: Items
+          description: File with items in CSV or JSONL format
+          type: string
+          format: binary
+        variations:
+          title: Variations
+          description: File with variations in CSV or JSONL format
+          type: string
+          format: binary
+        item_groups:
+          title: Item Groups
+          description: File with item groups in CSV or JSONL format
+          type: string
+          format: binary
+    CatalogMode:
+      title: CatalogMode
+      enum:
+      - full
+      - ids
+      type: string
     CatalogPatchAcceptedResponse:
       title: CatalogPatchAcceptedResponse
       type: object
@@ -290,33 +315,8 @@ components:
           type: string
       required:
       - message
-    CatalogMode:
-      title: CatalogMode
-      enum:
-      - full
-      - ids
-      type: string
-    CatalogPutRequestBody:
-      title: CatalogPutRequestBody
-      type: object
-      properties:
-        items:
-          title: Items
-          description: File with items in CSV or JSONL format
-          type: string
-          format: binary
-        variations:
-          title: Variations
-          description: File with variations in CSV or JSONL format
-          type: string
-          format: binary
-        item_groups:
-          title: Item Groups
-          description: File with item groups in CSV or JSONL format
-          type: string
-          format: binary
-    CatalogPatchResponse:
-      title: CatalogPatchResponse
+    CatalogPutResponse:
+      title: CatalogPutResponse
       type: object
       properties:
         task_id:
@@ -349,14 +349,8 @@ components:
           description: File with item groups in CSV or JSONL format
           type: string
           format: binary
-    MissingRecordsStrategy:
-      title: MissingRecordsStrategy
-      enum:
-      - CREATE
-      - IGNORE
-      - FAIL
-    CatalogPutResponse:
-      title: CatalogPutResponse
+    CatalogPatchResponse:
+      title: CatalogPatchResponse
       type: object
       properties:
         task_id:
@@ -375,6 +369,12 @@ components:
       enum:
       - csv
       - jsonl
+    MissingRecordsStrategy:
+      title: MissingRecordsStrategy
+      enum:
+      - CREATE
+      - IGNORE
+      - FAIL
   securitySchemes:
     http_basic_auth:
       type: http

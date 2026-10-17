@@ -131,48 +131,6 @@ paths:
         - retail_media.ad_spend_tracking(r)
 components:
   schemas:
-    AdvertiserSpendRecord:
-      properties:
-        engagement_id:
-          type: string
-          title: Engagement ID
-          description: The advertiser (engagement) ID for the record.
-        daily_spend:
-          additionalProperties:
-            type: string
-            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-          type: object
-          title: Daily Spend
-          description: Map of date (YYYY-MM-DD) to spend for that advertiser. Includes the last 30 days.
-          examples:
-          - '2026-06-18': '40.0'
-            '2026-06-19': '12.5'
-      type: object
-      required:
-      - engagement_id
-      - daily_spend
-      title: AdvertiserSpendRecord
-    PublicErrorResponse:
-      properties:
-        message:
-          type: string
-          title: Message
-        errors:
-          items:
-            $ref: '#/components/schemas/PublicErrorDetails'
-          type: array
-          title: Errors
-        trace_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Trace ID
-      type: object
-      required:
-      - message
-      - errors
-      - trace_id
-      title: PublicErrorResponse
     AdvertiserSpendResponse:
       properties:
         advertiser_spend:
@@ -218,6 +176,27 @@ components:
       - message
       - source
       title: PublicErrorDetails
+    AdvertiserSpendRecord:
+      properties:
+        engagement_id:
+          type: string
+          title: Engagement ID
+          description: The advertiser (engagement) ID for the record.
+        daily_spend:
+          additionalProperties:
+            type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          type: object
+          title: Daily Spend
+          description: Map of date (YYYY-MM-DD) to spend for that advertiser. Includes the last 30 days.
+          examples:
+          - '2026-06-18': '40.0'
+            '2026-06-19': '12.5'
+      type: object
+      required:
+      - engagement_id
+      - daily_spend
+      title: AdvertiserSpendRecord
     EngagementResponse:
       properties:
         engagement_id:
@@ -238,6 +217,27 @@ components:
       - key
       - is_suspended
       title: EngagementResponse
+    PublicErrorResponse:
+      properties:
+        message:
+          type: string
+          title: Message
+        errors:
+          items:
+            $ref: '#/components/schemas/PublicErrorDetails'
+          type: array
+          title: Errors
+        trace_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Trace ID
+      type: object
+      required:
+      - message
+      - errors
+      - trace_id
+      title: PublicErrorResponse
     EngagementUpdateRequest:
       properties:
         is_suspended:

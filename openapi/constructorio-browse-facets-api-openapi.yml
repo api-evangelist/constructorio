@@ -483,140 +483,52 @@ paths:
       security: []
 components:
   schemas:
-    RangeFacetStatus:
+    FacetOption:
       additionalProperties: false
       properties:
-        min:
-          anyOf:
-          - type: number
-          - type: integer
-          - enum:
-            - -inf
-            - +inf
-            - inf
-            type: string
-          - type: string
-          description: Selected minimum value of the range facet.
-          title: Min
-        max:
-          anyOf:
-          - type: number
-          - type: integer
-          - enum:
-            - -inf
-            - +inf
-            - inf
-            type: string
-          - type: string
-          description: Selected maximum value of the range facet.
-          title: Max
-      title: RangeFacetStatus
-      type: object
-    BrowseFacetsWithOptionsGetResponse:
-      additionalProperties: false
-      properties:
-        response:
-          $ref: '#/components/schemas/BrowseFacetsResponse'
-        result_id:
-          title: Result Id
-          type: string
-      required:
-      - response
-      title: BrowseFacetsWithOptionsGetResponse
-      type: object
-    RangeFacet:
-      additionalProperties: false
-      properties:
-        type:
-          description: If a facet is of type `range`, then no facet options are provided. Instead a `min` and `max` value is provided to specify the range of values that can be sent in `filters`.
-          title: Type
-          type: string
-          enum:
-          - range
-        name:
-          description: The name of the facet. This should be passed in the filters parameter when a facet of this type is selected. `filters[name]=value`
-          title: Name
-          type: string
         display_name:
-          description: The name of the facet as it is displayed to end users. Note that in `filters` parameter you need to use not `display_name` but `name`.
+          description: The name of the facet option as it is displayed to end users. Note that in `filters` parameter you need to use not `display_name` but `name`.
           title: Display Name
           type: string
-        hidden:
-          description: The boolean value saying whether facet is available for interaction.
-          title: Hidden
-          type: boolean
+        status:
+          description: '`selected` if this option is selected in the current search request, empty string otherwise.'
+          enum:
+          - selected
+          - ''
+          title: Status
+          type: string
+        value:
+          description: 'The value that should be passed in `filters` to select this option: `filters[name]=value`'
+          title: Value
+          type: string
+        count:
+          description: Number of items in the current search that match this option.
+          minimum: 0
+          title: Count
+          type: integer
         data:
-          description: Object containing custom data associated with this facet. An empty object (`{}`) if no data is currently associated with this facet.
+          description: Object containing custom data associated with this facet option. An empty object (`{}`) if no data is currently associated with this option.
           title: Data
           type: object
-        status:
-          description: Specifies the selected facet value range. If no range is selected the field will be omitted.
-          allOf:
-          - $ref: '#/components/schemas/RangeFacetStatus'
-          title: Status
-        min:
-          anyOf:
-          - type: number
-          - type: integer
-          - enum:
-            - -inf
-            - +inf
-            - inf
-            type: string
-          description: Minimum facet value of the result items.
-          title: Min
-        max:
-          anyOf:
-          - type: number
-          - type: integer
-          - enum:
-            - -inf
-            - +inf
-            - inf
-            type: string
-          description: Maximum facet value of the result items.
-          title: Max
+        range:
+          description: 'Array containing 2 values: the parsed `min` & `max` values that are represented by this facet option. The field exists only for options of a facet with type `range` or `single` if it is configured specially.'
+          title: Range
+          items:
+            anyOf:
+            - type: number
+            - type: integer
+            - enum:
+              - -inf
+              - +inf
+              - inf
+              type: string
+          type: array
       required:
-      - type
-      - name
       - display_name
-      - hidden
-      - data
-      title: Range facet
-      type: object
-    BrowseFacetOptionsGetResponse:
-      additionalProperties: false
-      properties:
-        request:
-          description: The request arguments how they were interpreted by the API. This field is of arbitrary type, ie it doesn't have a guaranteed schema, and data from it shouldn't be used programmatically, it is for debugging purposes only.
-          title: Request
-          type: object
-        result_id:
-          title: Result Id
-          type: string
-        response:
-          $ref: '#/components/schemas/BrowseFacetOptionsResponse'
-      required:
-      - request
-      - response
-      title: BrowseFacetOptionsGetResponse
-      type: object
-    BrowseFacetsGetResponse:
-      additionalProperties: false
-      properties:
-        request:
-          description: The request arguments how they were interpreted by the API. This field is of arbitrary type, ie it doesn't have a guaranteed schema, and data from it shouldn't be used programmatically, it is for debugging purposes only.
-          title: Request
-          type: object
-        result_id:
-          title: Result Id
-          type: string
-        response:
-          $ref: '#/components/schemas/BrowseFacetsResponse'
-      required:
-      - request
-      - response
-      title: BrowseFacetsGetResponse
+      - status
+      - value
+      - count
+      title: FacetOption
       type: object
     BrowseFacetOptionsResponse:
       additionalProperties: false
@@ -689,6 +601,35 @@ components:
           type: boolean
       title: FacetFmtOptions
       type: object
+    BrowseFacetsResponse:
+      additionalProperties: false
+      properties:
+        facets:
+          description: An array of facets within the section.
+          items:
+            discriminator:
+              mapping:
+                hierarchical: '#/components/schemas/HierarchicalFacet'
+                multiple: '#/components/schemas/SingleOrMultipleFacet'
+                range: '#/components/schemas/RangeFacet'
+                single: '#/components/schemas/SingleOrMultipleFacet'
+              propertyName: type
+            oneOf:
+            - $ref: '#/components/schemas/RangeFacet'
+            - $ref: '#/components/schemas/SingleOrMultipleFacet'
+            - $ref: '#/components/schemas/HierarchicalFacet'
+          title: Facets
+          type: array
+        total_num_results:
+          description: Total count of facets within the section.
+          minimum: 0
+          title: Total Num Results
+          type: integer
+      required:
+      - facets
+      - total_num_results
+      title: Browse facets response
+      type: object
     SingleOrMultipleFacet:
       additionalProperties: false
       properties:
@@ -729,34 +670,65 @@ components:
       - data
       title: Single or Multiple facet
       type: object
-    BrowseFacetsResponse:
+    RangeFacet:
       additionalProperties: false
       properties:
-        facets:
-          description: An array of facets within the section.
-          items:
-            discriminator:
-              mapping:
-                hierarchical: '#/components/schemas/HierarchicalFacet'
-                multiple: '#/components/schemas/SingleOrMultipleFacet'
-                range: '#/components/schemas/RangeFacet'
-                single: '#/components/schemas/SingleOrMultipleFacet'
-              propertyName: type
-            oneOf:
-            - $ref: '#/components/schemas/RangeFacet'
-            - $ref: '#/components/schemas/SingleOrMultipleFacet'
-            - $ref: '#/components/schemas/HierarchicalFacet'
-          title: Facets
-          type: array
-        total_num_results:
-          description: Total count of facets within the section.
-          minimum: 0
-          title: Total Num Results
-          type: integer
+        type:
+          description: If a facet is of type `range`, then no facet options are provided. Instead a `min` and `max` value is provided to specify the range of values that can be sent in `filters`.
+          title: Type
+          type: string
+          enum:
+          - range
+        name:
+          description: The name of the facet. This should be passed in the filters parameter when a facet of this type is selected. `filters[name]=value`
+          title: Name
+          type: string
+        display_name:
+          description: The name of the facet as it is displayed to end users. Note that in `filters` parameter you need to use not `display_name` but `name`.
+          title: Display Name
+          type: string
+        hidden:
+          description: The boolean value saying whether facet is available for interaction.
+          title: Hidden
+          type: boolean
+        data:
+          description: Object containing custom data associated with this facet. An empty object (`{}`) if no data is currently associated with this facet.
+          title: Data
+          type: object
+        status:
+          description: Specifies the selected facet value range. If no range is selected the field will be omitted.
+          allOf:
+          - $ref: '#/components/schemas/RangeFacetStatus'
+          title: Status
+        min:
+          anyOf:
+          - type: number
+          - type: integer
+          - enum:
+            - -inf
+            - +inf
+            - inf
+            type: string
+          description: Minimum facet value of the result items.
+          title: Min
+        max:
+          anyOf:
+          - type: number
+          - type: integer
+          - enum:
+            - -inf
+            - +inf
+            - inf
+            type: string
+          description: Maximum facet value of the result items.
+          title: Max
       required:
-      - facets
-      - total_num_results
-      title: Browse facets response
+      - type
+      - name
+      - display_name
+      - hidden
+      - data
+      title: Range facet
       type: object
     HierarchicalFacetOption:
       additionalProperties: false
@@ -811,52 +783,22 @@ components:
       - count
       title: HierarchicalFacetOption
       type: object
-    FacetOption:
+    BrowseFacetsGetResponse:
       additionalProperties: false
       properties:
-        display_name:
-          description: The name of the facet option as it is displayed to end users. Note that in `filters` parameter you need to use not `display_name` but `name`.
-          title: Display Name
-          type: string
-        status:
-          description: '`selected` if this option is selected in the current search request, empty string otherwise.'
-          enum:
-          - selected
-          - ''
-          title: Status
-          type: string
-        value:
-          description: 'The value that should be passed in `filters` to select this option: `filters[name]=value`'
-          title: Value
-          type: string
-        count:
-          description: Number of items in the current search that match this option.
-          minimum: 0
-          title: Count
-          type: integer
-        data:
-          description: Object containing custom data associated with this facet option. An empty object (`{}`) if no data is currently associated with this option.
-          title: Data
+        request:
+          description: The request arguments how they were interpreted by the API. This field is of arbitrary type, ie it doesn't have a guaranteed schema, and data from it shouldn't be used programmatically, it is for debugging purposes only.
+          title: Request
           type: object
-        range:
-          description: 'Array containing 2 values: the parsed `min` & `max` values that are represented by this facet option. The field exists only for options of a facet with type `range` or `single` if it is configured specially.'
-          title: Range
-          items:
-            anyOf:
-            - type: number
-            - type: integer
-            - enum:
-              - -inf
-              - +inf
-              - inf
-              type: string
-          type: array
+        result_id:
+          title: Result Id
+          type: string
+        response:
+          $ref: '#/components/schemas/BrowseFacetsResponse'
       required:
-      - display_name
-      - status
-      - value
-      - count
-      title: FacetOption
+      - request
+      - response
+      title: BrowseFacetsGetResponse
       type: object
     HierarchicalFacet:
       additionalProperties: false
@@ -895,6 +837,64 @@ components:
       - hidden
       - data
       title: Hierarchical facet
+      type: object
+    BrowseFacetsWithOptionsGetResponse:
+      additionalProperties: false
+      properties:
+        response:
+          $ref: '#/components/schemas/BrowseFacetsResponse'
+        result_id:
+          title: Result Id
+          type: string
+      required:
+      - response
+      title: BrowseFacetsWithOptionsGetResponse
+      type: object
+    RangeFacetStatus:
+      additionalProperties: false
+      properties:
+        min:
+          anyOf:
+          - type: number
+          - type: integer
+          - enum:
+            - -inf
+            - +inf
+            - inf
+            type: string
+          - type: string
+          description: Selected minimum value of the range facet.
+          title: Min
+        max:
+          anyOf:
+          - type: number
+          - type: integer
+          - enum:
+            - -inf
+            - +inf
+            - inf
+            type: string
+          - type: string
+          description: Selected maximum value of the range facet.
+          title: Max
+      title: RangeFacetStatus
+      type: object
+    BrowseFacetOptionsGetResponse:
+      additionalProperties: false
+      properties:
+        request:
+          description: The request arguments how they were interpreted by the API. This field is of arbitrary type, ie it doesn't have a guaranteed schema, and data from it shouldn't be used programmatically, it is for debugging purposes only.
+          title: Request
+          type: object
+        result_id:
+          title: Result Id
+          type: string
+        response:
+          $ref: '#/components/schemas/BrowseFacetOptionsResponse'
+      required:
+      - request
+      - response
+      title: BrowseFacetOptionsGetResponse
       type: object
   securitySchemes:
     http_basic_auth:

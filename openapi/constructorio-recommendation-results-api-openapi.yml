@@ -264,32 +264,85 @@ paths:
       security: []
 components:
   schemas:
-    VariationsMapRange:
-      additionalProperties: false
+    VariationsMapCountAggregation:
       properties:
-        field:
-          description: Path to a metadata field (dot-separated)
-          minLength: 1
-          title: Field
+        aggregation:
+          title: Aggregation
           type: string
-        range:
-          description: This filter matches items where the specified field is within the specified range (min and max). The values are inclusive. Use "inf" for an unbounded upper limit or "-inf" for an unbounded lower limit.
+          enum:
+          - count
+      required:
+      - aggregation
+      title: VariationsMapCountAggregation
+      type: object
+    PodField:
+      properties:
+        id:
+          title: Id
+          type: string
+        display_name:
+          title: Display Name
+          type: string
+        channels:
+          title: Channels
           items:
-            anyOf:
-            - enum:
-              - inf
-              - -inf
-              type: string
-            - type: integer
-            - type: number
-          maxItems: 2
-          minItems: 2
-          title: Range
+            type: string
           type: array
       required:
-      - field
-      - range
-      title: VariationsMapRange
+      - id
+      - display_name
+      title: PodField
+      type: object
+    DataField:
+      properties:
+        id:
+          title: Id
+          type: string
+        variation_id:
+          title: Variation Id
+          type: string
+      required:
+      - id
+      title: DataField
+      type: object
+    VariationsMapNot:
+      additionalProperties: false
+      properties:
+        not_:
+          type: object
+          title: Not
+      required:
+      - not_
+      title: VariationsMapNot
+      type: object
+    FacetOptionSortOrder:
+      enum:
+      - relevance
+      - value
+      - num_matches
+      title: FacetOptionSortOrder
+      type: string
+    RecommendationsPodsGetResponse:
+      additionalProperties: false
+      properties:
+        request:
+          description: The request arguments how they were interpreted by the API. This field is of arbitrary type, ie it doesn't have a guaranteed schema, and data from it shouldn't be used programmatically, it is for debugging purposes only.
+          title: Request
+          type: object
+        result_id:
+          title: Result Id
+          type: string
+        response:
+          $ref: '#/components/schemas/PodEndpointResponseField'
+      required:
+      - request
+      - response
+      title: RecommendationsPodsGetResponse
+      type: object
+    Filters:
+      propertyNames:
+        minLength: 1
+      title: Filters
       type: object
     VariationsMap:
       properties:
@@ -337,97 +390,6 @@ components:
       - dtype
       title: VariationsMap
       type: object
-    FilterMatchType:
-      enum:
-      - any
-      - all
-      - none
-      title: FilterMatchType
-      type: string
-    VariationsMapOr:
-      additionalProperties: false
-      properties:
-        or_:
-          items:
-            type: array
-          title: Or
-          type: array
-      required:
-      - or_
-      title: VariationsMapOr
-      type: object
-    VariationsMapGrouping:
-      properties:
-        name:
-          pattern: ^\w+([ ]?[\w]+)*$
-          title: Name
-          type: string
-        field:
-          minLength: 1
-          title: Field
-          type: string
-      required:
-      - name
-      - field
-      title: VariationsMapGrouping
-      type: object
-    VariationsMapValueCountAggregation:
-      properties:
-        aggregation:
-          title: Aggregation
-          type: string
-          enum:
-          - value_count
-        field:
-          minLength: 1
-          title: Field
-          type: string
-        value:
-          anyOf:
-          - type: boolean
-          - type: integer
-          - type: number
-          - type: string
-          title: Value
-      required:
-      - aggregation
-      - field
-      - value
-      title: VariationsMapValueCountAggregation
-      type: object
-    DataField:
-      properties:
-        id:
-          title: Id
-          type: string
-        variation_id:
-          title: Variation Id
-          type: string
-      required:
-      - id
-      title: DataField
-      type: object
-    VariationsMapSingleFilter:
-      additionalProperties: false
-      properties:
-        field:
-          description: Path to a metadata field (dot-separated)
-          minLength: 1
-          title: Field
-          type: string
-        value:
-          anyOf:
-          - type: boolean
-          - type: integer
-          - type: number
-          - type: string
-          description: The value of this field to filter by
-          title: Value
-      required:
-      - field
-      - value
-      title: VariationsMapSingleFilter
-      type: object
     VariationsMapSimpleAggregation:
       properties:
         aggregation:
@@ -449,6 +411,88 @@ components:
       - field
       title: VariationsMapSimpleAggregation
       type: object
+    VariationsMapGrouping:
+      properties:
+        name:
+          pattern: ^\w+([ ]?[\w]+)*$
+          title: Name
+          type: string
+        field:
+          minLength: 1
+          title: Field
+          type: string
+      required:
+      - name
+      - field
+      title: VariationsMapGrouping
+      type: object
+    ResultField:
+      properties:
+        data:
+          $ref: '#/components/schemas/DataField'
+        value:
+          title: Value
+          type: string
+        is_slotted:
+          title: Is Slotted
+          type: boolean
+        labels:
+          default: {}
+          title: Labels
+          type: object
+        strategy:
+          $ref: '#/components/schemas/StrategyField'
+      required:
+      - data
+      - value
+      - is_slotted
+      title: ResultField
+      type: object
+    VariationsMapAnd:
+      additionalProperties: false
+      properties:
+        and_:
+          items:
+            type: array
+          title: And
+          type: array
+      required:
+      - and_
+      title: VariationsMapAnd
+      type: object
+    SortOrderType:
+      enum:
+      - ascending
+      - descending
+      title: SortOrderType
+      type: string
+    VariationsMapRange:
+      additionalProperties: false
+      properties:
+        field:
+          description: Path to a metadata field (dot-separated)
+          minLength: 1
+          title: Field
+          type: string
+        range:
+          description: This filter matches items where the specified field is within the specified range (min and max). The values are inclusive. Use "inf" for an unbounded upper limit or "-inf" for an unbounded lower limit.
+          items:
+            anyOf:
+            - enum:
+              - inf
+              - -inf
+              type: string
+            - type: integer
+            - type: number
+          maxItems: 2
+          minItems: 2
+          title: Range
+          type: array
+      required:
+      - field
+      - range
+      title: VariationsMapRange
+      type: object
     PodEndpointResponseField:
       properties:
         results:
@@ -467,45 +511,6 @@ components:
       - pod
       title: PodEndpointResponseField
       type: object
-    FacetOptionSortOrder:
-      enum:
-      - relevance
-      - value
-      - num_matches
-      title: FacetOptionSortOrder
-      type: string
-    PodField:
-      properties:
-        id:
-          title: Id
-          type: string
-        display_name:
-          title: Display Name
-          type: string
-        channels:
-          title: Channels
-          items:
-            type: string
-          type: array
-      required:
-      - id
-      - display_name
-      title: PodField
-      type: object
-    SortOrderType:
-      enum:
-      - ascending
-      - descending
-      title: SortOrderType
-      type: string
-    DictOrJsonStringWithDict:
-      anyOf:
-      - title: object
-        type: object
-      - format: json
-        title: Encoded JSON string
-        type: string
-      title: DictOrJsonStringWithDict
     FmtOptions:
       additionalProperties: false
       properties:
@@ -658,45 +663,13 @@ components:
           type: array
       title: FmtOptions
       type: object
-    VariationsMapNot:
-      additionalProperties: false
-      properties:
-        not_:
-          type: object
-          title: Not
-      required:
-      - not_
-      title: VariationsMapNot
-      type: object
-    RecommendationsPodsGetResponse:
-      additionalProperties: false
-      properties:
-        request:
-          description: The request arguments how they were interpreted by the API. This field is of arbitrary type, ie it doesn't have a guaranteed schema, and data from it shouldn't be used programmatically, it is for debugging purposes only.
-          title: Request
-          type: object
-        result_id:
-          title: Result Id
-          type: string
-        response:
-          $ref: '#/components/schemas/PodEndpointResponseField'
-      required:
-      - request
-      - response
-      title: RecommendationsPodsGetResponse
-      type: object
-    VariationsReturnType:
+    FilterMatchType:
       enum:
-      - default
+      - any
       - all
-      - matched
-      title: VariationsReturnType
+      - none
+      title: FilterMatchType
       type: string
-    Filters:
-      propertyNames:
-        minLength: 1
-      title: Filters
-      type: object
     StrategyField:
       properties:
         id:
@@ -709,28 +682,54 @@ components:
       - id
       title: StrategyField
       type: object
-    ResultField:
+    VariationsMapSingleFilter:
+      additionalProperties: false
       properties:
-        data:
-          $ref: '#/components/schemas/DataField'
-        value:
-          title: Value
+        field:
+          description: Path to a metadata field (dot-separated)
+          minLength: 1
+          title: Field
           type: string
-        is_slotted:
-          title: Is Slotted
-          type: boolean
-        labels:
-          default: {}
-          title: Labels
-          type: object
-        strategy:
-          $ref: '#/components/schemas/StrategyField'
+        value:
+          anyOf:
+          - type: boolean
+          - type: integer
+          - type: number
+          - type: string
+          description: The value of this field to filter by
+          title: Value
       required:
-      - data
+      - field
       - value
-      - is_slotted
-      title: ResultField
+      title: VariationsMapSingleFilter
       type: object
+    DictOrJsonStringWithDict:
+      anyOf:
+      - title: object
+        type: object
+      - format: json
+        title: Encoded JSON string
+        type: string
+      title: DictOrJsonStringWithDict
+    VariationsMapOr:
+      additionalProperties: false
+      properties:
+        or_:
+          items:
+            type: array
+          title: Or
+          type: array
+      required:
+      - or_
+      title: VariationsMapOr
+      type: object
+    VariationsReturnType:
+      enum:
+      - default
+      - all
+      - matched
+      title: VariationsReturnType
+      type: string
     VariationsMapFilterBy:
       discriminator:
         mapping:
@@ -747,28 +746,29 @@ components:
       - $ref: '#/components/schemas/VariationsMapAnd'
       - $ref: '#/components/schemas/VariationsMapNot'
       title: VariationsMapFilterBy
-    VariationsMapCountAggregation:
+    VariationsMapValueCountAggregation:
       properties:
         aggregation:
           title: Aggregation
           type: string
           enum:
-          - count
+          - value_count
+        field:
+          minLength: 1
+          title: Field
+          type: string
+        value:
+          anyOf:
+          - type: boolean
+          - type: integer
+          - type: number
+          - type: string
+          title: Value
       required:
       - aggregation
-      title: VariationsMapCountAggregation
-      type: object
-    VariationsMapAnd:
-      additionalProperties: false
-      properties:
-        and_:
-          items:
-            type: array
-          title: And
-          type: array
-      required:
-      - and_
-      title: VariationsMapAnd
+      - field
+      - value
+      title: VariationsMapValueCountAggregation
       type: object
   securitySchemes:
     http_basic_auth:

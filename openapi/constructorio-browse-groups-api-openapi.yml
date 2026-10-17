@@ -147,6 +147,96 @@ paths:
       security: []
 components:
   schemas:
+    BrowseGroupsGetResponse:
+      additionalProperties: false
+      properties:
+        request:
+          description: The request arguments how they were interpreted by the API. This field is of arbitrary type, ie it doesn't have a guaranteed schema, and data from it shouldn't be used programmatically, it is for debugging purposes only.
+          title: Request
+          type: object
+        result_id:
+          title: Result Id
+          type: string
+        response:
+          $ref: '#/components/schemas/BrowseGroupsResponse'
+      required:
+      - request
+      - response
+      title: BrowseGroupsGetResponse
+      type: object
+    GroupBase:
+      additionalProperties: false
+      properties:
+        group_id:
+          description: The ID of the group.
+          title: Group Id
+          type: string
+        display_name:
+          description: The name of the group as it is displayed to end users.
+          title: Display Name
+          type: string
+      required:
+      - group_id
+      title: GroupBase
+      type: object
+    ResultSources:
+      additionalProperties: false
+      properties:
+        token_match:
+          description: The summary of results that came from matching a keyword
+          allOf:
+          - $ref: '#/components/schemas/ResultSourceValue'
+          title: Token Match
+        embeddings_match:
+          description: The summary of results that originated from cognitive embeddings
+          allOf:
+          - $ref: '#/components/schemas/ResultSourceValue'
+          title: Embeddings Match
+      required:
+      - token_match
+      - embeddings_match
+      title: ResultSources
+      type: object
+    ResultSourceValue:
+      additionalProperties: false
+      properties:
+        count:
+          description: Number of results returned from their respective sources
+          minimum: 0
+          title: Count
+          type: integer
+      required:
+      - count
+      title: ResultSourceValue
+      type: object
+    BrowseGroupsResponse:
+      additionalProperties: false
+      properties:
+        result_sources:
+          description: Summary of result sources.
+          allOf:
+          - $ref: '#/components/schemas/ResultSources'
+          title: Result Sources
+        groups:
+          description: An array of groups within the section.
+          title: Groups
+          items:
+            $ref: '#/components/schemas/Group'
+          type: array
+        refined_content:
+          description: Arbitrary content attached to the search query via [content rule](#). Constructor doesn't enforce any restrictions on the attached data except for a size limit of 200kB, and just returns it as-is when there is a query match. There can be several rules attached to the same query, so the `refined_content` itself is an array of objects.
+          items:
+            additionalProperties:
+              additionalProperties: true
+              type: object
+            type: object
+          title: Refined Content
+          type: array
+      required:
+      - result_sources
+      - refined_content
+      title: Browse groups response
+      type: object
     GroupFmtOptions:
       additionalProperties: false
       properties:
@@ -168,33 +258,6 @@ components:
           title: Groups Start
           type: string
       title: GroupFmtOptions
-      type: object
-    ResultSourceValue:
-      additionalProperties: false
-      properties:
-        count:
-          description: Number of results returned from their respective sources
-          minimum: 0
-          title: Count
-          type: integer
-      required:
-      - count
-      title: ResultSourceValue
-      type: object
-    GroupBase:
-      additionalProperties: false
-      properties:
-        group_id:
-          description: The ID of the group.
-          title: Group Id
-          type: string
-        display_name:
-          description: The name of the group as it is displayed to end users.
-          title: Display Name
-          type: string
-      required:
-      - group_id
-      title: GroupBase
       type: object
     Group:
       additionalProperties: false
@@ -235,41 +298,6 @@ components:
       - parents
       title: Group
       type: object
-    ResultSources:
-      additionalProperties: false
-      properties:
-        token_match:
-          description: The summary of results that came from matching a keyword
-          allOf:
-          - $ref: '#/components/schemas/ResultSourceValue'
-          title: Token Match
-        embeddings_match:
-          description: The summary of results that originated from cognitive embeddings
-          allOf:
-          - $ref: '#/components/schemas/ResultSourceValue'
-          title: Embeddings Match
-      required:
-      - token_match
-      - embeddings_match
-      title: ResultSources
-      type: object
-    BrowseGroupsGetResponse:
-      additionalProperties: false
-      properties:
-        request:
-          description: The request arguments how they were interpreted by the API. This field is of arbitrary type, ie it doesn't have a guaranteed schema, and data from it shouldn't be used programmatically, it is for debugging purposes only.
-          title: Request
-          type: object
-        result_id:
-          title: Result Id
-          type: string
-        response:
-          $ref: '#/components/schemas/BrowseGroupsResponse'
-      required:
-      - request
-      - response
-      title: BrowseGroupsGetResponse
-      type: object
     GroupFilters:
       additionalProperties: false
       properties:
@@ -282,34 +310,6 @@ components:
       required:
       - group_id
       title: GroupFilters
-      type: object
-    BrowseGroupsResponse:
-      additionalProperties: false
-      properties:
-        result_sources:
-          description: Summary of result sources.
-          allOf:
-          - $ref: '#/components/schemas/ResultSources'
-          title: Result Sources
-        groups:
-          description: An array of groups within the section.
-          title: Groups
-          items:
-            $ref: '#/components/schemas/Group'
-          type: array
-        refined_content:
-          description: Arbitrary content attached to the search query via [content rule](#). Constructor doesn't enforce any restrictions on the attached data except for a size limit of 200kB, and just returns it as-is when there is a query match. There can be several rules attached to the same query, so the `refined_content` itself is an array of objects.
-          items:
-            additionalProperties:
-              additionalProperties: true
-              type: object
-            type: object
-          title: Refined Content
-          type: array
-      required:
-      - result_sources
-      - refined_content
-      title: Browse groups response
       type: object
   securitySchemes:
     http_basic_auth:

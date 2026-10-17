@@ -56,39 +56,31 @@ paths:
           description: Rate limit breached
 components:
   schemas:
-    ItemSchema:
-      title: ItemSchema
+    OfflinePurchase:
+      title: OfflinePurchase
       type: object
       properties:
-        item_id:
-          title: Item Id
-          description: Id of purchased item. Either item_id or item_name is required to be passed.
-          maxLength: 250
-          minLength: 1
+        action:
+          title: Action
+          description: Event action.
+          enum:
+          - purchase
           type: string
-        item_name:
-          title: Item Name
-          description: Name of purchased item. Either item_id or item_name is required to be passed.
-          maxLength: 250
-          minLength: 1
-          type: string
-        variation_id:
-          title: Variation Id
-          description: Id of purchased variation, if applicable. Either item_id or item_name of related item must be passed along with variation_id.
-          maxLength: 250
-          minLength: 1
-          type: string
-        price:
-          title: Price
-          description: Price of purchased item or variation. Will be used to calculate purchase revenue if order revenue is not passed. Passed as string, from which numeric value will be extracted.
-          anyOf:
-          - type: number
-          - type: integer
-        count:
-          title: Count
-          description: Count of item purchased. Price will be multiplied by count to get purchase revenue if order revenue is not passed.
-          type: integer
+        data:
+          title: Data
+          description: Action data.
+          allOf:
+          - $ref: '#/components/schemas/OfflineItemPurchaseSchema'
+      required:
+      - action
+      - data
       additionalProperties: false
+    ReturnActionReturnType:
+      title: ReturnActionReturnType
+      enum:
+      - full
+      - partial
+      type: string
     OfflineItemPurchaseSchema:
       title: OfflineItemPurchaseSchema
       type: object
@@ -141,31 +133,12 @@ components:
       - _dt
       - items
       additionalProperties: false
-    ReturnActionReturnType:
-      title: ReturnActionReturnType
+    ReturnActionReturnPreference:
+      title: ReturnActionReturnPreference
       enum:
-      - full
-      - partial
+      - refund
+      - replacement
       type: string
-    OfflinePurchase:
-      title: OfflinePurchase
-      type: object
-      properties:
-        action:
-          title: Action
-          description: Event action.
-          enum:
-          - purchase
-          type: string
-        data:
-          title: Data
-          description: Action data.
-          allOf:
-          - $ref: '#/components/schemas/OfflineItemPurchaseSchema'
-      required:
-      - action
-      - data
-      additionalProperties: false
     OfflineItemReturnSchema:
       title: OfflineItemReturnSchema
       type: object
@@ -283,12 +256,39 @@ components:
       - action
       - data
       additionalProperties: false
-    ReturnActionReturnPreference:
-      title: ReturnActionReturnPreference
-      enum:
-      - refund
-      - replacement
-      type: string
+    ItemSchema:
+      title: ItemSchema
+      type: object
+      properties:
+        item_id:
+          title: Item Id
+          description: Id of purchased item. Either item_id or item_name is required to be passed.
+          maxLength: 250
+          minLength: 1
+          type: string
+        item_name:
+          title: Item Name
+          description: Name of purchased item. Either item_id or item_name is required to be passed.
+          maxLength: 250
+          minLength: 1
+          type: string
+        variation_id:
+          title: Variation Id
+          description: Id of purchased variation, if applicable. Either item_id or item_name of related item must be passed along with variation_id.
+          maxLength: 250
+          minLength: 1
+          type: string
+        price:
+          title: Price
+          description: Price of purchased item or variation. Will be used to calculate purchase revenue if order revenue is not passed. Passed as string, from which numeric value will be extracted.
+          anyOf:
+          - type: number
+          - type: integer
+        count:
+          title: Count
+          description: Count of item purchased. Price will be multiplied by count to get purchase revenue if order revenue is not passed.
+          type: integer
+      additionalProperties: false
     OfflineBehavioralActionListPostBody:
       title: OfflineBehavioralActionListPostBody
       type: object

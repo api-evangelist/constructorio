@@ -435,6 +435,45 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    RecommendationStrategy:
+      properties:
+        id:
+          type: string
+          title: Recommendation Strategy ID
+          description: The unique identifier for the recommendation strategy.
+          examples:
+          - bestsellers
+          - user_featured_items
+      type: object
+      required:
+      - id
+      title: RecommendationStrategy
+    ProductLabels:
+      properties:
+        is_retail_media:
+          type: boolean
+          title: Is Retail Media
+          description: Indicates whether the product is a sponsored item.
+          examples:
+          - true
+          - false
+        sl_campaign_id:
+          type: string
+          title: Sponsored Listing Campaign ID
+          description: The unique identifier for the sponsored listing campaign.
+          examples:
+          - campaign_123
+          - sl_abc_456
+        sl_campaign_owner:
+          type: string
+          title: Sponsored Listing Campaign Owner
+          description: The owner or advertiser of the sponsored listing campaign.
+          examples:
+          - brand_abc
+          - advertiser_xyz
+      type: object
+      title: ProductLabels
+      description: Product labels for sponsored listing and retail media information.
     ErrorResponse:
       properties:
         detail:
@@ -513,32 +552,6 @@ components:
       - data
       title: Result
       description: Schema for results in API responses.
-    ProductLabels:
-      properties:
-        is_retail_media:
-          type: boolean
-          title: Is Retail Media
-          description: Indicates whether the product is a sponsored item.
-          examples:
-          - true
-          - false
-        sl_campaign_id:
-          type: string
-          title: Sponsored Listing Campaign ID
-          description: The unique identifier for the sponsored listing campaign.
-          examples:
-          - campaign_123
-          - sl_abc_456
-        sl_campaign_owner:
-          type: string
-          title: Sponsored Listing Campaign Owner
-          description: The owner or advertiser of the sponsored listing campaign.
-          examples:
-          - brand_abc
-          - advertiser_xyz
-      type: object
-      title: ProductLabels
-      description: Product labels for sponsored listing and retail media information.
     SortOrder:
       type: string
       enum:
@@ -546,18 +559,5 @@ components:
       - descending
       title: SortOrder
       description: 'The sort order for results: ascending (low to high) or descending (high to low).'
-    RecommendationStrategy:
-      properties:
-        id:
-          type: string
-          title: Recommendation Strategy ID
-          description: The unique identifier for the recommendation strategy.
-          examples:
-          - bestsellers
-          - user_featured_items
-      type: object
-      required:
-      - id
-      title: RecommendationStrategy
 x-readme:
   explorer-enabled: false
