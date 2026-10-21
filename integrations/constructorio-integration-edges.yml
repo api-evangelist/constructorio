@@ -9,13 +9,8 @@ source:
 checked:
 - https://api.nuget.org/v3
 - https://aws.amazon.com/marketplace/
-- https://cdn.winget.microsoft.com/cache
 - https://composio.dev/toolkits/constructorio
 - https://crates.io/api/v1
-- https://formulae.brew.sh/api/cask.json
-- https://formulae.brew.sh/api/formula.json
-- https://github.com/ScoopInstaller/Extras
-- https://github.com/ScoopInstaller/Main
 - https://monid.ai/tools/constructorio
 - https://n8n.io/integrations/constructorio/
 - https://proxy.golang.org
@@ -25,6 +20,19 @@ checked:
 - https://rubygems.org/api/v1
 - https://zapier.com/apps/constructor-io/integrations
 - https://zapier.com/apps/constructorio/integrations
+- https://cdn.winget.microsoft.com/cache
+- https://formulae.brew.sh/api/cask.json
+- https://formulae.brew.sh/api/formula.json
+- https://github.com/ScoopInstaller/Extras
+- https://github.com/ScoopInstaller/Main
+- https://appexchange.salesforce.com/explore/business-needs?category=commerce
+- https://commercetools.com/partners
+- https://machalliance.org/members
+- https://marketplace.commercetools.com
+- https://printify.com/integrations/
+- https://www.bigcommerce.com/apps/
+- https://www.printful.com/integrations
+- salesforce-commerce-cloud/integrations/salesforce-commerce-cloud-integration-edges.yml
 summary: null
 marketplace_apps: []
 edges:
@@ -214,4 +222,55 @@ edges:
     detected: '2026-10-20'
   detected_by: sweep-official-clis.py
   first_seen: '2026-10-20'
+- partner_name: MACH Alliance
+  partner: null
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://machalliance.org/members/constructor
+  category: composable (MACH) commerce alliance membership
+  contract_reference:
+    register: MACH Alliance members directory (machalliance.org/members)
+    standard: MACH Alliance (Microservices, API-first, Cloud-native SaaS, Headless)
+    spec_file: null
+    role: mach-certified-vendor
+    registered_name: Constructor
+    register_id: constructor
+    register_category: MACH Certified ISVs
+    register_country: US
+    matched_domain: constructor.com
+    matched_by: domain
+    signal_note: certified_products = ONE entry for the vendor's MACH certification (the Alliance certifies the
+      vendor against the MACH criteria; no per-product list); awards and self-listed partnerships are context, never
+      counted
+    detected_by: sweep-mach-headless-commerce.py
+    detected: '2026-10-20'
+    certified_products:
+    - product: MACH certified ISV
+      product_type: MACH certified ISV
+      certifier: MACH Alliance
+      lapsed: false
+    awards_context:
+    - Agent Ready Award 2026
+  detected_by: sweep-mach-headless-commerce.py
+  first_seen: '2026-10-20'
+- partner_name: Salesforce Commerce Cloud (own)
+  partner: salesforce-commerce-cloud
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://appexchange.salesforce.com/appxListingDetail?listingId=ae2be66d-7c97-4a82-99f6-a3dd97298c8b
+  mirror_of: salesforce-commerce-cloud/integrations/salesforce-commerce-cloud-integration-edges.yml
+  apps:
+  - Constructor Connect Cartridge for B2C Commerce
+  listing_count: 1
+  detected: '2026-10-20'
+  detected_by: mirror-platform-listings.py
+  category: sales, salesIntelligence, eCommerce
 templates: []
