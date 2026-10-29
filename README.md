@@ -64,77 +64,193 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Constructor (Constructor.io) is an AI-powered ecommerce search and product discovery
-platform for online retailers — autocomplete, keyword and natural-language search,
-image search, browse, recommendations, quizzes, collections, offsite/email discovery,
-retail media, an AI Shopping Agent and Product Insights Agent, plus a full
-catalog-management, configuration and searchandising surface.
+Constructor (Constructor.io) is an AI-powered ecommerce search and product discovery platform for online retailers. Its APIs cover autocomplete/autosuggest, keyword and natural-language search, image search, category browse, recommendations, quizzes, collections, offsite/email discovery, retail media (sponsored listings and display ads), an AI Shopping Agent and Product Insights Agent, plus a full catalog-management and configuration surface for items, variations, item groups, facets, searchabilities, synonyms, sort options, redirects and searchandising rules. Results are optimized against ecommerce KPIs (conversion, revenue per visit) using natural-language processing, behavioral re-ranking and per-user personalization, and are delivered through a REST API served from the ac.cnstrc.com family of hosts with first-party client libraries for JavaScript, Node.js, Python, Java, .NET, Ruby, Swift and Kotlin.
 
-- Website — https://constructor.com/
-- Documentation — https://docs.constructor.com/
-- API Reference — https://docs.constructor.com/reference/main-readme
-- Status — https://constructor.status.io/
-- Releases — https://releases.constructor.io/
-- GitHub — https://github.com/Constructor-io
+**Areas:** Company · Search · E-Commerce · Product Discovery · Recommendations · Personalization · Retail · Retail Media · Artificial Intelligence · Merchandising · Catalog Management · Agentic Commerce
 
-## API surface
+## Constructor.io on APIs.io
 
-**17 OpenAPI 3.1.0 documents, 180 operations**, harvested verbatim from the specs
-Constructor publishes through its ReadMe-hosted documentation (`/branches/1/apis/*.json`).
-They are stored as YAML in `openapi/` with the untouched JSON in `openapi/_original/`.
+Everything profiled for Constructor.io is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/constructorio/](https://apis.io/providers/constructorio/)** — or go straight to one of the APIs or properties below.
 
-| Spec | Ops | Host |
-|---|---|---|
-| search | 2 | ac.cnstrc.com |
-| autocomplete | 1 | ac.cnstrc.com |
-| browse | 9 | ac.cnstrc.com |
-| recommendations | 1 | ac.cnstrc.com |
-| image-search | 2 | image-search.cnstrc.com |
-| ai-shopping-agent | 3 | agent.cnstrc.com |
-| quizzes | 3 | quizzes.cnstrc.com |
-| offsite-discovery-recommendations | 6 | offsite-discovery.cnstrc.com |
-| product-details | 2 | product-details.cnstrc.com |
-| catalog-management | 31 | ac.cnstrc.com |
-| catalog-batching | 4 | batching.catalog.cnstrc.com |
-| configuration | 77 | ac.cnstrc.com |
-| searchandising | 33 | ac.cnstrc.com |
-| retail-media | 2 | retail.media-cnstrc.com |
-| retail-media-display-ads | 2 | display.media-cnstrc.com |
-| behavioral-actions | 1 | ac.cnstrc.com |
-| user-profile | 1 | user-profile.cnstrc.com |
+### APIs (39)
 
-Auth is two-track: shopper-facing discovery endpoints are public (addressed by a public
-`key` index identifier), while catalog, configuration, searchandising, retail-media and
-profile endpoints take an API token over HTTP Basic (token as username) or HTTP Bearer
-with 37 named scopes.
+- [Constructor Documentation MCP Server](https://apis.io/apis/constructorio/constructor-documentation-mcp-server/) — Remote, anonymously reachable Model Context Protocol server published by Constructor that exposes documentation search/fetch and OpenAPI endpoint discovery…
+- [Constructor.io Autocomplete results API](https://apis.io/apis/constructorio/constructorio-autocomplete-results-api/) — The Autocomplete results API from Constructor.io — 1 operation(s) for autocomplete results.
+- [Constructor.io Behavioral actions API](https://apis.io/apis/constructorio/constructorio-behavioral-actions-api/) — The Behavioral actions API from Constructor.io — 1 operation(s) for behavioral actions.
+- [Constructor.io Browse collections API](https://apis.io/apis/constructorio/constructorio-browse-collections-api/) — The Browse collections API from Constructor.io — 1 operation(s) for browse collections.
+- [Constructor.io Browse facets API](https://apis.io/apis/constructorio/constructorio-browse-facets-api/) — The Browse facets API from Constructor.io — 3 operation(s) for browse facets.
+- [Constructor.io Browse groups API](https://apis.io/apis/constructorio/constructorio-browse-groups-api/) — The Browse groups API from Constructor.io — 1 operation(s) for browse groups.
+- [Constructor.io Browse results API](https://apis.io/apis/constructorio/constructorio-browse-results-api/) — The Browse results API from Constructor.io — 4 operation(s) for browse results.
+- [Constructor.io Catalog API](https://apis.io/apis/constructorio/constructorio-catalog-api/) — The Catalog API from Constructor.io — 1 operation(s) for catalog.
+- [Constructor.io Collections API](https://apis.io/apis/constructorio/constructorio-collections-api/) — The Collections API from Constructor.io — 4 operation(s) for collections.
+- [Constructor.io Display Ads API](https://apis.io/apis/constructorio/constructorio-display-ads-api/) — The Display Ads API from Constructor.io — 2 operation(s) for display ads.
+- [Constructor.io Engagements API](https://apis.io/apis/constructorio/constructorio-engagements-api/) — The Engagements API from Constructor.io — 2 operation(s) for engagements.
+- [Constructor.io Facet campaigns API](https://apis.io/apis/constructorio/constructorio-facet-campaigns-api/) — The Facet campaigns API from Constructor.io — 2 operation(s) for facet campaigns.
+- [Constructor.io Facets API](https://apis.io/apis/constructorio/constructorio-facets-api/) — The Facets API from Constructor.io — 6 operation(s) for facets.
+- [Constructor.io Image Search results API](https://apis.io/apis/constructorio/constructorio-image-search-results-api/) — The Image Search results API from Constructor.io — 2 operation(s) for image search results.
+- [Constructor.io Item groups API](https://apis.io/apis/constructorio/constructorio-item-groups-api/) — The Item groups API from Constructor.io — 4 operation(s) for item groups.
+- [Constructor.io Item statistics API](https://apis.io/apis/constructorio/constructorio-item-statistics-api/) — The Item statistics API from Constructor.io — 2 operation(s) for item statistics.
+- [Constructor.io Items API](https://apis.io/apis/constructorio/constructorio-items-api/) — The Items API from Constructor.io — 2 operation(s) for items.
+- [Constructor.io Metadata overrides API](https://apis.io/apis/constructorio/constructorio-metadata-overrides-api/) — The Metadata overrides API from Constructor.io — 2 operation(s) for metadata overrides.
+- [Constructor.io Natural language search results API](https://apis.io/apis/constructorio/constructorio-natural-language-search-results-api/) — The Natural language search results API from Constructor.io — 1 operation(s) for natural language search results.
+- [Constructor.io Offsite Discovery results API](https://apis.io/apis/constructorio/constructorio-offsite-discovery-results-api/) — Endpoints for retrieving AI-optimized recommendation results for products to use in Offsite Discovery.
+- [Constructor.io Product details API](https://apis.io/apis/constructorio/constructorio-product-details-api/) — The Product details API from Constructor.io — 2 operation(s) for product details.
+- [Constructor.io Product resources API](https://apis.io/apis/constructorio/constructorio-product-resources-api/) — Endpoints for retrieving individual product resources (e.g., images, URLs) by position.
+- [Constructor.io Quizzes API](https://apis.io/apis/constructorio/constructorio-quizzes-api/) — The Quizzes API from Constructor.io — 1 operation(s) for quizzes.
+- [Constructor.io Recommendation results API](https://apis.io/apis/constructorio/constructorio-recommendation-results-api/) — The Recommendation results API from Constructor.io — 1 operation(s) for recommendation results.
+- [Constructor.io Redirect rules API](https://apis.io/apis/constructorio/constructorio-redirect-rules-api/) — The Redirect rules API from Constructor.io — 2 operation(s) for redirect rules.
+- [Constructor.io Results API](https://apis.io/apis/constructorio/constructorio-results-api/) — The Results API from Constructor.io — 6 operation(s) for results.
+- [Constructor.io Search results API](https://apis.io/apis/constructorio/constructorio-search-results-api/) — The Search results API from Constructor.io — 1 operation(s) for search results.
+- [Constructor.io Searchabilities API](https://apis.io/apis/constructorio/constructorio-searchabilities-api/) — The Searchabilities API from Constructor.io — 4 operation(s) for searchabilities.
+- [Constructor.io Searchandising by User Request Data API](https://apis.io/apis/constructorio/constructorio-searchandising-by-user-request-data-api/) — The Searchandising by User Request Data API from Constructor.io — 2 operation(s) for searchandising by user request data.
+- [Constructor.io Searchandising campaigns API](https://apis.io/apis/constructorio/constructorio-searchandising-campaigns-api/) — The Searchandising campaigns API from Constructor.io — 2 operation(s) for searchandising campaigns.
+- [Constructor.io Searchandising for Browse API](https://apis.io/apis/constructorio/constructorio-searchandising-for-browse-api/) — The Searchandising for Browse API from Constructor.io — 3 operation(s) for searchandising for browse.
+- [Constructor.io Searchandising for Collections API](https://apis.io/apis/constructorio/constructorio-searchandising-for-collections-api/) — The Searchandising for Collections API from Constructor.io — 2 operation(s) for searchandising for collections.
+- [Constructor.io Searchandising for Search API](https://apis.io/apis/constructorio/constructorio-searchandising-for-search-api/) — The Searchandising for Search API from Constructor.io — 2 operation(s) for searchandising for search.
+- [Constructor.io Sort options API](https://apis.io/apis/constructorio/constructorio-sort-options-api/) — The Sort options API from Constructor.io — 3 operation(s) for sort options.
+- [Constructor.io Synonym groups API](https://apis.io/apis/constructorio/constructorio-synonym-groups-api/) — The Synonym groups API from Constructor.io — 2 operation(s) for synonym groups.
+- [Constructor.io Synonyms API](https://apis.io/apis/constructorio/constructorio-synonyms-api/) — The Synonyms API from Constructor.io — 2 operation(s) for synonyms.
+- [Constructor.io Tasks API](https://apis.io/apis/constructorio/constructorio-tasks-api/) — The Tasks API from Constructor.io — 2 operation(s) for tasks.
+- [Constructor.io User preferences API](https://apis.io/apis/constructorio/constructorio-user-preferences-api/) — The User preferences API from Constructor.io — 1 operation(s) for user preferences.
+- [Constructor.io Variations API](https://apis.io/apis/constructorio/constructorio-variations-api/) — The Variations API from Constructor.io — 2 operation(s) for variations.
 
-## What is here
+### Published properties
 
-`openapi/` · `overlays/` · `authentication/` · `scopes/` · `conventions/` · `errors/` ·
-`lifecycle/` · `changelog/` · `conformance/` · `security/` · `well-known/` · `packages/` ·
-`cli/` · `components/` · `data-model/` · `mcp/` · `llms/` · `skills/`
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## What is deliberately absent
+#### MCP servers (1)
 
-- **No `a2a/`** — `/.well-known/agent-card.json` and `/.well-known/agent.json` return 404
-  on every Constructor host. Agent cards are never authored on a provider's behalf.
-- **No `asyncapi/` and no webhooks** — Constructor publishes no event, streaming or
-  webhook surface. Behavioral data flows *into* Constructor via the beacon and the
-  offline behavioral-actions endpoint; nothing flows out as events. Not applicable
-  rather than missing.
-- **No `sandbox/`** — Constructor documents no test/live key separation, magic test
-  identifiers or sandbox environment. Environments are separated by provisioning
-  additional API keys (dev / staging / prod), which is not a published test-data surface.
-- **No `/.well-known/` documents at all** — 28 probes across four hosts, zero hits.
-- **No vulnerability disclosure policy** — no security.txt, no responsible-disclosure
-  page, no bug-bounty program. SOC 2 Type 2 and ISO 27001 are published at
-  https://constructor.com/security-and-compliance (reports under NDA).
-- **No idempotency contract** — no `Idempotency-Key` header appears anywhere in the 180
-  operations. Retry safety is structural (PUT create-or-replace, PATCH merge, 409 on
-  duplicate create).
-- **No rate-limit headers** — 429 is declared on 146 of 180 operations, but no
-  `RateLimit-*` or `Retry-After` response header is defined.
+Model Context Protocol servers that expose the API to agents.
 
-Constructor's published MCP server (`https://docs.constructor.com/mcp`, 6 tools,
-anonymous) is a **documentation** server — it reads the specs and docs, it cannot call
-the product API. See `mcp/constructorio-tool-crosswalk.yml`.
+- [Constructor Documentation](https://apis.io/servers/constructorio/constructor-docs/)
+
+#### Collections (17)
+
+Postman and Open Collection request collections.
+
+- [AI Shopping Agent](https://apis.io/collections/constructorio/open-constructorio-ai-shopping-agent/)
+- [Autocomplete](https://apis.io/collections/constructorio/open-constructorio-autocomplete/)
+- [Behavioral actions](https://apis.io/collections/constructorio/open-constructorio-behavioral-actions/)
+- [Browse](https://apis.io/collections/constructorio/open-constructorio-browse/)
+- [Catalog Batching Service](https://apis.io/collections/constructorio/open-constructorio-catalog-batching/)
+- [Catalog management](https://apis.io/collections/constructorio/open-constructorio-catalog-management/)
+- [Configuration](https://apis.io/collections/constructorio/open-constructorio-configuration/)
+- [Image Search](https://apis.io/collections/constructorio/open-constructorio-image-search/)
+- [Offsite Discovery recommendations](https://apis.io/collections/constructorio/open-constructorio-offsite-discovery-recommendations/)
+- [Product details](https://apis.io/collections/constructorio/open-constructorio-product-details/)
+- [Quizzes](https://apis.io/collections/constructorio/open-constructorio-quizzes/)
+- [Recommendations](https://apis.io/collections/constructorio/open-constructorio-recommendations/)
+- [Retail Media](https://apis.io/collections/constructorio/open-constructorio-retail-media/)
+- [Retail Media - Display Ads](https://apis.io/collections/constructorio/open-constructorio-retail-media-display-ads/)
+- [Search](https://apis.io/collections/constructorio/open-constructorio-search/)
+- [Searchandising](https://apis.io/collections/constructorio/open-constructorio-searchandising/)
+- [User profile](https://apis.io/collections/constructorio/open-constructorio-user-profile/)
+
+#### Overlays (17)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Constructorio Ai Shopping Agent Overlay](https://apis.io/overlays/constructorio/constructorio-ai-shopping-agent-overlay/)
+- [Constructorio Autocomplete Overlay](https://apis.io/overlays/constructorio/constructorio-autocomplete-overlay/)
+- [Constructorio Behavioral Actions Overlay](https://apis.io/overlays/constructorio/constructorio-behavioral-actions-overlay/)
+- [Constructorio Browse Overlay](https://apis.io/overlays/constructorio/constructorio-browse-overlay/)
+- [Constructorio Catalog Batching Overlay](https://apis.io/overlays/constructorio/constructorio-catalog-batching-overlay/)
+- [Constructorio Catalog Management Overlay](https://apis.io/overlays/constructorio/constructorio-catalog-management-overlay/)
+- [Constructorio Configuration Overlay](https://apis.io/overlays/constructorio/constructorio-configuration-overlay/)
+- [Constructorio Image Search Overlay](https://apis.io/overlays/constructorio/constructorio-image-search-overlay/)
+- [Constructorio Offsite Discovery Recommendations Overlay](https://apis.io/overlays/constructorio/constructorio-offsite-discovery-recommendations-overlay/)
+- [Constructorio Product Details Overlay](https://apis.io/overlays/constructorio/constructorio-product-details-overlay/)
+- [Constructorio Quizzes Overlay](https://apis.io/overlays/constructorio/constructorio-quizzes-overlay/)
+- [Constructorio Recommendations Overlay](https://apis.io/overlays/constructorio/constructorio-recommendations-overlay/)
+- [Constructorio Retail Media Display Ads Overlay](https://apis.io/overlays/constructorio/constructorio-retail-media-display-ads-overlay/)
+- [Constructorio Retail Media Overlay](https://apis.io/overlays/constructorio/constructorio-retail-media-overlay/)
+- [Constructorio Search Overlay](https://apis.io/overlays/constructorio/constructorio-search-overlay/)
+- [Constructorio Searchandising Overlay](https://apis.io/overlays/constructorio/constructorio-searchandising-overlay/)
+- [Constructorio User Profile Overlay](https://apis.io/overlays/constructorio/constructorio-user-profile-overlay/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Constructorio Authentication](https://apis.io/security/constructorio/constructorio-authentication/)
+- [Constructorio Domain Security](https://apis.io/security/constructorio/constructorio-domain-security/)
+- [Constructorio Trust Center](https://apis.io/security/constructorio/constructorio-trust-center/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Constructorio Scopes](https://apis.io/scopes/constructorio/constructorio-scopes/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://constructor.com/)
+- [Documentation](https://docs.constructor.com/)
+- [Getting started](https://docs.constructor.com/docs/integrating-with-constructor-retrieving-results-getting-started)
+- [API reference](https://docs.constructor.com/reference/main-readme)
+- [Sign up](https://info.constructor.com/ecommerce-search-discovery-demo)
+- [Support](https://docs.constructor.com/docs/integrating-with-constructor-customer-support-guide)
+- [Changelog](https://releases.constructor.io/)
+- [Blog](https://constructor.com/blog)
+- [Compliance](https://constructor.com/security-and-compliance)
+- [Terms of service](https://constructor.com/terms-of-service-agreement/)
+- [Privacy policy](https://constructor.com/privacy-policy)
+- [GitHub](https://github.com/Constructor-io)
+- [Status](https://constructor.status.io/)
+
+## API Evangelist rating
+
+**Kin Score 54.0** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 76.7 |
+| Contract quality | 55.5 |
+| Contract governance | 18.2 |
+| Operational transparency | 22.4 |
+| Developer ergonomics | 57.7 |
+| Access clarity | 50.0 |
+
+**Agent readiness 30.3** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 36.4** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/constructorio/](https://apis.io/providers/constructorio/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Constructor.io: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/constructorio/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
